@@ -17,7 +17,8 @@
     "./label": "./src/label/index.ts",
     "./separator": "./src/separator/index.ts",
     "./skeleton": "./src/skeleton/index.ts",
-    "./spinner": "./src/spinner/index.ts"
+    "./spinner": "./src/spinner/index.ts",
+    "./textarea": "./src/textarea/index.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

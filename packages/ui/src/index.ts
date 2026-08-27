@@ -20,3 +20,5 @@ export { AspectRatio } from "./aspect-ratio";
 export type { AspectRatioProps } from "./aspect-ratio";
 export { Badge } from "./badge";
 export type { BadgeProps } from "./badge";
+export { Textarea } from "./textarea";
+export type { TextareaProps } from "./textarea";

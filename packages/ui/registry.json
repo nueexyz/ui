@@ -11,7 +11,8 @@
     "./src/label/registry.json",
     "./src/separator/registry.json",
     "./src/skeleton/registry.json",
-    "./src/spinner/registry.json"
+    "./src/spinner/registry.json",
+    "./src/textarea/registry.json"
   ],
   "items": [
     {

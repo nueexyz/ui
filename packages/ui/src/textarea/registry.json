@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Multiline text input with shared validation and focus states.",
+      "dependencies": ["@stylexjs/stylex", "react"],
+      "registryDependencies": ["myjeong19/mds/foundation", "myjeong19/mds/global-styles"],
+      "files": [
+        {
+          "path": "Textarea.tsx",
+          "type": "registry:ui",
+          "target": "@ui/cachette/textarea/Textarea.tsx"
+        },
+        {
+          "path": "textarea.stylex.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/textarea/textarea.stylex.ts"
+        },
+        { "path": "index.ts", "type": "registry:ui", "target": "@ui/cachette/textarea/index.ts" }
+      ]
+    }
+  ]
+}
