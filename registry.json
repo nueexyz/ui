@@ -1,0 +1,130 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "cachette",
+  "homepage": "https://github.com/myjeong19/mds",
+  "items": [
+    {
+      "name": "foundation",
+      "type": "registry:item",
+      "title": "Cachette Foundation",
+      "description": "StyleX tokens, light and dark themes, and global reset styles for Cachette components.",
+      "dependencies": ["@stylexjs/stylex"],
+      "files": [
+        {
+          "path": "packages/tokens/src/color-palette.stylex.ts",
+          "type": "registry:lib",
+          "target": "@ui/cachette/tokens/color-palette.stylex.ts"
+        },
+        {
+          "path": "packages/tokens/src/tokens.stylex.ts",
+          "type": "registry:lib",
+          "target": "@ui/cachette/tokens/tokens.stylex.ts"
+        },
+        {
+          "path": "packages/tokens/src/index.ts",
+          "type": "registry:lib",
+          "target": "@ui/cachette/tokens/index.ts"
+        },
+        {
+          "path": "packages/tokens/src/themes.stylex.ts",
+          "type": "registry:lib",
+          "target": "@ui/cachette/tokens/themes.stylex.ts"
+        },
+        {
+          "path": "packages/ui/src/global.css",
+          "type": "registry:file",
+          "target": "@ui/cachette/global.css"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Accessible Base UI button styled with Cachette tokens and StyleX.",
+      "dependencies": ["@base-ui/react", "@stylexjs/stylex", "react"],
+      "registryDependencies": ["myjeong19/mds/foundation"],
+      "files": [
+        {
+          "path": "packages/ui/src/button/Button.tsx",
+          "type": "registry:ui",
+          "target": "@ui/cachette/button/Button.tsx"
+        },
+        {
+          "path": "packages/ui/src/button/button.stylex.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/button/button.stylex.ts"
+        },
+        {
+          "path": "packages/ui/src/button/index.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/button/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Accessible Base UI input styled with Cachette tokens and StyleX.",
+      "dependencies": ["@base-ui/react", "@stylexjs/stylex", "react"],
+      "registryDependencies": ["myjeong19/mds/foundation"],
+      "files": [
+        {
+          "path": "packages/ui/src/input/Input.tsx",
+          "type": "registry:ui",
+          "target": "@ui/cachette/input/Input.tsx"
+        },
+        {
+          "path": "packages/ui/src/input/input.stylex.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/input/input.stylex.ts"
+        },
+        {
+          "path": "packages/ui/src/input/index.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/input/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Composable card surface styled with Cachette tokens and StyleX.",
+      "dependencies": ["@stylexjs/stylex", "react"],
+      "registryDependencies": ["myjeong19/mds/foundation"],
+      "files": [
+        {
+          "path": "packages/ui/src/card/Card.tsx",
+          "type": "registry:ui",
+          "target": "@ui/cachette/card/Card.tsx"
+        },
+        {
+          "path": "packages/ui/src/card/card.stylex.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/card/card.stylex.ts"
+        },
+        {
+          "path": "packages/ui/src/card/index.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/card/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "icon",
+      "type": "registry:ui",
+      "title": "Icon",
+      "description": "Thin-weight Phosphor icon registry for Cachette interfaces.",
+      "dependencies": ["@phosphor-icons/react", "react"],
+      "files": [
+        {
+          "path": "packages/ui/src/Icon.tsx",
+          "type": "registry:ui",
+          "target": "@ui/cachette/Icon.tsx"
+        }
+      ]
+    }
+  ]
+}
