@@ -1,0 +1,21 @@
+{
+  "name": "@cachette/tokens",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./color-palette": "./src/color-palette.stylex.ts",
+    "./themes.stylex": "./src/themes.stylex.ts",
+    "./tokens.stylex": "./src/tokens.stylex.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@stylexjs/stylex": "catalog:2026-08-27-stable"
+  },
+  "devDependencies": {
+    "typescript": "catalog:2026-08-27-stable"
+  }
+}
