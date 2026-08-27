@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "aspect-ratio",
+      "type": "registry:ui",
+      "title": "Aspect Ratio",
+      "description": "Container that preserves a specified width-to-height ratio.",
+      "dependencies": ["@stylexjs/stylex", "react"],
+      "files": [
+        {
+          "path": "AspectRatio.tsx",
+          "type": "registry:ui",
+          "target": "@ui/cachette/aspect-ratio/AspectRatio.tsx"
+        },
+        {
+          "path": "index.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/aspect-ratio/index.ts"
+        }
+      ]
+    }
+  ]
+}

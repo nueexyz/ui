@@ -1,5 +1,18 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "include": [
+    "./src/alert/registry.json",
+    "./src/aspect-ratio/registry.json",
+    "./src/badge/registry.json",
+    "./src/button/registry.json",
+    "./src/card/registry.json",
+    "./src/input/registry.json",
+    "./src/kbd/registry.json",
+    "./src/label/registry.json",
+    "./src/separator/registry.json",
+    "./src/skeleton/registry.json",
+    "./src/spinner/registry.json"
+  ],
   "items": [
     {
       "name": "global-styles",
@@ -11,81 +24,6 @@
           "path": "src/global.css",
           "type": "registry:file",
           "target": "@ui/cachette/global.css"
-        }
-      ]
-    },
-    {
-      "name": "button",
-      "type": "registry:ui",
-      "title": "Button",
-      "description": "Accessible Base UI button styled with Cachette tokens and StyleX.",
-      "dependencies": ["@base-ui/react", "@stylexjs/stylex", "react"],
-      "registryDependencies": ["myjeong19/mds/foundation", "myjeong19/mds/global-styles"],
-      "files": [
-        {
-          "path": "src/button/Button.tsx",
-          "type": "registry:ui",
-          "target": "@ui/cachette/button/Button.tsx"
-        },
-        {
-          "path": "src/button/button.stylex.ts",
-          "type": "registry:ui",
-          "target": "@ui/cachette/button/button.stylex.ts"
-        },
-        {
-          "path": "src/button/index.ts",
-          "type": "registry:ui",
-          "target": "@ui/cachette/button/index.ts"
-        }
-      ]
-    },
-    {
-      "name": "input",
-      "type": "registry:ui",
-      "title": "Input",
-      "description": "Accessible Base UI input styled with Cachette tokens and StyleX.",
-      "dependencies": ["@base-ui/react", "@stylexjs/stylex", "react"],
-      "registryDependencies": ["myjeong19/mds/foundation", "myjeong19/mds/global-styles"],
-      "files": [
-        {
-          "path": "src/input/Input.tsx",
-          "type": "registry:ui",
-          "target": "@ui/cachette/input/Input.tsx"
-        },
-        {
-          "path": "src/input/input.stylex.ts",
-          "type": "registry:ui",
-          "target": "@ui/cachette/input/input.stylex.ts"
-        },
-        {
-          "path": "src/input/index.ts",
-          "type": "registry:ui",
-          "target": "@ui/cachette/input/index.ts"
-        }
-      ]
-    },
-    {
-      "name": "card",
-      "type": "registry:ui",
-      "title": "Card",
-      "description": "Composable card surface styled with Cachette tokens and StyleX.",
-      "dependencies": ["@stylexjs/stylex", "react"],
-      "registryDependencies": ["myjeong19/mds/foundation", "myjeong19/mds/global-styles"],
-      "files": [
-        {
-          "path": "src/card/Card.tsx",
-          "type": "registry:ui",
-          "target": "@ui/cachette/card/Card.tsx"
-        },
-        {
-          "path": "src/card/card.stylex.ts",
-          "type": "registry:ui",
-          "target": "@ui/cachette/card/card.stylex.ts"
-        },
-        {
-          "path": "src/card/index.ts",
-          "type": "registry:ui",
-          "target": "@ui/cachette/card/index.ts"
         }
       ]
     },

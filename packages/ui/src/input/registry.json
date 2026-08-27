@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Accessible Base UI input styled with Cachette tokens and StyleX.",
+      "dependencies": ["@base-ui/react", "@stylexjs/stylex", "react"],
+      "registryDependencies": ["myjeong19/mds/foundation", "myjeong19/mds/global-styles"],
+      "files": [
+        { "path": "Input.tsx", "type": "registry:ui", "target": "@ui/cachette/input/Input.tsx" },
+        {
+          "path": "input.stylex.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/input/input.stylex.ts"
+        },
+        { "path": "index.ts", "type": "registry:ui", "target": "@ui/cachette/input/index.ts" }
+      ]
+    }
+  ]
+}

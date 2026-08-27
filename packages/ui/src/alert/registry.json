@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "Status message with a title and supporting description.",
+      "dependencies": ["@stylexjs/stylex", "react"],
+      "registryDependencies": ["myjeong19/mds/foundation", "myjeong19/mds/global-styles"],
+      "files": [
+        { "path": "Alert.tsx", "type": "registry:ui", "target": "@ui/cachette/alert/Alert.tsx" },
+        {
+          "path": "alert.stylex.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/alert/alert.stylex.ts"
+        },
+        { "path": "index.ts", "type": "registry:ui", "target": "@ui/cachette/alert/index.ts" }
+      ]
+    }
+  ]
+}

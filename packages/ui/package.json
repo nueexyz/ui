@@ -5,11 +5,19 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
+    "./alert": "./src/alert/index.ts",
+    "./aspect-ratio": "./src/aspect-ratio/index.ts",
+    "./badge": "./src/badge/index.ts",
     "./button": "./src/button/index.ts",
     "./card": "./src/card/index.ts",
     "./global.css": "./src/global.css",
     "./icon": "./src/Icon.tsx",
-    "./input": "./src/input/index.ts"
+    "./input": "./src/input/index.ts",
+    "./kbd": "./src/kbd/index.ts",
+    "./label": "./src/label/index.ts",
+    "./separator": "./src/separator/index.ts",
+    "./skeleton": "./src/skeleton/index.ts",
+    "./spinner": "./src/spinner/index.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

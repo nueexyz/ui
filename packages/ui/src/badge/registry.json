@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Compact label for a status or category.",
+      "dependencies": ["@stylexjs/stylex", "react"],
+      "registryDependencies": ["myjeong19/mds/foundation", "myjeong19/mds/global-styles"],
+      "files": [
+        { "path": "Badge.tsx", "type": "registry:ui", "target": "@ui/cachette/badge/Badge.tsx" },
+        {
+          "path": "badge.stylex.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/badge/badge.stylex.ts"
+        },
+        { "path": "index.ts", "type": "registry:ui", "target": "@ui/cachette/badge/index.ts" }
+      ]
+    }
+  ]
+}
