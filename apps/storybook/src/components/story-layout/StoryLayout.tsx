@@ -44,10 +44,16 @@ export const storyStyles = stylex.create({
   navigationGrid: {
     display: "grid",
     gap: spacingVars.space1,
-    gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
     listStyle: "none",
     margin: 0,
     padding: 0,
+    width: "24rem",
+  },
+  navigationGridCompact: { width: "18rem" },
+  navigationContent: {
+    display: "flex",
+    flexDirection: "column",
+    gap: spacingVars.space1,
   },
   navigationTitle: {
     display: "block",

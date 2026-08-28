@@ -13,8 +13,59 @@ export function NavigationMenuList(props: ComponentProps<typeof NavigationMenuPr
   return <NavigationMenuPrimitive.List {...props} {...stylex.props(styles.list)} />;
 }
 
-export const NavigationMenuItem = NavigationMenuPrimitive.Item;
-export const NavigationMenuContent = NavigationMenuPrimitive.Content;
+export function NavigationMenuItem(props: ComponentProps<typeof NavigationMenuPrimitive.Item>) {
+  return <NavigationMenuPrimitive.Item {...props} {...stylex.props(styles.item)} />;
+}
+
+export function NavigationMenuContent({
+  className,
+  style,
+  ...props
+}: ComponentProps<typeof NavigationMenuPrimitive.Content>) {
+  return (
+    <NavigationMenuPrimitive.Content
+      {...props}
+      className={(state) => {
+        const sx = stylex.props(
+          styles.content,
+          state.transitionStatus === "starting" &&
+            state.activationDirection === "left" &&
+            styles.contentStartingFromLeft,
+          state.transitionStatus === "starting" &&
+            state.activationDirection === "right" &&
+            styles.contentStartingFromRight,
+          state.transitionStatus === "ending" &&
+            state.activationDirection === "left" &&
+            styles.contentEndingToRight,
+          state.transitionStatus === "ending" &&
+            state.activationDirection === "right" &&
+            styles.contentEndingToLeft,
+        );
+        return [sx.className, typeof className === "function" ? className(state) : className]
+          .filter(Boolean)
+          .join(" ");
+      }}
+      style={(state) => {
+        const sx = stylex.props(
+          styles.content,
+          state.transitionStatus === "starting" &&
+            state.activationDirection === "left" &&
+            styles.contentStartingFromLeft,
+          state.transitionStatus === "starting" &&
+            state.activationDirection === "right" &&
+            styles.contentStartingFromRight,
+          state.transitionStatus === "ending" &&
+            state.activationDirection === "left" &&
+            styles.contentEndingToRight,
+          state.transitionStatus === "ending" &&
+            state.activationDirection === "right" &&
+            styles.contentEndingToLeft,
+        );
+        return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+      }}
+    />
+  );
+}
 
 export function NavigationMenuTrigger({
   children,
@@ -37,7 +88,12 @@ export function NavigationMenuTrigger({
       }}
     >
       {children}
-      <NavigationMenuPrimitive.Icon {...stylex.props(styles.icon)}>
+      <NavigationMenuPrimitive.Icon
+        className={(state) =>
+          stylex.props(styles.icon, state.open && styles.iconOpen).className ?? ""
+        }
+        style={(state) => stylex.props(styles.icon, state.open && styles.iconOpen).style}
+      >
         <Icon aria-hidden="true" name="chevronDown" />
       </NavigationMenuPrimitive.Icon>
     </NavigationMenuPrimitive.Trigger>
@@ -67,14 +123,13 @@ type NavigationMenuViewportProps = ComponentProps<typeof NavigationMenuPrimitive
   Pick<ComponentProps<typeof NavigationMenuPrimitive.Positioner>, "align" | "side" | "sideOffset">;
 
 export function NavigationMenuViewport({
-  align = "center",
+  align = "start",
   className,
   side = "bottom",
   sideOffset = 8,
   style,
   ...props
 }: NavigationMenuViewportProps) {
-  const sx = stylex.props(styles.popup);
   return (
     <NavigationMenuPrimitive.Portal>
       <NavigationMenuPrimitive.Positioner
@@ -85,15 +140,24 @@ export function NavigationMenuViewport({
       >
         <NavigationMenuPrimitive.Popup
           {...props}
-          className={(state) =>
-            [sx.className, typeof className === "function" ? className(state) : className]
+          className={(state) => {
+            const sx = stylex.props(
+              styles.popup,
+              state.transitionStatus === "starting" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupTransitioning,
+            );
+            return [sx.className, typeof className === "function" ? className(state) : className]
               .filter(Boolean)
-              .join(" ")
-          }
-          style={(state) => ({
-            ...sx.style,
-            ...(typeof style === "function" ? style(state) : style),
-          })}
+              .join(" ");
+          }}
+          style={(state) => {
+            const sx = stylex.props(
+              styles.popup,
+              state.transitionStatus === "starting" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupTransitioning,
+            );
+            return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+          }}
         >
           <NavigationMenuPrimitive.Viewport {...stylex.props(styles.viewport)} />
         </NavigationMenuPrimitive.Popup>
