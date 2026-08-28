@@ -9,12 +9,18 @@ import {
 import * as stylex from "@stylexjs/stylex";
 
 export const styles = stylex.create({
-  root: { minWidth: 0, width: "100%" },
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    gap: spacingVars.space2,
+    minWidth: 0,
+    width: "100%",
+  },
   trigger: {
     alignItems: "center",
     appearance: "none",
-    backgroundColor: colorVars.bgSurface,
-    borderColor: colorVars.strokeDefault,
+    backgroundColor: "transparent",
+    borderColor: "transparent",
     borderRadius: radiusVars.md,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
@@ -24,13 +30,13 @@ export const styles = stylex.create({
     fontFamily: typographyVars.fontFamily,
     fontSize: typographyVars.fontSizeSm,
     fontWeight: typographyVars.fontWeightMedium,
-    gap: spacingVars.space2,
-    justifyContent: "space-between",
-    minHeight: sizeVars.controlMd,
+    flexShrink: 0,
+    height: sizeVars.controlSm,
+    justifyContent: "center",
     outline: "none",
-    paddingInline: spacingVars.space3,
-    width: "100%",
-    ":hover": { backgroundColor: colorVars.bgSurfacePressed },
+    padding: 0,
+    width: sizeVars.controlSm,
+    ":hover": { backgroundColor: colorVars.interactionHover },
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
       outlineOffset: sizeVars.focusRing,
@@ -40,11 +46,12 @@ export const styles = stylex.create({
   },
   panel: {
     color: colorVars.fgSecondary,
+    display: "flex",
+    flexDirection: "column",
     fontSize: typographyVars.fontSizeSm,
+    gap: spacingVars.space2,
     lineHeight: typographyVars.lineHeightNormal,
     minWidth: 0,
-    paddingBlock: spacingVars.space3,
-    paddingInline: spacingVars.space3,
     width: "100%",
   },
   icon: {

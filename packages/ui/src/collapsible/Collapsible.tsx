@@ -49,7 +49,7 @@ export function CollapsibleTrigger({
     >
       {children}
       <span aria-hidden="true" {...stylex.props(styles.icon)}>
-        <Icon name="chevronDown" />
+        <Icon name="caretUpDown" />
       </span>
     </CollapsiblePrimitive.Trigger>
   );
