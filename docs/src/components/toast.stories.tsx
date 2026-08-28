@@ -133,6 +133,28 @@ export const ToastStory: Story = {
           </Button>
         </StoryPreview>
       </StorySection>
+      <StorySection
+        title="여러 알림"
+        description="최근 알림 세 개만 쌓아 두고, 목록에 포인터를 올리면 내용을 펼칩니다."
+      >
+        <StoryPreview>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              for (const title of [
+                "프로젝트를 만들었어요.",
+                "멤버를 초대했어요.",
+                "권한을 변경했어요.",
+                "설정을 저장했어요.",
+              ]) {
+                toast.add({ title, timeout: 0 });
+              }
+            }}
+          >
+            여러 Toast 보기
+          </Button>
+        </StoryPreview>
+      </StorySection>
     </StoryPage>
   ),
 };

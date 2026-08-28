@@ -42,11 +42,9 @@ export const styles = stylex.create({
     left: 0,
     right: 0,
     transform:
-      "translateX(var(--toast-swipe-movement-x)) translateY(calc(var(--toast-swipe-movement-y) - (var(--toast-index) * 0.75rem))) scale(calc(max(0, 1 - (var(--toast-index) * 0.1))))",
+      "translateX(var(--toast-swipe-movement-x)) translateY(calc(var(--toast-swipe-movement-y) - (var(--toast-index) * 0.75rem) - ((1 - max(0, 1 - (var(--toast-index) * 0.1))) * var(--toast-frontmost-height, var(--toast-height))))) scale(calc(max(0, 1 - (var(--toast-index) * 0.1))))",
     transformOrigin: "bottom",
-    transitionDuration: motionVars.durationSlow,
-    transitionProperty: "transform, opacity, height",
-    transitionTimingFunction: motionVars.easingEnter,
+    transition: "transform 500ms cubic-bezier(0.22, 1, 0.36, 1), opacity 500ms, height 150ms",
     userSelect: "none",
     width: "100%",
     willChange: "transform",
@@ -63,7 +61,7 @@ export const styles = stylex.create({
     bottom: "auto",
     top: 0,
     transform:
-      "translateX(var(--toast-swipe-movement-x)) translateY(calc(var(--toast-swipe-movement-y) + (var(--toast-index) * 0.75rem))) scale(calc(max(0, 1 - (var(--toast-index) * 0.1))))",
+      "translateX(var(--toast-swipe-movement-x)) translateY(calc(var(--toast-swipe-movement-y) + (var(--toast-index) * 0.75rem) + ((1 - max(0, 1 - (var(--toast-index) * 0.1))) * var(--toast-frontmost-height, var(--toast-height))))) scale(calc(max(0, 1 - (var(--toast-index) * 0.1))))",
     transformOrigin: "top",
   },
   rootExpanded: {

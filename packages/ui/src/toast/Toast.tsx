@@ -138,14 +138,14 @@ function ToastList({ position }: { position: ToastPosition }) {
   ));
 }
 
-export function Toaster({ position = "bottom-right", ...props }: ToasterProps) {
+export function Toaster({ limit = 3, position = "bottom-right", ...props }: ToasterProps) {
   const [verticalPosition, horizontalPosition] = position.split("-") as [
     "bottom" | "top",
     "center" | "left" | "right",
   ];
 
   return (
-    <ToastPrimitive.Provider {...props} toastManager={toast}>
+    <ToastPrimitive.Provider {...props} limit={limit} toastManager={toast}>
       <ToastPrimitive.Portal>
         <ToastPrimitive.Viewport
           {...stylex.props(
