@@ -7,11 +7,11 @@
   "author": "Minyeong Jeong",
   "type": "module",
   "scripts": {
-    "build-storybook": "pnpm --filter @cachette/story build-storybook",
+    "build-storybook": "pnpm --filter @cachette/docs build-storybook",
     "check": "pnpm oxlint . && pnpm oxfmt --check .",
     "registry:build": "shadcn build registry.json -o .registry",
-    "storybook": "pnpm --filter @cachette/story storybook",
-    "typecheck": "pnpm --filter @cachette/tokens typecheck && pnpm --filter @cachette/ui typecheck && pnpm --filter @cachette/story typecheck"
+    "storybook": "pnpm --filter @cachette/docs storybook",
+    "typecheck": "pnpm --filter @cachette/tokens typecheck && pnpm --filter @cachette/ui typecheck && pnpm --filter @cachette/docs typecheck"
   },
   "devDependencies": {
     "oxfmt": "catalog:2026-08-27-stable",

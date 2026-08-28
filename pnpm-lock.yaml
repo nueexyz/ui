@@ -69,14 +69,14 @@ importers:
         specifier: catalog:2026-08-27-stable
         version: 7.0.2
 
-  apps/storybook:
+  docs:
     dependencies:
       '@cachette/tokens':
         specifier: workspace:*
-        version: link:../../packages/tokens
+        version: link:../packages/tokens
       '@cachette/ui':
         specifier: workspace:*
-        version: link:../../packages/ui
+        version: link:../packages/ui
       '@stylexjs/stylex':
         specifier: catalog:2026-08-27-stable
         version: 0.19.0
