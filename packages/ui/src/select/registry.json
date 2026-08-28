@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "A trigger that opens a list of mutually exclusive options.",
+      "dependencies": ["@base-ui/react", "@stylexjs/stylex", "react"],
+      "registryDependencies": [
+        "myjeong19/mds/foundation",
+        "myjeong19/mds/global-styles",
+        "myjeong19/mds/icon"
+      ],
+      "files": [
+        { "path": "Select.tsx", "type": "registry:ui", "target": "@ui/cachette/select/Select.tsx" },
+        {
+          "path": "select.stylex.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/select/select.stylex.ts"
+        },
+        { "path": "index.ts", "type": "registry:ui", "target": "@ui/cachette/select/index.ts" }
+      ]
+    }
+  ]
+}

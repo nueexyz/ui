@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "context-menu",
+      "type": "registry:ui",
+      "title": "Context Menu",
+      "description": "A menu opened from a contextual pointer action.",
+      "dependencies": ["@base-ui/react", "react"],
+      "registryDependencies": ["myjeong19/mds/dropdown-menu"],
+      "files": [
+        {
+          "path": "ContextMenu.tsx",
+          "type": "registry:ui",
+          "target": "@ui/cachette/context-menu/ContextMenu.tsx"
+        },
+        {
+          "path": "index.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/context-menu/index.ts"
+        }
+      ]
+    }
+  ]
+}

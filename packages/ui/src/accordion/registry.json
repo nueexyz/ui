@@ -1,0 +1,30 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "A vertically stacked set of expandable sections.",
+      "dependencies": ["@base-ui/react", "@stylexjs/stylex", "react"],
+      "registryDependencies": [
+        "myjeong19/mds/foundation",
+        "myjeong19/mds/global-styles",
+        "myjeong19/mds/icon"
+      ],
+      "files": [
+        {
+          "path": "Accordion.tsx",
+          "type": "registry:ui",
+          "target": "@ui/cachette/accordion/Accordion.tsx"
+        },
+        {
+          "path": "accordion.stylex.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/accordion/accordion.stylex.ts"
+        },
+        { "path": "index.ts", "type": "registry:ui", "target": "@ui/cachette/accordion/index.ts" }
+      ]
+    }
+  ]
+}
