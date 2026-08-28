@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "bubble",
+      "type": "registry:ui",
+      "title": "Bubble",
+      "description": "대화에서 한 사람의 메시지 내용을 구분해 표시합니다.",
+      "dependencies": ["@stylexjs/stylex", "react"],
+      "registryDependencies": ["myjeong19/mds/foundation", "myjeong19/mds/global-styles"],
+      "files": [
+        { "path": "Bubble.tsx", "type": "registry:ui", "target": "@ui/cachette/bubble/Bubble.tsx" },
+        {
+          "path": "bubble.stylex.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/bubble/bubble.stylex.ts"
+        },
+        { "path": "index.ts", "type": "registry:ui", "target": "@ui/cachette/bubble/index.ts" }
+      ]
+    }
+  ]
+}

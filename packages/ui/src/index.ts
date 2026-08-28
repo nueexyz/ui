@@ -30,6 +30,8 @@ export {
 } from "./breadcrumb";
 export { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from "./button-group";
 export type { ButtonGroupProps } from "./button-group";
+export { Bubble } from "./bubble";
+export type { BubbleProps } from "./bubble";
 export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./card";
 export {
   Dialog,
@@ -119,6 +121,10 @@ export { Kbd, KbdGroup } from "./kbd";
 export { Label } from "./label";
 export type { LabelProps } from "./label";
 export { Marker, MarkerContent, MarkerIcon } from "./marker";
+export { Message, MessageContent, MessageFooter, MessageHeader } from "./message";
+export type { MessageProps } from "./message";
+export { MessageScroller } from "./message-scroller";
+export type { MessageScrollerProps } from "./message-scroller";
 export {
   Menubar,
   MenubarCheckboxItem,
@@ -156,6 +162,15 @@ export {
   PopoverTitle,
   PopoverTrigger,
 } from "./popover";
+export {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "./pagination";
 export { Progress } from "./progress";
 export type { ProgressProps } from "./progress";
 export { RadioGroup, RadioGroupItem } from "./radio-group";

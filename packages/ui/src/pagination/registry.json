@@ -1,0 +1,30 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "여러 페이지로 나뉜 콘텐츠 사이를 이동합니다.",
+      "dependencies": ["@stylexjs/stylex", "react"],
+      "registryDependencies": [
+        "myjeong19/mds/foundation",
+        "myjeong19/mds/global-styles",
+        "myjeong19/mds/icon"
+      ],
+      "files": [
+        {
+          "path": "Pagination.tsx",
+          "type": "registry:ui",
+          "target": "@ui/cachette/pagination/Pagination.tsx"
+        },
+        {
+          "path": "pagination.stylex.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/pagination/pagination.stylex.ts"
+        },
+        { "path": "index.ts", "type": "registry:ui", "target": "@ui/cachette/pagination/index.ts" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+import {
+  colorVars,
+  motionVars,
+  radiusVars,
+  sizeVars,
+  spacingVars,
+  typographyVars,
+} from "@cachette/tokens/tokens.stylex";
+import * as stylex from "@stylexjs/stylex";
+
+export const styles = stylex.create({
+  root: { display: "flex", justifyContent: "center", width: "100%" },
+  content: {
+    alignItems: "center",
+    display: "flex",
+    gap: spacingVars.space1,
+    listStyle: "none",
+    margin: 0,
+    padding: 0,
+  },
+  item: { display: "inline-flex" },
+  link: {
+    alignItems: "center",
+    backgroundColor: {
+      default: "transparent",
+      ":hover": colorVars.interactionHover,
+      ":active": colorVars.interactionPressed,
+    },
+    borderColor: "transparent",
+    borderRadius: radiusVars.md,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+    color: colorVars.fgPrimary,
+    display: "inline-flex",
+    fontSize: typographyVars.fontSizeSm,
+    fontWeight: typographyVars.fontWeightMedium,
+    gap: spacingVars.space1,
+    justifyContent: "center",
+    minHeight: sizeVars.controlMd,
+    outline: "none",
+    textDecoration: "none",
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color, border-color",
+    ":focus-visible": {
+      outlineColor: colorVars.strokeFocus,
+      outlineOffset: sizeVars.stroke,
+      outlineStyle: "solid",
+      outlineWidth: sizeVars.focusRing,
+    },
+    "[aria-disabled='true']": {
+      color: colorVars.fgDisabled,
+      cursor: "not-allowed",
+      pointerEvents: "none",
+    },
+  },
+  icon: { width: sizeVars.controlMd },
+  default: { paddingInline: spacingVars.space3 },
+  active: { backgroundColor: colorVars.interactionSelected, borderColor: colorVars.strokeStrong },
+  ellipsis: {
+    alignItems: "center",
+    color: colorVars.fgTertiary,
+    display: "inline-flex",
+    height: sizeVars.controlMd,
+    justifyContent: "center",
+    width: sizeVars.controlMd,
+  },
+});
