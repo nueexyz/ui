@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "Accessible two-state button for an optional mode or view.",
+      "dependencies": ["@base-ui/react", "@stylexjs/stylex", "react"],
+      "registryDependencies": ["myjeong19/mds/foundation", "myjeong19/mds/global-styles"],
+      "files": [
+        { "path": "Toggle.tsx", "type": "registry:ui", "target": "@ui/cachette/toggle/Toggle.tsx" },
+        {
+          "path": "toggle.stylex.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/toggle/toggle.stylex.ts"
+        },
+        { "path": "index.ts", "type": "registry:ui", "target": "@ui/cachette/toggle/index.ts" }
+      ]
+    }
+  ]
+}

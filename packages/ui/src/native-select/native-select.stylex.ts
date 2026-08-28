@@ -1,0 +1,46 @@
+import {
+  colorVars,
+  opacityVars,
+  radiusVars,
+  sizeVars,
+  spacingVars,
+  typographyVars,
+} from "@cachette/tokens/tokens.stylex";
+import * as stylex from "@stylexjs/stylex";
+export const styles = stylex.create({
+  root: { display: "inline-flex", position: "relative", width: "fit-content" },
+  select: {
+    appearance: "none",
+    backgroundColor: colorVars.bgSurface,
+    borderColor: colorVars.strokeDefault,
+    borderRadius: radiusVars.md,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+    color: colorVars.fgPrimary,
+    fontSize: typographyVars.fontSizeSm,
+    minWidth: "10rem",
+    outline: "none",
+    paddingInlineStart: spacingVars.space3,
+    paddingInlineEnd: spacingVars.space8,
+    width: "100%",
+    ":hover": { borderColor: colorVars.strokeStrong },
+    ":focus-visible": {
+      borderColor: colorVars.strokeFocus,
+      outlineColor: colorVars.interactionSelected,
+      outlineOffset: sizeVars.stroke,
+      outlineStyle: "solid",
+      outlineWidth: sizeVars.focusRing,
+    },
+    ":disabled": { cursor: "not-allowed", opacity: opacityVars.disabled },
+  },
+  sm: { height: sizeVars.controlSm },
+  md: { height: sizeVars.controlMd },
+  icon: {
+    color: colorVars.fgSecondary,
+    pointerEvents: "none",
+    position: "absolute",
+    right: spacingVars.space3,
+    top: "50%",
+    transform: "translateY(-50%)",
+  },
+});

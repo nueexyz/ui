@@ -1,0 +1,30 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Accessible binary or mixed-state selection control.",
+      "dependencies": ["@base-ui/react", "@stylexjs/stylex", "react"],
+      "registryDependencies": [
+        "myjeong19/mds/foundation",
+        "myjeong19/mds/global-styles",
+        "myjeong19/mds/icon"
+      ],
+      "files": [
+        {
+          "path": "Checkbox.tsx",
+          "type": "registry:ui",
+          "target": "@ui/cachette/checkbox/Checkbox.tsx"
+        },
+        {
+          "path": "checkbox.stylex.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/checkbox/checkbox.stylex.ts"
+        },
+        { "path": "index.ts", "type": "registry:ui", "target": "@ui/cachette/checkbox/index.ts" }
+      ]
+    }
+  ]
+}
