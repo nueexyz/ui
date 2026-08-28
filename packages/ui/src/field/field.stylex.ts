@@ -24,7 +24,8 @@ export const styles = stylex.create({
     lineHeight: typographyVars.lineHeightNormal,
   },
   set: {
-    border: 0,
+    borderStyle: "none",
+    borderWidth: 0,
     display: "flex",
     flexDirection: "column",
     gap: spacingVars.space6,

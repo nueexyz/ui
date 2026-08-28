@@ -11,7 +11,8 @@ export const styles = stylex.create({
   root: {
     alignItems: "center",
     backgroundColor: colorVars.interactionDisabled,
-    border: 0,
+    borderStyle: "none",
+    borderWidth: 0,
     borderRadius: radiusVars.full,
     cursor: "pointer",
     display: "inline-flex",

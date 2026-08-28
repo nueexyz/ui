@@ -40,7 +40,8 @@ export const styles = stylex.create({
   close: {
     alignItems: "center",
     backgroundColor: "transparent",
-    border: 0,
+    borderStyle: "none",
+    borderWidth: 0,
     borderRadius: radiusVars.sm,
     color: colorVars.fgSecondary,
     cursor: "pointer",
