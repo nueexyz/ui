@@ -86,7 +86,11 @@ export const styles = stylex.create({
       transform:
         "translateX(calc(var(--toast-swipe-movement-x) + 150%)) translateY(calc((var(--toast-offset-y) * -1) - (var(--toast-index) * 0.75rem) + var(--toast-swipe-movement-y)))",
     },
-    "@media (prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" },
+    "@media (prefers-reduced-motion: reduce)": {
+      transitionDuration: motionVars.durationNormal,
+      ":is([data-starting-style])": { transform: "translateY(24%)" },
+      ":is([data-ending-style])": { transform: "translateY(24%)" },
+    },
   },
   rootTop: {
     bottom: "auto",
@@ -107,6 +111,10 @@ export const styles = stylex.create({
     ":is([data-ending-style][data-swipe-direction='right'])": {
       transform:
         "translateX(calc(var(--toast-swipe-movement-x) + 150%)) translateY(calc(var(--toast-offset-y) + (var(--toast-index) * 0.75rem) + var(--toast-swipe-movement-y)))",
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      ":is([data-starting-style])": { transform: "translateY(-24%)" },
+      ":is([data-ending-style])": { transform: "translateY(-24%)" },
     },
   },
   content: {
