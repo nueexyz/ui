@@ -10,6 +10,8 @@
     "./badge": "./src/badge/index.ts",
     "./button": "./src/button/index.ts",
     "./card": "./src/card/index.ts",
+    "./empty": "./src/empty/index.ts",
+    "./field": "./src/field/index.ts",
     "./global.css": "./src/global.css",
     "./icon": "./src/Icon.tsx",
     "./input": "./src/input/index.ts",
@@ -18,7 +20,8 @@
     "./separator": "./src/separator/index.ts",
     "./skeleton": "./src/skeleton/index.ts",
     "./spinner": "./src/spinner/index.ts",
-    "./textarea": "./src/textarea/index.ts"
+    "./textarea": "./src/textarea/index.ts",
+    "./typography": "./src/typography/index.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

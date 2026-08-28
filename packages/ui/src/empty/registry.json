@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "empty",
+      "type": "registry:ui",
+      "title": "Empty",
+      "description": "Empty state composition for explanation and a next action.",
+      "dependencies": ["@stylexjs/stylex", "react"],
+      "registryDependencies": ["myjeong19/mds/foundation", "myjeong19/mds/global-styles"],
+      "files": [
+        { "path": "Empty.tsx", "type": "registry:ui", "target": "@ui/cachette/empty/Empty.tsx" },
+        {
+          "path": "empty.stylex.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/empty/empty.stylex.ts"
+        },
+        { "path": "index.ts", "type": "registry:ui", "target": "@ui/cachette/empty/index.ts" }
+      ]
+    }
+  ]
+}

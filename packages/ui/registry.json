@@ -6,13 +6,16 @@
     "./src/badge/registry.json",
     "./src/button/registry.json",
     "./src/card/registry.json",
+    "./src/empty/registry.json",
+    "./src/field/registry.json",
     "./src/input/registry.json",
     "./src/kbd/registry.json",
     "./src/label/registry.json",
     "./src/separator/registry.json",
     "./src/skeleton/registry.json",
     "./src/spinner/registry.json",
-    "./src/textarea/registry.json"
+    "./src/textarea/registry.json",
+    "./src/typography/registry.json"
   ],
   "items": [
     {
