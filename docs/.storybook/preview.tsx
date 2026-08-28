@@ -89,6 +89,13 @@ const preview: Preview = {
   },
   parameters: {
     layout: "padded",
+    options: {
+      storySort: {
+        includeNames: true,
+        method: "alphabetical",
+        order: ["Foundations", "Components"],
+      },
+    },
   },
 };
 
