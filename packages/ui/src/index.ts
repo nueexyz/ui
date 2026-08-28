@@ -3,6 +3,16 @@ export type { ButtonProps } from "./button";
 export { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from "./button-group";
 export type { ButtonGroupProps } from "./button-group";
 export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./card";
+export {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./dialog";
 export { Checkbox } from "./checkbox";
 export type { CheckboxProps } from "./checkbox";
 export { Icon, iconRegistry } from "./Icon";
@@ -23,6 +33,15 @@ export { Label } from "./label";
 export type { LabelProps } from "./label";
 export { NativeSelect, NativeSelectOptGroup, NativeSelectOption } from "./native-select";
 export type { NativeSelectProps } from "./native-select";
+export {
+  Popover,
+  PopoverClose,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+} from "./popover";
 export { Progress } from "./progress";
 export type { ProgressProps } from "./progress";
 export { RadioGroup, RadioGroupItem } from "./radio-group";
@@ -71,3 +90,4 @@ export {
 } from "./empty";
 export { Typography } from "./typography";
 export type { TypographyProps } from "./typography";
+export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";

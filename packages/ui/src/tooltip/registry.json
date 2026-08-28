@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Short accessible explanation for a focused or hovered control.",
+      "dependencies": ["@base-ui/react", "@stylexjs/stylex", "react"],
+      "registryDependencies": ["myjeong19/mds/foundation", "myjeong19/mds/global-styles"],
+      "files": [
+        {
+          "path": "Tooltip.tsx",
+          "type": "registry:ui",
+          "target": "@ui/cachette/tooltip/Tooltip.tsx"
+        },
+        {
+          "path": "tooltip.stylex.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/tooltip/tooltip.stylex.ts"
+        },
+        { "path": "index.ts", "type": "registry:ui", "target": "@ui/cachette/tooltip/index.ts" }
+      ]
+    }
+  ]
+}

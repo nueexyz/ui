@@ -11,6 +11,7 @@
     "./button": "./src/button/index.ts",
     "./button-group": "./src/button-group/index.ts",
     "./card": "./src/card/index.ts",
+    "./dialog": "./src/dialog/index.ts",
     "./checkbox": "./src/checkbox/index.ts",
     "./empty": "./src/empty/index.ts",
     "./field": "./src/field/index.ts",
@@ -21,6 +22,7 @@
     "./kbd": "./src/kbd/index.ts",
     "./label": "./src/label/index.ts",
     "./native-select": "./src/native-select/index.ts",
+    "./popover": "./src/popover/index.ts",
     "./progress": "./src/progress/index.ts",
     "./radio-group": "./src/radio-group/index.ts",
     "./separator": "./src/separator/index.ts",
@@ -31,7 +33,8 @@
     "./textarea": "./src/textarea/index.ts",
     "./toggle": "./src/toggle/index.ts",
     "./toggle-group": "./src/toggle-group/index.ts",
-    "./typography": "./src/typography/index.ts"
+    "./typography": "./src/typography/index.ts",
+    "./tooltip": "./src/tooltip/index.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

@@ -7,6 +7,7 @@
     "./src/button/registry.json",
     "./src/button-group/registry.json",
     "./src/card/registry.json",
+    "./src/dialog/registry.json",
     "./src/checkbox/registry.json",
     "./src/empty/registry.json",
     "./src/field/registry.json",
@@ -15,6 +16,7 @@
     "./src/kbd/registry.json",
     "./src/label/registry.json",
     "./src/native-select/registry.json",
+    "./src/popover/registry.json",
     "./src/progress/registry.json",
     "./src/radio-group/registry.json",
     "./src/separator/registry.json",
@@ -25,7 +27,8 @@
     "./src/textarea/registry.json",
     "./src/toggle/registry.json",
     "./src/toggle-group/registry.json",
-    "./src/typography/registry.json"
+    "./src/typography/registry.json",
+    "./src/tooltip/registry.json"
   ],
   "items": [
     {
