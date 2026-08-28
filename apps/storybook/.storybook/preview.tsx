@@ -8,6 +8,7 @@ import { colorVars, typographyVars } from "@cachette/tokens/tokens.stylex";
 import "@cachette/ui/global.css";
 import * as stylex from "@stylexjs/stylex";
 import type { Preview } from "@storybook/react-vite";
+import { type ReactNode, useLayoutEffect } from "react";
 
 type ColorMode = "light" | "dark";
 
@@ -20,18 +21,34 @@ const styles = stylex.create({
   },
 });
 
+function ThemeScope({ children, mode }: { children: ReactNode; mode: ColorMode }) {
+  const colorTheme = mode === "dark" ? darkColorTheme : lightColorTheme;
+  const shadowTheme = mode === "dark" ? darkShadowTheme : lightShadowTheme;
+  const themeClassName = stylex.props(colorTheme, shadowTheme).className ?? "";
+
+  useLayoutEffect(() => {
+    const themeClassList = themeClassName.split(" ").filter(Boolean);
+    document.documentElement.classList.add(...themeClassList);
+
+    return () => document.documentElement.classList.remove(...themeClassList);
+  }, [themeClassName]);
+
+  return (
+    <div key={mode} {...stylex.props(styles.root, colorTheme, shadowTheme)}>
+      {children}
+    </div>
+  );
+}
+
 const preview: Preview = {
   decorators: [
     (Story, context) => {
       const mode = context.globals.colorMode as ColorMode;
 
-      const colorTheme = mode === "dark" ? darkColorTheme : lightColorTheme;
-      const shadowTheme = mode === "dark" ? darkShadowTheme : lightShadowTheme;
-
       return (
-        <div key={mode} {...stylex.props(styles.root, colorTheme, shadowTheme)}>
+        <ThemeScope mode={mode}>
           <Story />
-        </div>
+        </ThemeScope>
       );
     },
   ],
