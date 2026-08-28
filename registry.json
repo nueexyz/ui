@@ -1,7 +1,0 @@
-{
-  "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "cachette",
-  "homepage": "https://github.com/myjeong19/mds",
-  "include": ["./packages/tokens/registry.json", "./packages/ui/registry.json"],
-  "items": []
-}

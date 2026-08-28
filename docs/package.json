@@ -20,6 +20,7 @@
     "@stylexjs/unplugin": "catalog:2026-08-27-stable",
     "@types/react": "catalog:2026-08-27-stable",
     "@types/react-dom": "catalog:2026-08-27-stable",
+    "shiki": "catalog:2026-08-27-stable",
     "storybook": "catalog:2026-08-27-stable",
     "typescript": "catalog:2026-08-27-stable",
     "vite": "catalog:2026-08-27-stable"

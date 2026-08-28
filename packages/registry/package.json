@@ -1,0 +1,11 @@
+{
+  "name": "@cachette/registry",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": "./src/index.mjs",
+  "dependencies": {
+    "@cachette/tokens": "workspace:*",
+    "@cachette/ui": "workspace:*"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "@cachette/cli",
+  "version": "0.0.1",
+  "private": true,
+  "bin": {
+    "cachette": "./bin/cachette.mjs"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "node test/cli.test.mjs"
+  },
+  "dependencies": {
+    "@cachette/registry": "workspace:*"
+  }
+}
