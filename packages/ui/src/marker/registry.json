@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "marker",
+      "type": "registry:ui",
+      "title": "Marker",
+      "description": "대화나 활동 흐름 안에서 상태와 구간을 표시합니다.",
+      "dependencies": ["@stylexjs/stylex", "react"],
+      "registryDependencies": ["tokens"],
+      "files": [
+        { "path": "Marker.tsx", "type": "registry:ui", "target": "@ui/cachette/marker/Marker.tsx" },
+        {
+          "path": "marker.stylex.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/marker/marker.stylex.ts"
+        },
+        { "path": "index.ts", "type": "registry:ui", "target": "@ui/cachette/marker/index.ts" }
+      ]
+    }
+  ]
+}

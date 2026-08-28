@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "item",
+      "type": "registry:ui",
+      "title": "Item",
+      "description": "Displays content with optional media and actions.",
+      "dependencies": ["@stylexjs/stylex", "react"],
+      "registryDependencies": ["myjeong19/mds/foundation", "myjeong19/mds/global-styles"],
+      "files": [
+        { "path": "Item.tsx", "type": "registry:ui", "target": "@ui/cachette/item/Item.tsx" },
+        {
+          "path": "item.stylex.ts",
+          "type": "registry:ui",
+          "target": "@ui/cachette/item/item.stylex.ts"
+        },
+        { "path": "index.ts", "type": "registry:ui", "target": "@ui/cachette/item/index.ts" }
+      ]
+    }
+  ]
+}

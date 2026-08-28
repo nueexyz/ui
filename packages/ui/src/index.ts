@@ -1,5 +1,33 @@
 export { Button } from "./button";
 export type { ButtonProps } from "./button";
+export {
+  Attachment,
+  AttachmentAction,
+  AttachmentActions,
+  AttachmentContent,
+  AttachmentDescription,
+  AttachmentGroup,
+  AttachmentMedia,
+  AttachmentTitle,
+  AttachmentTrigger,
+} from "./attachment";
+export {
+  Avatar,
+  AvatarBadge,
+  AvatarFallback,
+  AvatarGroup,
+  AvatarGroupCount,
+  AvatarImage,
+} from "./avatar";
+export {
+  Breadcrumb,
+  BreadcrumbEllipsis,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "./breadcrumb";
 export { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from "./button-group";
 export type { ButtonGroupProps } from "./button-group";
 export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./card";
@@ -61,6 +89,8 @@ export {
 } from "./dropdown-menu";
 export { Icon, iconRegistry } from "./Icon";
 export type { IconName, IconProps } from "./Icon";
+export { DirectionProvider, useDirection } from "./direction";
+export type { DirectionProviderProps, TextDirection } from "./direction";
 export { Input } from "./input";
 export type { InputProps } from "./input";
 export {
@@ -72,9 +102,19 @@ export {
   InputGroupTextarea,
 } from "./input-group";
 export type { InputGroupProps } from "./input-group";
+export {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemGroup,
+  ItemMedia,
+  ItemTitle,
+} from "./item";
 export { Kbd, KbdGroup } from "./kbd";
 export { Label } from "./label";
 export type { LabelProps } from "./label";
+export { Marker, MarkerContent, MarkerIcon } from "./marker";
 export {
   Menubar,
   MenubarCheckboxItem,
@@ -136,6 +176,16 @@ export { Spinner } from "./spinner";
 export type { SpinnerProps } from "./spinner";
 export { Switch } from "./switch";
 export type { SwitchProps } from "./switch";
+export {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./table";
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
 export { Alert, AlertDescription, AlertTitle } from "./alert";
 export type { AlertProps } from "./alert";

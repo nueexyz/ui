@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "direction",
+      "type": "registry:ui",
+      "title": "Direction",
+      "description": "Provides left-to-right or right-to-left text direction to Base UI components.",
+      "dependencies": ["@base-ui/react", "react"],
+      "files": [
+        {
+          "path": "Direction.tsx",
+          "type": "registry:ui",
+          "target": "@ui/cachette/direction/Direction.tsx"
+        },
+        { "path": "index.ts", "type": "registry:ui", "target": "@ui/cachette/direction/index.ts" }
+      ]
+    }
+  ]
+}
