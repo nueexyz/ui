@@ -7,6 +7,9 @@ import {
   spacingVars,
   typographyVars,
 } from "@cachette/tokens/tokens.stylex";
+import { Button } from "@cachette/ui/button";
+import { Icon } from "@cachette/ui/icon";
+import { Input } from "@cachette/ui/input";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useLayoutEffect, useRef, useState } from "react";
@@ -64,6 +67,10 @@ const styles = stylex.create({
     gridTemplateColumns: "minmax(11rem, 1fr) minmax(11rem, 2fr)",
     minHeight: sizeVars.touchTarget,
     paddingBlock: spacingVars.space3,
+    "@media (max-width: 40rem)": {
+      alignItems: "stretch",
+      gridTemplateColumns: "minmax(0, 1fr)",
+    },
   },
   metadata: { display: "flex", flexDirection: "column", gap: spacingVars.space1 },
   tokenName: {
@@ -94,24 +101,58 @@ const styles = stylex.create({
     height: sizeVars.stroke,
     width,
   }),
-  sizeBox: (height: string, width: string) => ({
+  contentSample: (width: string) => ({
     alignItems: "center",
     backgroundColor: colorVars.bgSubtle,
     borderColor: colorVars.strokeDefault,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     display: "flex",
-    height,
+    color: colorVars.fgSecondary,
+    fontSize: typographyVars.fontSizeXs,
+    height: sizeVars.controlLg,
     justifyContent: "center",
     maxWidth: "100%",
     width,
   }),
-  thickness: (height: string) => ({
-    backgroundColor: colorVars.bgActionPrimary,
-    borderRadius: radiusVars.full,
-    height,
-    maxWidth: sizeVars.contentSm,
-    width: "100%",
+  iconSample: (size: string) => ({ height: size, width: size }),
+  touchTarget: {
+    alignItems: "center",
+    borderColor: colorVars.strokeStrong,
+    borderRadius: radiusVars.md,
+    borderStyle: "dashed",
+    borderWidth: sizeVars.stroke,
+    display: "inline-flex",
+    height: sizeVars.touchTarget,
+    justifyContent: "center",
+    width: sizeVars.touchTarget,
+  },
+  strokeSample: (borderWidth: string) => ({
+    alignItems: "center",
+    borderColor: colorVars.strokeStrong,
+    borderRadius: radiusVars.md,
+    borderStyle: "solid",
+    borderWidth,
+    display: "inline-flex",
+    fontSize: typographyVars.fontSizeXs,
+    height: sizeVars.controlLg,
+    paddingInline: spacingVars.space4,
+  }),
+  focusSample: (outlineWidth: string) => ({
+    alignItems: "center",
+    backgroundColor: colorVars.bgSurface,
+    borderColor: colorVars.strokeDefault,
+    borderRadius: radiusVars.md,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+    display: "inline-flex",
+    fontSize: typographyVars.fontSizeXs,
+    height: sizeVars.controlMd,
+    outlineColor: colorVars.strokeFocus,
+    outlineOffset: sizeVars.stroke,
+    outlineStyle: "solid",
+    outlineWidth,
+    paddingInline: spacingVars.space4,
   }),
   radiusBox: (borderRadius: string) => ({
     backgroundColor: colorVars.bgSubtle,
@@ -321,43 +362,84 @@ export const Spacing: Story = {
   ),
 };
 
-const sizeTokens = [
-  ["controlSm", sizeVars.controlSm, "조밀한 컨트롤"],
-  ["controlMd", sizeVars.controlMd, "기본 컨트롤"],
-  ["controlLg", sizeVars.controlLg, "강조 컨트롤"],
-  ["iconSm", sizeVars.iconSm, "작은 아이콘"],
-  ["iconMd", sizeVars.iconMd, "기본 아이콘"],
-  ["touchTarget", sizeVars.touchTarget, "최소 터치 영역"],
-] as const;
-
 const contentSizeTokens = [
-  ["contentSm", sizeVars.contentSm, "좁은 콘텐츠 영역"],
-  ["contentMd", sizeVars.contentMd, "기본 콘텐츠 영역"],
-] as const;
-
-const thicknessTokens = [
-  ["stroke", sizeVars.stroke, "기본 테두리 두께"],
-  ["focusRing", sizeVars.focusRing, "포커스 링 두께와 간격"],
+  ["contentSm", sizeVars.contentSm, "팝오버와 좁은 패널"],
+  ["contentMd", sizeVars.contentMd, "다이얼로그와 기본 패널"],
 ] as const;
 
 export const Size: Story = {
   render: () => (
-    <Page title="Size" description="컨트롤과 아이콘의 크기를 일관되게 유지합니다.">
-      {sizeTokens.map(([name, value, usage]) => (
-        <TokenRow key={name} name={`sizeVars.${name}`} usage={usage} value={value}>
-          <div {...stylex.props(styles.sizeBox(value, value))}>{name}</div>
-        </TokenRow>
-      ))}
+    <Page
+      title="Size"
+      description="크기 토큰은 컨트롤의 높이, 아이콘의 표시 크기, 실제 조작 영역을 각각 정의합니다."
+    >
+      <TokenRow
+        name="sizeVars.controlSm"
+        usage="툴바와 조밀한 화면의 컨트롤"
+        value={sizeVars.controlSm}
+      >
+        <Button size="sm" variant="secondary">
+          작은 버튼
+        </Button>
+      </TokenRow>
+      <TokenRow
+        name="sizeVars.controlMd"
+        usage="폼과 일반 화면의 기본 컨트롤"
+        value={sizeVars.controlMd}
+      >
+        <Input aria-label="기본 입력 예시" placeholder="기본 입력" />
+      </TokenRow>
+      <TokenRow
+        name="sizeVars.controlLg"
+        usage="여유가 필요한 단독 컨트롤"
+        value={sizeVars.controlLg}
+      >
+        <Button size="lg" variant="secondary">
+          큰 버튼
+        </Button>
+      </TokenRow>
+      <TokenRow name="sizeVars.iconSm" usage="작은 컨트롤 안의 보조 아이콘" value={sizeVars.iconSm}>
+        <Icon
+          aria-label="작은 정보 아이콘"
+          name="info"
+          {...stylex.props(styles.iconSample(sizeVars.iconSm))}
+        />
+      </TokenRow>
+      <TokenRow name="sizeVars.iconMd" usage="기본 컨트롤 안의 아이콘" value={sizeVars.iconMd}>
+        <Icon
+          aria-label="기본 정보 아이콘"
+          name="info"
+          {...stylex.props(styles.iconSample(sizeVars.iconMd))}
+        />
+      </TokenRow>
+      <TokenRow
+        name="sizeVars.touchTarget"
+        usage="아이콘 버튼의 최소 조작 영역"
+        value={sizeVars.touchTarget}
+      >
+        <span {...stylex.props(styles.touchTarget)}>
+          <Icon
+            aria-hidden="true"
+            name="info"
+            {...stylex.props(styles.iconSample(sizeVars.iconMd))}
+          />
+        </span>
+      </TokenRow>
       {contentSizeTokens.map(([name, value, usage]) => (
         <TokenRow key={name} name={`sizeVars.${name}`} usage={usage} value={value}>
-          <div {...stylex.props(styles.sizeBox(sizeVars.controlMd, value))}>{name}</div>
+          <div {...stylex.props(styles.contentSample(value))}>{usage}</div>
         </TokenRow>
       ))}
-      {thicknessTokens.map(([name, value, usage]) => (
-        <TokenRow key={name} name={`sizeVars.${name}`} usage={usage} value={value}>
-          <div {...stylex.props(styles.thickness(value))} />
-        </TokenRow>
-      ))}
+      <TokenRow name="sizeVars.stroke" usage="컨트롤과 표면의 기본 테두리" value={sizeVars.stroke}>
+        <span {...stylex.props(styles.strokeSample(sizeVars.stroke))}>기본 테두리</span>
+      </TokenRow>
+      <TokenRow
+        name="sizeVars.focusRing"
+        usage="키보드 포커스를 나타내는 링"
+        value={sizeVars.focusRing}
+      >
+        <span {...stylex.props(styles.focusSample(sizeVars.focusRing))}>키보드 포커스</span>
+      </TokenRow>
     </Page>
   ),
 };
