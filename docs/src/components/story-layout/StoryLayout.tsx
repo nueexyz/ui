@@ -162,6 +162,7 @@ const styles = stylex.create({
     overflowX: "auto",
     overflowY: "auto",
     padding: spacingVars.space4,
+    tabSize: 2,
     transitionDuration: motionVars.durationNormal,
     transitionProperty: "max-height",
     transitionTimingFunction: motionVars.easingStandard,
@@ -202,6 +203,14 @@ function getCodeHighlighter() {
   return codeHighlighterPromise;
 }
 
+function normalizeCode(code: string) {
+  return code
+    .split("\n")
+    .map((line) => line.replaceAll("\t", "  ").trimEnd())
+    .join("\n")
+    .trim();
+}
+
 function CodeBlock({
   code,
   collapsible = false,
@@ -217,14 +226,15 @@ function CodeBlock({
   const [highlightedLines, setHighlightedLines] = useState<HighlightedToken[][]>();
   const [isCopied, setIsCopied] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const canCollapse = collapsible && code.split("\n").length > 12;
+  const normalizedCode = normalizeCode(code);
+  const canCollapse = collapsible && normalizedCode.split("\n").length > 12;
 
   useEffect(() => {
     let isActive = true;
 
     void getCodeHighlighter()
       .then((highlighter) => {
-        const lines = highlighter.codeToTokensWithThemes(code, {
+        const lines = highlighter.codeToTokensWithThemes(normalizedCode, {
           lang: language,
           themes: { dark: "github-dark", light: "github-light" },
         });
@@ -237,7 +247,7 @@ function CodeBlock({
     return () => {
       isActive = false;
     };
-  }, [code, language]);
+  }, [language, normalizedCode]);
 
   useEffect(() => {
     if (!isCopied) return;
@@ -267,7 +277,7 @@ function CodeBlock({
             variant="ghost"
             xstyle={storyStyles.copyButton}
             onClick={() => {
-              void navigator.clipboard.writeText(code).then(() => setIsCopied(true));
+              void navigator.clipboard.writeText(normalizedCode).then(() => setIsCopied(true));
             }}
           >
             <Icon aria-hidden="true" name={isCopied ? "check" : "copy"} weight="regular" />
@@ -290,7 +300,7 @@ function CodeBlock({
                   {lineIndex < highlightedLines.length - 1 ? "\n" : null}
                 </span>
               ))
-            : code}
+            : normalizedCode}
         </code>
       </pre>
     </div>
