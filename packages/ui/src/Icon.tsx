@@ -18,6 +18,7 @@ import {
   CopyIcon,
   DotsThreeIcon,
   EyeSlashIcon,
+  FolderIcon,
   FunnelIcon,
   InfoIcon,
   ListIcon,
@@ -59,6 +60,7 @@ export const iconRegistry = {
   wrench: WrenchIcon,
   stop: StopIcon,
   microphone: MicrophoneIcon,
+  folder: FolderIcon,
 } satisfies Record<string, PhosphorIcon>;
 
 export type IconName = keyof typeof iconRegistry;
