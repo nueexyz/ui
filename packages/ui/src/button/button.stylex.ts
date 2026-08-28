@@ -16,6 +16,7 @@ const spin = stylex.keyframes({
 export const styles = stylex.create({
   root: {
     alignItems: "center",
+    appearance: "none",
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     cursor: "pointer",

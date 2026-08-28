@@ -1,7 +1,6 @@
 import {
   colorVars,
   radiusVars,
-  shadowVars,
   sizeVars,
   spacingVars,
   typographyVars,
@@ -9,6 +8,7 @@ import {
 import * as stylex from "@stylexjs/stylex";
 
 export const styles = stylex.create({
+  root: { minWidth: 0, width: "100%" },
   list: {
     alignItems: "center",
     backgroundColor: colorVars.bgSubtle,
@@ -19,6 +19,7 @@ export const styles = stylex.create({
   },
   trigger: {
     alignItems: "center",
+    appearance: "none",
     backgroundColor: "transparent",
     borderStyle: "none",
     borderWidth: 0,
@@ -44,7 +45,6 @@ export const styles = stylex.create({
   },
   triggerActive: {
     backgroundColor: colorVars.bgSurface,
-    boxShadow: shadowVars.subtle,
     color: colorVars.fgPrimary,
   },
   panel: {
@@ -52,6 +52,7 @@ export const styles = stylex.create({
     fontSize: typographyVars.fontSizeSm,
     lineHeight: typographyVars.lineHeightNormal,
     marginTop: spacingVars.space2,
+    minWidth: 0,
     outline: "none",
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
@@ -59,5 +60,6 @@ export const styles = stylex.create({
       outlineStyle: "solid",
       outlineWidth: sizeVars.focusRing,
     },
+    width: "100%",
   },
 });

@@ -5,7 +5,27 @@ import type { ComponentProps } from "react";
 import { Icon } from "../Icon";
 import { styles } from "./accordion.stylex";
 
-export const Accordion = AccordionPrimitive.Root;
+export function Accordion({
+  className,
+  style,
+  ...props
+}: ComponentProps<typeof AccordionPrimitive.Root>) {
+  const stylexProps = stylex.props(styles.root);
+  return (
+    <AccordionPrimitive.Root
+      {...props}
+      className={(state) =>
+        [stylexProps.className, typeof className === "function" ? className(state) : className]
+          .filter(Boolean)
+          .join(" ")
+      }
+      style={(state) => ({
+        ...stylexProps.style,
+        ...(typeof style === "function" ? style(state) : style),
+      })}
+    />
+  );
+}
 
 export function AccordionItem({
   className,

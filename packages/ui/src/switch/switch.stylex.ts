@@ -10,6 +10,7 @@ import * as stylex from "@stylexjs/stylex";
 export const styles = stylex.create({
   root: {
     alignItems: "center",
+    appearance: "none",
     backgroundColor: colorVars.interactionDisabled,
     borderStyle: "none",
     borderWidth: 0,

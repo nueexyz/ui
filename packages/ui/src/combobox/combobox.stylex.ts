@@ -30,9 +30,11 @@ export const styles = stylex.create({
   },
   searchIcon: { color: colorVars.fgSecondary, flexShrink: 0 },
   input: {
+    appearance: "none",
     backgroundColor: "transparent",
     borderStyle: "none",
     borderWidth: 0,
+    boxShadow: "none",
     color: colorVars.fgPrimary,
     flex: 1,
     fontFamily: typographyVars.fontFamily,
@@ -46,9 +48,11 @@ export const styles = stylex.create({
   trigger: {
     alignItems: "center",
     alignSelf: "stretch",
+    appearance: "none",
     backgroundColor: "transparent",
     borderStyle: "none",
     borderWidth: 0,
+    boxShadow: "none",
     color: colorVars.fgSecondary,
     cursor: "pointer",
     display: "inline-flex",

@@ -9,8 +9,10 @@ import {
 import * as stylex from "@stylexjs/stylex";
 
 export const styles = stylex.create({
+  root: { minWidth: 0, width: "100%" },
   trigger: {
     alignItems: "center",
+    appearance: "none",
     backgroundColor: colorVars.bgSurface,
     borderColor: colorVars.strokeDefault,
     borderRadius: radiusVars.md,
@@ -40,8 +42,10 @@ export const styles = stylex.create({
     color: colorVars.fgSecondary,
     fontSize: typographyVars.fontSizeSm,
     lineHeight: typographyVars.lineHeightNormal,
+    minWidth: 0,
     paddingBlock: spacingVars.space3,
     paddingInline: spacingVars.space3,
+    width: "100%",
   },
   icon: {
     alignItems: "center",

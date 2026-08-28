@@ -4,7 +4,23 @@ import type { ComponentProps } from "react";
 
 import { styles } from "./tabs.stylex";
 
-export const Tabs = TabsPrimitive.Root;
+export function Tabs({ className, style, ...props }: ComponentProps<typeof TabsPrimitive.Root>) {
+  const stylexProps = stylex.props(styles.root);
+  return (
+    <TabsPrimitive.Root
+      {...props}
+      className={(state) =>
+        [stylexProps.className, typeof className === "function" ? className(state) : className]
+          .filter(Boolean)
+          .join(" ")
+      }
+      style={(state) => ({
+        ...stylexProps.style,
+        ...(typeof style === "function" ? style(state) : style),
+      })}
+    />
+  );
+}
 
 export function TabsList(props: ComponentProps<typeof TabsPrimitive.List>) {
   return <TabsPrimitive.List {...props} {...stylex.props(styles.list)} />;

@@ -5,7 +5,27 @@ import type { ComponentProps } from "react";
 import { Icon } from "../Icon";
 import { styles } from "./collapsible.stylex";
 
-export const Collapsible = CollapsiblePrimitive.Root;
+export function Collapsible({
+  className,
+  style,
+  ...props
+}: ComponentProps<typeof CollapsiblePrimitive.Root>) {
+  const stylexProps = stylex.props(styles.root);
+  return (
+    <CollapsiblePrimitive.Root
+      {...props}
+      className={(state) =>
+        [stylexProps.className, typeof className === "function" ? className(state) : className]
+          .filter(Boolean)
+          .join(" ")
+      }
+      style={(state) => ({
+        ...stylexProps.style,
+        ...(typeof style === "function" ? style(state) : style),
+      })}
+    />
+  );
+}
 
 export function CollapsibleTrigger({
   children,

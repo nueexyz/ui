@@ -9,6 +9,7 @@ import {
 import * as stylex from "@stylexjs/stylex";
 
 export const styles = stylex.create({
+  root: { minWidth: 0, width: "100%" },
   item: {
     borderBottomColor: colorVars.strokeDefault,
     borderBottomStyle: "solid",
@@ -17,6 +18,7 @@ export const styles = stylex.create({
   header: { display: "flex", margin: 0 },
   trigger: {
     alignItems: "center",
+    appearance: "none",
     backgroundColor: "transparent",
     borderStyle: "none",
     borderWidth: 0,
@@ -59,7 +61,9 @@ export const styles = stylex.create({
     color: colorVars.fgSecondary,
     fontSize: typographyVars.fontSizeSm,
     lineHeight: typographyVars.lineHeightNormal,
+    minWidth: 0,
     paddingBottom: spacingVars.space4,
     paddingInlineEnd: spacingVars.space6,
+    width: "100%",
   },
 });

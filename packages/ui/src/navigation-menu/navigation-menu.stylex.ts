@@ -20,6 +20,7 @@ export const styles = stylex.create({
   },
   trigger: {
     alignItems: "center",
+    appearance: "none",
     backgroundColor: "transparent",
     borderStyle: "none",
     borderWidth: 0,

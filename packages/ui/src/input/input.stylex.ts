@@ -11,6 +11,7 @@ import * as stylex from "@stylexjs/stylex";
 
 export const styles = stylex.create({
   root: {
+    appearance: "none",
     backgroundColor: colorVars.bgSurface,
     borderColor: colorVars.strokeDefault,
     borderRadius: radiusVars.md,

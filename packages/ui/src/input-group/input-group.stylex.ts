@@ -56,9 +56,13 @@ export const styles = stylex.create({
     width: "100%",
   },
   control: {
+    appearance: "none",
     backgroundColor: "transparent",
     borderColor: "transparent",
+    borderStyle: "none",
+    borderWidth: 0,
     borderRadius: radiusVars.md,
+    boxShadow: "none",
     flex: 1,
     minWidth: 0,
     outline: "none",

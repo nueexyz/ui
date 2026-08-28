@@ -21,6 +21,7 @@ export const styles = stylex.create({
     padding: spacingVars.space1,
   },
   trigger: {
+    appearance: "none",
     backgroundColor: "transparent",
     borderStyle: "none",
     borderWidth: 0,

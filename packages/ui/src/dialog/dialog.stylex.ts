@@ -39,6 +39,7 @@ export const styles = stylex.create({
   },
   close: {
     alignItems: "center",
+    appearance: "none",
     backgroundColor: "transparent",
     borderStyle: "none",
     borderWidth: 0,
