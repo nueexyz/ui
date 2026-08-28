@@ -1,7 +1,6 @@
 import {
   colorVars,
   motionVars,
-  opacityVars,
   sizeVars,
   spacingVars,
   typographyVars,
@@ -44,7 +43,12 @@ export const styles = stylex.create({
       outlineStyle: "solid",
       outlineWidth: sizeVars.focusRing,
     },
-    ":disabled": { cursor: "not-allowed", opacity: opacityVars.disabled },
+    ":disabled": { cursor: "not-allowed" },
+  },
+  triggerDisabled: {
+    color: colorVars.fgDisabled,
+    cursor: "not-allowed",
+    ":hover": { textDecoration: "none" },
   },
   icon: {
     alignItems: "center",
@@ -56,7 +60,6 @@ export const styles = stylex.create({
     transitionProperty: "transform",
     width: "1rem",
   },
-  iconDisabled: { opacity: opacityVars.disabled },
   panel: {
     color: colorVars.fgSecondary,
     fontSize: typographyVars.fontSizeSm,

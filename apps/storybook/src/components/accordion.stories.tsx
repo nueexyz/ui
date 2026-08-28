@@ -4,12 +4,28 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@cachette/ui/accordion";
+import { colorVars, spacingVars, typographyVars } from "@cachette/tokens/tokens.stylex";
+import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview, StorySection, storyStyles } from "./story-layout/StoryLayout";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+const styles = stylex.create({
+  disabledLabel: {
+    alignItems: "flex-start",
+    display: "flex",
+    flexDirection: "column",
+    gap: spacingVars.space1,
+  },
+  disabledReason: {
+    color: colorVars.fgDisabled,
+    fontSize: typographyVars.fontSizeXs,
+    fontWeight: typographyVars.fontWeightRegular,
+  },
+});
 
 export const AccordionStory: Story = {
   name: "Accordion",
@@ -32,7 +48,14 @@ export const AccordionStory: Story = {
               </AccordionContent>
             </AccordionItem>
             <AccordionItem disabled value="member">
-              <AccordionTrigger>멤버 전용 혜택</AccordionTrigger>
+              <AccordionTrigger>
+                <span {...stylex.props(styles.disabledLabel)}>
+                  멤버 전용 혜택
+                  <span {...stylex.props(styles.disabledReason)}>
+                    멤버십 가입 후 이용할 수 있어요.
+                  </span>
+                </span>
+              </AccordionTrigger>
               <AccordionContent>멤버십 가입 후 확인할 수 있습니다.</AccordionContent>
             </AccordionItem>
           </Accordion>

@@ -60,7 +60,10 @@ export function AccordionTrigger({
       <AccordionPrimitive.Trigger
         {...props}
         className={(state) => {
-          const stylexProps = stylex.props(styles.trigger);
+          const stylexProps = stylex.props(
+            styles.trigger,
+            state.disabled && styles.triggerDisabled,
+          );
           return [
             stylexProps.className,
             typeof className === "function" ? className(state) : className,
@@ -69,15 +72,15 @@ export function AccordionTrigger({
             .join(" ");
         }}
         style={(state) => {
-          const stylexProps = stylex.props(styles.trigger);
+          const stylexProps = stylex.props(
+            styles.trigger,
+            state.disabled && styles.triggerDisabled,
+          );
           return { ...stylexProps.style, ...(typeof style === "function" ? style(state) : style) };
         }}
       >
         {children}
-        <span
-          aria-hidden="true"
-          {...stylex.props(styles.icon, props.disabled && styles.iconDisabled)}
-        >
+        <span aria-hidden="true" {...stylex.props(styles.icon)}>
           <Icon name="chevronDown" />
         </span>
       </AccordionPrimitive.Trigger>
