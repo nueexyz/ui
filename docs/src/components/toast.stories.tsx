@@ -135,23 +135,20 @@ export const ToastStory: Story = {
       </StorySection>
       <StorySection
         title="여러 알림"
-        description="최근 알림 세 개만 쌓아 두고, 목록에 포인터를 올리면 내용을 펼칩니다."
+        description="알림을 추가하면 최근 세 개가 쌓이고, 목록에 포인터를 올리면 내용을 펼칩니다."
       >
         <StoryPreview>
           <Button
             variant="secondary"
-            onClick={() => {
-              for (const title of [
-                "프로젝트를 만들었어요.",
-                "멤버를 초대했어요.",
-                "권한을 변경했어요.",
-                "설정을 저장했어요.",
-              ]) {
-                toast.add({ title, timeout: 0 });
-              }
-            }}
+            onClick={() =>
+              toast.add({
+                title: "새 알림이 도착했어요.",
+                description: "버튼을 다시 눌러 쌓이는 동작을 확인해 보세요.",
+                timeout: 0,
+              })
+            }
           >
-            여러 Toast 보기
+            Toast 추가
           </Button>
         </StoryPreview>
       </StorySection>

@@ -61,69 +61,9 @@ function ToastList({ position }: { position: ToastPosition }) {
     <ToastPrimitive.Root
       key={item.id}
       toast={item}
-      className={(state) =>
-        stylex.props(
-          styles.root,
-          isTop && styles.rootTop,
-          state.expanded && styles.rootExpanded,
-          state.expanded && isTop && styles.rootExpandedTop,
-          state.limited && styles.rootLimited,
-          state.swiping && styles.rootSwiping,
-          state.transitionStatus === "starting" && styles.rootStarting,
-          state.transitionStatus === "starting" && isTop && styles.rootStartingTop,
-          state.transitionStatus === "ending" && styles.rootEnding,
-          state.transitionStatus === "ending" && isTop && styles.rootEndingTop,
-          state.transitionStatus === "ending" &&
-            state.swipeDirection === "up" &&
-            styles.rootEndingUp,
-          state.transitionStatus === "ending" &&
-            state.swipeDirection === "left" &&
-            styles.rootEndingLeft,
-          state.transitionStatus === "ending" &&
-            state.swipeDirection === "right" &&
-            styles.rootEndingRight,
-        ).className ?? ""
-      }
-      style={(state) =>
-        stylex.props(
-          styles.root,
-          isTop && styles.rootTop,
-          state.expanded && styles.rootExpanded,
-          state.expanded && isTop && styles.rootExpandedTop,
-          state.limited && styles.rootLimited,
-          state.swiping && styles.rootSwiping,
-          state.transitionStatus === "starting" && styles.rootStarting,
-          state.transitionStatus === "starting" && isTop && styles.rootStartingTop,
-          state.transitionStatus === "ending" && styles.rootEnding,
-          state.transitionStatus === "ending" && isTop && styles.rootEndingTop,
-          state.transitionStatus === "ending" &&
-            state.swipeDirection === "up" &&
-            styles.rootEndingUp,
-          state.transitionStatus === "ending" &&
-            state.swipeDirection === "left" &&
-            styles.rootEndingLeft,
-          state.transitionStatus === "ending" &&
-            state.swipeDirection === "right" &&
-            styles.rootEndingRight,
-        ).style
-      }
+      {...stylex.props(styles.root, isTop && styles.rootTop)}
     >
-      <ToastPrimitive.Content
-        className={(state) =>
-          stylex.props(
-            styles.content,
-            state.behind && styles.contentBehind,
-            state.expanded && styles.contentExpanded,
-          ).className ?? ""
-        }
-        style={(state) =>
-          stylex.props(
-            styles.content,
-            state.behind && styles.contentBehind,
-            state.expanded && styles.contentExpanded,
-          ).style
-        }
-      >
+      <ToastPrimitive.Content {...stylex.props(styles.content)}>
         <ToastStatusIcon type={item.type} />
         <div {...stylex.props(styles.message)}>
           <ToastPrimitive.Title {...stylex.props(styles.title)} />

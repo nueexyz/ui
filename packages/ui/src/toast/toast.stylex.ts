@@ -49,11 +49,42 @@ export const styles = stylex.create({
     width: "100%",
     willChange: "transform",
     zIndex: "calc(1000 - var(--toast-index))",
+    "::after": {
+      content: '""',
+      height: "calc(0.75rem + 1px)",
+      left: 0,
+      position: "absolute",
+      top: "100%",
+      width: "100%",
+    },
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
       outlineOffset: sizeVars.stroke,
       outlineStyle: "solid",
       outlineWidth: sizeVars.focusRing,
+    },
+    ":is([data-expanded])": {
+      height: "var(--toast-height)",
+      transform:
+        "translateX(var(--toast-swipe-movement-x)) translateY(calc((var(--toast-offset-y) * -1) - (var(--toast-index) * 0.75rem) + var(--toast-swipe-movement-y)))",
+    },
+    ":is([data-limited])": { opacity: 0, pointerEvents: "none" },
+    ":is([data-swiping])": { transitionDuration: "0ms" },
+    ":is([data-starting-style])": { opacity: 0, transform: "translateY(150%)" },
+    ":is([data-ending-style])": { opacity: 0, transform: "translateY(150%)" },
+    ":is([data-ending-style][data-swipe-direction='up'])": {
+      transform: "translateY(calc(var(--toast-swipe-movement-y) - 150%))",
+    },
+    ":is([data-ending-style][data-swipe-direction='down'])": {
+      transform: "translateY(calc(var(--toast-swipe-movement-y) + 150%))",
+    },
+    ":is([data-ending-style][data-swipe-direction='left'])": {
+      transform:
+        "translateX(calc(var(--toast-swipe-movement-x) - 150%)) translateY(calc((var(--toast-offset-y) * -1) - (var(--toast-index) * 0.75rem) + var(--toast-swipe-movement-y)))",
+    },
+    ":is([data-ending-style][data-swipe-direction='right'])": {
+      transform:
+        "translateX(calc(var(--toast-swipe-movement-x) + 150%)) translateY(calc((var(--toast-offset-y) * -1) - (var(--toast-index) * 0.75rem) + var(--toast-swipe-movement-y)))",
     },
     "@media (prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" },
   },
@@ -63,30 +94,20 @@ export const styles = stylex.create({
     transform:
       "translateX(var(--toast-swipe-movement-x)) translateY(calc(var(--toast-swipe-movement-y) + (var(--toast-index) * 0.75rem) + ((1 - max(0, 1 - (var(--toast-index) * 0.1))) * var(--toast-frontmost-height, var(--toast-height))))) scale(calc(max(0, 1 - (var(--toast-index) * 0.1))))",
     transformOrigin: "top",
-  },
-  rootExpanded: {
-    height: "var(--toast-height)",
-    transform:
-      "translateX(var(--toast-swipe-movement-x)) translateY(calc((var(--toast-offset-y) * -1) - (var(--toast-index) * 0.75rem) + var(--toast-swipe-movement-y)))",
-  },
-  rootExpandedTop: {
-    transform:
-      "translateX(var(--toast-swipe-movement-x)) translateY(calc(var(--toast-offset-y) + (var(--toast-index) * 0.75rem) + var(--toast-swipe-movement-y)))",
-  },
-  rootLimited: { opacity: 0, pointerEvents: "none" },
-  rootSwiping: { transitionDuration: "0ms" },
-  rootStarting: { opacity: 0, transform: "translateY(150%)" },
-  rootStartingTop: { transform: "translateY(-150%)" },
-  rootEnding: { opacity: 0, transform: "translateY(150%)" },
-  rootEndingTop: { transform: "translateY(-150%)" },
-  rootEndingUp: {
-    transform: "translateY(calc(var(--toast-swipe-movement-y) - 150%))",
-  },
-  rootEndingLeft: {
-    transform: "translateX(calc(var(--toast-swipe-movement-x) - 150%))",
-  },
-  rootEndingRight: {
-    transform: "translateX(calc(var(--toast-swipe-movement-x) + 150%))",
+    ":is([data-expanded])": {
+      transform:
+        "translateX(var(--toast-swipe-movement-x)) translateY(calc(var(--toast-offset-y) + (var(--toast-index) * 0.75rem) + var(--toast-swipe-movement-y)))",
+    },
+    ":is([data-starting-style])": { transform: "translateY(-150%)" },
+    ":is([data-ending-style])": { transform: "translateY(-150%)" },
+    ":is([data-ending-style][data-swipe-direction='left'])": {
+      transform:
+        "translateX(calc(var(--toast-swipe-movement-x) - 150%)) translateY(calc(var(--toast-offset-y) + (var(--toast-index) * 0.75rem) + var(--toast-swipe-movement-y)))",
+    },
+    ":is([data-ending-style][data-swipe-direction='right'])": {
+      transform:
+        "translateX(calc(var(--toast-swipe-movement-x) + 150%)) translateY(calc(var(--toast-offset-y) + (var(--toast-index) * 0.75rem) + var(--toast-swipe-movement-y)))",
+    },
   },
   content: {
     alignItems: "center",
@@ -98,9 +119,8 @@ export const styles = stylex.create({
     padding: spacingVars.space4,
     transitionDuration: motionVars.durationNormal,
     transitionProperty: "opacity",
+    ":is([data-behind]:not([data-expanded]))": { opacity: 0, pointerEvents: "none" },
   },
-  contentBehind: { opacity: 0 },
-  contentExpanded: { opacity: 1 },
   message: {
     display: "flex",
     flex: 1,
