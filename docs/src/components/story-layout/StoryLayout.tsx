@@ -11,6 +11,7 @@ import { Icon } from "@cachette/ui/icon";
 import { type ReactNode, useEffect, useState } from "react";
 
 import { getComponentDocument } from "./component-docs";
+import { useStorySource } from "./story-source-context";
 
 export const storyStyles = stylex.create({
   column: { alignItems: "stretch", flexDirection: "column" },
@@ -184,7 +185,7 @@ function CodeBlock({ code, label }: { code: string; label: string }) {
             void navigator.clipboard.writeText(code).then(() => setIsCopied(true));
           }}
         >
-          <Icon aria-hidden="true" name={isCopied ? "checkDouble" : "copy"} weight="regular" />
+          <Icon aria-hidden="true" name={isCopied ? "check" : "copy"} weight="regular" />
         </Button>
       </div>
       <pre {...stylex.props(styles.pre)}>
@@ -203,7 +204,8 @@ export function StoryPage({
   description: string;
   title: string;
 }) {
-  const componentDocument = getComponentDocument(title);
+  const storySource = useStorySource();
+  const componentDocument = getComponentDocument(title, storySource);
   const installCommand = `pnpm dlx shadcn@latest add myjeong19/mds/${componentDocument.registryName}`;
 
   return (
@@ -213,7 +215,10 @@ export function StoryPage({
         <p {...stylex.props(styles.description)}>{description}</p>
       </header>
       {children}
-      <StorySection title="사용 예" description="코드를 복사해 프로젝트에 맞게 수정하세요.">
+      <StorySection
+        title="사용 예"
+        description="스토리에 표시한 예시 코드를 확인하고 복사할 수 있습니다."
+      >
         <CodeBlock code={componentDocument.usage} label="TSX" />
       </StorySection>
       <StorySection

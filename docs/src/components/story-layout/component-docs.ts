@@ -155,17 +155,41 @@ function getComponentName(title: string) {
   return title.replaceAll(" ", "");
 }
 
-export function getComponentDocument(title: string): ComponentDocument {
-  const document = componentDocuments[title];
-  if (document) return document;
+function trimIndent(code: string) {
+  const lines = code.split("\n");
+  const indent = Math.min(
+    ...lines.filter((line) => line.trim()).map((line) => line.match(/^\s*/)?.[0].length ?? 0),
+  );
 
+  return lines
+    .map((line) => line.slice(indent))
+    .join("\n")
+    .trim();
+}
+
+function getPreviewUsage(source: string) {
+  const previews = [...source.matchAll(/<StoryPreview(?:\s[^>]*)?>([\s\S]*?)<\/StoryPreview>/g)];
+
+  return previews.map((preview) => trimIndent(preview[1] ?? "")).join("\n\n");
+}
+
+function getImports(usage: string) {
+  const importEnd = usage.indexOf("\n\n");
+  return importEnd === -1 ? usage : usage.slice(0, importEnd);
+}
+
+export function getComponentDocument(title: string, storySource?: string): ComponentDocument {
+  const document = componentDocuments[title];
   const componentName = getComponentName(title);
   const registryName = getRegistryName(title);
+  const fallbackUsage = `import { ${componentName} } from "@cachette/ui/${registryName}"
+
+<${componentName} />`;
+  const usage = document?.usage ?? fallbackUsage;
+  const previewUsage = storySource ? getPreviewUsage(storySource) : "";
 
   return {
-    registryName,
-    usage: `import { ${componentName} } from "@cachette/ui/${registryName}"
-
-<${componentName} />`,
+    registryName: document?.registryName ?? registryName,
+    usage: previewUsage ? `${getImports(usage)}\n\n${previewUsage}` : usage,
   };
 }

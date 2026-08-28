@@ -10,6 +10,8 @@ import * as stylex from "@stylexjs/stylex";
 import type { Preview } from "@storybook/react-vite";
 import { type ReactNode, useLayoutEffect } from "react";
 
+import { StorySourceProvider } from "../src/components/story-layout/story-source-context";
+
 type ColorMode = "light" | "dark";
 
 const styles = stylex.create({
@@ -44,11 +46,14 @@ const preview: Preview = {
   decorators: [
     (Story, context) => {
       const mode = context.globals.colorMode as ColorMode;
+      const source = context.parameters.docs?.source?.originalSource;
 
       return (
-        <ThemeScope mode={mode}>
-          <Story />
-        </ThemeScope>
+        <StorySourceProvider source={typeof source === "string" ? source : undefined}>
+          <ThemeScope mode={mode}>
+            <Story />
+          </ThemeScope>
+        </StorySourceProvider>
       );
     },
   ],
