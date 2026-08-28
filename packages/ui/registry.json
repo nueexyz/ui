@@ -3,6 +3,7 @@
   "include": [
     "./src/accordion/registry.json",
     "./src/alert/registry.json",
+    "./src/alert-dialog/registry.json",
     "./src/aspect-ratio/registry.json",
     "./src/badge/registry.json",
     "./src/button/registry.json",

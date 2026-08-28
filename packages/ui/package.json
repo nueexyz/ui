@@ -7,6 +7,7 @@
     ".": "./src/index.ts",
     "./accordion": "./src/accordion/index.ts",
     "./alert": "./src/alert/index.ts",
+    "./alert-dialog": "./src/alert-dialog/index.ts",
     "./aspect-ratio": "./src/aspect-ratio/index.ts",
     "./badge": "./src/badge/index.ts",
     "./button": "./src/button/index.ts",

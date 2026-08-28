@@ -139,6 +139,17 @@ export type { SwitchProps } from "./switch";
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
 export { Alert, AlertDescription, AlertTitle } from "./alert";
 export type { AlertProps } from "./alert";
+export {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./alert-dialog";
 export { AspectRatio } from "./aspect-ratio";
 export type { AspectRatioProps } from "./aspect-ratio";
 export { Badge } from "./badge";

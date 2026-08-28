@@ -1,0 +1,67 @@
+import {
+  colorVars,
+  radiusVars,
+  shadowVars,
+  sizeVars,
+  spacingVars,
+  typographyVars,
+} from "@cachette/tokens/tokens.stylex";
+import * as stylex from "@stylexjs/stylex";
+
+export const styles = stylex.create({
+  backdrop: {
+    backdropFilter: "blur(4px)",
+    backgroundColor: "oklch(0% 0 0 / 40%)",
+    inset: 0,
+    position: "fixed",
+    zIndex: 50,
+  },
+  viewport: {
+    alignItems: "center",
+    display: "flex",
+    inset: 0,
+    justifyContent: "center",
+    padding: spacingVars.space4,
+    position: "fixed",
+    zIndex: 51,
+  },
+  popup: {
+    backgroundColor: colorVars.bgRaised,
+    borderColor: colorVars.strokeDefault,
+    borderRadius: radiusVars.lg,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+    boxShadow: shadowVars.overlay,
+    display: "flex",
+    flexDirection: "column",
+    gap: spacingVars.space4,
+    maxHeight: "calc(100dvh - 2rem)",
+    maxWidth: "28rem",
+    outline: "none",
+    overflow: "auto",
+    padding: spacingVars.space6,
+    position: "relative",
+    width: "100%",
+  },
+  header: { display: "flex", flexDirection: "column", gap: spacingVars.space2 },
+  footer: {
+    alignItems: "center",
+    display: "flex",
+    flexWrap: "wrap",
+    gap: spacingVars.space2,
+    justifyContent: "flex-end",
+  },
+  title: {
+    color: colorVars.fgPrimary,
+    fontSize: typographyVars.fontSizeLg,
+    fontWeight: typographyVars.fontWeightSemibold,
+    lineHeight: typographyVars.lineHeightTight,
+    margin: 0,
+  },
+  description: {
+    color: colorVars.fgSecondary,
+    fontSize: typographyVars.fontSizeSm,
+    lineHeight: typographyVars.lineHeightNormal,
+    margin: 0,
+  },
+});
