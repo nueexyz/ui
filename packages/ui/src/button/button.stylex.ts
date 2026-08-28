@@ -44,17 +44,30 @@ export const styles = stylex.create({
       cursor: "not-allowed",
     },
     "::before": {
-      backgroundColor: {
-        default: colorVars.interactionDefault,
-        ":hover": colorVars.interactionHover,
-        ":active": colorVars.interactionPressed,
-        ":disabled": colorVars.interactionDefault,
-      },
+      backgroundColor: colorVars.interactionDefault,
       content: '""',
       inset: 0,
       pointerEvents: "none",
       position: "absolute",
       zIndex: 0,
+    },
+  },
+  solidInteraction: {
+    "::before": {
+      backgroundColor: {
+        default: colorVars.interactionDefault,
+        ":hover": colorVars.interactionSolidHover,
+        ":active": colorVars.interactionSolidPressed,
+      },
+    },
+  },
+  surfaceInteraction: {
+    "::before": {
+      backgroundColor: {
+        default: colorVars.interactionDefault,
+        ":hover": colorVars.interactionHover,
+        ":active": colorVars.interactionPressed,
+      },
     },
   },
   content: {
@@ -92,6 +105,9 @@ export const styles = stylex.create({
   disabledGhost: {
     backgroundColor: colorVars.interactionDefault,
     borderColor: colorVars.interactionDefault,
+  },
+  disabledInteraction: {
+    "::before": { backgroundColor: colorVars.interactionDefault },
   },
   sm: {
     borderRadius: radiusVars.sm,

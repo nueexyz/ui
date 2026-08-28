@@ -35,6 +35,8 @@ export const colorVars = stylex.defineVars({
   interactionDefault: "initial",
   interactionHover: "initial",
   interactionPressed: "initial",
+  interactionSolidHover: "initial",
+  interactionSolidPressed: "initial",
   interactionSelected: "initial",
   interactionDisabled: "initial",
   interactionFocus: "initial",

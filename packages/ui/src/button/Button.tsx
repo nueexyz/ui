@@ -27,12 +27,16 @@ export function Button({
   ...props
 }: ButtonProps) {
   const isDisabled = Boolean(disabled && !isLoading);
+  const isInteractionDisabled = Boolean(disabled || isLoading);
+  const hasSolidBackground = variant === "primary" || variant === "destructive";
   const stylexProps = stylex.props(
     styles.root,
     styles[variant],
     styles[size],
+    hasSolidBackground ? styles.solidInteraction : styles.surfaceInteraction,
     isDisabled && styles.disabled,
     isDisabled && variant === "ghost" && styles.disabledGhost,
+    isInteractionDisabled && styles.disabledInteraction,
     xstyle,
   );
   const mergedClassName = [stylexProps.className, className].filter(Boolean).join(" ");

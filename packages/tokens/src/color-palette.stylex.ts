@@ -102,6 +102,7 @@ export const colorPalette = stylex.defineVars({
   alphaBlack6: "#0000000F",
   alphaBlack8: "#00000014",
   alphaBlack10: "#0000001A",
+  alphaBlack20: "#00000033",
   alphaBlack30: "#0000004D",
   alphaBlack50: "#00000080",
   alphaBlack80: "#000000CC",
@@ -109,6 +110,7 @@ export const colorPalette = stylex.defineVars({
   alphaWhite8: "#FFFFFF14",
   alphaWhite10: "#FFFFFF1A",
   alphaWhite12: "#FFFFFF1F",
+  alphaWhite20: "#FFFFFF33",
   alphaWhite50: "#FFFFFF80",
 });
 

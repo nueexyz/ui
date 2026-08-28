@@ -265,6 +265,18 @@ const interactionTokens = [
   ["interactionDefault", colorVars.interactionDefault, colorVars.fgPrimary, "기본 상태"],
   ["interactionHover", colorVars.interactionHover, colorVars.fgPrimary, "포인터가 올라간 상태"],
   ["interactionPressed", colorVars.interactionPressed, colorVars.fgPrimary, "누르고 있는 상태"],
+  [
+    "interactionSolidHover",
+    colorVars.interactionSolidHover,
+    colorVars.fgPrimary,
+    "채워진 면에 포인터가 올라간 상태",
+  ],
+  [
+    "interactionSolidPressed",
+    colorVars.interactionSolidPressed,
+    colorVars.fgPrimary,
+    "채워진 면을 누르고 있는 상태",
+  ],
   ["interactionSelected", colorVars.interactionSelected, colorVars.fgPrimary, "선택된 상태"],
   [
     "interactionDisabled",
