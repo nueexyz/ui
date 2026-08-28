@@ -1,17 +1,32 @@
 import { createContext, type ReactNode, useContext } from "react";
 
-const StorySourceContext = createContext<string | undefined>(undefined);
+type ColorMode = "dark" | "light";
+
+const StorySourceContext = createContext<{
+  colorMode: ColorMode;
+  source?: string;
+}>({ colorMode: "light" });
 
 export function StorySourceProvider({
   children,
+  colorMode,
   source,
 }: {
   children: ReactNode;
+  colorMode: ColorMode;
   source?: string;
 }) {
-  return <StorySourceContext.Provider value={source}>{children}</StorySourceContext.Provider>;
+  return (
+    <StorySourceContext.Provider value={{ colorMode, source }}>
+      {children}
+    </StorySourceContext.Provider>
+  );
 }
 
 export function useStorySource() {
-  return useContext(StorySourceContext);
+  return useContext(StorySourceContext).source;
+}
+
+export function useStoryColorMode() {
+  return useContext(StorySourceContext).colorMode;
 }

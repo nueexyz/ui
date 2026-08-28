@@ -1,5 +1,6 @@
 import {
   colorVars,
+  motionVars,
   radiusVars,
   sizeVars,
   spacingVars,
@@ -11,7 +12,7 @@ import { Icon } from "@cachette/ui/icon";
 import { type ReactNode, useEffect, useState } from "react";
 
 import { getComponentDocument } from "./component-docs";
-import { useStorySource } from "./story-source-context";
+import { useStoryColorMode, useStorySource } from "./story-source-context";
 
 export const storyStyles = stylex.create({
   column: { alignItems: "stretch", flexDirection: "column" },
@@ -145,6 +146,7 @@ const styles = stylex.create({
     minHeight: sizeVars.touchTarget,
     paddingInline: spacingVars.space3,
   },
+  codeActions: { alignItems: "center", display: "flex", gap: spacingVars.space1 },
   codeLabel: {
     color: colorVars.fgSecondary,
     fontSize: typographyVars.fontSizeXs,
@@ -156,14 +158,86 @@ const styles = stylex.create({
     fontSize: typographyVars.fontSizeSm,
     lineHeight: typographyVars.lineHeightNormal,
     margin: 0,
+    maxHeight: "80rem",
     overflowX: "auto",
+    overflowY: "auto",
     padding: spacingVars.space4,
+    transitionDuration: motionVars.durationNormal,
+    transitionProperty: "max-height",
+    transitionTimingFunction: motionVars.easingStandard,
     whiteSpace: "pre",
   },
+  preCollapsed: { maxHeight: "18rem", overflowY: "hidden" },
 });
 
-function CodeBlock({ code, label }: { code: string; label: string }) {
+type HighlightedToken = {
+  content: string;
+  variants: {
+    dark?: { color?: string };
+    light?: { color?: string };
+  };
+};
+
+async function createCodeHighlighter() {
+  const [core, engine, bash, tsx, githubDark, githubLight] = await Promise.all([
+    import("shiki/core"),
+    import("shiki/engine/javascript"),
+    import("shiki/langs/bash.mjs"),
+    import("shiki/langs/tsx.mjs"),
+    import("shiki/themes/github-dark.mjs"),
+    import("shiki/themes/github-light.mjs"),
+  ]);
+
+  return core.createHighlighterCore({
+    engine: engine.createJavaScriptRegexEngine(),
+    langs: [bash.default, tsx.default],
+    themes: [githubDark.default, githubLight.default],
+  });
+}
+
+let codeHighlighterPromise: ReturnType<typeof createCodeHighlighter> | undefined;
+
+function getCodeHighlighter() {
+  codeHighlighterPromise ??= createCodeHighlighter();
+  return codeHighlighterPromise;
+}
+
+function CodeBlock({
+  code,
+  collapsible = false,
+  label,
+  language,
+}: {
+  code: string;
+  collapsible?: boolean;
+  label: string;
+  language: "bash" | "tsx";
+}) {
+  const colorMode = useStoryColorMode();
+  const [highlightedLines, setHighlightedLines] = useState<HighlightedToken[][]>();
   const [isCopied, setIsCopied] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const canCollapse = collapsible && code.split("\n").length > 12;
+
+  useEffect(() => {
+    let isActive = true;
+
+    void getCodeHighlighter()
+      .then((highlighter) => {
+        const lines = highlighter.codeToTokensWithThemes(code, {
+          lang: language,
+          themes: { dark: "github-dark", light: "github-light" },
+        });
+        if (isActive) setHighlightedLines(lines);
+      })
+      .catch(() => {
+        if (isActive) setHighlightedLines(undefined);
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, [code, language]);
 
   useEffect(() => {
     if (!isCopied) return;
@@ -176,20 +250,48 @@ function CodeBlock({ code, label }: { code: string; label: string }) {
     <div {...stylex.props(styles.codeBlock)}>
       <div {...stylex.props(styles.codeToolbar)}>
         <span {...stylex.props(styles.codeLabel)}>{label}</span>
-        <Button
-          aria-label={isCopied ? "복사됨" : `${label} 복사`}
-          size="sm"
-          variant="ghost"
-          xstyle={storyStyles.copyButton}
-          onClick={() => {
-            void navigator.clipboard.writeText(code).then(() => setIsCopied(true));
-          }}
-        >
-          <Icon aria-hidden="true" name={isCopied ? "check" : "copy"} weight="regular" />
-        </Button>
+        <div {...stylex.props(styles.codeActions)}>
+          {canCollapse ? (
+            <Button size="sm" variant="ghost" onClick={() => setIsExpanded((current) => !current)}>
+              {isExpanded ? "코드 접기" : "코드 펼치기"}
+              <Icon
+                aria-hidden="true"
+                name={isExpanded ? "chevronUp" : "chevronDown"}
+                weight="regular"
+              />
+            </Button>
+          ) : null}
+          <Button
+            aria-label={isCopied ? "복사됨" : `${label} 복사`}
+            size="sm"
+            variant="ghost"
+            xstyle={storyStyles.copyButton}
+            onClick={() => {
+              void navigator.clipboard.writeText(code).then(() => setIsCopied(true));
+            }}
+          >
+            <Icon aria-hidden="true" name={isCopied ? "check" : "copy"} weight="regular" />
+          </Button>
+        </div>
       </div>
-      <pre {...stylex.props(styles.pre)}>
-        <code>{code}</code>
+      <pre {...stylex.props(styles.pre, canCollapse && !isExpanded && styles.preCollapsed)}>
+        <code>
+          {highlightedLines
+            ? highlightedLines.map((line, lineIndex) => (
+                <span key={lineIndex}>
+                  {line.map((token, tokenIndex) => (
+                    <span
+                      key={`${lineIndex}-${tokenIndex}`}
+                      style={{ color: token.variants[colorMode]?.color }}
+                    >
+                      {token.content}
+                    </span>
+                  ))}
+                  {lineIndex < highlightedLines.length - 1 ? "\n" : null}
+                </span>
+              ))
+            : code}
+        </code>
       </pre>
     </div>
   );
@@ -206,7 +308,7 @@ export function StoryPage({
 }) {
   const storySource = useStorySource();
   const componentDocument = getComponentDocument(title, storySource);
-  const installCommand = `pnpm dlx shadcn@latest add myjeong19/mds/${componentDocument.registryName}`;
+  const installCommand = `pnpm dlx @cachette/cli add ${componentDocument.registryName}`;
 
   return (
     <main {...stylex.props(styles.page)}>
@@ -216,16 +318,16 @@ export function StoryPage({
       </header>
       {children}
       <StorySection
+        title="설치"
+        description="초기 설정에 지정한 경로와 별칭을 기준으로 필요한 파일을 추가합니다."
+      >
+        <CodeBlock code={installCommand} label="터미널" language="bash" />
+      </StorySection>
+      <StorySection
         title="사용 예"
         description="스토리에 표시한 예시 코드를 확인하고 복사할 수 있습니다."
       >
-        <CodeBlock code={componentDocument.usage} label="TSX" />
-      </StorySection>
-      <StorySection
-        title="설치"
-        description="레지스트리에서 컴포넌트와 필요한 의존성을 함께 가져옵니다."
-      >
-        <CodeBlock code={installCommand} label="터미널" />
+        <CodeBlock code={componentDocument.usage} collapsible label="TSX" language="tsx" />
       </StorySection>
     </main>
   );

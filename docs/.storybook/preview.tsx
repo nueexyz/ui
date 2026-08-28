@@ -60,7 +60,10 @@ const preview: Preview = {
       const source = context.parameters.docs?.source?.originalSource;
 
       return (
-        <StorySourceProvider source={typeof source === "string" ? source : undefined}>
+        <StorySourceProvider
+          colorMode={mode}
+          source={typeof source === "string" ? source : undefined}
+        >
           <ThemeScope mode={mode}>
             <Story />
           </ThemeScope>
