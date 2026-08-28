@@ -1,15 +1,29 @@
 {
   "name": "@cachette/cli",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
   "bin": {
-    "cachette": "./bin/cachette.mjs"
+    "cachette": "./dist/cli.js"
   },
+  "files": [
+    "dist"
+  ],
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
   "scripts": {
-    "test": "node test/cli.test.mjs"
+    "build": "pnpm --filter @cachette/registry build && tsc -p tsconfig.build.json",
+    "test": "pnpm build && node test/cli.test.mjs",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@cachette/registry": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.1"
   }
 }

@@ -1,11 +1,20 @@
 {
   "name": "@cachette/registry",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
   "type": "module",
-  "exports": "./src/index.mjs",
-  "dependencies": {
-    "@cachette/tokens": "workspace:*",
-    "@cachette/ui": "workspace:*"
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "default": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && node --experimental-strip-types scripts/build.ts",
+    "typecheck": "tsc -p tsconfig.build.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.1"
   }
 }

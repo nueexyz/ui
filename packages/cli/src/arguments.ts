@@ -1,7 +1,15 @@
-export function parseArguments(arguments_) {
+export type CliOptions = Record<string, boolean | string | undefined> & {
+  cwd?: string;
+  defaults?: boolean;
+  "dry-run"?: boolean;
+  force?: boolean;
+  "ui-alias"?: string;
+};
+
+export function parseArguments(arguments_: readonly string[]) {
   const [command, ...rest] = arguments_;
-  const options = {};
-  const positionals = [];
+  const options: CliOptions = {};
+  const positionals: string[] = [];
 
   for (let index = 0; index < rest.length; index += 1) {
     const argument = rest[index];

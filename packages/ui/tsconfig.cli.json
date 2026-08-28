@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": false,
+    "target": "ES2022",
+    "types": ["node"]
+  },
+  "include": ["src/cli.ts"]
+}

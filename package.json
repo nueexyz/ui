@@ -8,12 +8,13 @@
   "type": "module",
   "scripts": {
     "build-storybook": "pnpm --filter @cachette/docs build-storybook",
-    "cachette": "node packages/cli/bin/cachette.mjs",
+    "cachette": "pnpm --filter @cachette/ui build && node packages/ui/dist/cli.js",
     "check": "pnpm oxlint . && pnpm oxfmt --check .",
     "storybook": "pnpm --filter @cachette/docs storybook",
-    "typecheck": "pnpm --filter @cachette/tokens typecheck && pnpm --filter @cachette/ui typecheck && pnpm --filter @cachette/docs typecheck"
+    "typecheck": "pnpm --filter @cachette/tokens typecheck && pnpm --filter @cachette/registry typecheck && pnpm --filter @cachette/cli typecheck && pnpm --filter @cachette/ui typecheck && pnpm --filter @cachette/docs typecheck"
   },
   "devDependencies": {
+    "esbuild": "0.28.2",
     "oxfmt": "catalog:2026-08-27-stable",
     "oxlint": "catalog:2026-08-27-stable",
     "typescript": "catalog:2026-08-27-stable"
