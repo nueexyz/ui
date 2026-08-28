@@ -1,6 +1,6 @@
 import { Toast as ToastPrimitive } from "@base-ui/react/toast";
 import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
+import { useState, type ComponentProps } from "react";
 
 import { Icon, type IconName } from "../Icon";
 import { styles } from "./toast.stylex";
@@ -53,11 +53,12 @@ function ToastStatusIcon({ type }: { type?: string }) {
   );
 }
 
-function ToastList({ position }: { position: ToastPosition }) {
+function ToastList({ isExpanded, position }: { isExpanded: boolean; position: ToastPosition }) {
   const { toasts } = ToastPrimitive.useToastManager();
   const isTop = position.startsWith("top");
+  const canClearAll = isExpanded && toasts.length > 1;
 
-  return toasts.map((item) => (
+  return toasts.map((item, index) => (
     <ToastPrimitive.Root
       key={item.id}
       toast={item}
@@ -65,20 +66,32 @@ function ToastList({ position }: { position: ToastPosition }) {
     >
       <ToastPrimitive.Content {...stylex.props(styles.content)}>
         <ToastStatusIcon type={item.type} />
-        <div {...stylex.props(styles.message)}>
+        <div
+          {...stylex.props(
+            styles.message,
+            canClearAll && index === 0 && styles.messageWithClearAll,
+          )}
+        >
           <ToastPrimitive.Title {...stylex.props(styles.title)} />
           <ToastPrimitive.Description {...stylex.props(styles.description)} />
         </div>
         {item.actionProps ? <ToastPrimitive.Action {...stylex.props(styles.action)} /> : null}
-        <ToastPrimitive.Close aria-label="Close toast" {...stylex.props(styles.close)}>
-          <Icon aria-hidden="true" name="close" />
-        </ToastPrimitive.Close>
+        {canClearAll && index === 0 ? (
+          <button type="button" onClick={() => toast.close()} {...stylex.props(styles.clearAll)}>
+            모두 지우기
+          </button>
+        ) : (
+          <ToastPrimitive.Close aria-label="Close toast" {...stylex.props(styles.close)}>
+            <Icon aria-hidden="true" name="close" />
+          </ToastPrimitive.Close>
+        )}
       </ToastPrimitive.Content>
     </ToastPrimitive.Root>
   ));
 }
 
 export function Toaster({ limit = 3, position = "bottom-right", ...props }: ToasterProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
   const [verticalPosition, horizontalPosition] = position.split("-") as [
     "bottom" | "top",
     "center" | "left" | "right",
@@ -95,8 +108,10 @@ export function Toaster({ limit = 3, position = "bottom-right", ...props }: Toas
             horizontalPosition === "center" && styles.viewportCenter,
             horizontalPosition === "right" && styles.viewportRight,
           )}
+          onMouseEnter={() => setIsExpanded(true)}
+          onMouseLeave={() => setIsExpanded(false)}
         >
-          <ToastList position={position} />
+          <ToastList isExpanded={isExpanded} position={position} />
         </ToastPrimitive.Viewport>
       </ToastPrimitive.Portal>
     </ToastPrimitive.Provider>

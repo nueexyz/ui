@@ -37,8 +37,10 @@ export const styles = stylex.create({
     ":last-child": { borderBottomRightRadius: radiusVars.md, borderTopRightRadius: radiusVars.md },
     ":hover:not(:disabled)": { borderColor: colorVars.strokeStrong },
     ":focus-visible": {
-      borderColor: colorVars.strokeFocus,
-      boxShadow: `0 0 0 ${sizeVars.focusRing} ${colorVars.interactionFocus}`,
+      outlineColor: colorVars.interactionSelected,
+      outlineOffset: sizeVars.stroke,
+      outlineStyle: "solid",
+      outlineWidth: sizeVars.focusRing,
       zIndex: 1,
     },
     ":disabled": { cursor: "not-allowed", opacity: opacityVars.disabled },

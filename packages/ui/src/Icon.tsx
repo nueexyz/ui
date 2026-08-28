@@ -81,7 +81,7 @@ export type IconProps = PhosphorIconProps & {
   name: IconName;
 };
 
-export function Icon({ name, weight = "thin", ...props }: IconProps) {
+export function Icon({ name, weight = "regular", ...props }: IconProps) {
   const IconComponent = iconRegistry[name];
 
   return <IconComponent {...props} weight={weight} />;

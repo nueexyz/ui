@@ -34,7 +34,6 @@ export const styles = stylex.create({
       borderColor: colorVars.strokeStrong,
     },
     ":focus-visible": {
-      borderColor: colorVars.strokeFocus,
       outlineColor: colorVars.interactionSelected,
       outlineOffset: sizeVars.stroke,
       outlineStyle: "solid",

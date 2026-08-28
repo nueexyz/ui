@@ -93,8 +93,6 @@ export { Icon, iconRegistry } from "./Icon";
 export type { IconName, IconProps } from "./Icon";
 export { HoverCard, HoverCardContent, HoverCardTrigger } from "./hover-card";
 export type { HoverCardContentProps } from "./hover-card";
-export { DirectionProvider, useDirection } from "./direction";
-export type { DirectionProviderProps, TextDirection } from "./direction";
 export { Input } from "./input";
 export type { InputProps } from "./input";
 export {
