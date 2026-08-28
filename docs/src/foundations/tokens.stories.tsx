@@ -480,6 +480,7 @@ export const Opacity: Story = {
 const motionTokens = [
   ["durationFast", motionVars.durationFast, "호버와 작은 상태 전환"],
   ["durationNormal", motionVars.durationNormal, "표면과 콘텐츠 전환"],
+  ["durationSlow", motionVars.durationSlow, "Dialog와 Toast처럼 큰 표면 전환"],
 ] as const;
 
 export const Motion: Story = {
@@ -499,6 +500,20 @@ export const Motion: Story = {
       >
         <div {...stylex.props(styles.motionTrack)}>
           <div {...stylex.props(styles.motionDot(motionVars.durationNormal))} />
+        </div>
+      </TokenRow>
+      <TokenRow
+        name="motionVars.easingEnter"
+        usage="새 요소가 나타날 때"
+        value={motionVars.easingEnter}
+      >
+        <div {...stylex.props(styles.motionTrack)}>
+          <div {...stylex.props(styles.motionDot(motionVars.durationNormal))} />
+        </div>
+      </TokenRow>
+      <TokenRow name="motionVars.easingExit" usage="요소가 사라질 때" value={motionVars.easingExit}>
+        <div {...stylex.props(styles.motionTrack)}>
+          <div {...stylex.props(styles.motionDot(motionVars.durationFast))} />
         </div>
       </TokenRow>
     </Page>

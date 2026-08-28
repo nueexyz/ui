@@ -1,5 +1,6 @@
 import {
   colorVars,
+  motionVars,
   radiusVars,
   shadowVars,
   sizeVars,
@@ -14,7 +15,16 @@ export const styles = stylex.create({
     backgroundColor: "oklch(0% 0 0 / 40%)",
     inset: 0,
     position: "fixed",
+    transitionDuration: motionVars.durationSlow,
+    transitionProperty: "opacity",
+    transitionTimingFunction: motionVars.easingEnter,
     zIndex: 50,
+    "@media (prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" },
+  },
+  backdropTransitioning: { opacity: 0 },
+  backdropEnding: {
+    transitionDuration: motionVars.durationNormal,
+    transitionTimingFunction: motionVars.easingExit,
   },
   viewport: {
     alignItems: "center",
@@ -41,7 +51,20 @@ export const styles = stylex.create({
     overflow: "auto",
     padding: spacingVars.space6,
     position: "relative",
+    transform: "translateY(0) scale(1)",
+    transitionDuration: motionVars.durationSlow,
+    transitionProperty: "opacity, transform",
+    transitionTimingFunction: motionVars.easingEnter,
     width: "100%",
+    "@media (prefers-reduced-motion: reduce)": {
+      transform: "none",
+      transitionDuration: "0.01ms",
+    },
+  },
+  popupTransitioning: { opacity: 0, transform: "translateY(0.5rem) scale(0.98)" },
+  popupEnding: {
+    transitionDuration: motionVars.durationNormal,
+    transitionTimingFunction: motionVars.easingExit,
   },
   close: {
     alignItems: "center",

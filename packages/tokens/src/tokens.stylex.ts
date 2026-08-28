@@ -8,6 +8,7 @@ export const colorVars = stylex.defineVars({
   bgRaised: "initial",
   bgRaisedPressed: "initial",
   bgActionPrimary: "initial",
+  bgActionDestructive: "initial",
   bgFeedbackInfo: "initial",
   bgFeedbackSuccess: "initial",
   bgFeedbackWarning: "initial",
@@ -17,6 +18,7 @@ export const colorVars = stylex.defineVars({
   fgTertiary: "initial",
   fgDisabled: "initial",
   fgInverse: "initial",
+  fgOnActionDestructive: "initial",
   fgAction: "initial",
   fgFeedbackInfo: "initial",
   fgFeedbackSuccess: "initial",
@@ -98,5 +100,8 @@ export const opacityVars = stylex.defineVars({
 export const motionVars = stylex.defineVars({
   durationFast: "120ms",
   durationNormal: "180ms",
+  durationSlow: "240ms",
   easingStandard: "cubic-bezier(0.2, 0, 0, 1)",
+  easingEnter: "cubic-bezier(0.16, 1, 0.3, 1)",
+  easingExit: "cubic-bezier(0.4, 0, 1, 1)",
 });

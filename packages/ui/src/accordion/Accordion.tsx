@@ -94,23 +94,37 @@ export function AccordionTrigger({
 }
 
 export function AccordionContent({
+  children,
   className,
   style,
   ...props
 }: ComponentProps<typeof AccordionPrimitive.Panel>) {
-  const stylexProps = stylex.props(styles.panel);
   return (
     <AccordionPrimitive.Panel
       {...props}
-      className={(state) =>
-        [stylexProps.className, typeof className === "function" ? className(state) : className]
+      className={(state) => {
+        const stylexProps = stylex.props(
+          styles.panel,
+          state.transitionStatus === "starting" && styles.panelTransitioning,
+          state.transitionStatus === "ending" && styles.panelTransitioning,
+        );
+        return [
+          stylexProps.className,
+          typeof className === "function" ? className(state) : className,
+        ]
           .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({
-        ...stylexProps.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
-    />
+          .join(" ");
+      }}
+      style={(state) => {
+        const stylexProps = stylex.props(
+          styles.panel,
+          state.transitionStatus === "starting" && styles.panelTransitioning,
+          state.transitionStatus === "ending" && styles.panelTransitioning,
+        );
+        return { ...stylexProps.style, ...(typeof style === "function" ? style(state) : style) };
+      }}
+    >
+      <div {...stylex.props(styles.panelContent)}>{children}</div>
+    </AccordionPrimitive.Panel>
   );
 }

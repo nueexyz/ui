@@ -35,13 +35,21 @@ export function TabsTrigger({
     <TabsPrimitive.Tab
       {...props}
       className={(state) => {
-        const sx = stylex.props(styles.trigger, state.active && styles.triggerActive);
+        const sx = stylex.props(
+          styles.trigger,
+          state.active && styles.triggerActive,
+          state.disabled && styles.triggerDisabled,
+        );
         return [sx.className, typeof className === "function" ? className(state) : className]
           .filter(Boolean)
           .join(" ");
       }}
       style={(state) => {
-        const sx = stylex.props(styles.trigger, state.active && styles.triggerActive);
+        const sx = stylex.props(
+          styles.trigger,
+          state.active && styles.triggerActive,
+          state.disabled && styles.triggerDisabled,
+        );
         return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
       }}
     />
@@ -53,16 +61,27 @@ export function TabsContent({
   style,
   ...props
 }: ComponentProps<typeof TabsPrimitive.Panel>) {
-  const sx = stylex.props(styles.panel);
   return (
     <TabsPrimitive.Panel
       {...props}
-      className={(state) =>
-        [sx.className, typeof className === "function" ? className(state) : className]
+      className={(state) => {
+        const sx = stylex.props(
+          styles.panel,
+          state.transitionStatus === "starting" && styles.panelTransitioning,
+          state.transitionStatus === "ending" && styles.panelTransitioning,
+        );
+        return [sx.className, typeof className === "function" ? className(state) : className]
           .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({ ...sx.style, ...(typeof style === "function" ? style(state) : style) })}
+          .join(" ");
+      }}
+      style={(state) => {
+        const sx = stylex.props(
+          styles.panel,
+          state.transitionStatus === "starting" && styles.panelTransitioning,
+          state.transitionStatus === "ending" && styles.panelTransitioning,
+        );
+        return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+      }}
     />
   );
 }

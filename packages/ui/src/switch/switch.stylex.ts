@@ -1,10 +1,4 @@
-import {
-  colorVars,
-  motionVars,
-  opacityVars,
-  radiusVars,
-  sizeVars,
-} from "@cachette/tokens/tokens.stylex";
+import { colorVars, motionVars, radiusVars, sizeVars } from "@cachette/tokens/tokens.stylex";
 import * as stylex from "@stylexjs/stylex";
 
 export const styles = stylex.create({
@@ -28,15 +22,15 @@ export const styles = stylex.create({
       outlineStyle: "solid",
       outlineWidth: sizeVars.focusRing,
     },
-    ":disabled": { cursor: "not-allowed", opacity: opacityVars.disabled },
+    ":disabled": { cursor: "not-allowed" },
   },
   sm: { height: "1.5rem", width: "2rem" },
   md: { height: "1.5rem", width: "2.5rem" },
   checked: { backgroundColor: colorVars.bgActionPrimary },
+  disabled: { backgroundColor: colorVars.interactionDisabled, cursor: "not-allowed" },
   thumb: {
     backgroundColor: colorVars.bgSurface,
     borderRadius: radiusVars.full,
-    boxShadow: "0 1px 2px oklch(0% 0 0 / 20%)",
     display: "block",
     transform: "translateX(0)",
     transitionDuration: motionVars.durationFast,

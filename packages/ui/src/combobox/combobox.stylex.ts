@@ -1,5 +1,6 @@
 import {
   colorVars,
+  motionVars,
   radiusVars,
   shadowVars,
   sizeVars,
@@ -45,6 +46,7 @@ export const styles = stylex.create({
     paddingInline: spacingVars.space2,
     "::placeholder": { color: colorVars.fgTertiary },
   },
+  inputDisabled: { color: colorVars.fgDisabled, cursor: "not-allowed" },
   trigger: {
     alignItems: "center",
     alignSelf: "stretch",
@@ -60,6 +62,11 @@ export const styles = stylex.create({
     outline: "none",
     width: sizeVars.controlMd,
   },
+  triggerDisabled: {
+    color: colorVars.fgDisabled,
+    cursor: "not-allowed",
+    ":hover": { backgroundColor: "transparent" },
+  },
   positioner: { zIndex: 60 },
   popup: {
     backgroundColor: colorVars.bgRaised,
@@ -74,6 +81,20 @@ export const styles = stylex.create({
     outline: "none",
     overflow: "hidden",
     padding: spacingVars.space1,
+    transform: "scale(1)",
+    transformOrigin: "var(--transform-origin)",
+    transitionDuration: motionVars.durationNormal,
+    transitionProperty: "opacity, transform",
+    transitionTimingFunction: motionVars.easingEnter,
+    "@media (prefers-reduced-motion: reduce)": {
+      transform: "none",
+      transitionDuration: "0.01ms",
+    },
+  },
+  popupTransitioning: { opacity: 0, transform: "scale(0.98)" },
+  popupEnding: {
+    transitionDuration: motionVars.durationFast,
+    transitionTimingFunction: motionVars.easingExit,
   },
   list: { overflowY: "auto", overscrollBehavior: "contain" },
   item: {
@@ -91,6 +112,11 @@ export const styles = stylex.create({
     userSelect: "none",
   },
   itemHighlighted: { backgroundColor: colorVars.interactionHover },
+  itemDisabled: {
+    backgroundColor: "transparent",
+    color: colorVars.fgDisabled,
+    cursor: "not-allowed",
+  },
   indicator: {
     alignItems: "center",
     display: "inline-flex",

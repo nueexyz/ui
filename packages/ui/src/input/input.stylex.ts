@@ -1,7 +1,6 @@
 import {
   colorVars,
   motionVars,
-  opacityVars,
   radiusVars,
   sizeVars,
   spacingVars,
@@ -25,7 +24,7 @@ export const styles = stylex.create({
     outline: "none",
     paddingInline: spacingVars.space3,
     transitionDuration: motionVars.durationFast,
-    transitionProperty: "border-color, box-shadow, opacity",
+    transitionProperty: "border-color, opacity",
     transitionTimingFunction: motionVars.easingStandard,
     width: "100%",
     "::placeholder": {
@@ -43,8 +42,10 @@ export const styles = stylex.create({
     },
     ":disabled": {
       backgroundColor: colorVars.bgSubtle,
+      borderColor: colorVars.strokeDefault,
+      color: colorVars.fgDisabled,
       cursor: "not-allowed",
-      opacity: opacityVars.disabled,
+      ":hover": { borderColor: colorVars.strokeDefault },
     },
     ":user-invalid": {
       borderColor: colorVars.strokeFeedbackError,

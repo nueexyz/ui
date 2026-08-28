@@ -13,20 +13,18 @@ const spin = stylex.keyframes({ to: { transform: "rotate(360deg)" } });
 
 export const styles = stylex.create({
   viewport: {
-    bottom: spacingVars.space4,
-    left: spacingVars.space4,
     maxWidth: "24rem",
     outline: "none",
     pointerEvents: "none",
     position: "fixed",
-    right: spacingVars.space4,
-    width: "auto",
+    width: "calc(100vw - 2rem)",
     zIndex: 70,
-    "@media (min-width: 640px)": {
-      left: "auto",
-      width: "100%",
-    },
   },
+  viewportTop: { top: spacingVars.space4 },
+  viewportBottom: { bottom: spacingVars.space4 },
+  viewportLeft: { left: spacingVars.space4 },
+  viewportCenter: { left: "50%", transform: "translateX(-50%)" },
+  viewportRight: { right: spacingVars.space4 },
   root: {
     backgroundColor: colorVars.bgRaised,
     borderColor: colorVars.strokeDefault,
@@ -41,13 +39,14 @@ export const styles = stylex.create({
     overflow: "hidden",
     pointerEvents: "auto",
     position: "absolute",
+    left: 0,
     right: 0,
     transform:
       "translateX(var(--toast-swipe-movement-x)) translateY(calc(var(--toast-swipe-movement-y) - (var(--toast-index) * 0.75rem))) scale(calc(max(0, 1 - (var(--toast-index) * 0.1))))",
     transformOrigin: "bottom",
-    transitionDuration: "500ms, 500ms, 150ms",
+    transitionDuration: motionVars.durationSlow,
     transitionProperty: "transform, opacity, height",
-    transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
+    transitionTimingFunction: motionVars.easingEnter,
     userSelect: "none",
     width: "100%",
     willChange: "transform",
@@ -60,15 +59,28 @@ export const styles = stylex.create({
     },
     "@media (prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" },
   },
+  rootTop: {
+    bottom: "auto",
+    top: 0,
+    transform:
+      "translateX(var(--toast-swipe-movement-x)) translateY(calc(var(--toast-swipe-movement-y) + (var(--toast-index) * 0.75rem))) scale(calc(max(0, 1 - (var(--toast-index) * 0.1))))",
+    transformOrigin: "top",
+  },
   rootExpanded: {
     height: "var(--toast-height)",
     transform:
       "translateX(var(--toast-swipe-movement-x)) translateY(calc((var(--toast-offset-y) * -1) - (var(--toast-index) * 0.75rem) + var(--toast-swipe-movement-y)))",
   },
+  rootExpandedTop: {
+    transform:
+      "translateX(var(--toast-swipe-movement-x)) translateY(calc(var(--toast-offset-y) + (var(--toast-index) * 0.75rem) + var(--toast-swipe-movement-y)))",
+  },
   rootLimited: { opacity: 0, pointerEvents: "none" },
   rootSwiping: { transitionDuration: "0ms" },
   rootStarting: { opacity: 0, transform: "translateY(150%)" },
+  rootStartingTop: { transform: "translateY(-150%)" },
   rootEnding: { opacity: 0, transform: "translateY(150%)" },
+  rootEndingTop: { transform: "translateY(-150%)" },
   rootEndingUp: {
     transform: "translateY(calc(var(--toast-swipe-movement-y) - 150%))",
   },

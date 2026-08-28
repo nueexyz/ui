@@ -199,6 +199,12 @@ const backgroundTokens = [
   ["bgRaised", colorVars.bgRaised, colorVars.fgPrimary, "떠 있는 콘텐츠 배경"],
   ["bgRaisedPressed", colorVars.bgRaisedPressed, colorVars.fgPrimary, "떠 있는 표면의 눌림 상태"],
   ["bgActionPrimary", colorVars.bgActionPrimary, colorVars.fgInverse, "가장 중요한 행동의 배경"],
+  [
+    "bgActionDestructive",
+    colorVars.bgActionDestructive,
+    colorVars.fgOnActionDestructive,
+    "되돌리기 어려운 행동의 배경",
+  ],
   ["bgFeedbackInfo", colorVars.bgFeedbackInfo, colorVars.fgFeedbackInfo, "정보 메시지 배경"],
   [
     "bgFeedbackSuccess",
@@ -221,6 +227,12 @@ const foregroundTokens = [
   ["fgTertiary", colorVars.fgTertiary, colorVars.bgSurface, "플레이스홀더와 약한 정보"],
   ["fgDisabled", colorVars.fgDisabled, colorVars.bgSurface, "비활성 콘텐츠"],
   ["fgInverse", colorVars.fgInverse, colorVars.bgActionPrimary, "강조 배경 위 콘텐츠"],
+  [
+    "fgOnActionDestructive",
+    colorVars.fgOnActionDestructive,
+    colorVars.bgActionDestructive,
+    "되돌리기 어려운 행동 위 콘텐츠",
+  ],
   ["fgAction", colorVars.fgAction, colorVars.bgSurface, "행동과 링크"],
   ["fgFeedbackInfo", colorVars.fgFeedbackInfo, colorVars.bgFeedbackInfo, "정보 메시지 콘텐츠"],
   [

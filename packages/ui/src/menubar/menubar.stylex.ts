@@ -43,4 +43,10 @@ export const styles = stylex.create({
     },
   },
   triggerOpen: { backgroundColor: colorVars.interactionSelected },
+  triggerDisabled: {
+    backgroundColor: "transparent",
+    color: colorVars.fgDisabled,
+    cursor: "not-allowed",
+    ":hover": { backgroundColor: "transparent" },
+  },
 });

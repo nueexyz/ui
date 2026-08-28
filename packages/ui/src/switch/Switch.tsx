@@ -18,6 +18,7 @@ export function Switch({ className, size = "md", style, xstyle, ...props }: Swit
           styles.root,
           styles[size],
           state.checked && styles.checked,
+          state.disabled && styles.disabled,
           xstyle,
         );
         const customClassName = typeof className === "function" ? className(state) : className;
@@ -28,6 +29,7 @@ export function Switch({ className, size = "md", style, xstyle, ...props }: Swit
           styles.root,
           styles[size],
           state.checked && styles.checked,
+          state.disabled && styles.disabled,
           xstyle,
         );
         const customStyle = typeof style === "function" ? style(state) : style;

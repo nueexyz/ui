@@ -37,13 +37,13 @@ export function CollapsibleTrigger({
     <CollapsiblePrimitive.Trigger
       {...props}
       className={(state) => {
-        const sx = stylex.props(styles.trigger);
+        const sx = stylex.props(styles.trigger, state.disabled && styles.triggerDisabled);
         return [sx.className, typeof className === "function" ? className(state) : className]
           .filter(Boolean)
           .join(" ");
       }}
       style={(state) => {
-        const sx = stylex.props(styles.trigger);
+        const sx = stylex.props(styles.trigger, state.disabled && styles.triggerDisabled);
         return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
       }}
     >
@@ -56,20 +56,34 @@ export function CollapsibleTrigger({
 }
 
 export function CollapsibleContent({
+  children,
   className,
   style,
   ...props
 }: ComponentProps<typeof CollapsiblePrimitive.Panel>) {
-  const sx = stylex.props(styles.panel);
   return (
     <CollapsiblePrimitive.Panel
       {...props}
-      className={(state) =>
-        [sx.className, typeof className === "function" ? className(state) : className]
+      className={(state) => {
+        const sx = stylex.props(
+          styles.panel,
+          state.transitionStatus === "starting" && styles.panelTransitioning,
+          state.transitionStatus === "ending" && styles.panelTransitioning,
+        );
+        return [sx.className, typeof className === "function" ? className(state) : className]
           .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({ ...sx.style, ...(typeof style === "function" ? style(state) : style) })}
-    />
+          .join(" ");
+      }}
+      style={(state) => {
+        const sx = stylex.props(
+          styles.panel,
+          state.transitionStatus === "starting" && styles.panelTransitioning,
+          state.transitionStatus === "ending" && styles.panelTransitioning,
+        );
+        return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+      }}
+    >
+      <div {...stylex.props(styles.panelContent)}>{children}</div>
+    </CollapsiblePrimitive.Panel>
   );
 }

@@ -80,9 +80,9 @@ export const styles = stylex.create({
     color: colorVars.fgPrimary,
   },
   destructive: {
-    backgroundColor: colorVars.fgFeedbackError,
-    borderColor: colorVars.fgFeedbackError,
-    color: colorVars.fgInverse,
+    backgroundColor: colorVars.bgActionDestructive,
+    borderColor: colorVars.bgActionDestructive,
+    color: colorVars.fgOnActionDestructive,
   },
   disabled: {
     backgroundColor: colorVars.interactionDisabled,

@@ -26,7 +26,6 @@ export function DropdownMenuContent({
   style,
   ...props
 }: DropdownMenuContentProps) {
-  const sx = stylex.props(styles.popup);
   return (
     <MenuPrimitive.Portal>
       <MenuPrimitive.Positioner
@@ -38,15 +37,26 @@ export function DropdownMenuContent({
       >
         <MenuPrimitive.Popup
           {...props}
-          className={(state) =>
-            [sx.className, typeof className === "function" ? className(state) : className]
+          className={(state) => {
+            const sx = stylex.props(
+              styles.popup,
+              state.transitionStatus === "starting" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupEnding,
+            );
+            return [sx.className, typeof className === "function" ? className(state) : className]
               .filter(Boolean)
-              .join(" ")
-          }
-          style={(state) => ({
-            ...sx.style,
-            ...(typeof style === "function" ? style(state) : style),
-          })}
+              .join(" ");
+          }}
+          style={(state) => {
+            const sx = stylex.props(
+              styles.popup,
+              state.transitionStatus === "starting" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupEnding,
+            );
+            return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+          }}
         />
       </MenuPrimitive.Positioner>
     </MenuPrimitive.Portal>
@@ -72,6 +82,7 @@ export function DropdownMenuItem({
         const sx = stylex.props(
           styles.item,
           state.highlighted && styles.itemHighlighted,
+          state.disabled && styles.itemDisabled,
           inset && styles.inset,
           destructive && styles.destructive,
         );
@@ -83,6 +94,7 @@ export function DropdownMenuItem({
         const sx = stylex.props(
           styles.item,
           state.highlighted && styles.itemHighlighted,
+          state.disabled && styles.itemDisabled,
           inset && styles.inset,
           destructive && styles.destructive,
         );
@@ -106,6 +118,7 @@ export function DropdownMenuCheckboxItem({
           styles.item,
           styles.choiceItem,
           state.highlighted && styles.itemHighlighted,
+          state.disabled && styles.itemDisabled,
         );
         return [sx.className, typeof className === "function" ? className(state) : className]
           .filter(Boolean)
@@ -116,6 +129,7 @@ export function DropdownMenuCheckboxItem({
           styles.item,
           styles.choiceItem,
           state.highlighted && styles.itemHighlighted,
+          state.disabled && styles.itemDisabled,
         );
         return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
       }}
@@ -142,6 +156,7 @@ export function DropdownMenuRadioItem({
           styles.item,
           styles.choiceItem,
           state.highlighted && styles.itemHighlighted,
+          state.disabled && styles.itemDisabled,
         );
         return [sx.className, typeof className === "function" ? className(state) : className]
           .filter(Boolean)
@@ -152,6 +167,7 @@ export function DropdownMenuRadioItem({
           styles.item,
           styles.choiceItem,
           state.highlighted && styles.itemHighlighted,
+          state.disabled && styles.itemDisabled,
         );
         return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
       }}
@@ -211,6 +227,7 @@ export function DropdownMenuSubTrigger({
         const sx = stylex.props(
           styles.item,
           state.highlighted && styles.itemHighlighted,
+          state.disabled && styles.itemDisabled,
           inset && styles.inset,
         );
         return [sx.className, typeof className === "function" ? className(state) : className]
@@ -221,6 +238,7 @@ export function DropdownMenuSubTrigger({
         const sx = stylex.props(
           styles.item,
           state.highlighted && styles.itemHighlighted,
+          state.disabled && styles.itemDisabled,
           inset && styles.inset,
         );
         return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };

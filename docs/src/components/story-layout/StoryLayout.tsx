@@ -35,6 +35,14 @@ export const storyStyles = stylex.create({
     width: "100%",
   },
   inverse: { backgroundColor: colorVars.bgActionPrimary },
+  inverseSecondary: {
+    backgroundColor: colorVars.fgInverse,
+    borderColor: colorVars.fgInverse,
+    color: colorVars.bgActionPrimary,
+  },
+  inverseGhost: {
+    color: colorVars.fgInverse,
+  },
   option: {
     alignItems: "center",
     display: "flex",
@@ -106,10 +114,12 @@ const styles = stylex.create({
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     display: "flex",
+    fontSize: typographyVars.fontSizeSm,
     flexWrap: "wrap",
     gap: spacingVars.space3,
     minHeight: "7rem",
     padding: spacingVars.space6,
+    lineHeight: typographyVars.lineHeightNormal,
   },
 });
 

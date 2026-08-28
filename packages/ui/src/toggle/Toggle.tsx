@@ -30,6 +30,7 @@ export function Toggle({
           styles[size],
           styles[variant],
           state.pressed && styles.pressed,
+          state.disabled && styles.disabled,
           xstyle,
         );
         const customClassName = typeof className === "function" ? className(state) : className;
@@ -41,6 +42,7 @@ export function Toggle({
           styles[size],
           styles[variant],
           state.pressed && styles.pressed,
+          state.disabled && styles.disabled,
           xstyle,
         );
         return { ...stylexProps.style, ...(typeof style === "function" ? style(state) : style) };

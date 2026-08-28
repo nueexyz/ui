@@ -7,10 +7,21 @@ import { styles } from "./toast.stylex";
 
 type ToastType = "default" | "success" | "info" | "warning" | "error" | "loading";
 
+export type ToastPosition =
+  | "bottom-center"
+  | "bottom-left"
+  | "bottom-right"
+  | "top-center"
+  | "top-left"
+  | "top-right";
+
 export type ToasterProps = Omit<
   ComponentProps<typeof ToastPrimitive.Provider>,
   "children" | "toastManager"
->;
+> & {
+  /** Toast viewport position. @default "bottom-right" */
+  position?: ToastPosition;
+};
 
 export const toast = ToastPrimitive.createToastManager();
 
@@ -42,8 +53,9 @@ function ToastStatusIcon({ type }: { type?: string }) {
   );
 }
 
-function ToastList() {
+function ToastList({ position }: { position: ToastPosition }) {
   const { toasts } = ToastPrimitive.useToastManager();
+  const isTop = position.startsWith("top");
 
   return toasts.map((item) => (
     <ToastPrimitive.Root
@@ -52,11 +64,15 @@ function ToastList() {
       className={(state) =>
         stylex.props(
           styles.root,
+          isTop && styles.rootTop,
           state.expanded && styles.rootExpanded,
+          state.expanded && isTop && styles.rootExpandedTop,
           state.limited && styles.rootLimited,
           state.swiping && styles.rootSwiping,
           state.transitionStatus === "starting" && styles.rootStarting,
+          state.transitionStatus === "starting" && isTop && styles.rootStartingTop,
           state.transitionStatus === "ending" && styles.rootEnding,
+          state.transitionStatus === "ending" && isTop && styles.rootEndingTop,
           state.transitionStatus === "ending" &&
             state.swipeDirection === "up" &&
             styles.rootEndingUp,
@@ -71,11 +87,15 @@ function ToastList() {
       style={(state) =>
         stylex.props(
           styles.root,
+          isTop && styles.rootTop,
           state.expanded && styles.rootExpanded,
+          state.expanded && isTop && styles.rootExpandedTop,
           state.limited && styles.rootLimited,
           state.swiping && styles.rootSwiping,
           state.transitionStatus === "starting" && styles.rootStarting,
+          state.transitionStatus === "starting" && isTop && styles.rootStartingTop,
           state.transitionStatus === "ending" && styles.rootEnding,
+          state.transitionStatus === "ending" && isTop && styles.rootEndingTop,
           state.transitionStatus === "ending" &&
             state.swipeDirection === "up" &&
             styles.rootEndingUp,
@@ -118,12 +138,25 @@ function ToastList() {
   ));
 }
 
-export function Toaster(props: ToasterProps) {
+export function Toaster({ position = "bottom-right", ...props }: ToasterProps) {
+  const [verticalPosition, horizontalPosition] = position.split("-") as [
+    "bottom" | "top",
+    "center" | "left" | "right",
+  ];
+
   return (
     <ToastPrimitive.Provider {...props} toastManager={toast}>
       <ToastPrimitive.Portal>
-        <ToastPrimitive.Viewport {...stylex.props(styles.viewport)}>
-          <ToastList />
+        <ToastPrimitive.Viewport
+          {...stylex.props(
+            styles.viewport,
+            verticalPosition === "top" ? styles.viewportTop : styles.viewportBottom,
+            horizontalPosition === "left" && styles.viewportLeft,
+            horizontalPosition === "center" && styles.viewportCenter,
+            horizontalPosition === "right" && styles.viewportRight,
+          )}
+        >
+          <ToastList position={position} />
         </ToastPrimitive.Viewport>
       </ToastPrimitive.Portal>
     </ToastPrimitive.Provider>

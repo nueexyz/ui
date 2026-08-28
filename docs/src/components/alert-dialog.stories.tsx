@@ -26,7 +26,7 @@ export const AlertDialogStory: Story = {
     >
       <StoryPreview>
         <AlertDialog>
-          <AlertDialogTrigger render={<Button variant="destructive">프로젝트 삭제하기</Button>} />
+          <AlertDialogTrigger render={<Button variant="secondary">프로젝트 삭제하기</Button>} />
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>프로젝트를 삭제할까요?</AlertDialogTitle>

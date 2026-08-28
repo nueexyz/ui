@@ -24,19 +24,53 @@ export function AlertDialogContent({
 
   return (
     <AlertDialogPrimitive.Portal>
-      <AlertDialogPrimitive.Backdrop {...stylex.props(styles.backdrop)} />
+      <AlertDialogPrimitive.Backdrop
+        className={(state) =>
+          stylex.props(
+            styles.backdrop,
+            state.transitionStatus === "starting" && styles.backdropTransitioning,
+            state.transitionStatus === "ending" && styles.backdropTransitioning,
+            state.transitionStatus === "ending" && styles.backdropEnding,
+          ).className ?? ""
+        }
+        style={(state) =>
+          stylex.props(
+            styles.backdrop,
+            state.transitionStatus === "starting" && styles.backdropTransitioning,
+            state.transitionStatus === "ending" && styles.backdropTransitioning,
+            state.transitionStatus === "ending" && styles.backdropEnding,
+          ).style
+        }
+      />
       <AlertDialogPrimitive.Viewport {...stylex.props(styles.viewport)}>
         <AlertDialogPrimitive.Popup
           {...props}
-          className={(state) =>
-            [stylexProps.className, typeof className === "function" ? className(state) : className]
+          className={(state) => {
+            const motionStylexProps = stylex.props(
+              state.transitionStatus === "starting" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupEnding,
+            );
+            return [
+              stylexProps.className,
+              motionStylexProps.className,
+              typeof className === "function" ? className(state) : className,
+            ]
               .filter(Boolean)
-              .join(" ")
-          }
-          style={(state) => ({
-            ...stylexProps.style,
-            ...(typeof style === "function" ? style(state) : style),
-          })}
+              .join(" ");
+          }}
+          style={(state) => {
+            const motionStylexProps = stylex.props(
+              state.transitionStatus === "starting" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupEnding,
+            );
+            return {
+              ...stylexProps.style,
+              ...motionStylexProps.style,
+              ...(typeof style === "function" ? style(state) : style),
+            };
+          }}
         >
           {children}
         </AlertDialogPrimitive.Popup>

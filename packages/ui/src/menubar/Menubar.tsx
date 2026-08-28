@@ -34,13 +34,21 @@ export function MenubarTrigger({
     <MenuPrimitive.Trigger
       {...props}
       className={(state) => {
-        const sx = stylex.props(styles.trigger, state.open && styles.triggerOpen);
+        const sx = stylex.props(
+          styles.trigger,
+          state.open && styles.triggerOpen,
+          state.disabled && styles.triggerDisabled,
+        );
         return [sx.className, typeof className === "function" ? className(state) : className]
           .filter(Boolean)
           .join(" ");
       }}
       style={(state) => {
-        const sx = stylex.props(styles.trigger, state.open && styles.triggerOpen);
+        const sx = stylex.props(
+          styles.trigger,
+          state.open && styles.triggerOpen,
+          state.disabled && styles.triggerDisabled,
+        );
         return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
       }}
     />

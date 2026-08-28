@@ -46,8 +46,12 @@ export const ButtonStory: Story = {
         description="강조 배경 위에서도 행동의 위계와 대비를 유지합니다."
       >
         <StoryPreview xstyle={storyStyles.inverse}>
-          <Button variant="secondary">이전으로</Button>
-          <Button variant="ghost">닫기</Button>
+          <Button variant="secondary" xstyle={storyStyles.inverseSecondary}>
+            이전으로
+          </Button>
+          <Button variant="ghost" xstyle={storyStyles.inverseGhost}>
+            닫기
+          </Button>
         </StoryPreview>
       </StorySection>
     </StoryPage>

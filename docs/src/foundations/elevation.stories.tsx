@@ -271,7 +271,7 @@ const shadowTokens = [
   [
     "shadowVars.subtle",
     shadowVars.subtle,
-    "카드와 고정 내비게이션처럼 같은 높이의 면을 구분합니다.",
+    "콘텐츠 위에 고정된 행동이나 내비게이션의 경계를 보완합니다.",
   ],
   [
     "shadowVars.floating",

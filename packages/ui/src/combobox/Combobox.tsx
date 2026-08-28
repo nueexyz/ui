@@ -14,23 +14,31 @@ export function ComboboxInput({
   style,
   ...props
 }: ComponentProps<typeof ComboboxPrimitive.Input>) {
-  const sx = stylex.props(styles.input);
   return (
     <ComboboxPrimitive.InputGroup {...stylex.props(styles.inputGroup)}>
       <Icon aria-hidden="true" name="search" {...stylex.props(styles.searchIcon)} />
       <ComboboxPrimitive.Input
         {...props}
-        className={(state) =>
-          [sx.className, typeof className === "function" ? className(state) : className]
+        className={(state) => {
+          const sx = stylex.props(styles.input, state.disabled && styles.inputDisabled);
+          return [sx.className, typeof className === "function" ? className(state) : className]
             .filter(Boolean)
-            .join(" ")
-        }
-        style={(state) => ({
-          ...sx.style,
-          ...(typeof style === "function" ? style(state) : style),
-        })}
+            .join(" ");
+        }}
+        style={(state) => {
+          const sx = stylex.props(styles.input, state.disabled && styles.inputDisabled);
+          return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+        }}
       />
-      <ComboboxPrimitive.Trigger aria-label="옵션 열기" {...stylex.props(styles.trigger)}>
+      <ComboboxPrimitive.Trigger
+        aria-label="옵션 열기"
+        className={(state) =>
+          stylex.props(styles.trigger, state.disabled && styles.triggerDisabled).className ?? ""
+        }
+        style={(state) =>
+          stylex.props(styles.trigger, state.disabled && styles.triggerDisabled).style
+        }
+      >
         <Icon aria-hidden="true" name="chevronDown" />
       </ComboboxPrimitive.Trigger>
     </ComboboxPrimitive.InputGroup>
@@ -51,7 +59,6 @@ export function ComboboxContent({
   style,
   ...props
 }: ComboboxContentProps) {
-  const sx = stylex.props(styles.popup);
   return (
     <ComboboxPrimitive.Portal>
       <ComboboxPrimitive.Positioner
@@ -62,15 +69,26 @@ export function ComboboxContent({
       >
         <ComboboxPrimitive.Popup
           {...props}
-          className={(state) =>
-            [sx.className, typeof className === "function" ? className(state) : className]
+          className={(state) => {
+            const sx = stylex.props(
+              styles.popup,
+              state.transitionStatus === "starting" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupEnding,
+            );
+            return [sx.className, typeof className === "function" ? className(state) : className]
               .filter(Boolean)
-              .join(" ")
-          }
-          style={(state) => ({
-            ...sx.style,
-            ...(typeof style === "function" ? style(state) : style),
-          })}
+              .join(" ");
+          }}
+          style={(state) => {
+            const sx = stylex.props(
+              styles.popup,
+              state.transitionStatus === "starting" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupEnding,
+            );
+            return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+          }}
         >
           <ComboboxPrimitive.List {...stylex.props(styles.list)}>{children}</ComboboxPrimitive.List>
         </ComboboxPrimitive.Popup>
@@ -89,13 +107,21 @@ export function ComboboxItem({
     <ComboboxPrimitive.Item
       {...props}
       className={(state) => {
-        const sx = stylex.props(styles.item, state.highlighted && styles.itemHighlighted);
+        const sx = stylex.props(
+          styles.item,
+          state.highlighted && styles.itemHighlighted,
+          state.disabled && styles.itemDisabled,
+        );
         return [sx.className, typeof className === "function" ? className(state) : className]
           .filter(Boolean)
           .join(" ");
       }}
       style={(state) => {
-        const sx = stylex.props(styles.item, state.highlighted && styles.itemHighlighted);
+        const sx = stylex.props(
+          styles.item,
+          state.highlighted && styles.itemHighlighted,
+          state.disabled && styles.itemDisabled,
+        );
         return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
       }}
     >

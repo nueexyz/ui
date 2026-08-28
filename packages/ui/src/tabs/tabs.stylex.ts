@@ -1,6 +1,6 @@
 import {
   colorVars,
-  opacityVars,
+  motionVars,
   radiusVars,
   sizeVars,
   spacingVars,
@@ -35,6 +35,9 @@ export const styles = stylex.create({
     justifyContent: "center",
     outline: "none",
     paddingInline: spacingVars.space3,
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color, color",
+    transitionTimingFunction: motionVars.easingStandard,
     ":hover": { color: colorVars.fgPrimary },
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
@@ -42,11 +45,17 @@ export const styles = stylex.create({
       outlineStyle: "solid",
       outlineWidth: sizeVars.focusRing,
     },
-    ":disabled": { cursor: "not-allowed", opacity: opacityVars.disabled },
+    ":disabled": { cursor: "not-allowed" },
   },
   triggerActive: {
     backgroundColor: colorVars.bgSurface,
     color: colorVars.fgPrimary,
+  },
+  triggerDisabled: {
+    backgroundColor: "transparent",
+    color: colorVars.fgDisabled,
+    cursor: "not-allowed",
+    ":hover": { backgroundColor: "transparent", color: colorVars.fgDisabled },
   },
   panel: {
     color: colorVars.fgPrimary,
@@ -55,6 +64,10 @@ export const styles = stylex.create({
     marginTop: spacingVars.space2,
     minWidth: 0,
     outline: "none",
+    transform: "translateY(0)",
+    transitionDuration: motionVars.durationNormal,
+    transitionProperty: "opacity, transform",
+    transitionTimingFunction: motionVars.easingEnter,
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
       outlineOffset: sizeVars.focusRing,
@@ -62,5 +75,10 @@ export const styles = stylex.create({
       outlineWidth: sizeVars.focusRing,
     },
     width: "100%",
+    "@media (prefers-reduced-motion: reduce)": {
+      transform: "none",
+      transitionDuration: "0.01ms",
+    },
   },
+  panelTransitioning: { opacity: 0, transform: "translateY(0.125rem)" },
 });

@@ -1,7 +1,6 @@
 import {
   colorVars,
   radiusVars,
-  shadowVars,
   sizeVars,
   spacingVars,
   typographyVars,
@@ -10,12 +9,11 @@ import * as stylex from "@stylexjs/stylex";
 
 export const styles = stylex.create({
   card: {
-    backgroundColor: colorVars.bgRaised,
+    backgroundColor: colorVars.bgSurface,
     borderColor: colorVars.strokeDefault,
     borderRadius: radiusVars.lg,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
-    boxShadow: shadowVars.subtle,
     color: colorVars.fgPrimary,
     display: "flex",
     flexDirection: "column",

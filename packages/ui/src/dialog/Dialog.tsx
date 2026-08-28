@@ -29,18 +29,50 @@ export function DialogContent({
   const stylexProps = stylex.props(styles.popup, xstyle);
   return (
     <DialogPrimitive.Portal>
-      <DialogPrimitive.Backdrop {...stylex.props(styles.backdrop)} />
+      <DialogPrimitive.Backdrop
+        className={(state) =>
+          stylex.props(
+            styles.backdrop,
+            state.transitionStatus === "starting" && styles.backdropTransitioning,
+            state.transitionStatus === "ending" && styles.backdropTransitioning,
+            state.transitionStatus === "ending" && styles.backdropEnding,
+          ).className ?? ""
+        }
+        style={(state) =>
+          stylex.props(
+            styles.backdrop,
+            state.transitionStatus === "starting" && styles.backdropTransitioning,
+            state.transitionStatus === "ending" && styles.backdropTransitioning,
+            state.transitionStatus === "ending" && styles.backdropEnding,
+          ).style
+        }
+      />
       <DialogPrimitive.Viewport {...stylex.props(styles.viewport)}>
         <DialogPrimitive.Popup
           {...props}
           className={(state) => {
+            const motionStylexProps = stylex.props(
+              state.transitionStatus === "starting" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupEnding,
+            );
             const customClassName = typeof className === "function" ? className(state) : className;
-            return [stylexProps.className, customClassName].filter(Boolean).join(" ");
+            return [stylexProps.className, motionStylexProps.className, customClassName]
+              .filter(Boolean)
+              .join(" ");
           }}
-          style={(state) => ({
-            ...stylexProps.style,
-            ...(typeof style === "function" ? style(state) : style),
-          })}
+          style={(state) => {
+            const motionStylexProps = stylex.props(
+              state.transitionStatus === "starting" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupEnding,
+            );
+            return {
+              ...stylexProps.style,
+              ...motionStylexProps.style,
+              ...(typeof style === "function" ? style(state) : style),
+            };
+          }}
         >
           {children}
           {showCloseButton ? (

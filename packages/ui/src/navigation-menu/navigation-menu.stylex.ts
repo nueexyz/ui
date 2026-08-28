@@ -56,6 +56,12 @@ export const styles = stylex.create({
       outlineStyle: "solid",
       outlineWidth: sizeVars.focusRing,
     },
+    ":disabled": {
+      backgroundColor: "transparent",
+      color: colorVars.fgDisabled,
+      cursor: "not-allowed",
+      ":hover": { backgroundColor: "transparent" },
+    },
   },
   triggerOpen: { backgroundColor: colorVars.interactionHover },
   icon: {

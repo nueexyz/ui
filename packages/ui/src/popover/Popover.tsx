@@ -22,7 +22,6 @@ export function PopoverContent({
   xstyle,
   ...props
 }: PopoverContentProps) {
-  const stylexProps = stylex.props(styles.popup, xstyle);
   return (
     <PopoverPrimitive.Portal>
       <PopoverPrimitive.Positioner
@@ -33,15 +32,34 @@ export function PopoverContent({
       >
         <PopoverPrimitive.Popup
           {...props}
-          className={(state) =>
-            [stylexProps.className, typeof className === "function" ? className(state) : className]
+          className={(state) => {
+            const stylexProps = stylex.props(
+              styles.popup,
+              state.transitionStatus === "starting" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupEnding,
+              xstyle,
+            );
+            return [
+              stylexProps.className,
+              typeof className === "function" ? className(state) : className,
+            ]
               .filter(Boolean)
-              .join(" ")
-          }
-          style={(state) => ({
-            ...stylexProps.style,
-            ...(typeof style === "function" ? style(state) : style),
-          })}
+              .join(" ");
+          }}
+          style={(state) => {
+            const stylexProps = stylex.props(
+              styles.popup,
+              state.transitionStatus === "starting" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupTransitioning,
+              state.transitionStatus === "ending" && styles.popupEnding,
+              xstyle,
+            );
+            return {
+              ...stylexProps.style,
+              ...(typeof style === "function" ? style(state) : style),
+            };
+          }}
         />
       </PopoverPrimitive.Positioner>
     </PopoverPrimitive.Portal>

@@ -1,6 +1,5 @@
 import {
   colorVars,
-  opacityVars,
   radiusVars,
   sizeVars,
   spacingVars,
@@ -31,7 +30,13 @@ export const styles = stylex.create({
       outlineStyle: "solid",
       outlineWidth: sizeVars.focusRing,
     },
-    ":disabled": { cursor: "not-allowed", opacity: opacityVars.disabled },
+    ":disabled": {
+      backgroundColor: colorVars.bgSubtle,
+      borderColor: colorVars.strokeDefault,
+      color: colorVars.fgDisabled,
+      cursor: "not-allowed",
+      ":hover": { borderColor: colorVars.strokeDefault },
+    },
   },
   sm: { height: sizeVars.controlSm },
   md: { height: sizeVars.controlMd },

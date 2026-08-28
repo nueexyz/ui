@@ -1,7 +1,6 @@
 import {
   colorVars,
   motionVars,
-  opacityVars,
   radiusVars,
   sizeVars,
   spacingVars,
@@ -33,7 +32,7 @@ export const styles = stylex.create({
       outlineStyle: "solid",
       outlineWidth: sizeVars.focusRing,
     },
-    ":disabled": { cursor: "not-allowed", opacity: opacityVars.disabled },
+    ":disabled": { cursor: "not-allowed" },
   },
   sm: {
     height: sizeVars.controlSm,
@@ -53,4 +52,11 @@ export const styles = stylex.create({
   default: { backgroundColor: "transparent" },
   outline: { backgroundColor: colorVars.bgSurface, borderColor: colorVars.strokeDefault },
   pressed: { backgroundColor: colorVars.interactionSelected, color: colorVars.fgAction },
+  disabled: {
+    backgroundColor: colorVars.interactionDisabled,
+    borderColor: colorVars.strokeDefault,
+    color: colorVars.fgDisabled,
+    cursor: "not-allowed",
+    ":hover": { backgroundColor: colorVars.interactionDisabled },
+  },
 });

@@ -1,21 +1,56 @@
 import { Button } from "@cachette/ui/button";
 import { toast, Toaster } from "@cachette/ui/toast";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useEffect } from "react";
 import { StoryPage, StoryPreview, StorySection } from "./story-layout/StoryLayout";
 
 const meta = {
   title: "Components",
+  component: Toaster,
+  args: { position: "bottom-right" },
+  argTypes: {
+    position: {
+      control: "select",
+      options: [
+        "top-left",
+        "top-center",
+        "top-right",
+        "bottom-left",
+        "bottom-center",
+        "bottom-right",
+      ],
+    },
+  },
   parameters: { layout: "fullscreen" },
 } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+function PersistentToast() {
+  useEffect(() => {
+    const id = toast.add({
+      title: "변경사항을 저장했어요.",
+      description: "이 알림은 결과 화면을 바로 확인할 수 있도록 유지됩니다.",
+      timeout: 0,
+      type: "success",
+    });
+
+    return () => toast.close(id);
+  }, []);
+
+  return null;
+}
+
 export const ToastStory: Story = {
   name: "Toast",
-  render: () => (
+  render: ({ position }) => (
     <StoryPage title="Toast" description="작업 결과나 상태 변화를 화면 흐름을 막지 않고 알립니다.">
-      <Toaster />
-      <StorySection title="기본" description="완료된 작업과 이어서 확인할 정보를 함께 알립니다.">
+      <Toaster position={position} />
+      <PersistentToast />
+      <StorySection
+        title="기본"
+        description="완료 결과를 바로 확인할 수 있습니다. Controls에서 표시 위치를 바꿔 보세요."
+      >
         <StoryPreview>
           <Button
             variant="secondary"
