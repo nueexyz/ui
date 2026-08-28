@@ -15,7 +15,11 @@ function getImports(source) {
 async function getComponentFiles(name) {
   const directory = join(uiSourceDirectory, name);
   const entries = await readdir(directory, { withFileTypes: true });
-  return entries.filter((entry) => entry.isFile());
+  const files = entries.filter((entry) => entry.isFile());
+  if (!files.some((file) => file.name === "index.ts")) {
+    throw new Error(`알 수 없는 컴포넌트입니다: ${name}`);
+  }
+  return files;
 }
 
 export async function resolveComponent(name) {

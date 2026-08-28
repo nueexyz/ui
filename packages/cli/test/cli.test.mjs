@@ -83,3 +83,28 @@ test("add resolves component and icon dependencies", async () => {
     await rm(projectDirectory, { recursive: true });
   }
 });
+
+test("add installs renamed and new components", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "cachette-cli-"));
+
+  try {
+    await init(projectDirectory, { defaults: true });
+    await add(projectDirectory, "banner", { "no-install": true });
+    await add(projectDirectory, "link", { "no-install": true });
+
+    assert.match(
+      await readFile(join(projectDirectory, "src/components/ui/banner/Banner.tsx"), "utf8"),
+      /export function Banner/,
+    );
+    assert.match(
+      await readFile(join(projectDirectory, "src/components/ui/link/Link.tsx"), "utf8"),
+      /export const Link/,
+    );
+    await assert.rejects(
+      () => add(projectDirectory, "alert", { "no-install": true }),
+      /알 수 없는 컴포넌트입니다: alert/,
+    );
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});

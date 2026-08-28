@@ -43,6 +43,12 @@ const componentDocuments: Record<string, ComponentDocument> = {
   </AlertDialogContent>
 </AlertDialog>`,
   },
+  Banner: {
+    registryName: "banner",
+    usage: `import { Banner } from "@cachette/ui/banner"
+import { Icon } from "@cachette/ui/icon"
+import { Link } from "@cachette/ui/link"`,
+  },
   Button: {
     registryName: "button",
     usage: `import { Button } from "@cachette/ui/button"
@@ -89,6 +95,10 @@ const componentDocuments: Record<string, ComponentDocument> = {
 
 <Input aria-label="이메일" placeholder="name@example.com" type="email" />`,
   },
+  Link: {
+    registryName: "link",
+    usage: `import { Link } from "@cachette/ui/link"`,
+  },
   "Input OTP": {
     registryName: "input-otp",
     usage: `import { InputOTP, InputOTPGroup, InputOTPSlot } from "@cachette/ui/input-otp"
@@ -117,7 +127,7 @@ const componentDocuments: Record<string, ComponentDocument> = {
     registryName: "tabs",
     usage: `import { Tabs, TabsContent, TabsList, TabsTrigger } from "@cachette/ui/tabs"
 
-<Tabs defaultValue="account">
+<Tabs defaultValue="account" variant="segmented">
   <TabsList>
     <TabsTrigger value="account">계정</TabsTrigger>
     <TabsTrigger value="security">보안</TabsTrigger>

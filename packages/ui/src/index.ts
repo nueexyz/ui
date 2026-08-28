@@ -120,6 +120,8 @@ export {
 export { Kbd, KbdGroup } from "./kbd";
 export { Label } from "./label";
 export type { LabelProps } from "./label";
+export { Link } from "./link";
+export type { LinkProps, LinkVariant } from "./link";
 export { Marker, MarkerContent, MarkerIcon } from "./marker";
 export { Message, MessageContent, MessageFooter, MessageHeader } from "./message";
 export type { MessageProps } from "./message";
@@ -208,8 +210,9 @@ export {
   TableRow,
 } from "./table";
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
-export { Alert, AlertDescription, AlertTitle } from "./alert";
-export type { AlertProps } from "./alert";
+export type { TabsProps, TabsVariant } from "./tabs";
+export { Banner, BannerDescription, BannerTitle } from "./banner";
+export type { BannerProps, BannerSize, BannerVariant } from "./banner";
 export {
   AlertDialog,
   AlertDialogAction,
