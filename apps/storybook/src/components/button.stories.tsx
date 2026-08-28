@@ -2,11 +2,12 @@ import { Button } from "@cachette/ui/button";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview, StorySection, storyStyles } from "./story-layout/StoryLayout";
 
-const meta = { title: "Components/Button", parameters: { layout: "fullscreen" } } satisfies Meta;
+const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Overview: Story = {
+export const ButtonStory: Story = {
+  name: "Button",
   render: () => (
     <StoryPage title="Button" description="행동의 중요도, 크기, 상태에 따른 표현을 비교합니다.">
       <StorySection title="종류" description="행동의 우선순위와 위험도에 맞는 표현을 선택합니다.">

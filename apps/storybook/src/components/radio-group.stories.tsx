@@ -4,12 +4,13 @@ import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview, storyStyles } from "./story-layout/StoryLayout";
 const meta = {
-  title: "Components/Radio Group",
+  title: "Components",
   parameters: { layout: "fullscreen" },
 } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Overview: Story = {
+export const RadioGroupStory: Story = {
+  name: "Radio Group",
   render: () => (
     <StoryPage title="Radio Group" description="여러 선택지 중 하나만 결정할 때 사용합니다.">
       <StoryPreview xstyle={storyStyles.column}>

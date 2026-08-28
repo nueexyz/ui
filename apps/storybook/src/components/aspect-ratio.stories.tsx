@@ -4,7 +4,7 @@ import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview } from "./story-layout/StoryLayout";
 const meta = {
-  title: "Components/Aspect Ratio",
+  title: "Components",
   parameters: { layout: "fullscreen" },
 } satisfies Meta;
 export default meta;
@@ -19,7 +19,8 @@ const styles = stylex.create({
     maxWidth: sizeVars.contentSm,
   },
 });
-export const Overview: Story = {
+export const AspectRatioStory: Story = {
+  name: "Aspect Ratio",
   render: () => (
     <StoryPage
       title="Aspect Ratio"

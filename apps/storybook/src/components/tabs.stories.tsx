@@ -2,11 +2,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@cachette/ui/tabs";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview, storyStyles } from "./story-layout/StoryLayout";
 
-const meta = { title: "Components/Tabs", parameters: { layout: "fullscreen" } } satisfies Meta;
+const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Overview: Story = {
+export const TabsStory: Story = {
+  name: "Tabs",
   render: () => (
     <StoryPage title="Tabs" description="같은 맥락의 콘텐츠를 짧은 범주로 나누어 전환합니다.">
       <StoryPreview xstyle={storyStyles.componentWidth}>

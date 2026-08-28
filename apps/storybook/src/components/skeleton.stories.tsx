@@ -3,7 +3,7 @@ import { Skeleton } from "@cachette/ui/skeleton";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview } from "./story-layout/StoryLayout";
-const meta = { title: "Components/Skeleton", parameters: { layout: "fullscreen" } } satisfies Meta;
+const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 const styles = stylex.create({
@@ -17,7 +17,8 @@ const styles = stylex.create({
   title: { height: sizeVars.iconMd, width: "45%" },
   body: { height: sizeVars.controlMd, width: "100%" },
 });
-export const Overview: Story = {
+export const SkeletonStory: Story = {
+  name: "Skeleton",
   render: () => (
     <StoryPage title="Skeleton" description="콘텐츠 구조를 유지하며 불러오는 상태를 보여줍니다.">
       <StoryPreview>

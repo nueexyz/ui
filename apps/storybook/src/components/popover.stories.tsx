@@ -9,10 +9,11 @@ import {
 } from "@cachette/ui/popover";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview } from "./story-layout/StoryLayout";
-const meta = { title: "Components/Popover", parameters: { layout: "fullscreen" } } satisfies Meta;
+const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Overview: Story = {
+export const PopoverStory: Story = {
+  name: "Popover",
   render: () => (
     <StoryPage
       title="Popover"

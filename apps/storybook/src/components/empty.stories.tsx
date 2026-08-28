@@ -12,11 +12,12 @@ import { Icon } from "@cachette/ui/icon";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview } from "./story-layout/StoryLayout";
-const meta = { title: "Components/Empty", parameters: { layout: "fullscreen" } } satisfies Meta;
+const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 const styles = stylex.create({ full: { width: "100%" }, content: { gap: spacingVars.space4 } });
-export const Overview: Story = {
+export const EmptyStory: Story = {
+  name: "Empty",
   render: () => (
     <StoryPage
       title="Empty"

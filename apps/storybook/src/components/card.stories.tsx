@@ -12,11 +12,12 @@ import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview, StorySection, storyStyles } from "./story-layout/StoryLayout";
 
-const meta = { title: "Components/Card", parameters: { layout: "fullscreen" } } satisfies Meta;
+const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Overview: Story = {
+export const CardStory: Story = {
+  name: "Card",
   render: () => (
     <StoryPage title="Card" description="하나의 목적에 필요한 정보와 행동을 묶어 보여줍니다.">
       <StorySection

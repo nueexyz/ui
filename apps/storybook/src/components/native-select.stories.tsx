@@ -3,12 +3,13 @@ import { NativeSelect, NativeSelectOption } from "@cachette/ui/native-select";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview } from "./story-layout/StoryLayout";
 const meta = {
-  title: "Components/Native Select",
+  title: "Components",
   parameters: { layout: "fullscreen" },
 } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Overview: Story = {
+export const NativeSelectStory: Story = {
+  name: "Native Select",
   render: () => (
     <StoryPage
       title="Native Select"

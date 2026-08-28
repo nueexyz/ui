@@ -3,11 +3,12 @@ import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview, StorySection, storyStyles } from "./story-layout/StoryLayout";
 
-const meta = { title: "Components/Input", parameters: { layout: "fullscreen" } } satisfies Meta;
+const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Overview: Story = {
+export const InputStory: Story = {
+  name: "Input",
   render: () => (
     <StoryPage title="Input" description="값의 유무, 입력 유형, 상태에 따른 표현을 비교합니다.">
       <StorySection title="기본" description="입력 전과 입력 후의 기본 표현을 비교합니다.">

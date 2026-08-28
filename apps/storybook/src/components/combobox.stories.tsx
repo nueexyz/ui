@@ -11,11 +11,12 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview } from "./story-layout/StoryLayout";
 
 const frameworks = ["React", "Vue", "Svelte", "Solid", "Angular"];
-const meta = { title: "Components/Combobox", parameters: { layout: "fullscreen" } } satisfies Meta;
+const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Overview: Story = {
+export const ComboboxStory: Story = {
+  name: "Combobox",
   render: () => (
     <StoryPage
       title="Combobox"

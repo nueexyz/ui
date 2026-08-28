@@ -4,10 +4,11 @@ import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview, StorySection, storyStyles } from "./story-layout/StoryLayout";
 
-const meta = { title: "Components/Field", parameters: { layout: "fullscreen" } } satisfies Meta;
+const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Overview: Story = {
+export const FieldStory: Story = {
+  name: "Field",
   render: () => (
     <StoryPage
       title="Field"

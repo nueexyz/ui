@@ -1,10 +1,11 @@
 import { Badge } from "@cachette/ui/badge";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview } from "./story-layout/StoryLayout";
-const meta = { title: "Components/Badge", parameters: { layout: "fullscreen" } } satisfies Meta;
+const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Overview: Story = {
+export const BadgeStory: Story = {
+  name: "Badge",
   render: () => (
     <StoryPage title="Badge" description="상태나 분류처럼 짧은 정보를 간결하게 표시합니다.">
       <StoryPreview>

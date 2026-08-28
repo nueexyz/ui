@@ -1,10 +1,11 @@
 import { Alert, AlertDescription, AlertTitle } from "@cachette/ui/alert";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview, storyStyles } from "./story-layout/StoryLayout";
-const meta = { title: "Components/Alert", parameters: { layout: "fullscreen" } } satisfies Meta;
+const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Overview: Story = {
+export const AlertStory: Story = {
+  name: "Alert",
   render: () => (
     <StoryPage title="Alert" description="현재 상태와 필요한 다음 행동을 함께 전달합니다.">
       <StoryPreview xstyle={storyStyles.column}>

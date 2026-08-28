@@ -12,11 +12,12 @@ import {
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview } from "./story-layout/StoryLayout";
 
-const meta = { title: "Components/Select", parameters: { layout: "fullscreen" } } satisfies Meta;
+const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Overview: Story = {
+export const SelectStory: Story = {
+  name: "Select",
   render: () => (
     <StoryPage title="Select" description="정해진 선택지 중 하나를 고릅니다.">
       <StoryPreview>

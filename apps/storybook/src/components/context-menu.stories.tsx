@@ -11,13 +11,14 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview, storyStyles } from "./story-layout/StoryLayout";
 
 const meta = {
-  title: "Components/Context Menu",
+  title: "Components",
   parameters: { layout: "fullscreen" },
 } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Overview: Story = {
+export const ContextMenuStory: Story = {
+  name: "Context Menu",
   render: () => (
     <StoryPage
       title="Context Menu"

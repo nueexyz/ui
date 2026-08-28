@@ -2,10 +2,11 @@ import { Switch } from "@cachette/ui/switch";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview, storyStyles } from "./story-layout/StoryLayout";
-const meta = { title: "Components/Switch", parameters: { layout: "fullscreen" } } satisfies Meta;
+const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Overview: Story = {
+export const SwitchStory: Story = {
+  name: "Switch",
   render: () => (
     <StoryPage title="Switch" description="변경 즉시 적용되는 설정을 켜거나 끕니다.">
       <StoryPreview xstyle={storyStyles.column}>

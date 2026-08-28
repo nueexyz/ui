@@ -4,7 +4,7 @@ import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview, storyStyles } from "./story-layout/StoryLayout";
 const meta = {
-  title: "Components/Typography",
+  title: "Components",
   parameters: { layout: "fullscreen" },
 } satisfies Meta;
 export default meta;
@@ -12,7 +12,8 @@ type Story = StoryObj<typeof meta>;
 const styles = stylex.create({
   stack: { display: "flex", flexDirection: "column", gap: spacingVars.space4 },
 });
-export const Overview: Story = {
+export const TypographyStory: Story = {
+  name: "Typography",
   render: () => (
     <StoryPage title="Typography" description="정보의 위계와 용도에 맞는 글자 스타일을 사용합니다.">
       <StoryPreview xstyle={[storyStyles.column, styles.stack]}>

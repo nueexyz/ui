@@ -10,12 +10,13 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview, StorySection, storyStyles } from "./story-layout/StoryLayout";
 
 const meta = {
-  title: "Components/Input Group",
+  title: "Components",
   parameters: { layout: "fullscreen" },
 } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Overview: Story = {
+export const InputGroupStory: Story = {
+  name: "Input Group",
   render: () => (
     <StoryPage
       title="Input Group"

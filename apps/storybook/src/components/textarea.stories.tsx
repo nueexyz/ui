@@ -3,10 +3,11 @@ import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview, StorySection, storyStyles } from "./story-layout/StoryLayout";
 
-const meta = { title: "Components/Textarea", parameters: { layout: "fullscreen" } } satisfies Meta;
+const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Overview: Story = {
+export const TextareaStory: Story = {
+  name: "Textarea",
   render: () => (
     <StoryPage title="Textarea" description="여러 줄로 작성하는 내용과 입력 상태를 비교합니다.">
       <StorySection

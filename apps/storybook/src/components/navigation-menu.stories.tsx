@@ -12,13 +12,14 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview, storyStyles } from "./story-layout/StoryLayout";
 
 const meta = {
-  title: "Components/Navigation Menu",
+  title: "Components",
   parameters: { layout: "fullscreen" },
 } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Overview: Story = {
+export const NavigationMenuStory: Story = {
+  name: "Navigation Menu",
   render: () => (
     <StoryPage title="Navigation Menu" description="사이트의 주요 영역과 하위 페이지를 탐색합니다.">
       <StoryPreview>

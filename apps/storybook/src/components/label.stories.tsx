@@ -3,10 +3,11 @@ import { Label } from "@cachette/ui/label";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview, storyStyles } from "./story-layout/StoryLayout";
-const meta = { title: "Components/Label", parameters: { layout: "fullscreen" } } satisfies Meta;
+const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Overview: Story = {
+export const LabelStory: Story = {
+  name: "Label",
   render: () => (
     <StoryPage title="Label" description="입력할 정보와 컨트롤의 관계를 명확하게 안내합니다.">
       <StoryPreview xstyle={storyStyles.column}>

@@ -3,10 +3,11 @@ import { Slider } from "@cachette/ui/slider";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview, storyStyles } from "./story-layout/StoryLayout";
-const meta = { title: "Components/Slider", parameters: { layout: "fullscreen" } } satisfies Meta;
+const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Overview: Story = {
+export const SliderStory: Story = {
+  name: "Slider",
   render: () => (
     <StoryPage title="Slider" description="정해진 범위에서 값을 빠르게 조절합니다.">
       <StoryPreview xstyle={storyStyles.column}>

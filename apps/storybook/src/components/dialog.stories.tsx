@@ -11,10 +11,11 @@ import {
 } from "@cachette/ui/dialog";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StoryPage, StoryPreview } from "./story-layout/StoryLayout";
-const meta = { title: "Components/Dialog", parameters: { layout: "fullscreen" } } satisfies Meta;
+const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Overview: Story = {
+export const DialogStory: Story = {
+  name: "Dialog",
   render: () => (
     <StoryPage
       title="Dialog"
