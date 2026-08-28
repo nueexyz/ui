@@ -9,7 +9,13 @@ import {
 import * as stylex from "@stylexjs/stylex";
 
 export const styles = stylex.create({
-  backdrop: { backgroundColor: "oklch(0% 0 0 / 48%)", inset: 0, position: "fixed", zIndex: 50 },
+  backdrop: {
+    backdropFilter: "blur(4px)",
+    backgroundColor: "oklch(0% 0 0 / 40%)",
+    inset: 0,
+    position: "fixed",
+    zIndex: 50,
+  },
   viewport: {
     alignItems: "center",
     display: "flex",

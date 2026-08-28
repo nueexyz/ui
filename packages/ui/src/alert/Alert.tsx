@@ -1,15 +1,32 @@
 import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 
 import { styles } from "./alert.stylex";
 
 type AlertVariant = "default" | "destructive";
 type StyleProps = { xstyle?: stylex.StyleXStyles };
 
-export type AlertProps = ComponentProps<"div"> & StyleProps & { variant?: AlertVariant };
+export type AlertProps = ComponentProps<"div"> &
+  StyleProps & {
+    icon?: ReactNode;
+    variant?: AlertVariant;
+  };
 
-export function Alert({ className, style, variant = "default", xstyle, ...props }: AlertProps) {
-  const stylexProps = stylex.props(styles.root, styles[variant], xstyle);
+export function Alert({
+  children,
+  className,
+  icon,
+  style,
+  variant = "default",
+  xstyle,
+  ...props
+}: AlertProps) {
+  const stylexProps = stylex.props(
+    styles.root,
+    Boolean(icon) && styles.withIcon,
+    styles[variant],
+    xstyle,
+  );
 
   return (
     <div
@@ -17,7 +34,10 @@ export function Alert({ className, style, variant = "default", xstyle, ...props 
       role="alert"
       className={[stylexProps.className, className].filter(Boolean).join(" ")}
       style={{ ...stylexProps.style, ...style }}
-    />
+    >
+      {icon ? <span {...stylex.props(styles.icon)}>{icon}</span> : null}
+      <div {...stylex.props(styles.content)}>{children}</div>
+    </div>
   );
 }
 

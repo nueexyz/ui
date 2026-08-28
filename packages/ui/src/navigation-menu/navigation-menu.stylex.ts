@@ -63,10 +63,17 @@ export const styles = stylex.create({
     display: "inline-flex",
     position: "relative",
     top: sizeVars.stroke,
-    transitionDuration: motionVars.durationNormal,
-    transitionProperty: "transform",
   },
-  iconOpen: { transform: "rotate(180deg)" },
+  iconClosed: {
+    alignItems: "center",
+    display: "inline-flex",
+    ":is([data-popup-open] *)": { display: "none" },
+  },
+  iconOpen: {
+    alignItems: "center",
+    display: "none",
+    ":is([data-popup-open] *)": { display: "inline-flex" },
+  },
   content: {
     height: "100%",
     padding: spacingVars.space1,

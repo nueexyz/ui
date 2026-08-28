@@ -88,13 +88,13 @@ export function NavigationMenuTrigger({
       }}
     >
       {children}
-      <NavigationMenuPrimitive.Icon
-        className={(state) =>
-          stylex.props(styles.icon, state.open && styles.iconOpen).className ?? ""
-        }
-        style={(state) => stylex.props(styles.icon, state.open && styles.iconOpen).style}
-      >
-        <Icon aria-hidden="true" name="chevronDown" />
+      <NavigationMenuPrimitive.Icon {...stylex.props(styles.icon)}>
+        <span {...stylex.props(styles.iconClosed)}>
+          <Icon aria-hidden="true" name="chevronDown" />
+        </span>
+        <span {...stylex.props(styles.iconOpen)}>
+          <Icon aria-hidden="true" name="chevronUp" />
+        </span>
       </NavigationMenuPrimitive.Icon>
     </NavigationMenuPrimitive.Trigger>
   );

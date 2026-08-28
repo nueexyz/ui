@@ -81,7 +81,12 @@ export function AccordionTrigger({
       >
         {children}
         <span aria-hidden="true" {...stylex.props(styles.icon)}>
-          <Icon name="chevronDown" />
+          <span {...stylex.props(styles.iconClosed)}>
+            <Icon name="chevronDown" />
+          </span>
+          <span {...stylex.props(styles.iconOpen)}>
+            <Icon name="chevronUp" />
+          </span>
         </span>
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>

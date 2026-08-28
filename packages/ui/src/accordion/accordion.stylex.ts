@@ -56,9 +56,17 @@ export const styles = stylex.create({
     flexShrink: 0,
     height: "1rem",
     justifyContent: "center",
-    transitionDuration: motionVars.durationNormal,
-    transitionProperty: "transform",
     width: "1rem",
+  },
+  iconClosed: {
+    alignItems: "center",
+    display: "inline-flex",
+    ":is([data-panel-open] *)": { display: "none" },
+  },
+  iconOpen: {
+    alignItems: "center",
+    display: "none",
+    ":is([data-panel-open] *)": { display: "inline-flex" },
   },
   panel: {
     color: colorVars.fgSecondary,

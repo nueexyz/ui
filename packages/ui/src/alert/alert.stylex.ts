@@ -16,10 +16,26 @@ export const styles = stylex.create({
     borderWidth: sizeVars.stroke,
     color: colorVars.fgPrimary,
     display: "grid",
-    gap: spacingVars.space1,
     paddingBlock: spacingVars.space3,
     paddingInline: spacingVars.space4,
     width: "100%",
+  },
+  withIcon: {
+    columnGap: spacingVars.space3,
+    gridTemplateColumns: `${sizeVars.iconMd} minmax(0, 1fr)`,
+  },
+  icon: {
+    alignSelf: "start",
+    alignItems: "center",
+    display: "inline-flex",
+    height: sizeVars.iconMd,
+    justifyContent: "center",
+    width: sizeVars.iconMd,
+  },
+  content: {
+    display: "grid",
+    gap: spacingVars.space1,
+    minWidth: 0,
   },
   default: {},
   destructive: {
