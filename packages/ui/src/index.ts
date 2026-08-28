@@ -89,6 +89,8 @@ export {
 } from "./dropdown-menu";
 export { Icon, iconRegistry } from "./Icon";
 export type { IconName, IconProps } from "./Icon";
+export { HoverCard, HoverCardContent, HoverCardTrigger } from "./hover-card";
+export type { HoverCardContentProps } from "./hover-card";
 export { DirectionProvider, useDirection } from "./direction";
 export type { DirectionProviderProps, TextDirection } from "./direction";
 export { Input } from "./input";
@@ -102,6 +104,8 @@ export {
   InputGroupTextarea,
 } from "./input-group";
 export type { InputGroupProps } from "./input-group";
+export { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "./input-otp";
+export type { InputOTPProps } from "./input-otp";
 export {
   Item,
   ItemActions,
@@ -156,6 +160,8 @@ export { Progress } from "./progress";
 export type { ProgressProps } from "./progress";
 export { RadioGroup, RadioGroupItem } from "./radio-group";
 export type { RadioGroupItemProps, RadioGroupProps } from "./radio-group";
+export { ScrollArea, ScrollBar } from "./scroll-area";
+export type { ScrollAreaProps } from "./scroll-area";
 export { Separator } from "./separator";
 export type { SeparatorProps } from "./separator";
 export {
