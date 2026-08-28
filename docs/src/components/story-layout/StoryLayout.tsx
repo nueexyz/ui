@@ -1,6 +1,5 @@
 import {
   colorVars,
-  motionVars,
   radiusVars,
   sizeVars,
   spacingVars,
@@ -11,10 +10,62 @@ import { Button } from "@cachette/ui/button";
 import { Icon } from "@cachette/ui/icon";
 import { type ReactNode, useEffect, useState } from "react";
 
-import { getComponentDocument } from "./component-docs";
-import { useStoryColorMode, useStorySource } from "./story-source-context";
+import { useStoryColorMode } from "./story-source-context";
 
 export const storyStyles = stylex.create({
+  page: {
+    backgroundColor: colorVars.bgSurface,
+    display: "flex",
+    flexDirection: "column",
+    gap: spacingVars.space8,
+    marginInline: "auto",
+    maxWidth: "48rem",
+    padding: spacingVars.space8,
+    "@media (max-width: 40rem)": { padding: spacingVars.space4 },
+  },
+  header: {
+    borderBottomColor: colorVars.strokeDefault,
+    borderBottomStyle: "solid",
+    borderBottomWidth: sizeVars.stroke,
+    display: "flex",
+    flexDirection: "column",
+    gap: spacingVars.space2,
+    paddingBottom: spacingVars.space5,
+  },
+  title: {
+    fontSize: typographyVars.fontSizeXl,
+    lineHeight: typographyVars.lineHeightTight,
+    margin: 0,
+  },
+  description: {
+    color: colorVars.fgSecondary,
+    fontSize: typographyVars.fontSizeSm,
+    lineHeight: typographyVars.lineHeightNormal,
+    margin: 0,
+  },
+  section: { display: "flex", flexDirection: "column", gap: spacingVars.space3 },
+  sectionHeader: { display: "flex", flexDirection: "column", gap: spacingVars.space2 },
+  sectionTitle: {
+    fontSize: typographyVars.fontSizeLg,
+    fontWeight: typographyVars.fontWeightSemibold,
+    lineHeight: typographyVars.lineHeightTight,
+    margin: 0,
+  },
+  preview: {
+    alignItems: "center",
+    backgroundColor: colorVars.bgSurface,
+    borderColor: colorVars.strokeDefault,
+    borderRadius: radiusVars.lg,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+    display: "flex",
+    flexWrap: "wrap",
+    fontSize: typographyVars.fontSizeSm,
+    gap: spacingVars.space3,
+    lineHeight: typographyVars.lineHeightNormal,
+    minHeight: "7rem",
+    padding: spacingVars.space6,
+  },
   column: { alignItems: "stretch", flexDirection: "column" },
   field: { display: "flex", flexDirection: "column", gap: spacingVars.space2 },
   formWidth: { maxWidth: sizeVars.contentSm, width: "100%" },
@@ -83,51 +134,30 @@ export const storyStyles = stylex.create({
   },
   stack: { display: "flex", flexDirection: "column", gap: spacingVars.space3 },
   copyButton: { minWidth: sizeVars.controlSm, paddingInline: spacingVars.space2 },
+  exampleContent: { display: "flex", flexDirection: "column", gap: spacingVars.space4 },
+  propsTable: {
+    borderCollapse: "collapse",
+    fontSize: typographyVars.fontSizeSm,
+    lineHeight: typographyVars.lineHeightNormal,
+    width: "100%",
+  },
+  propsCell: {
+    borderBottomColor: colorVars.strokeDefault,
+    borderBottomStyle: "solid",
+    borderBottomWidth: sizeVars.stroke,
+    paddingBlock: spacingVars.space3,
+    paddingInlineEnd: spacingVars.space3,
+    textAlign: "left",
+    verticalAlign: "top",
+  },
+  propsHeader: { color: colorVars.fgSecondary, fontWeight: typographyVars.fontWeightMedium },
+  propsName: {
+    color: colorVars.fgPrimary,
+    fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+  },
 });
 
 const styles = stylex.create({
-  page: {
-    display: "flex",
-    flexDirection: "column",
-    gap: spacingVars.space10,
-    marginInline: "auto",
-    maxWidth: "64rem",
-    padding: spacingVars.space8,
-  },
-  header: { display: "flex", flexDirection: "column", gap: spacingVars.space2 },
-  title: {
-    fontSize: typographyVars.fontSizeXl,
-    lineHeight: typographyVars.lineHeightTight,
-    margin: 0,
-  },
-  description: {
-    color: colorVars.fgSecondary,
-    fontSize: typographyVars.fontSizeSm,
-    lineHeight: typographyVars.lineHeightNormal,
-    margin: 0,
-  },
-  section: { display: "flex", flexDirection: "column", gap: spacingVars.space4 },
-  sectionHeader: { display: "flex", flexDirection: "column", gap: spacingVars.space1 },
-  sectionTitle: {
-    fontSize: typographyVars.fontSizeLg,
-    lineHeight: typographyVars.lineHeightTight,
-    margin: 0,
-  },
-  preview: {
-    alignItems: "center",
-    backgroundColor: colorVars.bgSurface,
-    borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.lg,
-    borderStyle: "solid",
-    borderWidth: sizeVars.stroke,
-    display: "flex",
-    fontSize: typographyVars.fontSizeSm,
-    flexWrap: "wrap",
-    gap: spacingVars.space3,
-    minHeight: "7rem",
-    padding: spacingVars.space6,
-    lineHeight: typographyVars.lineHeightNormal,
-  },
   codeBlock: {
     backgroundColor: colorVars.bgRaised,
     borderColor: colorVars.strokeDefault,
@@ -136,6 +166,24 @@ const styles = stylex.create({
     borderWidth: sizeVars.stroke,
     overflow: "hidden",
   },
+  codeAccordion: {
+    borderColor: colorVars.strokeDefault,
+    borderRadius: radiusVars.lg,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+    overflow: "hidden",
+  },
+  codeSummary: {
+    alignItems: "center",
+    cursor: "pointer",
+    display: "flex",
+    fontSize: typographyVars.fontSizeSm,
+    fontWeight: typographyVars.fontWeightMedium,
+    listStyle: "none",
+    minHeight: sizeVars.controlMd,
+    paddingInline: spacingVars.space3,
+    justifyContent: "space-between",
+  },
   codeToolbar: {
     alignItems: "center",
     borderBottomColor: colorVars.strokeDefault,
@@ -143,7 +191,7 @@ const styles = stylex.create({
     borderBottomWidth: sizeVars.stroke,
     display: "flex",
     justifyContent: "space-between",
-    minHeight: sizeVars.touchTarget,
+    paddingBlock: spacingVars.space1,
     paddingInline: spacingVars.space3,
   },
   codeActions: { alignItems: "center", display: "flex", gap: spacingVars.space1 },
@@ -158,17 +206,12 @@ const styles = stylex.create({
     fontSize: typographyVars.fontSizeSm,
     lineHeight: typographyVars.lineHeightNormal,
     margin: 0,
-    maxHeight: "80rem",
     overflowX: "auto",
     overflowY: "auto",
-    padding: spacingVars.space4,
+    padding: spacingVars.space3,
     tabSize: 2,
-    transitionDuration: motionVars.durationNormal,
-    transitionProperty: "max-height",
-    transitionTimingFunction: motionVars.easingStandard,
     whiteSpace: "pre",
   },
-  preCollapsed: { maxHeight: "18rem", overflowY: "hidden" },
 });
 
 type HighlightedToken = {
@@ -180,10 +223,11 @@ type HighlightedToken = {
 };
 
 async function createCodeHighlighter() {
-  const [core, engine, bash, tsx, githubDark, githubLight] = await Promise.all([
+  const [core, engine, bash, json, tsx, githubDark, githubLight] = await Promise.all([
     import("shiki/core"),
     import("shiki/engine/javascript"),
     import("shiki/langs/bash.mjs"),
+    import("shiki/langs/json.mjs"),
     import("shiki/langs/tsx.mjs"),
     import("shiki/themes/github-dark.mjs"),
     import("shiki/themes/github-light.mjs"),
@@ -191,7 +235,7 @@ async function createCodeHighlighter() {
 
   return core.createHighlighterCore({
     engine: engine.createJavaScriptRegexEngine(),
-    langs: [bash.default, tsx.default],
+    langs: [bash.default, json.default, tsx.default],
     themes: [githubDark.default, githubLight.default],
   });
 }
@@ -211,7 +255,71 @@ function normalizeCode(code: string) {
     .trim();
 }
 
-function CodeBlock({
+function splitUsage(usage: string) {
+  const [imports, ...componentLines] = normalizeCode(usage).split("\n\n");
+  return { component: componentLines.join("\n\n"), imports };
+}
+
+export function ComponentExample({ children }: { children: ReactNode }) {
+  return (
+    <section {...stylex.props(storyStyles.section)}>
+      <h2 {...stylex.props(storyStyles.sectionTitle)}>사용 예</h2>
+      <div {...stylex.props(storyStyles.exampleContent)}>{children}</div>
+    </section>
+  );
+}
+
+export function ComponentCode({ usage }: { usage: string }) {
+  const { component, imports } = splitUsage(usage);
+
+  return (
+    <section {...stylex.props(storyStyles.section)}>
+      <h2 {...stylex.props(storyStyles.sectionTitle)}>코드</h2>
+      <div {...stylex.props(storyStyles.exampleContent)}>
+        <CodeBlock code={imports} label="Import" language="tsx" />
+        {component ? <CodeBlock code={component} label="Component" language="tsx" /> : null}
+      </div>
+    </section>
+  );
+}
+
+export function ComponentPropsTable({
+  props,
+}: {
+  props?: readonly { defaultValue?: string; description: string; name: string; type: string }[];
+}) {
+  if (!props?.length) return null;
+
+  return (
+    <section {...stylex.props(storyStyles.section)}>
+      <h2 {...stylex.props(storyStyles.sectionTitle)}>Props</h2>
+      <table {...stylex.props(storyStyles.propsTable)}>
+        <thead>
+          <tr>
+            <th {...stylex.props(storyStyles.propsCell, storyStyles.propsHeader)}>이름</th>
+            <th {...stylex.props(storyStyles.propsCell, storyStyles.propsHeader)}>타입</th>
+            <th {...stylex.props(storyStyles.propsCell, storyStyles.propsHeader)}>기본값</th>
+            <th {...stylex.props(storyStyles.propsCell, storyStyles.propsHeader)}>설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          {props.map((prop) => (
+            <tr key={prop.name}>
+              <td {...stylex.props(storyStyles.propsCell, storyStyles.propsName)}>{prop.name}</td>
+              <td {...stylex.props(storyStyles.propsCell, storyStyles.propsName)}>{prop.type}</td>
+              <td {...stylex.props(storyStyles.propsCell, storyStyles.propsName)}>
+                {prop.defaultValue ?? "–"}
+              </td>
+              <td {...stylex.props(storyStyles.propsCell)}>{prop.description}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+  );
+}
+
+export function CodeBlock({
   code,
   collapsible = false,
   label,
@@ -220,14 +328,12 @@ function CodeBlock({
   code: string;
   collapsible?: boolean;
   label: string;
-  language: "bash" | "tsx";
+  language: "bash" | "json" | "tsx";
 }) {
   const colorMode = useStoryColorMode();
   const [highlightedLines, setHighlightedLines] = useState<HighlightedToken[][]>();
   const [isCopied, setIsCopied] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
   const normalizedCode = normalizeCode(code);
-  const canCollapse = collapsible && normalizedCode.split("\n").length > 12;
 
   useEffect(() => {
     let isActive = true;
@@ -256,21 +362,11 @@ function CodeBlock({
     return () => window.clearTimeout(timeoutId);
   }, [isCopied]);
 
-  return (
+  const content = (
     <div {...stylex.props(styles.codeBlock)}>
       <div {...stylex.props(styles.codeToolbar)}>
         <span {...stylex.props(styles.codeLabel)}>{label}</span>
         <div {...stylex.props(styles.codeActions)}>
-          {canCollapse ? (
-            <Button size="sm" variant="ghost" onClick={() => setIsExpanded((current) => !current)}>
-              {isExpanded ? "코드 접기" : "코드 펼치기"}
-              <Icon
-                aria-hidden="true"
-                name={isExpanded ? "chevronUp" : "chevronDown"}
-                weight="regular"
-              />
-            </Button>
-          ) : null}
           <Button
             aria-label={isCopied ? "복사됨" : `${label} 복사`}
             size="sm"
@@ -284,7 +380,7 @@ function CodeBlock({
           </Button>
         </div>
       </div>
-      <pre {...stylex.props(styles.pre, canCollapse && !isExpanded && styles.preCollapsed)}>
+      <pre {...stylex.props(styles.pre)}>
         <code>
           {highlightedLines
             ? highlightedLines.map((line, lineIndex) => (
@@ -305,70 +401,16 @@ function CodeBlock({
       </pre>
     </div>
   );
-}
 
-export function StoryPage({
-  children,
-  description,
-  title,
-}: {
-  children: ReactNode;
-  description: string;
-  title: string;
-}) {
-  const storySource = useStorySource();
-  const componentDocument = getComponentDocument(title, storySource);
-  const installCommand = `pnpm dlx @cachette/cli add ${componentDocument.registryName}`;
+  if (!collapsible) return content;
 
   return (
-    <main {...stylex.props(styles.page)}>
-      <header {...stylex.props(styles.header)}>
-        <h1 {...stylex.props(styles.title)}>{title}</h1>
-        <p {...stylex.props(styles.description)}>{description}</p>
-      </header>
-      {children}
-      <StorySection
-        title="설치"
-        description="초기 설정에 지정한 경로와 별칭을 기준으로 필요한 파일을 추가합니다."
-      >
-        <CodeBlock code={installCommand} label="터미널" language="bash" />
-      </StorySection>
-      <StorySection
-        title="사용 예"
-        description="스토리에 표시한 예시 코드를 확인하고 복사할 수 있습니다."
-      >
-        <CodeBlock code={componentDocument.usage} collapsible label="TSX" language="tsx" />
-      </StorySection>
-    </main>
+    <details {...stylex.props(styles.codeAccordion)}>
+      <summary {...stylex.props(styles.codeSummary)}>
+        코드 보기
+        <Icon aria-hidden="true" name="chevronDown" weight="regular" />
+      </summary>
+      {content}
+    </details>
   );
-}
-
-export function StorySection({
-  children,
-  description,
-  title,
-}: {
-  children: ReactNode;
-  description: string;
-  title: string;
-}) {
-  return (
-    <section {...stylex.props(styles.section)}>
-      <header {...stylex.props(styles.sectionHeader)}>
-        <h2 {...stylex.props(styles.sectionTitle)}>{title}</h2>
-        <p {...stylex.props(styles.description)}>{description}</p>
-      </header>
-      {children}
-    </section>
-  );
-}
-
-export function StoryPreview({
-  children,
-  xstyle,
-}: {
-  children: ReactNode;
-  xstyle?: stylex.StyleXStyles;
-}) {
-  return <div {...stylex.props(styles.preview, xstyle)}>{children}</div>;
 }

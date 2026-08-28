@@ -8,7 +8,15 @@ import {
 } from "@cachette/tokens/tokens.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { StoryPage, StoryPreview, storyStyles } from "./story-layout/StoryLayout";
+import {
+  CodeBlock,
+  ComponentCode,
+  ComponentExample,
+  ComponentPropsTable,
+  storyStyles,
+} from "./story-layout/StoryLayout";
+import { getComponentDocument } from "./story-layout/component-docs";
+import { CollapsibleExample, collapsibleExampleCode } from "./examples/collapsible.example";
 
 const meta = {
   title: "Components",
@@ -16,6 +24,8 @@ const meta = {
 } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+const componentDocument = getComponentDocument("Collapsible");
 
 const styles = stylex.create({
   header: {
@@ -50,29 +60,29 @@ const styles = stylex.create({
 export const CollapsibleStory: Story = {
   name: "Collapsible",
   render: () => (
-    <StoryPage title="Collapsible" description="보조 정보를 한 영역 안에서 간단히 접고 펼칩니다.">
-      <StoryPreview xstyle={storyStyles.componentWidth}>
-        <Collapsible>
-          <div {...stylex.props(styles.header)}>
-            <h3 {...stylex.props(styles.title)}>주문 #4189</h3>
-            <CollapsibleTrigger aria-label="주문 상세 정보 열기" />
-          </div>
-          <div {...stylex.props(styles.detail)}>
-            <span {...stylex.props(styles.detailLabel)}>상태</span>
-            <span {...stylex.props(styles.detailValue)}>배송 완료</span>
-          </div>
-          <CollapsibleContent>
-            <div {...stylex.props(styles.detailGroup, styles.detail)}>
-              <span {...stylex.props(styles.detailValue)}>배송지</span>
-              <span {...stylex.props(styles.detailLabel)}>서울시 성동구 성수이로 18</span>
-            </div>
-            <div {...stylex.props(styles.detailGroup, styles.detail)}>
-              <span {...stylex.props(styles.detailValue)}>상품</span>
-              <span {...stylex.props(styles.detailLabel)}>스튜디오 헤드폰 2개</span>
-            </div>
-          </CollapsibleContent>
-        </Collapsible>
-      </StoryPreview>
-    </StoryPage>
+    <main {...stylex.props(storyStyles.page)}>
+      <header {...stylex.props(storyStyles.header)}>
+        <h1 {...stylex.props(storyStyles.title)}>Collapsible</h1>
+        <p {...stylex.props(storyStyles.description)}>
+          보조 정보를 한 영역 안에서 간단히 접고 펼칩니다.
+        </p>
+      </header>
+      <ComponentExample>
+        <CollapsibleExample />
+      </ComponentExample>
+
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+        </header>
+        <CodeBlock
+          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          label="터미널"
+          language="bash"
+        />
+      </section>
+      <ComponentCode usage={collapsibleExampleCode} />
+      <ComponentPropsTable props={componentDocument.props} />
+    </main>
   ),
 };

@@ -93,7 +93,7 @@ const preview: Preview = {
       storySort: {
         includeNames: true,
         method: "alphabetical",
-        order: ["Foundations", "Components"],
+        order: ["시작하기", "Foundations", "Components"],
       },
     },
   },

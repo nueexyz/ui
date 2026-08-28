@@ -1,34 +1,59 @@
-import { Field, FieldDescription, FieldError, FieldLabel } from "@cachette/ui/field";
+import { Checkbox } from "@cachette/ui/checkbox";
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSet,
+  FieldTitle,
+} from "@cachette/ui/field";
 import { Input } from "@cachette/ui/input";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { StoryPage, StoryPreview, StorySection, storyStyles } from "./story-layout/StoryLayout";
+import {
+  CodeBlock,
+  ComponentCode,
+  ComponentExample,
+  ComponentPropsTable,
+  storyStyles,
+} from "./story-layout/StoryLayout";
+import { getComponentDocument } from "./story-layout/component-docs";
+import { FieldExample, fieldExampleCode } from "./examples/field.example";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+const componentDocument = getComponentDocument("Field");
 export const FieldStory: Story = {
   name: "Field",
   render: () => (
-    <StoryPage
-      title="Field"
-      description="레이블, 설명, 입력, 오류를 하나의 접근 가능한 필드로 연결합니다."
-    >
-      <StorySection
-        title="검증"
-        description="문제가 생기면 원인과 다음 행동을 입력 바로 아래에서 안내합니다."
-      >
-        <StoryPreview xstyle={storyStyles.column}>
-          <div {...stylex.props(storyStyles.formWidth)}>
-            <Field invalid>
-              <FieldLabel>이메일</FieldLabel>
-              <Input required type="email" defaultValue="min@" />
-              <FieldDescription>업무에 사용하는 이메일을 입력하세요.</FieldDescription>
-              <FieldError match>이메일 주소 전체를 입력하세요.</FieldError>
-            </Field>
-          </div>
-        </StoryPreview>
-      </StorySection>
-    </StoryPage>
+    <main {...stylex.props(storyStyles.page)}>
+      <header {...stylex.props(storyStyles.header)}>
+        <h1 {...stylex.props(storyStyles.title)}>Field</h1>
+        <p {...stylex.props(storyStyles.description)}>
+          레이블, 설명, 입력, 오류를 하나의 접근 가능한 필드로 연결합니다.
+        </p>
+      </header>
+      <ComponentExample>
+        <FieldExample />
+      </ComponentExample>
+
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+        </header>
+        <CodeBlock
+          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          label="터미널"
+          language="bash"
+        />
+      </section>
+      <ComponentCode usage={fieldExampleCode} />
+      <ComponentPropsTable props={componentDocument.props} />
+    </main>
   ),
 };

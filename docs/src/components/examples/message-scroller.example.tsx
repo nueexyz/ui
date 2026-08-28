@@ -1,0 +1,59 @@
+import { Bubble } from "@cachette/ui/bubble";
+import { Message, MessageContent } from "@cachette/ui/message";
+import { MessageScroller } from "@cachette/ui/message-scroller";
+import * as stylex from "@stylexjs/stylex";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import {
+  CodeBlock,
+  ComponentCode,
+  ComponentExample,
+  ComponentPropsTable,
+  storyStyles,
+} from "../story-layout/StoryLayout";
+import { getComponentDocument } from "../story-layout/component-docs";
+
+const styles = stylex.create({ viewport: { height: "18rem", width: "28rem" } });
+
+const messages = [
+  { content: "사용자 인터뷰 질문을 정리했어요.", side: "incoming" },
+  { content: "확인했어요. 오후 회의 전에 검토할게요.", side: "outgoing" },
+  { content: "첫 번째 질문은 가입 이유로 시작하면 좋겠어요.", side: "incoming" },
+  { content: "좋아요. 답변 흐름도 함께 적어둘게요.", side: "outgoing" },
+  { content: "인터뷰 대상자 세 분이 일정을 선택했어요.", side: "incoming" },
+  { content: "고마워요. 확정되면 캘린더에 추가해 주세요.", side: "outgoing" },
+  { content: "목요일 오후 2시로 첫 인터뷰를 잡았어요.", side: "incoming" },
+  { content: "회의 링크도 초대 메일에 넣어둘게요.", side: "outgoing" },
+  { content: "녹화 동의 안내도 확인이 필요해요.", side: "incoming" },
+  { content: "안내 문구를 검토해서 공유하겠습니다.", side: "outgoing" },
+] as const;
+
+const componentDocument = getComponentDocument("Message Scroller");
+
+export function MessageScrollerExample() {
+  return (
+    <>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>대화 내역</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            위로 이동해 지난 메시지를 읽으면 최신 메시지 이동 버튼이 나타납니다.
+          </p>
+        </header>
+        <div {...stylex.props(storyStyles.preview)}>
+          <MessageScroller xstyle={styles.viewport}>
+            {messages.map((message) => (
+              <Message key={message.content} side={message.side}>
+                <MessageContent>
+                  <Bubble side={message.side}>{message.content}</Bubble>
+                </MessageContent>
+              </Message>
+            ))}
+          </MessageScroller>
+        </div>
+      </section>
+    </>
+  );
+}
+
+export const messageScrollerExampleCode =
+  'import { Bubble } from "@cachette/ui/bubble"\nimport { MessageScroller } from "@cachette/ui/message-scroller"\n\n<MessageScroller style={{ height: "18rem" }}>\n  <Bubble>요청 사항을 확인했어요.</Bubble>\n  <Bubble side="outgoing">고마워요. 오늘 안에 공유할게요.</Bubble>\n</MessageScroller>';

@@ -318,7 +318,7 @@ function SemanticStory() {
       <Section title="Interaction" description="조작에 따른 순간 상태를 겹쳐 표현합니다.">
         {interactionTokens.map(([name, token, foreground, usage]) => (
           <TokenCard key={name} name={name} usage={usage} value={token}>
-            <div {...stylex.props(styles.semanticSwatch(token, foreground))}>{name}</div>
+            <div {...stylex.props(styles.semanticSwatch(token, foreground))} />
           </TokenCard>
         ))}
       </Section>

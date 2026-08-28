@@ -1,3 +1,4 @@
+import * as stylex from "@stylexjs/stylex";
 import {
   Attachment,
   AttachmentAction,
@@ -10,11 +11,21 @@ import {
 } from "@cachette/ui/attachment";
 import { Icon } from "@cachette/ui/icon";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { StoryPage, StoryPreview, StorySection, storyStyles } from "./story-layout/StoryLayout";
+import {
+  CodeBlock,
+  ComponentCode,
+  ComponentExample,
+  ComponentPropsTable,
+  storyStyles,
+} from "./story-layout/StoryLayout";
+import { getComponentDocument } from "./story-layout/component-docs";
+import { AttachmentExample, attachmentExampleCode } from "./examples/attachment.example";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+const componentDocument = getComponentDocument("Attachment");
 
 function FileAttachment({ error = false }: { error?: boolean }) {
   return (
@@ -43,43 +54,43 @@ function FileAttachment({ error = false }: { error?: boolean }) {
 export const AttachmentStory: Story = {
   name: "Attachment",
   render: () => (
-    <StoryPage
-      title="Attachment"
-      description="첨부한 파일의 이름, 크기, 처리 상태와 관련 행동을 함께 보여줍니다."
-    >
-      <StorySection title="상태" description="완료와 오류를 색상뿐 아니라 문구로도 구분합니다.">
-        <StoryPreview xstyle={[storyStyles.column, storyStyles.componentWidth]}>
+    <main {...stylex.props(storyStyles.page)}>
+      <header {...stylex.props(storyStyles.header)}>
+        <h1 {...stylex.props(storyStyles.title)}>Attachment</h1>
+        <p {...stylex.props(storyStyles.description)}>
+          첨부한 파일의 이름, 크기, 처리 상태와 관련 행동을 함께 보여줍니다.
+        </p>
+      </header>
+      <ComponentExample>
+        <AttachmentExample />
+      </ComponentExample>
+
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+        </header>
+        <CodeBlock
+          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          label="터미널"
+          language="bash"
+        />
+      </section>
+      <ComponentCode usage={attachmentExampleCode} />
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>States</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            완료와 오류를 색상뿐 아니라 문구로도 구분합니다.
+          </p>
+        </header>
+        <div
+          {...stylex.props(storyStyles.preview, [storyStyles.column, storyStyles.componentWidth])}
+        >
           <FileAttachment />
           <FileAttachment error />
-        </StoryPreview>
-      </StorySection>
-      <StorySection
-        title="파일 묶음"
-        description="여러 파일은 같은 구조로 이어서 확인할 수 있게 합니다."
-      >
-        <StoryPreview>
-          <AttachmentGroup>
-            <Attachment size="sm">
-              <AttachmentMedia>
-                <Icon name="paperclip" />
-              </AttachmentMedia>
-              <AttachmentContent>
-                <AttachmentTitle>회의록.txt</AttachmentTitle>
-                <AttachmentDescription>18 KB</AttachmentDescription>
-              </AttachmentContent>
-            </Attachment>
-            <Attachment size="sm">
-              <AttachmentMedia>
-                <Icon name="paperclip" />
-              </AttachmentMedia>
-              <AttachmentContent>
-                <AttachmentTitle>화면설계.fig</AttachmentTitle>
-                <AttachmentDescription>8.1 MB</AttachmentDescription>
-              </AttachmentContent>
-            </Attachment>
-          </AttachmentGroup>
-        </StoryPreview>
-      </StorySection>
-    </StoryPage>
+        </div>
+      </section>
+      <ComponentPropsTable props={componentDocument.props} />
+    </main>
   ),
 };

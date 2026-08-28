@@ -8,7 +8,15 @@ import {
 } from "@cachette/ui/context-menu";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { StoryPage, StoryPreview, storyStyles } from "./story-layout/StoryLayout";
+import {
+  CodeBlock,
+  ComponentCode,
+  ComponentExample,
+  ComponentPropsTable,
+  storyStyles,
+} from "./story-layout/StoryLayout";
+import { getComponentDocument } from "./story-layout/component-docs";
+import { ContextMenuExample, contextMenuExampleCode } from "./examples/context-menu.example";
 
 const meta = {
   title: "Components",
@@ -17,32 +25,34 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const componentDocument = getComponentDocument("Context Menu");
+
 export const ContextMenuStory: Story = {
   name: "Context Menu",
   render: () => (
-    <StoryPage
-      title="Context Menu"
-      description="선택한 영역과 직접 관련된 행동을 보조 클릭으로 엽니다."
-    >
-      <StoryPreview xstyle={storyStyles.column}>
-        <ContextMenu>
-          <ContextMenuTrigger {...stylex.props(storyStyles.contextTarget)}>
-            이 영역을 보조 클릭하세요.
-          </ContextMenuTrigger>
-          <ContextMenuContent>
-            <ContextMenuItem>
-              뒤로<ContextMenuShortcut>⌘[</ContextMenuShortcut>
-            </ContextMenuItem>
-            <ContextMenuItem>
-              앞으로<ContextMenuShortcut>⌘]</ContextMenuShortcut>
-            </ContextMenuItem>
-            <ContextMenuSeparator />
-            <ContextMenuItem>
-              새로 고침<ContextMenuShortcut>⌘R</ContextMenuShortcut>
-            </ContextMenuItem>
-          </ContextMenuContent>
-        </ContextMenu>
-      </StoryPreview>
-    </StoryPage>
+    <main {...stylex.props(storyStyles.page)}>
+      <header {...stylex.props(storyStyles.header)}>
+        <h1 {...stylex.props(storyStyles.title)}>Context Menu</h1>
+        <p {...stylex.props(storyStyles.description)}>
+          선택한 영역과 직접 관련된 행동을 보조 클릭으로 엽니다.
+        </p>
+      </header>
+      <ComponentExample>
+        <ContextMenuExample />
+      </ComponentExample>
+
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+        </header>
+        <CodeBlock
+          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          label="터미널"
+          language="bash"
+        />
+      </section>
+      <ComponentCode usage={contextMenuExampleCode} />
+      <ComponentPropsTable props={componentDocument.props} />
+    </main>
   ),
 };

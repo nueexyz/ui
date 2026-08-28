@@ -1,26 +1,48 @@
+import * as stylex from "@stylexjs/stylex";
 import { Bubble } from "@cachette/ui/bubble";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { StoryPage, StoryPreview, StorySection, storyStyles } from "./story-layout/StoryLayout";
+import {
+  CodeBlock,
+  ComponentCode,
+  ComponentExample,
+  ComponentPropsTable,
+  storyStyles,
+} from "./story-layout/StoryLayout";
+import { getComponentDocument } from "./story-layout/component-docs";
+import { BubbleExample, bubbleExampleCode } from "./examples/bubble.example";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const componentDocument = getComponentDocument("Bubble");
+
 export const BubbleStory: Story = {
   name: "Bubble",
   render: () => (
-    <StoryPage title="Bubble" description="대화에서 주고받은 메시지를 방향과 표면으로 구분합니다.">
-      <StorySection
-        title="대화"
-        description="보낸 메시지와 받은 메시지는 정렬 방향으로 먼저 구분합니다."
-      >
-        <StoryPreview xstyle={storyStyles.column}>
-          <Bubble>오늘 회의 자료를 확인해 줄 수 있을까요?</Bubble>
-          <Bubble side="outgoing" variant="outline">
-            네, 오후 3시 전까지 의견을 남길게요.
-          </Bubble>
-        </StoryPreview>
-      </StorySection>
-    </StoryPage>
+    <main {...stylex.props(storyStyles.page)}>
+      <header {...stylex.props(storyStyles.header)}>
+        <h1 {...stylex.props(storyStyles.title)}>Bubble</h1>
+        <p {...stylex.props(storyStyles.description)}>
+          대화에서 주고받은 메시지를 방향과 표면으로 구분합니다.
+        </p>
+      </header>
+      <ComponentExample>
+        <BubbleExample />
+      </ComponentExample>
+
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+        </header>
+        <CodeBlock
+          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          label="터미널"
+          language="bash"
+        />
+      </section>
+      <ComponentCode usage={bubbleExampleCode} />
+      <ComponentPropsTable props={componentDocument.props} />
+    </main>
   ),
 };
