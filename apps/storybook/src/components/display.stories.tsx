@@ -8,6 +8,15 @@ import {
 import { Alert as AlertComponent, AlertDescription, AlertTitle } from "@cachette/ui/alert";
 import { AspectRatio as AspectRatioComponent } from "@cachette/ui/aspect-ratio";
 import { Badge as BadgeComponent } from "@cachette/ui/badge";
+import { Button } from "@cachette/ui/button";
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@cachette/ui/empty";
 import { Icon } from "@cachette/ui/icon";
 import { Input } from "@cachette/ui/input";
 import { Kbd as KbdComponent, KbdGroup } from "@cachette/ui/kbd";
@@ -15,6 +24,7 @@ import { Label as LabelComponent } from "@cachette/ui/label";
 import { Separator as SeparatorComponent } from "@cachette/ui/separator";
 import { Skeleton as SkeletonComponent } from "@cachette/ui/skeleton";
 import { Spinner as SpinnerComponent } from "@cachette/ui/spinner";
+import { Typography as TypographyComponent } from "@cachette/ui/typography";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ReactNode } from "react";
@@ -88,6 +98,7 @@ const styles = stylex.create({
   },
   skeletonTitle: { height: sizeVars.iconMd, width: "45%" },
   skeletonBody: { height: sizeVars.controlMd, width: "100%" },
+  typographyStack: { display: "flex", flexDirection: "column", gap: spacingVars.space4 },
 });
 
 function Page({
@@ -218,6 +229,44 @@ export const Spinner: Story = {
       <div {...stylex.props(styles.preview)}>
         <SpinnerComponent label="저장 중" />
         <Icon aria-hidden="true" name="check" />
+      </div>
+    </Page>
+  ),
+};
+
+export const EmptyState: Story = {
+  name: "Empty",
+  render: () => (
+    <Page title="Empty" description="아직 표시할 내용이 없을 때 이유와 다음 행동을 안내합니다.">
+      <Empty>
+        <EmptyHeader>
+          <EmptyMedia>
+            <Icon aria-hidden="true" name="folder" />
+          </EmptyMedia>
+          <EmptyTitle>저장한 프로젝트가 없습니다</EmptyTitle>
+          <EmptyDescription>
+            자주 확인할 프로젝트를 저장하면 이곳에서 바로 열 수 있습니다.
+          </EmptyDescription>
+        </EmptyHeader>
+        <EmptyContent>
+          <Button>프로젝트 저장하기</Button>
+        </EmptyContent>
+      </Empty>
+    </Page>
+  ),
+};
+
+export const Typography: Story = {
+  render: () => (
+    <Page title="Typography" description="정보의 위계와 용도에 맞는 글자 스타일을 사용합니다.">
+      <div {...stylex.props(styles.preview, styles.column, styles.typographyStack)}>
+        <TypographyComponent variant="display">제품의 핵심 제목</TypographyComponent>
+        <TypographyComponent variant="title">화면 제목</TypographyComponent>
+        <TypographyComponent variant="heading">콘텐츠 제목</TypographyComponent>
+        <TypographyComponent>본문은 읽기 편한 크기와 줄 높이를 유지합니다.</TypographyComponent>
+        <TypographyComponent variant="label">필드 레이블</TypographyComponent>
+        <TypographyComponent variant="caption">업데이트: 방금 전</TypographyComponent>
+        <TypographyComponent variant="code">pnpm storybook</TypographyComponent>
       </div>
     </Page>
   ),

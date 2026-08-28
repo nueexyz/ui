@@ -6,6 +6,7 @@ import {
   typographyVars,
 } from "@cachette/tokens/tokens.stylex";
 import { Button as ButtonComponent } from "@cachette/ui/button";
+import { ButtonGroup, ButtonGroupText } from "@cachette/ui/button-group";
 import {
   Card as CardComponent,
   CardContent,
@@ -15,6 +16,15 @@ import {
   CardTitle,
 } from "@cachette/ui/card";
 import { Input as InputComponent } from "@cachette/ui/input";
+import { Field, FieldDescription, FieldError, FieldLabel } from "@cachette/ui/field";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+} from "@cachette/ui/input-group";
+import { Textarea as TextareaComponent } from "@cachette/ui/textarea";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ReactNode } from "react";
@@ -307,6 +317,110 @@ export const Card: Story = {
               <ButtonComponent>계정 만들기</ButtonComponent>
             </CardFooter>
           </CardComponent>
+        </div>
+      </Section>
+    </main>
+  ),
+};
+
+export const Textarea: Story = {
+  render: () => (
+    <main {...stylex.props(styles.page)}>
+      <PageHeader
+        title="Textarea"
+        description="여러 줄로 작성하는 내용과 입력 상태를 비교합니다."
+      />
+      <Section
+        title="기본"
+        description="플레이스홀더는 입력 형식을 보여주는 짧은 예시로 사용합니다."
+      >
+        <div {...stylex.props(styles.preview, styles.previewColumn)}>
+          <div {...stylex.props(styles.inputStack)}>
+            <TextareaComponent
+              aria-label="메모"
+              placeholder="회의에서 결정한 내용을 적어 주세요."
+            />
+            <TextareaComponent
+              aria-label="수정할 수 없는 메모"
+              disabled
+              defaultValue="검토가 끝난 메모입니다."
+            />
+          </div>
+        </div>
+      </Section>
+    </main>
+  ),
+};
+
+export const FieldComposition: Story = {
+  name: "Field",
+  render: () => (
+    <main {...stylex.props(styles.page)}>
+      <PageHeader
+        title="Field"
+        description="레이블, 설명, 입력, 오류를 하나의 접근 가능한 필드로 연결합니다."
+      />
+      <Section
+        title="검증"
+        description="문제가 생기면 원인과 다음 행동을 입력 바로 아래에서 안내합니다."
+      >
+        <div {...stylex.props(styles.preview, styles.previewColumn)}>
+          <div {...stylex.props(styles.inputStack)}>
+            <Field invalid>
+              <FieldLabel>이메일</FieldLabel>
+              <InputComponent required type="email" defaultValue="min@" />
+              <FieldDescription>업무에 사용하는 이메일을 입력하세요.</FieldDescription>
+              <FieldError match>이메일 주소 전체를 입력하세요.</FieldError>
+            </Field>
+          </div>
+        </div>
+      </Section>
+    </main>
+  ),
+};
+
+export const ButtonGroupComposition: Story = {
+  name: "Button Group",
+  render: () => (
+    <main {...stylex.props(styles.page)}>
+      <PageHeader
+        title="Button Group"
+        description="같은 목적을 가진 행동을 하나의 조작 단위로 묶습니다."
+      />
+      <Section title="관련 행동" description="가장 자주 사용하는 행동을 먼저 배치합니다.">
+        <div {...stylex.props(styles.preview)}>
+          <ButtonGroup aria-label="문서 작업">
+            <ButtonGroupText>문서</ButtonGroupText>
+            <ButtonComponent variant="ghost">공유하기</ButtonComponent>
+            <ButtonComponent variant="ghost">내보내기</ButtonComponent>
+          </ButtonGroup>
+        </div>
+      </Section>
+    </main>
+  ),
+};
+
+export const InputGroupComposition: Story = {
+  name: "Input Group",
+  render: () => (
+    <main {...stylex.props(styles.page)}>
+      <PageHeader
+        title="Input Group"
+        description="입력값의 맥락과 보조 행동을 하나의 컨트롤 표면에 배치합니다."
+      />
+      <Section title="주소 입력" description="고정된 접두어는 입력값과 구분해 보여줍니다.">
+        <div {...stylex.props(styles.preview, styles.previewColumn)}>
+          <div {...stylex.props(styles.inputStack)}>
+            <InputGroup>
+              <InputGroupAddon align="inline-start">
+                <InputGroupText>https://</InputGroupText>
+              </InputGroupAddon>
+              <InputGroupInput aria-label="웹 주소" placeholder="example.com" />
+              <InputGroupAddon align="inline-end">
+                <InputGroupButton>복사</InputGroupButton>
+              </InputGroupAddon>
+            </InputGroup>
+          </div>
         </div>
       </Section>
     </main>
