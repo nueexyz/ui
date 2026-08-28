@@ -34,6 +34,7 @@
     "./src/switch/registry.json",
     "./src/tabs/registry.json",
     "./src/textarea/registry.json",
+    "./src/toast/registry.json",
     "./src/toggle/registry.json",
     "./src/toggle-group/registry.json",
     "./src/typography/registry.json",

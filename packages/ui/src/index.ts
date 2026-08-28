@@ -145,6 +145,8 @@ export { Badge } from "./badge";
 export type { BadgeProps } from "./badge";
 export { Textarea } from "./textarea";
 export type { TextareaProps } from "./textarea";
+export { toast, Toaster } from "./toast";
+export type { ToasterProps } from "./toast";
 export { Toggle } from "./toggle";
 export type { ToggleProps, ToggleSize, ToggleVariant } from "./toggle";
 export { ToggleGroup, ToggleGroupItem } from "./toggle-group";
