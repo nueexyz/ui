@@ -11,13 +11,28 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { MarkerExample, markerExampleCode } from "./examples/marker.example";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Marker");
+
+function MarkerExample() {
+  return (
+    <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
+      <Marker>
+        <MarkerIcon>
+          <Spinner label="답변 작성 중" />
+        </MarkerIcon>
+        <MarkerContent>답변을 작성하고 있어요.</MarkerContent>
+      </Marker>
+    </div>
+  );
+}
+
+const markerExampleCode =
+  'import { Marker, MarkerContent, MarkerIcon } from "@cachette/ui/marker"\nimport { Spinner } from "@cachette/ui/spinner"\n\n<Marker>\n  <MarkerIcon><Spinner label="답변 작성 중" /></MarkerIcon>\n  <MarkerContent>답변을 작성하고 있어요.</MarkerContent>\n</Marker>';
 
 export const MarkerStory: Story = {
   name: "Marker",

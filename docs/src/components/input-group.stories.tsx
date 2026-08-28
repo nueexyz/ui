@@ -1,10 +1,3 @@
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-  InputGroupText,
-} from "@cachette/ui/input-group";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
@@ -15,7 +8,13 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { InputGroupExample, inputGroupExampleCode } from "./examples/input-group.example";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+} from "@cachette/ui/input-group";
 
 const meta = {
   title: "Components",
@@ -25,6 +24,36 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Input Group");
+
+function InputGroupExample() {
+  return (
+    <section {...stylex.props(storyStyles.section)}>
+      <header {...stylex.props(storyStyles.sectionHeader)}>
+        <h2 {...stylex.props(storyStyles.sectionTitle)}>주소 입력</h2>
+        <p {...stylex.props(storyStyles.description)}>
+          고정된 접두어는 입력값과 구분해 보여줍니다.
+        </p>
+      </header>
+      <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
+        <div {...stylex.props(storyStyles.formWidth)}>
+          <InputGroup>
+            <InputGroupAddon align="inline-start">
+              <InputGroupText>https://</InputGroupText>
+            </InputGroupAddon>
+            <InputGroupInput aria-label="웹 주소" placeholder="example.com" />
+            <InputGroupAddon align="inline-end">
+              <InputGroupButton>복사</InputGroupButton>
+            </InputGroupAddon>
+          </InputGroup>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const inputGroupExampleCode =
+  'import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText } from "@cachette/ui/input-group"\n\n<InputGroup>\n  <InputGroupAddon align="inline-start"><InputGroupText>https://</InputGroupText></InputGroupAddon>\n  <InputGroupInput aria-label="웹 주소" placeholder="example.com" />\n  <InputGroupAddon align="inline-end"><InputGroupButton>복사</InputGroupButton></InputGroupAddon>\n</InputGroup>';
+
 export const InputGroupStory: Story = {
   name: "Input Group",
   render: () => (

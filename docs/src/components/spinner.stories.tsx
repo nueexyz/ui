@@ -1,5 +1,4 @@
 import * as stylex from "@stylexjs/stylex";
-import { Spinner } from "@cachette/ui/spinner";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   CodeBlock,
@@ -9,13 +8,25 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { SpinnerExample, spinnerExampleCode } from "./examples/spinner.example";
+import { Spinner } from "@cachette/ui/spinner";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Spinner");
+
+function SpinnerExample() {
+  return (
+    <div {...stylex.props(storyStyles.preview)}>
+      <Spinner label="저장 중" />
+    </div>
+  );
+}
+
+const spinnerExampleCode =
+  'import { Spinner } from "@cachette/ui/spinner"\n\n<Spinner label="저장 중" />';
+
 export const SpinnerStory: Story = {
   name: "Spinner",
   render: () => (

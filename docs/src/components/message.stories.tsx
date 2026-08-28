@@ -1,6 +1,4 @@
 import * as stylex from "@stylexjs/stylex";
-import { Bubble } from "@cachette/ui/bubble";
-import { Message, MessageContent, MessageFooter, MessageHeader } from "@cachette/ui/message";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   CodeBlock,
@@ -10,13 +8,47 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { MessageExample, messageExampleCode } from "./examples/message.example";
+import { Bubble } from "@cachette/ui/bubble";
+import { Message, MessageContent, MessageFooter, MessageHeader } from "@cachette/ui/message";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Message");
+
+function MessageExample() {
+  return (
+    <section {...stylex.props(storyStyles.section)}>
+      <header {...stylex.props(storyStyles.sectionHeader)}>
+        <h2 {...stylex.props(storyStyles.sectionTitle)}>기본</h2>
+        <p {...stylex.props(storyStyles.description)}>
+          말풍선 밖의 정보는 메시지보다 한 단계 낮은 위계로 표시합니다.
+        </p>
+      </header>
+      <div {...stylex.props(storyStyles.preview, [storyStyles.column, storyStyles.componentWidth])}>
+        <Message>
+          <MessageHeader>민영</MessageHeader>
+          <MessageContent>
+            <Bubble>변경된 토큰을 확인해 주세요.</Bubble>
+          </MessageContent>
+          <MessageFooter>오후 2:18</MessageFooter>
+        </Message>
+        <Message side="outgoing">
+          <MessageContent>
+            <Bubble side="outgoing" variant="outline">
+              확인했어요. 바로 반영할게요.
+            </Bubble>
+          </MessageContent>
+          <MessageFooter>오후 2:20 · 읽음</MessageFooter>
+        </Message>
+      </div>
+    </section>
+  );
+}
+
+const messageExampleCode =
+  'import { Bubble } from "@cachette/ui/bubble"\nimport { Message, MessageContent, MessageFooter, MessageHeader } from "@cachette/ui/message"\n\n<Message side="incoming">\n  <MessageHeader>민영</MessageHeader>\n  <MessageContent><Bubble>문서 검토를 시작했어요.</Bubble></MessageContent>\n  <MessageFooter>오후 2:18</MessageFooter>\n</Message>';
 
 export const MessageStory: Story = {
   name: "Message",

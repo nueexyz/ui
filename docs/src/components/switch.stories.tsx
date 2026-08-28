@@ -1,4 +1,3 @@
-import { Switch } from "@cachette/ui/switch";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
@@ -9,13 +8,32 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { SwitchExample, switchExampleCode } from "./examples/switch.example";
+import { Switch } from "@cachette/ui/switch";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Switch");
+
+function SwitchExample() {
+  return (
+    <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
+      <label htmlFor="activity-visibility" {...stylex.props(storyStyles.option)}>
+        <Switch defaultChecked id="activity-visibility" />
+        활동 상태 공개
+      </label>
+      <label htmlFor="admin-only" {...stylex.props(storyStyles.option)}>
+        <Switch disabled id="admin-only" />
+        관리자 전용 설정
+      </label>
+    </div>
+  );
+}
+
+const switchExampleCode =
+  'import { Switch } from "@cachette/ui/switch"\n\n<>\n  <Switch defaultChecked id="activity-visibility" />\n  <Switch disabled id="admin-only" />\n</>';
+
 export const SwitchStory: Story = {
   name: "Switch",
   render: () => (

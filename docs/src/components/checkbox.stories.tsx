@@ -1,5 +1,3 @@
-import { Checkbox } from "@cachette/ui/checkbox";
-import { colorVars } from "@cachette/tokens/tokens.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
@@ -10,7 +8,8 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { CheckboxExample, checkboxExampleCode } from "./examples/checkbox.example";
+import { Checkbox } from "@cachette/ui/checkbox";
+import { colorVars } from "@cachette/tokens/tokens.stylex";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -21,6 +20,31 @@ const componentDocument = getComponentDocument("Checkbox");
 const styles = stylex.create({
   disabledOption: { color: colorVars.fgDisabled, cursor: "not-allowed" },
 });
+
+function CheckboxExample() {
+  return (
+    <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
+      <label htmlFor="email-updates" {...stylex.props(storyStyles.option)}>
+        <Checkbox defaultChecked id="email-updates" />
+        변경사항 이메일로 받기
+      </label>
+      <label htmlFor="admin-setting" {...stylex.props(storyStyles.option, styles.disabledOption)}>
+        <Checkbox disabled id="admin-setting" />
+        관리자가 설정한 항목 · 변경할 수 없음
+      </label>
+      <label
+        htmlFor="required-setting"
+        {...stylex.props(storyStyles.option, styles.disabledOption)}
+      >
+        <Checkbox defaultChecked disabled id="required-setting" />
+        필수 설정 · 항상 사용
+      </label>
+    </div>
+  );
+}
+
+const checkboxExampleCode =
+  'import { Checkbox } from "@cachette/ui/checkbox"\n\n<Checkbox aria-label="이용 약관에 동의" />';
 
 export const CheckboxStory: Story = {
   name: "Checkbox",

@@ -1,11 +1,3 @@
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuSeparator,
-  ContextMenuShortcut,
-  ContextMenuTrigger,
-} from "@cachette/ui/context-menu";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
@@ -16,7 +8,14 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { ContextMenuExample, contextMenuExampleCode } from "./examples/context-menu.example";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSeparator,
+  ContextMenuShortcut,
+  ContextMenuTrigger,
+} from "@cachette/ui/context-menu";
 
 const meta = {
   title: "Components",
@@ -26,6 +25,33 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Context Menu");
+
+function ContextMenuExample() {
+  return (
+    <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
+      <ContextMenu>
+        <ContextMenuTrigger {...stylex.props(storyStyles.contextTarget)}>
+          프로젝트-제안서.pdf
+        </ContextMenuTrigger>
+        <ContextMenuContent>
+          <ContextMenuItem>
+            미리 보기<ContextMenuShortcut>Space</ContextMenuShortcut>
+          </ContextMenuItem>
+          <ContextMenuItem>
+            이름 바꾸기<ContextMenuShortcut>⌘R</ContextMenuShortcut>
+          </ContextMenuItem>
+          <ContextMenuSeparator />
+          <ContextMenuItem>
+            다운로드<ContextMenuShortcut>⌘D</ContextMenuShortcut>
+          </ContextMenuItem>
+        </ContextMenuContent>
+      </ContextMenu>
+    </div>
+  );
+}
+
+const contextMenuExampleCode =
+  'import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuShortcut, ContextMenuTrigger } from "@cachette/ui/context-menu"\n\n<ContextMenu>\n  <ContextMenuTrigger>프로젝트-제안서.pdf</ContextMenuTrigger>\n  <ContextMenuContent>\n    <ContextMenuItem>미리 보기<ContextMenuShortcut>Space</ContextMenuShortcut></ContextMenuItem>\n    <ContextMenuItem>이름 바꾸기<ContextMenuShortcut>⌘R</ContextMenuShortcut></ContextMenuItem>\n    <ContextMenuSeparator />\n    <ContextMenuItem>다운로드<ContextMenuShortcut>⌘D</ContextMenuShortcut></ContextMenuItem>\n  </ContextMenuContent>\n</ContextMenu>';
 
 export const ContextMenuStory: Story = {
   name: "Context Menu",

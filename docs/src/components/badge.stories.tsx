@@ -1,5 +1,4 @@
 import * as stylex from "@stylexjs/stylex";
-import { Badge } from "@cachette/ui/badge";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   CodeBlock,
@@ -9,13 +8,28 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { BadgeExample, badgeExampleCode } from "./examples/badge.example";
+import { Badge } from "@cachette/ui/badge";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Badge");
+
+function BadgeExample() {
+  return (
+    <div {...stylex.props(storyStyles.preview)}>
+      <Badge>진행 중</Badge>
+      <Badge variant="secondary">초안</Badge>
+      <Badge variant="destructive">오류</Badge>
+      <Badge variant="outline">읽지 않음</Badge>
+      <Badge variant="ghost">선택 사항</Badge>
+    </div>
+  );
+}
+
+const badgeExampleCode = 'import { Badge } from "@cachette/ui/badge"\n\n<Badge>진행 중</Badge>';
+
 export const BadgeStory: Story = {
   name: "Badge",
   render: () => (

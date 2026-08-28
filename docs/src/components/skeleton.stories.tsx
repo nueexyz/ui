@@ -1,5 +1,3 @@
-import { sizeVars, spacingVars } from "@cachette/tokens/tokens.stylex";
-import { Skeleton } from "@cachette/ui/skeleton";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
@@ -10,13 +8,15 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { SkeletonExample, skeletonExampleCode } from "./examples/skeleton.example";
+import { sizeVars, spacingVars } from "@cachette/tokens/tokens.stylex";
+import { Skeleton } from "@cachette/ui/skeleton";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Skeleton");
+
 const styles = stylex.create({
   card: {
     display: "flex",
@@ -28,6 +28,21 @@ const styles = stylex.create({
   title: { height: sizeVars.iconMd, width: "45%" },
   body: { height: sizeVars.controlMd, width: "100%" },
 });
+
+function SkeletonExample() {
+  return (
+    <div {...stylex.props(storyStyles.preview)}>
+      <div {...stylex.props(styles.card)}>
+        <Skeleton xstyle={styles.title} />
+        <Skeleton xstyle={styles.body} />
+      </div>
+    </div>
+  );
+}
+
+const skeletonExampleCode =
+  'import { Skeleton } from "@cachette/ui/skeleton"\n\n<div>\n  <Skeleton style={{ height: "1.5rem", width: "45%" }} />\n  <Skeleton style={{ height: "2.5rem", width: "100%" }} />\n</div>';
+
 export const SkeletonStory: Story = {
   name: "Skeleton",
   render: () => (

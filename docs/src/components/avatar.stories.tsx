@@ -1,11 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
-import {
-  Avatar,
-  AvatarBadge,
-  AvatarFallback,
-  AvatarGroup,
-  AvatarGroupCount,
-} from "@cachette/ui/avatar";
+import { Avatar, AvatarBadge, AvatarFallback } from "@cachette/ui/avatar";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   CodeBlock,
@@ -15,13 +9,41 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { AvatarExample, avatarExampleCode } from "./examples/avatar.example";
+import { AvatarGroup, AvatarGroupCount } from "@cachette/ui/avatar";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Avatar");
+
+function AvatarExample() {
+  return (
+    <section {...stylex.props(storyStyles.section)}>
+      <header {...stylex.props(storyStyles.sectionHeader)}>
+        <h2 {...stylex.props(storyStyles.sectionTitle)}>그룹</h2>
+        <p {...stylex.props(storyStyles.description)}>함께 참여한 사람을 한 묶음으로 보여줍니다.</p>
+      </header>
+      <div {...stylex.props(storyStyles.preview)}>
+        <AvatarGroup>
+          <Avatar>
+            <AvatarFallback>김</AvatarFallback>
+          </Avatar>
+          <Avatar>
+            <AvatarFallback>이</AvatarFallback>
+          </Avatar>
+          <Avatar>
+            <AvatarFallback>박</AvatarFallback>
+          </Avatar>
+          <AvatarGroupCount>+4</AvatarGroupCount>
+        </AvatarGroup>
+      </div>
+    </section>
+  );
+}
+
+const avatarExampleCode =
+  'import { Avatar, AvatarFallback } from "@cachette/ui/avatar"\n\n<Avatar>\n  <AvatarFallback>MY</AvatarFallback>\n</Avatar>';
 
 export const AvatarStory: Story = {
   name: "Avatar",

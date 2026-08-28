@@ -5,7 +5,6 @@ import {
   AttachmentActions,
   AttachmentContent,
   AttachmentDescription,
-  AttachmentGroup,
   AttachmentMedia,
   AttachmentTitle,
 } from "@cachette/ui/attachment";
@@ -19,13 +18,51 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { AttachmentExample, attachmentExampleCode } from "./examples/attachment.example";
+import { AttachmentGroup } from "@cachette/ui/attachment";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Attachment");
+
+function AttachmentExample() {
+  return (
+    <section {...stylex.props(storyStyles.section)}>
+      <header {...stylex.props(storyStyles.sectionHeader)}>
+        <h2 {...stylex.props(storyStyles.sectionTitle)}>파일 묶음</h2>
+        <p {...stylex.props(storyStyles.description)}>
+          여러 파일은 같은 구조로 이어서 확인할 수 있게 합니다.
+        </p>
+      </header>
+      <div {...stylex.props(storyStyles.preview)}>
+        <AttachmentGroup>
+          <Attachment size="sm">
+            <AttachmentMedia>
+              <Icon name="paperclip" />
+            </AttachmentMedia>
+            <AttachmentContent>
+              <AttachmentTitle>회의록.txt</AttachmentTitle>
+              <AttachmentDescription>18 KB</AttachmentDescription>
+            </AttachmentContent>
+          </Attachment>
+          <Attachment size="sm">
+            <AttachmentMedia>
+              <Icon name="paperclip" />
+            </AttachmentMedia>
+            <AttachmentContent>
+              <AttachmentTitle>화면설계.fig</AttachmentTitle>
+              <AttachmentDescription>8.1 MB</AttachmentDescription>
+            </AttachmentContent>
+          </Attachment>
+        </AttachmentGroup>
+      </div>
+    </section>
+  );
+}
+
+const attachmentExampleCode =
+  'import {\n  Attachment,\n  AttachmentContent,\n  AttachmentDescription,\n  AttachmentMedia,\n  AttachmentTitle,\n} from "@cachette/ui/attachment"\nimport { Icon } from "@cachette/ui/icon"\n\n<Attachment>\n  <AttachmentMedia>\n    <Icon name="paperclip" />\n  </AttachmentMedia>\n  <AttachmentContent>\n    <AttachmentTitle>회의록.txt</AttachmentTitle>\n    <AttachmentDescription>18 KB</AttachmentDescription>\n  </AttachmentContent>\n</Attachment>';
 
 function FileAttachment({ error = false }: { error?: boolean }) {
   return (

@@ -9,13 +9,36 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { LinkExample, linkExampleCode } from "./examples/link.example";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Link");
+
+function LinkExample() {
+  return (
+    <section {...stylex.props(storyStyles.section)}>
+      <header {...stylex.props(storyStyles.sectionHeader)}>
+        <h2 {...stylex.props(storyStyles.sectionTitle)}>외부 이동</h2>
+        <p {...stylex.props(storyStyles.description)}>
+          다른 사이트로 이동하면 아이콘으로 목적지를 구분합니다.
+        </p>
+      </header>
+      <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
+        <p>
+          자세한 내용은{" "}
+          <Link href="https://example.com" rel="noreferrer" target="_blank">
+            외부 문서 <Link.ExternalIcon />
+          </Link>
+          에서 확인할 수 있습니다.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+const linkExampleCode = 'import { Link } from "@cachette/ui/link"';
 
 export const LinkStory: Story = {
   name: "Link",

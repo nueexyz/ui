@@ -9,13 +9,23 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { ButtonExample, buttonExampleCode } from "./examples/button.example";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Button");
+
+function ButtonExample() {
+  return (
+    <div {...stylex.props(storyStyles.preview)}>
+      <Button>저장하기</Button>
+    </div>
+  );
+}
+
+const buttonExampleCode =
+  'import { Button } from "@cachette/ui/button"\n\n<Button>저장하기</Button>';
 
 export const ButtonStory: Story = {
   name: "Button",

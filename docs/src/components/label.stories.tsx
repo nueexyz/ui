@@ -1,5 +1,3 @@
-import { Input } from "@cachette/ui/input";
-import { Label } from "@cachette/ui/label";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
@@ -10,13 +8,29 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { LabelExample, labelExampleCode } from "./examples/label.example";
+import { Input } from "@cachette/ui/input";
+import { Label } from "@cachette/ui/label";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Label");
+
+function LabelExample() {
+  return (
+    <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
+      <div {...stylex.props(storyStyles.field, storyStyles.formWidth)}>
+        <Label htmlFor="display-name">표시 이름</Label>
+        <Input id="display-name" placeholder="홍길동" />
+      </div>
+    </div>
+  );
+}
+
+const labelExampleCode =
+  'import { Input } from "@cachette/ui/input"\nimport { Label } from "@cachette/ui/label"\n\n<div>\n  <Label htmlFor="display-name">표시 이름</Label>\n  <Input id="display-name" placeholder="홍길동" />\n</div>';
+
 export const LabelStory: Story = {
   name: "Label",
   render: () => (

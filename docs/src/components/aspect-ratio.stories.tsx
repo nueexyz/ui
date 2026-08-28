@@ -1,5 +1,3 @@
-import { colorVars, sizeVars } from "@cachette/tokens/tokens.stylex";
-import { AspectRatio } from "@cachette/ui/aspect-ratio";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
@@ -10,7 +8,8 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { AspectRatioExample, aspectRatioExampleCode } from "./examples/aspect-ratio.example";
+import { colorVars, sizeVars } from "@cachette/tokens/tokens.stylex";
+import { AspectRatio } from "@cachette/ui/aspect-ratio";
 
 const meta = {
   title: "Components",
@@ -20,6 +19,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Aspect Ratio");
+
 const styles = stylex.create({
   preview: {
     alignItems: "center",
@@ -30,6 +30,20 @@ const styles = stylex.create({
     maxWidth: sizeVars.contentSm,
   },
 });
+
+function AspectRatioExample() {
+  return (
+    <div {...stylex.props(storyStyles.preview)}>
+      <AspectRatio ratio={16 / 9} xstyle={styles.preview}>
+        16:9
+      </AspectRatio>
+    </div>
+  );
+}
+
+const aspectRatioExampleCode =
+  'import { AspectRatio } from "@cachette/ui/aspect-ratio"\n\n<AspectRatio ratio={16 / 9}>미디어 미리보기</AspectRatio>';
+
 export const AspectRatioStory: Story = {
   name: "Aspect Ratio",
   render: () => (

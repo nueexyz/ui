@@ -1,5 +1,3 @@
-import { sizeVars, spacingVars } from "@cachette/tokens/tokens.stylex";
-import { Separator } from "@cachette/ui/separator";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
@@ -10,13 +8,15 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { SeparatorExample, separatorExampleCode } from "./examples/separator.example";
+import { sizeVars, spacingVars } from "@cachette/tokens/tokens.stylex";
+import { Separator } from "@cachette/ui/separator";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Separator");
+
 const styles = stylex.create({
   row: {
     alignItems: "center",
@@ -25,6 +25,24 @@ const styles = stylex.create({
     height: sizeVars.touchTarget,
   },
 });
+
+function SeparatorExample() {
+  return (
+    <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
+      <span>계정 정보</span>
+      <Separator />
+      <div {...stylex.props(styles.row)}>
+        <span>프로필</span>
+        <Separator orientation="vertical" />
+        <span>보안</span>
+      </div>
+    </div>
+  );
+}
+
+const separatorExampleCode =
+  'import { Separator } from "@cachette/ui/separator"\n\n<>\n  <span>계정 정보</span>\n  <Separator />\n  <div>프로필 <Separator orientation="vertical" /> 보안</div>\n</>';
+
 export const SeparatorStory: Story = {
   name: "Separator",
   render: () => (

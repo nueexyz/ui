@@ -1,5 +1,4 @@
 import * as stylex from "@stylexjs/stylex";
-import { Progress } from "@cachette/ui/progress";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   CodeBlock,
@@ -9,13 +8,26 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { ProgressExample, progressExampleCode } from "./examples/progress.example";
+import { Progress } from "@cachette/ui/progress";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Progress");
+
+function ProgressExample() {
+  return (
+    <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
+      <Progress aria-label="파일 업로드 진행률" value={64} xstyle={storyStyles.formWidth} />
+      <Progress aria-label="처리 중" value={null} xstyle={storyStyles.formWidth} />
+    </div>
+  );
+}
+
+const progressExampleCode =
+  'import { Progress } from "@cachette/ui/progress"\n\n<>\n  <Progress aria-label="파일 업로드 진행률" value={64} />\n  <Progress aria-label="처리 중" value={null} />\n</>';
+
 export const ProgressStory: Story = {
   name: "Progress",
   render: () => (
