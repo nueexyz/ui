@@ -23,6 +23,13 @@ const styles = stylex.create({
   },
 });
 
+function handlePreviewClick(event: MouseEvent<HTMLDivElement>) {
+  if (!(event.target instanceof Element)) return;
+
+  const placeholderLink = event.target.closest('a[href="#"]');
+  if (placeholderLink) event.preventDefault();
+}
+
 function ThemeScope({ children, mode }: { children: ReactNode; mode: ColorMode }) {
   const colorTheme = mode === "dark" ? darkColorTheme : lightColorTheme;
   const shadowTheme = mode === "dark" ? darkShadowTheme : lightShadowTheme;
@@ -31,8 +38,12 @@ function ThemeScope({ children, mode }: { children: ReactNode; mode: ColorMode }
   useLayoutEffect(() => {
     const themeClassList = themeClassName.split(" ").filter(Boolean);
     document.documentElement.classList.add(...themeClassList);
+    document.addEventListener("click", handlePreviewClick);
 
-    return () => document.documentElement.classList.remove(...themeClassList);
+    return () => {
+      document.documentElement.classList.remove(...themeClassList);
+      document.removeEventListener("click", handlePreviewClick);
+    };
   }, [themeClassName]);
 
   return (
