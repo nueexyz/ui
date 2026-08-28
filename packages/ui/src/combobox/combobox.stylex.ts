@@ -90,7 +90,7 @@ export const styles = stylex.create({
     position: "relative",
     userSelect: "none",
   },
-  itemHighlighted: { backgroundColor: colorVars.bgSubtle },
+  itemHighlighted: { backgroundColor: colorVars.interactionHover },
   indicator: {
     alignItems: "center",
     display: "inline-flex",

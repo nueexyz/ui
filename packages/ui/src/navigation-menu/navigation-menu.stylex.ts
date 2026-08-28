@@ -49,7 +49,7 @@ export const styles = stylex.create({
     paddingInline: spacingVars.space3,
     transitionDuration: motionVars.durationFast,
     transitionProperty: "background-color, color",
-    ":hover": { backgroundColor: colorVars.bgSubtle },
+    ":hover": { backgroundColor: colorVars.interactionHover },
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
       outlineOffset: sizeVars.stroke,
@@ -96,9 +96,9 @@ export const styles = stylex.create({
     textDecoration: "none",
     transitionDuration: motionVars.durationFast,
     transitionProperty: "background-color, color",
-    ":hover": { backgroundColor: colorVars.bgSubtle },
+    ":hover": { backgroundColor: colorVars.interactionHover },
     ":focus-visible": {
-      backgroundColor: colorVars.bgSubtle,
+      backgroundColor: colorVars.interactionHover,
       outlineColor: colorVars.strokeFocus,
       outlineStyle: "solid",
       outlineWidth: sizeVars.focusRing,

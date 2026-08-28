@@ -35,7 +35,7 @@ export function Checkbox({ className, style, xstyle, ...props }: CheckboxProps) 
       }}
     >
       <CheckboxPrimitive.Indicator {...stylex.props(styles.indicator)}>
-        <Icon aria-hidden="true" name="check" />
+        <Icon aria-hidden="true" name="check" weight="bold" />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   );

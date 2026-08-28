@@ -39,7 +39,7 @@ export const styles = stylex.create({
     userSelect: "none",
     ":disabled": { opacity: opacityVars.disabled },
   },
-  itemHighlighted: { backgroundColor: colorVars.bgSubtle },
+  itemHighlighted: { backgroundColor: colorVars.interactionHover },
   inset: { paddingInlineStart: spacingVars.space8 },
   destructive: { color: colorVars.fgFeedbackError },
   choiceItem: { paddingInlineStart: spacingVars.space8 },

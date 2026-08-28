@@ -92,7 +92,7 @@ export const typographyVars = stylex.defineVars({
 });
 
 export const opacityVars = stylex.defineVars({
-  disabled: "0.38",
+  disabled: "0.8",
 });
 
 export const motionVars = stylex.defineVars({

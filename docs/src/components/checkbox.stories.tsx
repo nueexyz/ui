@@ -24,6 +24,13 @@ export const CheckboxStory: Story = {
           <Checkbox disabled id="admin-setting" />
           관리자가 설정한 항목 · 변경할 수 없음
         </label>
+        <label
+          htmlFor="required-setting"
+          {...stylex.props(storyStyles.option, styles.disabledOption)}
+        >
+          <Checkbox defaultChecked disabled id="required-setting" />
+          필수 설정 · 항상 사용
+        </label>
       </StoryPreview>
     </StoryPage>
   ),

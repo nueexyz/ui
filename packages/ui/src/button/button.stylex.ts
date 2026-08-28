@@ -1,7 +1,6 @@
 import {
   colorVars,
   motionVars,
-  opacityVars,
   radiusVars,
   sizeVars,
   spacingVars,
@@ -43,13 +42,13 @@ export const styles = stylex.create({
     },
     ":disabled": {
       cursor: "not-allowed",
-      opacity: opacityVars.disabled,
     },
     "::before": {
       backgroundColor: {
         default: colorVars.interactionDefault,
         ":hover": colorVars.interactionHover,
         ":active": colorVars.interactionPressed,
+        ":disabled": colorVars.interactionDefault,
       },
       content: '""',
       inset: 0,
@@ -84,6 +83,15 @@ export const styles = stylex.create({
     backgroundColor: colorVars.fgFeedbackError,
     borderColor: colorVars.fgFeedbackError,
     color: colorVars.fgInverse,
+  },
+  disabled: {
+    backgroundColor: colorVars.interactionDisabled,
+    borderColor: colorVars.strokeDefault,
+    color: colorVars.fgDisabled,
+  },
+  disabledGhost: {
+    backgroundColor: colorVars.interactionDefault,
+    borderColor: colorVars.interactionDefault,
   },
   sm: {
     borderRadius: radiusVars.sm,

@@ -31,7 +31,13 @@ export const ButtonStory: Story = {
       >
         <StoryPreview>
           <Button>저장하기</Button>
-          <Button disabled>저장하기</Button>
+          <Button disabled>저장할 수 없음</Button>
+          <Button disabled variant="secondary">
+            미리볼 수 없음
+          </Button>
+          <Button disabled variant="ghost">
+            닫을 수 없음
+          </Button>
           <Button isLoading>저장 중</Button>
         </StoryPreview>
       </StorySection>

@@ -26,7 +26,15 @@ export function Button({
   xstyle,
   ...props
 }: ButtonProps) {
-  const stylexProps = stylex.props(styles.root, styles[variant], styles[size], xstyle);
+  const isDisabled = Boolean(disabled && !isLoading);
+  const stylexProps = stylex.props(
+    styles.root,
+    styles[variant],
+    styles[size],
+    isDisabled && styles.disabled,
+    isDisabled && variant === "ghost" && styles.disabledGhost,
+    xstyle,
+  );
   const mergedClassName = [stylexProps.className, className].filter(Boolean).join(" ");
 
   return (

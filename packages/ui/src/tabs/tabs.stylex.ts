@@ -1,5 +1,6 @@
 import {
   colorVars,
+  opacityVars,
   radiusVars,
   sizeVars,
   spacingVars,
@@ -41,7 +42,7 @@ export const styles = stylex.create({
       outlineStyle: "solid",
       outlineWidth: sizeVars.focusRing,
     },
-    ":disabled": { cursor: "not-allowed", opacity: 0.38 },
+    ":disabled": { cursor: "not-allowed", opacity: opacityVars.disabled },
   },
   triggerActive: {
     backgroundColor: colorVars.bgSurface,

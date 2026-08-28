@@ -34,7 +34,7 @@ export const styles = stylex.create({
     height: sizeVars.controlSm,
     outline: "none",
     paddingInline: spacingVars.space3,
-    ":hover": { backgroundColor: colorVars.bgSubtle },
+    ":hover": { backgroundColor: colorVars.interactionHover },
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
       outlineOffset: sizeVars.stroke,
@@ -42,5 +42,5 @@ export const styles = stylex.create({
       outlineWidth: sizeVars.focusRing,
     },
   },
-  triggerOpen: { backgroundColor: colorVars.bgSubtle },
+  triggerOpen: { backgroundColor: colorVars.interactionSelected },
 });
