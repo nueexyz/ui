@@ -14,7 +14,7 @@ type PopoverContentProps = ComponentProps<typeof PopoverPrimitive.Popup> &
   };
 
 export function PopoverContent({
-  align = "center",
+  align = "start",
   className,
   side = "bottom",
   sideOffset = 6,
