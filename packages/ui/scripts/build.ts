@@ -8,7 +8,11 @@ const sourceDirectory = "src";
 const outputDirectory = "dist";
 
 async function getEntryPoints() {
-  const entries = [join(sourceDirectory, "index.ts"), join(sourceDirectory, "Icon.tsx")];
+  const entries = [
+    join(sourceDirectory, "index.ts"),
+    join(sourceDirectory, "Icon.tsx"),
+    join(sourceDirectory, "primitives.ts"),
+  ];
   const files = await readdir(sourceDirectory, { withFileTypes: true });
 
   for (const file of files) {
