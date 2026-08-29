@@ -6,7 +6,9 @@ import test from "node:test";
 
 import { add } from "../dist/add.js";
 import { configFileName, defaultConfig, readConfig } from "../dist/config.js";
+import { docs } from "../dist/docs.js";
 import { init } from "../dist/init.js";
+import { newComponent } from "../dist/new-component.js";
 
 async function writeTsconfig(projectDirectory) {
   await writeFile(
@@ -48,9 +50,8 @@ test("init stores a custom UI alias", async () => {
     });
 
     assert.deepEqual(await readConfig(projectDirectory), {
-      aliases: {
-        ui: "~/design/ui",
-      },
+      ...defaultConfig,
+      aliases: { ui: "~/design/ui" },
     });
   } finally {
     await rm(projectDirectory, { recursive: true });
@@ -143,4 +144,38 @@ test("add installs a component from a registry URL", async () => {
   } finally {
     await rm(projectDirectory, { recursive: true });
   }
+});
+
+test("new creates a StyleX component without overwriting an existing file", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "cachette-cli-"));
+
+  try {
+    await writeTsconfig(projectDirectory);
+    await init(projectDirectory, { defaults: true });
+    await newComponent(projectDirectory, "status-chip");
+
+    const componentPath = join(
+      projectDirectory,
+      "src/components/ui/status-chip/StatusChip.tsx",
+    );
+    assert.match(await readFile(componentPath, "utf8"), /export function StatusChip/);
+    await assert.rejects(() => newComponent(projectDirectory, "status-chip"), /덮어쓰지 않습니다/);
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
+test("docs prints the component installation contract", () => {
+  const output = [];
+  const write = console.log;
+  console.log = (value) => output.push(value);
+
+  try {
+    docs("button");
+  } finally {
+    console.log = write;
+  }
+
+  assert.match(output.join("\n"), /pnpm dlx @cachette\/ui add button/);
+  assert.match(output.join("\n"), /@base-ui\/react/);
 });

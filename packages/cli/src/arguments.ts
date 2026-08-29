@@ -3,6 +3,7 @@ export type CliOptions = Record<string, boolean | string | undefined> & {
   defaults?: boolean;
   "dry-run"?: boolean;
   force?: boolean;
+  "skip-dependencies"?: boolean;
   "ui-alias"?: string;
 };
 

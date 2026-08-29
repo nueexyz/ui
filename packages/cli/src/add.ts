@@ -12,6 +12,7 @@ export type AddOptions = {
   defaults?: boolean;
   "dry-run"?: boolean;
   skipDependencyInstall?: boolean;
+  "skip-dependencies"?: boolean;
   uiSourceDirectory?: string;
 } & Record<string, boolean | string | undefined>;
 
@@ -117,10 +118,11 @@ export async function add(
   const shouldInstallDependencies =
     resolved.externalDependencies.length > 0 &&
     !options.skipDependencyInstall &&
+    !options["skip-dependencies"] &&
     !options["dry-run"] &&
     (await askYesNo(
       `외부 의존성(${resolved.externalDependencies.join(", ")})을 설치할까요?`,
-      false,
+      true,
     ));
 
   if (shouldInstallDependencies) {

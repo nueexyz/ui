@@ -3,10 +3,13 @@ import { isAbsolute, relative, resolve } from "node:path";
 
 export const configFileName = "cachette.json";
 
+export const configVersion = 1;
+
 export type CachetteConfig = {
   aliases: {
     ui: string;
   };
+  version?: number;
 };
 
 type TypeScriptConfig = {
@@ -20,6 +23,7 @@ type TypeScriptPaths = Record<string, readonly string[]>;
 
 export const defaultConfig: CachetteConfig = {
   aliases: { ui: "@/components/ui" },
+  version: configVersion,
 };
 
 export async function hasConfig(projectDirectory: string) {
@@ -40,12 +44,19 @@ function ensureRelativePath(projectDirectory: string, path: string, name: string
 }
 
 export function validateConfig(config: unknown): CachetteConfig {
-  const candidate = config as { aliases?: { ui?: unknown } };
+  const candidate = config as { aliases?: { ui?: unknown }; version?: unknown };
   if (!candidate.aliases || typeof candidate.aliases.ui !== "string" || !candidate.aliases.ui) {
     throw new Error("aliases.ui를 설정해 주세요.");
   }
 
-  return { aliases: { ui: candidate.aliases.ui } };
+  if (candidate.version !== undefined && candidate.version !== configVersion) {
+    throw new Error(`지원하지 않는 cachette.json 버전입니다: ${String(candidate.version)}`);
+  }
+
+  return {
+    aliases: { ui: candidate.aliases.ui },
+    version: configVersion,
+  };
 }
 
 function isNotFoundError(error: unknown) {
@@ -67,9 +78,9 @@ export async function readConfig(projectDirectory: string) {
 }
 
 export async function writeConfig(projectDirectory: string, config: CachetteConfig) {
-  validateConfig(config);
+  const validatedConfig = validateConfig(config);
   const configPath = resolve(projectDirectory, configFileName);
-  await writeFile(configPath, `${JSON.stringify(config, null, 2)}\n`, "utf8");
+  await writeFile(configPath, `${JSON.stringify(validatedConfig, null, 2)}\n`, "utf8");
   return configPath;
 }
 
