@@ -12,7 +12,7 @@ export const styles = stylex.create({
   root: {
     alignItems: "center",
     borderColor: "transparent",
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.sm,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     color: colorVars.fgPrimary,
@@ -20,7 +20,7 @@ export const styles = stylex.create({
     display: "inline-flex",
     fontSize: typographyVars.fontSizeSm,
     fontWeight: typographyVars.fontWeightMedium,
-    gap: spacingVars.space2,
+    gap: spacingVars.space1,
     justifyContent: "center",
     outline: "none",
     transitionDuration: motionVars.durationFast,
@@ -51,7 +51,7 @@ export const styles = stylex.create({
   },
   default: { backgroundColor: "transparent" },
   outline: { backgroundColor: colorVars.bgSurface, borderColor: colorVars.strokeDefault },
-  pressed: { backgroundColor: colorVars.interactionSelected, color: colorVars.fgAction },
+  pressed: { backgroundColor: colorVars.bgSurfacePressed, color: colorVars.fgPrimary },
   disabled: {
     backgroundColor: colorVars.interactionDisabled,
     borderColor: colorVars.strokeDefault,

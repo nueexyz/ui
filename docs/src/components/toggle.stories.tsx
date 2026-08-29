@@ -1,5 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Toggle } from "@cachette/ui/toggle";
 import {
   CodeBlock,
   ComponentCode,
@@ -8,7 +9,6 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Toggle } from "@cachette/ui/toggle";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -16,17 +16,12 @@ type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Toggle");
 
-function ToggleExample() {
-  return (
-    <div {...stylex.props(storyStyles.preview)}>
-      <Toggle defaultPressed>굵게</Toggle>
-      <Toggle variant="outline">기울임</Toggle>
-    </div>
-  );
-}
+const toggleExampleCode = `import { Toggle } from "@cachette/ui/toggle"
 
-const toggleExampleCode =
-  'import { Toggle } from "@cachette/ui/toggle"\n\n<div>\n  <Toggle defaultPressed>굵게</Toggle>\n  <Toggle variant="outline">기울임</Toggle>\n</div>';
+<div>
+  <Toggle defaultPressed>굵게</Toggle>
+  <Toggle variant="outline">기울임</Toggle>
+</div>`;
 
 export const ToggleStory: Story = {
   name: "Toggle",
@@ -39,7 +34,10 @@ export const ToggleStory: Story = {
         </p>
       </header>
       <ComponentExample>
-        <ToggleExample />
+        <div {...stylex.props(storyStyles.preview)}>
+          <Toggle defaultPressed>굵게</Toggle>
+          <Toggle variant="outline">기울임</Toggle>
+        </div>
       </ComponentExample>
 
       <section {...stylex.props(storyStyles.section)}>

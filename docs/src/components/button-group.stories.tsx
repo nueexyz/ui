@@ -1,5 +1,8 @@
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Button } from "@cachette/ui/button";
+import { ButtonGroup } from "@cachette/ui/button-group";
+import { Icon } from "@cachette/ui/icon";
 import {
   CodeBlock,
   ComponentCode,
@@ -8,8 +11,6 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Button } from "@cachette/ui/button";
-import { ButtonGroup, ButtonGroupText } from "@cachette/ui/button-group";
 
 const meta = {
   title: "Components",
@@ -20,26 +21,29 @@ type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Button Group");
 
-function ButtonGroupExample() {
-  return (
-    <section {...stylex.props(storyStyles.section)}>
-      <header {...stylex.props(storyStyles.sectionHeader)}>
-        <h2 {...stylex.props(storyStyles.sectionTitle)}>관련 행동</h2>
-        <p {...stylex.props(storyStyles.description)}>가장 자주 사용하는 행동을 먼저 배치합니다.</p>
-      </header>
-      <div {...stylex.props(storyStyles.preview)}>
-        <ButtonGroup aria-label="문서 작업">
-          <ButtonGroupText>문서</ButtonGroupText>
-          <Button variant="ghost">공유하기</Button>
-          <Button variant="ghost">내보내기</Button>
-        </ButtonGroup>
-      </div>
-    </section>
-  );
-}
+const buttonGroupExampleCode = `import { Button } from "@cachette/ui/button"
+import { ButtonGroup } from "@cachette/ui/button-group"
+import { Icon } from "@cachette/ui/icon"
 
-const buttonGroupExampleCode =
-  'import { Button } from "@cachette/ui/button"\nimport { ButtonGroup, ButtonGroupText } from "@cachette/ui/button-group"\n\n<ButtonGroup aria-label="문서 작업">\n  <ButtonGroupText>문서</ButtonGroupText>\n  <Button variant="ghost">공유하기</Button>\n  <Button variant="ghost">내보내기</Button>\n</ButtonGroup>';
+<div>
+  <ButtonGroup aria-label="이전 화면으로 이동">
+    <Button size="sm" variant="secondary" aria-label="뒤로 가기">
+      <Icon aria-hidden="true" name="chevronLeft" />
+    </Button>
+  </ButtonGroup>
+
+  <ButtonGroup aria-label="메시지 작업">
+    <Button size="sm" variant="secondary">보관</Button>
+    <Button size="sm" variant="secondary">신고</Button>
+  </ButtonGroup>
+
+  <ButtonGroup aria-label="추가 작업">
+    <Button size="sm" variant="secondary">다시 알림</Button>
+    <Button size="sm" variant="secondary" aria-label="추가 작업">
+      <Icon aria-hidden="true" name="moreHorizontal" />
+    </Button>
+  </ButtonGroup>
+</div>`;
 
 export const ButtonGroupStory: Story = {
   name: "Button Group",
@@ -52,7 +56,23 @@ export const ButtonGroupStory: Story = {
         </p>
       </header>
       <ComponentExample>
-        <ButtonGroupExample />
+        <div {...stylex.props(storyStyles.preview)}>
+          <ButtonGroup aria-label="이전 화면으로 이동">
+            <Button size="sm" variant="secondary" aria-label="뒤로 가기">
+              <Icon aria-hidden="true" name="chevronLeft" />
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup aria-label="메시지 작업">
+            <Button size="sm" variant="secondary">보관</Button>
+            <Button size="sm" variant="secondary">신고</Button>
+          </ButtonGroup>
+          <ButtonGroup aria-label="추가 작업">
+            <Button size="sm" variant="secondary">다시 알림</Button>
+            <Button size="sm" variant="secondary" aria-label="추가 작업">
+              <Icon aria-hidden="true" name="moreHorizontal" />
+            </Button>
+          </ButtonGroup>
+        </div>
       </ComponentExample>
 
       <section {...stylex.props(storyStyles.section)}>

@@ -29,7 +29,7 @@ export function ToggleGroup({
   xstyle,
   ...props
 }: ToggleGroupProps) {
-  const stylexProps = stylex.props(styles.root, xstyle);
+  const stylexProps = stylex.props(styles.root, styles[variant], xstyle);
   return (
     <ToggleGroupPrimitive
       {...props}
@@ -73,6 +73,7 @@ export function ToggleGroupItem({
           toggleStyles[finalSize],
           toggleStyles[finalVariant],
           state.pressed && toggleStyles.pressed,
+          finalVariant === "outline" && styles.outlineItem,
           xstyle,
         );
         const customClassName = typeof className === "function" ? className(state) : className;

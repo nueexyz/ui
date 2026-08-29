@@ -1,5 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { ToggleGroup, ToggleGroupItem } from "@cachette/ui/toggle-group";
 import {
   CodeBlock,
   ComponentCode,
@@ -8,7 +9,6 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { ToggleGroup, ToggleGroupItem } from "@cachette/ui/toggle-group";
 
 const meta = {
   title: "Components",
@@ -19,20 +19,13 @@ type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Toggle Group");
 
-function ToggleGroupExample() {
-  return (
-    <div {...stylex.props(storyStyles.preview)}>
-      <ToggleGroup aria-label="텍스트 정렬" defaultValue={["left"]}>
-        <ToggleGroupItem value="left">왼쪽</ToggleGroupItem>
-        <ToggleGroupItem value="center">가운데</ToggleGroupItem>
-        <ToggleGroupItem value="right">오른쪽</ToggleGroupItem>
-      </ToggleGroup>
-    </div>
-  );
-}
+const toggleGroupExampleCode = `import { ToggleGroup, ToggleGroupItem } from "@cachette/ui/toggle-group"
 
-const toggleGroupExampleCode =
-  'import { ToggleGroup, ToggleGroupItem } from "@cachette/ui/toggle-group"\n\n<ToggleGroup aria-label="텍스트 정렬" defaultValue={["left"]}>\n  <ToggleGroupItem value="left">왼쪽</ToggleGroupItem>\n  <ToggleGroupItem value="center">가운데</ToggleGroupItem>\n  <ToggleGroupItem value="right">오른쪽</ToggleGroupItem>\n</ToggleGroup>';
+<ToggleGroup aria-label="텍스트 정렬" defaultValue={["left"]} variant="outline">
+  <ToggleGroupItem value="left">왼쪽</ToggleGroupItem>
+  <ToggleGroupItem value="center">가운데</ToggleGroupItem>
+  <ToggleGroupItem value="right">오른쪽</ToggleGroupItem>
+</ToggleGroup>`;
 
 export const ToggleGroupStory: Story = {
   name: "Toggle Group",
@@ -45,7 +38,13 @@ export const ToggleGroupStory: Story = {
         </p>
       </header>
       <ComponentExample>
-        <ToggleGroupExample />
+        <div {...stylex.props(storyStyles.preview)}>
+          <ToggleGroup aria-label="텍스트 정렬" defaultValue={["left"]} variant="outline">
+            <ToggleGroupItem value="left">왼쪽</ToggleGroupItem>
+            <ToggleGroupItem value="center">가운데</ToggleGroupItem>
+            <ToggleGroupItem value="right">오른쪽</ToggleGroupItem>
+          </ToggleGroup>
+        </div>
       </ComponentExample>
 
       <section {...stylex.props(storyStyles.section)}>
