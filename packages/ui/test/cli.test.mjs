@@ -32,7 +32,7 @@ test("@dumo/ui CLI initializes a project and adds a card", async () => {
     assert.equal(config.aliases.ui, "@/components/ui");
     assert.equal(config.version, 1);
     assert.match(
-      await readFile(join(projectDirectory, "src/components/ui/card/Card.tsx"), "utf8"),
+      await readFile(join(projectDirectory, "src/components/ui/card.tsx"), "utf8"),
       /Card/,
     );
   } finally {
@@ -44,7 +44,7 @@ test("published package keeps compiled UI, CSS, and Base UI primitive escape hat
   await access(fileURLToPath(new URL("../dist/global.css", import.meta.url)));
 
   const buttonSource = await readFile(
-    fileURLToPath(new URL("../dist/button/index.js", import.meta.url)),
+    fileURLToPath(new URL("../dist/button.js", import.meta.url)),
     "utf8",
   );
   assert.match(buttonSource, /react\/compiler-runtime/);

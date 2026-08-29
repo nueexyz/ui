@@ -19,13 +19,8 @@ export async function newComponent(projectDirectory: string, name: string | unde
   const config = await readConfig(projectDirectory);
   const uiDirectory = await resolveAliasPath(projectDirectory, config.aliases.ui);
   const componentName = toPascalCase(name);
-  const componentDirectory = join(uiDirectory, name);
-  const componentPath = join(componentDirectory, `${componentName}.tsx`);
-  const files = [
-    componentPath,
-    join(componentDirectory, `${name}.stylex.ts`),
-    join(componentDirectory, "index.ts"),
-  ];
+  const componentPath = join(uiDirectory, `${name}.tsx`);
+  const files = [componentPath];
 
   for (const file of files) {
     try {
@@ -37,24 +32,12 @@ export async function newComponent(projectDirectory: string, name: string | unde
     }
   }
 
-  await mkdir(componentDirectory, { recursive: true });
-  await Promise.all([
-    writeFile(
-      componentPath,
-      `import * as stylex from "@stylexjs/stylex";\nimport type { ComponentProps } from "react";\n\nimport { styles } from "./${name}.stylex";\n\nexport type ${componentName}Props = ComponentProps<"div"> & {\n  xstyle?: stylex.StyleXStyles;\n};\n\nexport function ${componentName}({ className, style, xstyle, ...props }: ${componentName}Props) {\n  const stylexProps = stylex.props(styles.root, xstyle);\n\n  return (\n    <div\n      {...props}\n      className={[stylexProps.className, className].filter(Boolean).join(" ")}\n      style={{ ...stylexProps.style, ...style }}\n    />\n  );\n}\n`,
-      { flag: "wx" },
-    ),
-    writeFile(
-      join(componentDirectory, `${name}.stylex.ts`),
-      `import { colorVars, radiusVars, spacingVars } from "@dumo/tokens/tokens.stylex";\nimport * as stylex from "@stylexjs/stylex";\n\nexport const styles = stylex.create({\n  root: {\n    backgroundColor: colorVars.bgSurface,\n    borderRadius: radiusVars.sm,\n    padding: spacingVars.space3,\n  },\n});\n`,
-      { flag: "wx" },
-    ),
-    writeFile(
-      join(componentDirectory, "index.ts"),
-      `export { ${componentName} } from "./${componentName}";\nexport type { ${componentName}Props } from "./${componentName}";\n`,
-      { flag: "wx" },
-    ),
-  ]);
+  await mkdir(uiDirectory, { recursive: true });
+  await writeFile(
+    componentPath,
+    `import { colorVars, radiusVars, spacingVars } from "@dumo/tokens/tokens.stylex";\nimport * as stylex from "@stylexjs/stylex";\nimport type { ComponentProps } from "react";\n\nconst styles = stylex.create({\n  root: {\n    backgroundColor: colorVars.bgSurface,\n    borderRadius: radiusVars.sm,\n    padding: spacingVars.space3,\n  },\n});\n\nexport type ${componentName}Props = ComponentProps<"div"> & {\n  xstyle?: stylex.StyleXStyles;\n};\n\nexport function ${componentName}({ className, style, xstyle, ...props }: ${componentName}Props) {\n  const stylexProps = stylex.props(styles.root, xstyle);\n\n  return (\n    <div\n      {...props}\n      className={[stylexProps.className, className].filter(Boolean).join(" ")}\n      style={{ ...stylexProps.style, ...style }}\n    />\n  );\n}\n`,
+    { flag: "wx" },
+  );
 
-  console.log(`Created a ${name} component scaffold: ${componentDirectory}`);
+  console.log(`Created a ${name} component scaffold: ${componentPath}`);
 }

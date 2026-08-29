@@ -1,4 +1,4 @@
-import { access, readFile, readdir, rm, writeFile } from "node:fs/promises";
+import { readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
 import { build } from "esbuild";
@@ -17,23 +17,17 @@ const stylexCompilerOptions: StylexCompilerOptions = {
 };
 
 async function getEntryPoints() {
-  const entries = [
-    join(sourceDirectory, "index.ts"),
-    join(sourceDirectory, "Icon.tsx"),
-    join(sourceDirectory, "primitives.ts"),
-  ];
+  const entries: Record<string, string> = {
+    Icon: join(sourceDirectory, "Icon.tsx"),
+    cli: join("bin", "cli.ts"),
+    index: join(sourceDirectory, "index.ts"),
+    primitives: join(sourceDirectory, "primitives.ts"),
+  };
   const files = await readdir(sourceDirectory, { withFileTypes: true });
 
   for (const file of files) {
-    if (!file.isDirectory()) continue;
-    const entry = join(sourceDirectory, file.name, "index.ts");
-
-    try {
-      await access(entry);
-      entries.push(entry);
-    } catch {
-      continue;
-    }
+    if (!file.isFile() || !file.name.endsWith(".tsx") || file.name === "Icon.tsx") continue;
+    entries[file.name.replace(/\.tsx$/, "")] = join(sourceDirectory, file.name);
   }
 
   return entries;
@@ -46,7 +40,6 @@ await build({
   entryPoints: await getEntryPoints(),
   format: "esm",
   jsx: "automatic",
-  outbase: sourceDirectory,
   outdir: outputDirectory,
   packages: "external",
   platform: "browser",

@@ -27,15 +27,11 @@ test("add creates the default config and copies a component with its foundation"
     await access(join(projectDirectory, configFileName));
 
     const buttonSource = await readFile(
-      join(projectDirectory, "src/components/ui/button/Button.tsx"),
-      "utf8",
-    );
-    const buttonStyleSource = await readFile(
-      join(projectDirectory, "src/components/ui/button/button.stylex.ts"),
+      join(projectDirectory, "src/components/ui/button.tsx"),
       "utf8",
     );
     assert.match(buttonSource, /export function Button/);
-    assert.match(buttonStyleSource, /from "@dumo\/tokens\/tokens\.stylex"/);
+    assert.match(buttonSource, /from "@dumo\/tokens\/tokens\.stylex"/);
   } finally {
     await rm(projectDirectory, { recursive: true });
   }
@@ -67,7 +63,7 @@ test("add resolves component and icon dependencies", async () => {
     await add(projectDirectory, "message-scroller", { skipDependencyInstall: true });
 
     assert.match(
-      await readFile(join(projectDirectory, "src/components/ui/button/Button.tsx"), "utf8"),
+      await readFile(join(projectDirectory, "src/components/ui/button.tsx"), "utf8"),
       /export function Button/,
     );
     assert.match(
@@ -89,11 +85,11 @@ test("add installs renamed and new components", async () => {
     await add(projectDirectory, "link", { skipDependencyInstall: true });
 
     assert.match(
-      await readFile(join(projectDirectory, "src/components/ui/banner/Banner.tsx"), "utf8"),
+      await readFile(join(projectDirectory, "src/components/ui/banner.tsx"), "utf8"),
       /export function Banner/,
     );
     assert.match(
-      await readFile(join(projectDirectory, "src/components/ui/link/Link.tsx"), "utf8"),
+      await readFile(join(projectDirectory, "src/components/ui/link.tsx"), "utf8"),
       /export const Link/,
     );
     await assert.rejects(
@@ -112,7 +108,7 @@ test("add dry-run does not write files", async () => {
     await writeTsconfig(projectDirectory);
     await add(projectDirectory, "card", { "dry-run": true, skipDependencyInstall: true });
     await assert.rejects(() => access(join(projectDirectory, configFileName)));
-    await assert.rejects(() => access(join(projectDirectory, "src/components/ui/card/Card.tsx")));
+    await assert.rejects(() => access(join(projectDirectory, "src/components/ui/card.tsx")));
   } finally {
     await rm(projectDirectory, { recursive: true });
   }
@@ -154,7 +150,7 @@ test("new creates a StyleX component without overwriting an existing file", asyn
     await init(projectDirectory, { defaults: true });
     await newComponent(projectDirectory, "status-chip");
 
-    const componentPath = join(projectDirectory, "src/components/ui/status-chip/StatusChip.tsx");
+    const componentPath = join(projectDirectory, "src/components/ui/status-chip.tsx");
     assert.match(await readFile(componentPath, "utf8"), /export function StatusChip/);
     await assert.rejects(
       () => newComponent(projectDirectory, "status-chip"),

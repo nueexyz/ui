@@ -80,8 +80,8 @@ function installDependencies(projectDirectory: string, dependencies: readonly st
 }
 
 async function getPrimaryExport(componentName: string, uiSourceDirectory: string) {
-  const indexSource = await readFile(join(uiSourceDirectory, componentName, "index.ts"), "utf8");
-  return indexSource.match(/export\s*{\s*([A-Za-z0-9]+)/)?.[1] ?? componentName;
+  const componentSource = await readFile(join(uiSourceDirectory, `${componentName}.tsx`), "utf8");
+  return componentSource.match(/export function\s+([A-Za-z0-9]+)/)?.[1] ?? componentName;
 }
 
 export async function add(
