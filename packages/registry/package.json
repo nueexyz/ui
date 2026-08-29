@@ -2,14 +2,17 @@
   "name": "@dumo/registry",
   "version": "0.0.1",
   "private": false,
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "exports": {
     "types": "./dist/index.d.ts",
     "default": "./dist/index.js"
   },
-  "files": [
-    "dist"
-  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.build.json && node --experimental-strip-types scripts/build.ts",
     "typecheck": "tsc -p tsconfig.build.json --noEmit"

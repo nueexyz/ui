@@ -9,6 +9,9 @@
     "./themes.stylex": "./src/themes.stylex.ts",
     "./tokens.stylex": "./src/tokens.stylex.ts"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "typecheck": "tsc --noEmit"
   },
