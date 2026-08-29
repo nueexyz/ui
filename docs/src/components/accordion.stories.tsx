@@ -8,12 +8,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@dumo/ui/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@dumo/ui/accordion";
 import { colorVars, spacingVars, typographyVars } from "@dumo/tokens/tokens.stylex";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;

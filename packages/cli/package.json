@@ -20,6 +20,7 @@
   },
   "scripts": {
     "build": "pnpm --filter @dumo/registry build && tsc -p tsconfig.build.json",
+    "prepack": "pnpm build",
     "test": "pnpm build && node test/cli.test.mjs",
     "typecheck": "tsc --noEmit"
   },
@@ -27,6 +28,7 @@
     "@dumo/registry": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^22.20.1"
+    "@types/node": "^22.20.1",
+    "typescript": "catalog:2026-08-27-stable"
   }
 }

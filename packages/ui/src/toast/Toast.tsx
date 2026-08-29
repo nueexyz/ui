@@ -146,7 +146,9 @@ function ToastList({
           </ToastPrimitive.Content>
         </ToastPrimitive.Root>
       ))}
-      {toasts.length > 1 ? <ToastClearAll isExpanded={isExpanded} viewportRef={viewportRef} /> : null}
+      {toasts.length > 1 ? (
+        <ToastClearAll isExpanded={isExpanded} viewportRef={viewportRef} />
+      ) : null}
     </>
   );
 }

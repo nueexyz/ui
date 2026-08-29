@@ -15,9 +15,11 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json && node --experimental-strip-types scripts/build.ts",
+    "prepack": "pnpm build",
     "typecheck": "tsc -p tsconfig.build.json --noEmit"
   },
   "devDependencies": {
-    "@types/node": "^22.20.1"
+    "@types/node": "^22.20.1",
+    "typescript": "catalog:2026-08-27-stable"
   }
 }

@@ -27,12 +27,6 @@ catalogs:
     '@types/react-dom':
       specifier: 19.2.5
       version: 19.2.5
-    oxfmt:
-      specifier: 0.65.0
-      version: 0.65.0
-    oxlint:
-      specifier: 1.80.0
-      version: 1.80.0
     react:
       specifier: 19.2.8
       version: 19.2.8
@@ -56,21 +50,15 @@ importers:
 
   .:
     devDependencies:
-      esbuild:
-        specifier: 0.28.2
-        version: 0.28.2
       lefthook:
-        specifier: ^2.1.10
+        specifier: 2.1.10
         version: 2.1.10
       oxfmt:
-        specifier: catalog:2026-08-27-stable
+        specifier: 0.65.0
         version: 0.65.0
       oxlint:
-        specifier: catalog:2026-08-27-stable
+        specifier: 1.80.0
         version: 1.80.0
-      typescript:
-        specifier: catalog:2026-08-27-stable
-        version: 7.0.2
 
   docs:
     dependencies:
@@ -124,12 +112,18 @@ importers:
       '@types/node':
         specifier: ^22.20.1
         version: 22.20.1
+      typescript:
+        specifier: catalog:2026-08-27-stable
+        version: 7.0.2
 
   packages/registry:
     devDependencies:
       '@types/node':
         specifier: ^22.20.1
         version: 22.20.1
+      typescript:
+        specifier: catalog:2026-08-27-stable
+        version: 7.0.2
 
   packages/tokens:
     dependencies:
@@ -171,6 +165,9 @@ importers:
       '@types/react':
         specifier: catalog:2026-08-27-stable
         version: 19.2.18
+      esbuild:
+        specifier: 0.28.2
+        version: 0.28.2
       typescript:
         specifier: catalog:2026-08-27-stable
         version: 7.0.2

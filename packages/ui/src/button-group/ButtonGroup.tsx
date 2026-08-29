@@ -6,6 +6,7 @@ import {
   type ComponentProps,
   type CSSProperties,
   type ReactElement,
+  type ReactNode,
 } from "react";
 
 import { Separator } from "../separator";
@@ -14,6 +15,10 @@ import { radiusVars } from "@dumo/tokens/tokens.stylex";
 
 type StyleProps = { style?: CSSProperties; xstyle?: stylex.StyleXStyles };
 type GroupItem = ReactElement<StyleProps>;
+
+function isGroupItem(child: ReactNode): child is GroupItem {
+  return isValidElement(child) && child.type !== ButtonGroupSeparator;
+}
 
 function getItemBorderRadius(
   orientation: "horizontal" | "vertical",
@@ -53,17 +58,14 @@ export function ButtonGroup({
   ...props
 }: ButtonGroupProps) {
   const stylexProps = stylex.props(styles.root, styles[orientation], xstyle);
-  const groupItems = Children.toArray(children).filter(
-    (child): child is GroupItem => isValidElement(child) && child.type !== ButtonGroupSeparator,
-  );
-  let itemIndex = 0;
+  const childItems = Children.toArray(children);
+  const groupItems = childItems.filter(isGroupItem);
 
-  const content = Children.map(children, (child) => {
-    if (!isValidElement(child) || child.type === ButtonGroupSeparator) return child;
+  const content = childItems.map((child, childIndex) => {
+    if (!isGroupItem(child)) return child;
 
-    const position = itemIndex;
-    itemIndex += 1;
-    const groupItem = child as GroupItem;
+    const position = childItems.slice(0, childIndex).filter(isGroupItem).length;
+    const groupItem = child;
     const itemStyles = [
       styles.item,
       styles[`${orientation}Item`],
@@ -72,7 +74,10 @@ export function ButtonGroup({
     ];
 
     return cloneElement(groupItem, {
-      style: { ...groupItem.props.style, ...getItemBorderRadius(orientation, position, groupItems.length) },
+      style: {
+        ...groupItem.props.style,
+        ...getItemBorderRadius(orientation, position, groupItems.length),
+      },
       xstyle: [...itemStyles, groupItem.props.xstyle],
     });
   });

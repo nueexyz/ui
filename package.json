@@ -7,19 +7,24 @@
   "author": "Minyeong Jeong",
   "type": "module",
   "scripts": {
-    "build-storybook": "pnpm --filter @dumo/docs build-storybook",
+    "build": "pnpm --filter @dumo/ui build",
+    "build-storybook": "pnpm docs:build",
     "dumo": "pnpm --filter @dumo/ui build && node packages/ui/dist/cli.js",
-    "check": "pnpm oxlint . && pnpm oxfmt --check .",
+    "check": "pnpm lint && pnpm format:check && pnpm typecheck",
+    "docs:build": "pnpm --filter @dumo/docs build-storybook",
+    "format:check": "pnpm oxfmt --check .",
+    "format:write": "pnpm oxfmt .",
+    "lint": "pnpm oxlint .",
     "prepare": "lefthook install",
+    "release:check": "pnpm check && pnpm test && pnpm build && pnpm docs:build",
     "storybook": "pnpm --filter @dumo/docs storybook",
+    "test": "pnpm --filter @dumo/cli test && pnpm --filter @dumo/ui test",
     "typecheck": "pnpm --filter @dumo/tokens typecheck && pnpm --filter @dumo/registry typecheck && pnpm --filter @dumo/cli typecheck && pnpm --filter @dumo/ui typecheck && pnpm --filter @dumo/docs typecheck"
   },
   "devDependencies": {
-    "esbuild": "0.28.2",
-    "lefthook": "^2.1.10",
-    "oxfmt": "catalog:2026-08-27-stable",
-    "oxlint": "catalog:2026-08-27-stable",
-    "typescript": "catalog:2026-08-27-stable"
+    "lefthook": "2.1.10",
+    "oxfmt": "0.65.0",
+    "oxlint": "1.80.0"
   },
   "packageManager": "pnpm@11.23.0"
 }

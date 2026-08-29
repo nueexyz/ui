@@ -73,6 +73,7 @@
   },
   "scripts": {
     "build": "pnpm --filter @dumo/cli build && node --experimental-strip-types scripts/build.ts && tsc -p tsconfig.build.json && tsc -p tsconfig.cli.json",
+    "prepack": "pnpm build",
     "test": "pnpm build && node test/cli.test.mjs",
     "typecheck": "tsc --noEmit && tsc -p tsconfig.cli.json --noEmit"
   },
@@ -88,6 +89,7 @@
     "@stylexjs/unplugin": "catalog:2026-08-27-stable",
     "@types/node": "^22.20.1",
     "@types/react": "catalog:2026-08-27-stable",
+    "esbuild": "0.28.2",
     "typescript": "catalog:2026-08-27-stable"
   }
 }
