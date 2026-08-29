@@ -10,11 +10,13 @@
     "build-storybook": "pnpm --filter @dumo/docs build-storybook",
     "dumo": "pnpm --filter @dumo/ui build && node packages/ui/dist/cli.js",
     "check": "pnpm oxlint . && pnpm oxfmt --check .",
+    "prepare": "lefthook install",
     "storybook": "pnpm --filter @dumo/docs storybook",
     "typecheck": "pnpm --filter @dumo/tokens typecheck && pnpm --filter @dumo/registry typecheck && pnpm --filter @dumo/cli typecheck && pnpm --filter @dumo/ui typecheck && pnpm --filter @dumo/docs typecheck"
   },
   "devDependencies": {
     "esbuild": "0.28.2",
+    "lefthook": "^2.1.10",
     "oxfmt": "catalog:2026-08-27-stable",
     "oxlint": "catalog:2026-08-27-stable",
     "typescript": "catalog:2026-08-27-stable"

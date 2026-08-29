@@ -1,0 +1,15 @@
+min_version: "2.1.10"
+
+pre-commit:
+  commands:
+    lint:
+      glob: "*.{js,jsx,ts,tsx,mjs,cjs}"
+      run: pnpm exec oxlint --deny correctness --deny perf {staged_files}
+    format:
+      glob: "*.{js,jsx,ts,tsx,mjs,cjs,json,yml,yaml}"
+      run: pnpm exec oxfmt --check {staged_files}
+
+pre-push:
+  commands:
+    typecheck:
+      run: pnpm typecheck
