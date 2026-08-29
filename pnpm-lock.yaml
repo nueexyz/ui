@@ -71,10 +71,10 @@ importers:
 
   docs:
     dependencies:
-      '@cachette/tokens':
+      '@dumo/tokens':
         specifier: workspace:*
         version: link:../packages/tokens
-      '@cachette/ui':
+      '@dumo/ui':
         specifier: workspace:*
         version: link:../packages/ui
       '@stylexjs/stylex':
@@ -114,7 +114,7 @@ importers:
 
   packages/cli:
     dependencies:
-      '@cachette/registry':
+      '@dumo/registry':
         specifier: workspace:*
         version: link:../registry
     devDependencies:
@@ -143,10 +143,10 @@ importers:
       '@base-ui/react':
         specifier: catalog:2026-08-27-stable
         version: 1.7.0(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@cachette/cli':
+      '@dumo/cli':
         specifier: workspace:*
         version: link:../cli
-      '@cachette/tokens':
+      '@dumo/tokens':
         specifier: workspace:*
         version: link:../tokens
       '@phosphor-icons/react':

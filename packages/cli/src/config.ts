@@ -1,11 +1,11 @@
 import { access, readFile, writeFile } from "node:fs/promises";
 import { isAbsolute, relative, resolve } from "node:path";
 
-export const configFileName = "cachette.json";
+export const configFileName = "dumo.json";
 
 export const configVersion = 1;
 
-export type CachetteConfig = {
+export type DumoConfig = {
   aliases: {
     ui: string;
   };
@@ -21,7 +21,7 @@ type TypeScriptConfig = {
 
 type TypeScriptPaths = Record<string, readonly string[]>;
 
-export const defaultConfig: CachetteConfig = {
+export const defaultConfig: DumoConfig = {
   aliases: { ui: "@/components/ui" },
   version: configVersion,
 };
@@ -43,14 +43,14 @@ function ensureRelativePath(projectDirectory: string, path: string, name: string
   }
 }
 
-export function validateConfig(config: unknown): CachetteConfig {
+export function validateConfig(config: unknown): DumoConfig {
   const candidate = config as { aliases?: { ui?: unknown }; version?: unknown };
   if (!candidate.aliases || typeof candidate.aliases.ui !== "string" || !candidate.aliases.ui) {
     throw new Error("aliases.ui를 설정해 주세요.");
   }
 
   if (candidate.version !== undefined && candidate.version !== configVersion) {
-    throw new Error(`지원하지 않는 cachette.json 버전입니다: ${String(candidate.version)}`);
+    throw new Error(`지원하지 않는 dumo.json 버전입니다: ${String(candidate.version)}`);
   }
 
   return {
@@ -71,13 +71,13 @@ export async function readConfig(projectDirectory: string) {
     return validateConfig(config);
   } catch (error) {
     if (isNotFoundError(error)) {
-      throw new Error("cachette.json이 없습니다. 먼저 `cachette init`을 실행해 주세요.");
+      throw new Error("dumo.json이 없습니다. 먼저 `dumo init`을 실행해 주세요.");
     }
     throw error;
   }
 }
 
-export async function writeConfig(projectDirectory: string, config: CachetteConfig) {
+export async function writeConfig(projectDirectory: string, config: DumoConfig) {
   const validatedConfig = validateConfig(config);
   const configPath = resolve(projectDirectory, configFileName);
   await writeFile(configPath, `${JSON.stringify(validatedConfig, null, 2)}\n`, "utf8");

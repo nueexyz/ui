@@ -8,7 +8,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Spinner } from "@cachette/ui/spinner";
+import { Spinner } from "@dumo/ui/spinner";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -25,7 +25,7 @@ function SpinnerExample() {
 }
 
 const spinnerExampleCode =
-  'import { Spinner } from "@cachette/ui/spinner"\n\n<Spinner label="저장 중" />';
+  'import { Spinner } from "@dumo/ui/spinner"\n\n<Spinner label="저장 중" />';
 
 export const SpinnerStory: Story = {
   name: "Spinner",
@@ -46,7 +46,7 @@ export const SpinnerStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

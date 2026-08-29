@@ -28,15 +28,15 @@ export async function run(
     } else if (command === "new") {
       await newComponent(projectDirectory, positionals[0]);
     } else {
-      console.log(`Cachette CLI
+      console.log(`Dumo CLI
 
 사용법:
-  cachette init
-  cachette add <component> [--skip-dependencies] [--dry-run]
-  cachette doctor
-  cachette list
-  cachette docs [component]
-  cachette new <kebab-case-name>`);
+  dumo init
+  dumo add <component> [--skip-dependencies] [--dry-run]
+  dumo doctor
+  dumo list
+  dumo docs [component]
+  dumo new <kebab-case-name>`);
     }
 
     return true;

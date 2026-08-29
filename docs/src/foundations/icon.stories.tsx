@@ -1,12 +1,12 @@
-import { Icon, iconRegistry } from "@cachette/ui/icon";
-import type { IconName } from "@cachette/ui/icon";
+import { Icon, iconRegistry } from "@dumo/ui/icon";
+import type { IconName } from "@dumo/ui/icon";
 import {
   colorVars,
   radiusVars,
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@cachette/tokens/tokens.stylex";
+} from "@dumo/tokens/tokens.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 

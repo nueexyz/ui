@@ -1,8 +1,8 @@
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Button } from "@cachette/ui/button";
-import { ButtonGroup } from "@cachette/ui/button-group";
-import { Icon } from "@cachette/ui/icon";
+import { Button } from "@dumo/ui/button";
+import { ButtonGroup } from "@dumo/ui/button-group";
+import { Icon } from "@dumo/ui/icon";
 import {
   CodeBlock,
   ComponentCode,
@@ -21,9 +21,9 @@ type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Button Group");
 
-const buttonGroupExampleCode = `import { Button } from "@cachette/ui/button"
-import { ButtonGroup } from "@cachette/ui/button-group"
-import { Icon } from "@cachette/ui/icon"
+const buttonGroupExampleCode = `import { Button } from "@dumo/ui/button"
+import { ButtonGroup } from "@dumo/ui/button-group"
+import { Icon } from "@dumo/ui/icon"
 
 <div>
   <ButtonGroup aria-label="이전 화면으로 이동">
@@ -80,7 +80,7 @@ export const ButtonGroupStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

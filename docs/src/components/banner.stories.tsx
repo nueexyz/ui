@@ -8,9 +8,9 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Banner } from "@cachette/ui/banner";
-import { Icon } from "@cachette/ui/icon";
-import { Link } from "@cachette/ui/link";
+import { Banner } from "@dumo/ui/banner";
+import { Icon } from "@dumo/ui/icon";
+import { Link } from "@dumo/ui/link";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -78,7 +78,7 @@ function BannerExample() {
 }
 
 const bannerExampleCode =
-  'import { Banner } from "@cachette/ui/banner"\nimport { Icon } from "@cachette/ui/icon"\nimport { Link } from "@cachette/ui/link"';
+  'import { Banner } from "@dumo/ui/banner"\nimport { Icon } from "@dumo/ui/icon"\nimport { Link } from "@dumo/ui/link"';
 
 export const BannerStory: Story = {
   name: "Banner",
@@ -99,7 +99,7 @@ export const BannerStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

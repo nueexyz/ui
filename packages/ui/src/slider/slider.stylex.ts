@@ -1,4 +1,4 @@
-import { colorVars, opacityVars, radiusVars, sizeVars } from "@cachette/tokens/tokens.stylex";
+import { colorVars, opacityVars, radiusVars, sizeVars } from "@dumo/tokens/tokens.stylex";
 import * as stylex from "@stylexjs/stylex";
 export const styles = stylex.create({
   root: { opacity: { default: 1, ":disabled": opacityVars.disabled }, width: "100%" },

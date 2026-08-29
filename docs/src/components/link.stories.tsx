@@ -1,5 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
-import { Link } from "@cachette/ui/link";
+import { Link } from "@dumo/ui/link";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   CodeBlock,
@@ -38,7 +38,7 @@ function LinkExample() {
   );
 }
 
-const linkExampleCode = 'import { Link } from "@cachette/ui/link"';
+const linkExampleCode = 'import { Link } from "@dumo/ui/link"';
 
 export const LinkStory: Story = {
   name: "Link",
@@ -59,7 +59,7 @@ export const LinkStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

@@ -5,7 +5,7 @@ import {
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@cachette/tokens/tokens.stylex";
+} from "@dumo/tokens/tokens.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useLayoutEffect, useRef, useState } from "react";

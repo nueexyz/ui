@@ -14,7 +14,7 @@ async function ask(
 
 export async function init(projectDirectory: string, options: CliOptions) {
   if ((await hasConfig(projectDirectory)) && !options.force) {
-    throw new Error("cachette.json이 이미 있습니다. 다시 만들려면 --force를 사용해 주세요.");
+    throw new Error("dumo.json이 이미 있습니다. 다시 만들려면 --force를 사용해 주세요.");
   }
 
   const isInteractive = process.stdin.isTTY && process.stdout.isTTY && !options.defaults;

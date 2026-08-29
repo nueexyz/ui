@@ -18,8 +18,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@cachette/ui/alert-dialog";
-import { Button } from "@cachette/ui/button";
+} from "@dumo/ui/alert-dialog";
+import { Button } from "@dumo/ui/button";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -50,7 +50,7 @@ function AlertDialogExample() {
 }
 
 const alertDialogExampleCode =
-  'import {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from "@cachette/ui/alert-dialog"\n\n<AlertDialog>\n  <AlertDialogTrigger>프로젝트 삭제</AlertDialogTrigger>\n  <AlertDialogContent>\n    <AlertDialogHeader>\n      <AlertDialogTitle>프로젝트를 삭제할까요?</AlertDialogTitle>\n      <AlertDialogDescription>삭제한 프로젝트는 복구할 수 없습니다.</AlertDialogDescription>\n    </AlertDialogHeader>\n    <AlertDialogFooter>\n      <AlertDialogCancel>취소</AlertDialogCancel>\n      <AlertDialogAction>삭제</AlertDialogAction>\n    </AlertDialogFooter>\n  </AlertDialogContent>\n</AlertDialog>';
+  'import {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from "@dumo/ui/alert-dialog"\n\n<AlertDialog>\n  <AlertDialogTrigger>프로젝트 삭제</AlertDialogTrigger>\n  <AlertDialogContent>\n    <AlertDialogHeader>\n      <AlertDialogTitle>프로젝트를 삭제할까요?</AlertDialogTitle>\n      <AlertDialogDescription>삭제한 프로젝트는 복구할 수 없습니다.</AlertDialogDescription>\n    </AlertDialogHeader>\n    <AlertDialogFooter>\n      <AlertDialogCancel>취소</AlertDialogCancel>\n      <AlertDialogAction>삭제</AlertDialogAction>\n    </AlertDialogFooter>\n  </AlertDialogContent>\n</AlertDialog>';
 
 export const AlertDialogStory: Story = {
   name: "Alert Dialog",
@@ -71,7 +71,7 @@ export const AlertDialogStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

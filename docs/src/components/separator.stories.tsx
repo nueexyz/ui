@@ -8,8 +8,8 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { sizeVars, spacingVars } from "@cachette/tokens/tokens.stylex";
-import { Separator } from "@cachette/ui/separator";
+import { sizeVars, spacingVars } from "@dumo/tokens/tokens.stylex";
+import { Separator } from "@dumo/ui/separator";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -41,7 +41,7 @@ function SeparatorExample() {
 }
 
 const separatorExampleCode =
-  'import { Separator } from "@cachette/ui/separator"\n\n<>\n  <span>계정 정보</span>\n  <Separator />\n  <div>프로필 <Separator orientation="vertical" /> 보안</div>\n</>';
+  'import { Separator } from "@dumo/ui/separator"\n\n<>\n  <span>계정 정보</span>\n  <Separator />\n  <div>프로필 <Separator orientation="vertical" /> 보안</div>\n</>';
 
 export const SeparatorStory: Story = {
   name: "Separator",
@@ -60,7 +60,7 @@ export const SeparatorStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

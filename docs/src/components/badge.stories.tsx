@@ -8,7 +8,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Badge } from "@cachette/ui/badge";
+import { Badge } from "@dumo/ui/badge";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -28,7 +28,7 @@ function BadgeExample() {
   );
 }
 
-const badgeExampleCode = 'import { Badge } from "@cachette/ui/badge"\n\n<Badge>진행 중</Badge>';
+const badgeExampleCode = 'import { Badge } from "@dumo/ui/badge"\n\n<Badge>진행 중</Badge>';
 
 export const BadgeStory: Story = {
   name: "Badge",
@@ -49,7 +49,7 @@ export const BadgeStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

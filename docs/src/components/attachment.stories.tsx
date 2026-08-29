@@ -7,8 +7,8 @@ import {
   AttachmentDescription,
   AttachmentMedia,
   AttachmentTitle,
-} from "@cachette/ui/attachment";
-import { Icon } from "@cachette/ui/icon";
+} from "@dumo/ui/attachment";
+import { Icon } from "@dumo/ui/icon";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   CodeBlock,
@@ -18,7 +18,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { AttachmentGroup } from "@cachette/ui/attachment";
+import { AttachmentGroup } from "@dumo/ui/attachment";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -62,7 +62,7 @@ function AttachmentExample() {
 }
 
 const attachmentExampleCode =
-  'import {\n  Attachment,\n  AttachmentContent,\n  AttachmentDescription,\n  AttachmentMedia,\n  AttachmentTitle,\n} from "@cachette/ui/attachment"\nimport { Icon } from "@cachette/ui/icon"\n\n<Attachment>\n  <AttachmentMedia>\n    <Icon name="paperclip" />\n  </AttachmentMedia>\n  <AttachmentContent>\n    <AttachmentTitle>회의록.txt</AttachmentTitle>\n    <AttachmentDescription>18 KB</AttachmentDescription>\n  </AttachmentContent>\n</Attachment>';
+  'import {\n  Attachment,\n  AttachmentContent,\n  AttachmentDescription,\n  AttachmentMedia,\n  AttachmentTitle,\n} from "@dumo/ui/attachment"\nimport { Icon } from "@dumo/ui/icon"\n\n<Attachment>\n  <AttachmentMedia>\n    <Icon name="paperclip" />\n  </AttachmentMedia>\n  <AttachmentContent>\n    <AttachmentTitle>회의록.txt</AttachmentTitle>\n    <AttachmentDescription>18 KB</AttachmentDescription>\n  </AttachmentContent>\n</Attachment>';
 
 function FileAttachment({ error = false }: { error?: boolean }) {
   return (
@@ -107,7 +107,7 @@ export const AttachmentStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

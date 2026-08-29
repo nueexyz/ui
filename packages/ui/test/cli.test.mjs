@@ -10,8 +10,8 @@ import test from "node:test";
 const execFile = promisify(execFileCallback);
 const cliPath = fileURLToPath(new URL("../dist/cli.js", import.meta.url));
 
-test("@cachette/ui CLI initializes a project and adds a card", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "cachette-ui-cli-"));
+test("@dumo/ui CLI initializes a project and adds a card", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-ui-cli-"));
 
   try {
     await writeFile(
@@ -28,7 +28,7 @@ test("@cachette/ui CLI initializes a project and adds a card", async () => {
       "--skip-dependencies",
     ]);
 
-    const config = JSON.parse(await readFile(join(projectDirectory, "cachette.json"), "utf8"));
+    const config = JSON.parse(await readFile(join(projectDirectory, "dumo.json"), "utf8"));
     assert.equal(config.aliases.ui, "@/components/ui");
     assert.equal(config.version, 1);
     assert.match(

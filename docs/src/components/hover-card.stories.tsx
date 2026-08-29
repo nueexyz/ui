@@ -8,9 +8,9 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Avatar, AvatarFallback } from "@cachette/ui/avatar";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@cachette/ui/hover-card";
-import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@cachette/ui/item";
+import { Avatar, AvatarFallback } from "@dumo/ui/avatar";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@dumo/ui/hover-card";
+import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@dumo/ui/item";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -29,7 +29,7 @@ function HoverCardExample() {
       </header>
       <div {...stylex.props(storyStyles.preview)}>
         <HoverCard>
-          <HoverCardTrigger href="#">@cachette</HoverCardTrigger>
+          <HoverCardTrigger href="#">@dumo</HoverCardTrigger>
           <HoverCardContent align="start">
             <Item size="sm">
               <ItemMedia variant="avatar">
@@ -38,7 +38,7 @@ function HoverCardExample() {
                 </Avatar>
               </ItemMedia>
               <ItemContent>
-                <ItemTitle>Cachette</ItemTitle>
+                <ItemTitle>Dumo</ItemTitle>
                 <ItemDescription>차분하고 일관된 제품 경험을 위한 디자인 시스템</ItemDescription>
               </ItemContent>
             </Item>
@@ -50,7 +50,7 @@ function HoverCardExample() {
 }
 
 const hoverCardExampleCode =
-  'import { Avatar, AvatarFallback } from "@cachette/ui/avatar"\nimport { HoverCard, HoverCardContent, HoverCardTrigger } from "@cachette/ui/hover-card"\nimport { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@cachette/ui/item"\n\n<HoverCard>\n  <HoverCardTrigger href="#">@cachette</HoverCardTrigger>\n  <HoverCardContent align="start">\n    <Item size="sm">\n      <ItemMedia variant="avatar"><Avatar><AvatarFallback>CA</AvatarFallback></Avatar></ItemMedia>\n      <ItemContent>\n        <ItemTitle>Cachette</ItemTitle>\n        <ItemDescription>차분하고 일관된 제품 경험을 위한 디자인 시스템</ItemDescription>\n      </ItemContent>\n    </Item>\n  </HoverCardContent>\n</HoverCard>';
+  'import { Avatar, AvatarFallback } from "@dumo/ui/avatar"\nimport { HoverCard, HoverCardContent, HoverCardTrigger } from "@dumo/ui/hover-card"\nimport { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@dumo/ui/item"\n\n<HoverCard>\n  <HoverCardTrigger href="#">@dumo</HoverCardTrigger>\n  <HoverCardContent align="start">\n    <Item size="sm">\n      <ItemMedia variant="avatar"><Avatar><AvatarFallback>CA</AvatarFallback></Avatar></ItemMedia>\n      <ItemContent>\n        <ItemTitle>Dumo</ItemTitle>\n        <ItemDescription>차분하고 일관된 제품 경험을 위한 디자인 시스템</ItemDescription>\n      </ItemContent>\n    </Item>\n  </HoverCardContent>\n</HoverCard>';
 
 export const HoverCardStory: Story = {
   name: "Hover Card",
@@ -71,7 +71,7 @@ export const HoverCardStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

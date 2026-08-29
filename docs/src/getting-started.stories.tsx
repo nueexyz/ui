@@ -4,7 +4,7 @@ import {
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@cachette/tokens/tokens.stylex";
+} from "@dumo/tokens/tokens.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
@@ -88,16 +88,16 @@ export const GettingStarted: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>1. 초기화</h2>
           <p {...stylex.props(storyStyles.description)}>프로젝트 루트에서 한 번만 실행합니다.</p>
         </header>
-        <CodeBlock code="pnpm dlx @cachette/ui init" label="터미널" language="bash" />
+        <CodeBlock code="pnpm dlx @dumo/ui init" label="터미널" language="bash" />
       </section>
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>2. import 별칭</h2>
           <p {...stylex.props(storyStyles.description)}>
-            init에서 입력한 UI import 별칭은 프로젝트 루트의 cachette.json에 저장됩니다.
+            init에서 입력한 UI import 별칭은 프로젝트 루트의 dumo.json에 저장됩니다.
           </p>
         </header>
-        <CodeBlock code={config} label="cachette.json" language="json" />
+        <CodeBlock code={config} label="dumo.json" language="json" />
         <dl {...stylex.props(styles.configDetail)}>
           <dt {...stylex.props(styles.configField)}>aliases.ui</dt>
           <dd {...stylex.props(styles.configDescription)}>
@@ -118,7 +118,7 @@ export const GettingStarted: Story = {
         <CodeBlock code={tsconfig} label="tsconfig.json" language="json" />
         <p {...stylex.props(styles.path)}>@/components/ui → src/components/ui</p>
         <p {...stylex.props(styles.note)}>
-          별칭을 바꾸면 cachette.json과 tsconfig 또는 jsconfig의 paths를 함께 수정하세요. 이미
+          별칭을 바꾸면 dumo.json과 tsconfig 또는 jsconfig의 paths를 함께 수정하세요. 이미
           추가한 파일은 자동으로 옮겨지지 않습니다.
         </p>
       </section>

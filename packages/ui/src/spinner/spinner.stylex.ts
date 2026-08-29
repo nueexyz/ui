@@ -1,4 +1,4 @@
-import { colorVars, radiusVars, sizeVars } from "@cachette/tokens/tokens.stylex";
+import { colorVars, radiusVars, sizeVars } from "@dumo/tokens/tokens.stylex";
 import * as stylex from "@stylexjs/stylex";
 
 const spin = stylex.keyframes({ to: { transform: "rotate(360deg)" } });

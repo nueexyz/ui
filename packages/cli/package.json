@@ -1,9 +1,9 @@
 {
-  "name": "@cachette/cli",
+  "name": "@dumo/cli",
   "version": "0.0.1",
   "private": false,
   "bin": {
-    "cachette": "./dist/cli.js"
+    "dumo": "./dist/cli.js"
   },
   "files": [
     "dist"
@@ -16,12 +16,12 @@
     }
   },
   "scripts": {
-    "build": "pnpm --filter @cachette/registry build && tsc -p tsconfig.build.json",
+    "build": "pnpm --filter @dumo/registry build && tsc -p tsconfig.build.json",
     "test": "pnpm build && node test/cli.test.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@cachette/registry": "workspace:*"
+    "@dumo/registry": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.20.1"

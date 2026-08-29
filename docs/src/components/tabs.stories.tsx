@@ -8,7 +8,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@cachette/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@dumo/ui/tabs";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -48,7 +48,7 @@ function TabsExample() {
 }
 
 const tabsExampleCode =
-  'import { Tabs, TabsContent, TabsList, TabsTrigger } from "@cachette/ui/tabs"\n\n<Tabs defaultValue="account" variant="segmented">\n  <TabsList>\n    <TabsTrigger value="account">계정</TabsTrigger>\n    <TabsTrigger value="security">보안</TabsTrigger>\n  </TabsList>\n  <TabsContent value="account">계정 설정</TabsContent>\n  <TabsContent value="security">보안 설정</TabsContent>\n</Tabs>';
+  'import { Tabs, TabsContent, TabsList, TabsTrigger } from "@dumo/ui/tabs"\n\n<Tabs defaultValue="account" variant="segmented">\n  <TabsList>\n    <TabsTrigger value="account">계정</TabsTrigger>\n    <TabsTrigger value="security">보안</TabsTrigger>\n  </TabsList>\n  <TabsContent value="account">계정 설정</TabsContent>\n  <TabsContent value="security">보안 설정</TabsContent>\n</Tabs>';
 
 export const TabsStory: Story = {
   name: "Tabs",
@@ -69,7 +69,7 @@ export const TabsStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

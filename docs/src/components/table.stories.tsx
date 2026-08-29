@@ -17,7 +17,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@cachette/ui/table";
+} from "@dumo/ui/table";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -74,7 +74,7 @@ function TableExample() {
 }
 
 const tableExampleCode =
-  'import {\n  Table,\n  TableBody,\n  TableCaption,\n  TableCell,\n  TableFooter,\n  TableHead,\n  TableHeader,\n  TableRow,\n} from "@cachette/ui/table"\n\nconst rows = [\n  { name: "브랜드 가이드", owner: "민영", status: "완료", updated: "8월 28일" },\n  { name: "모바일 내비게이션", owner: "지우", status: "검토 중", updated: "8월 27일" },\n  { name: "결제 화면", owner: "서준", status: "진행 중", updated: "8월 25일" },\n]\n\n<Table>\n  <TableCaption>최근 업데이트된 프로젝트 3개</TableCaption>\n  <TableHeader>\n    <TableRow>\n      <TableHead>프로젝트</TableHead>\n      <TableHead>담당자</TableHead>\n      <TableHead>상태</TableHead>\n      <TableHead>업데이트</TableHead>\n    </TableRow>\n  </TableHeader>\n  <TableBody>\n    {rows.map((row) => (\n      <TableRow key={row.name}>\n        <TableCell>{row.name}</TableCell>\n        <TableCell>{row.owner}</TableCell>\n        <TableCell>{row.status}</TableCell>\n        <TableCell>{row.updated}</TableCell>\n      </TableRow>\n    ))}\n  </TableBody>\n  <TableFooter>\n    <TableRow>\n      <TableCell colSpan={3}>전체 프로젝트</TableCell>\n      <TableCell>3개</TableCell>\n    </TableRow>\n  </TableFooter>\n</Table>';
+  'import {\n  Table,\n  TableBody,\n  TableCaption,\n  TableCell,\n  TableFooter,\n  TableHead,\n  TableHeader,\n  TableRow,\n} from "@dumo/ui/table"\n\nconst rows = [\n  { name: "브랜드 가이드", owner: "민영", status: "완료", updated: "8월 28일" },\n  { name: "모바일 내비게이션", owner: "지우", status: "검토 중", updated: "8월 27일" },\n  { name: "결제 화면", owner: "서준", status: "진행 중", updated: "8월 25일" },\n]\n\n<Table>\n  <TableCaption>최근 업데이트된 프로젝트 3개</TableCaption>\n  <TableHeader>\n    <TableRow>\n      <TableHead>프로젝트</TableHead>\n      <TableHead>담당자</TableHead>\n      <TableHead>상태</TableHead>\n      <TableHead>업데이트</TableHead>\n    </TableRow>\n  </TableHeader>\n  <TableBody>\n    {rows.map((row) => (\n      <TableRow key={row.name}>\n        <TableCell>{row.name}</TableCell>\n        <TableCell>{row.owner}</TableCell>\n        <TableCell>{row.status}</TableCell>\n        <TableCell>{row.updated}</TableCell>\n      </TableRow>\n    ))}\n  </TableBody>\n  <TableFooter>\n    <TableRow>\n      <TableCell colSpan={3}>전체 프로젝트</TableCell>\n      <TableCell>3개</TableCell>\n    </TableRow>\n  </TableFooter>\n</Table>';
 
 export const TableStory: Story = {
   name: "Table",
@@ -95,7 +95,7 @@ export const TableStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

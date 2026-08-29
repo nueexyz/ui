@@ -8,7 +8,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Textarea } from "@cachette/ui/textarea";
+import { Textarea } from "@dumo/ui/textarea";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -40,7 +40,7 @@ function TextareaExample() {
 }
 
 const textareaExampleCode =
-  'import { Textarea } from "@cachette/ui/textarea"\n\n<>\n  <Textarea aria-label="메모" placeholder="회의에서 결정한 내용을 적어 주세요." />\n  <Textarea aria-label="수정할 수 없는 메모" disabled defaultValue="검토가 끝난 메모입니다." />\n</>';
+  'import { Textarea } from "@dumo/ui/textarea"\n\n<>\n  <Textarea aria-label="메모" placeholder="회의에서 결정한 내용을 적어 주세요." />\n  <Textarea aria-label="수정할 수 없는 메모" disabled defaultValue="검토가 끝난 메모입니다." />\n</>';
 
 export const TextareaStory: Story = {
   name: "Textarea",
@@ -61,7 +61,7 @@ export const TextareaStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

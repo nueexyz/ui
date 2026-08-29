@@ -8,7 +8,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Switch } from "@cachette/ui/switch";
+import { Switch } from "@dumo/ui/switch";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -32,7 +32,7 @@ function SwitchExample() {
 }
 
 const switchExampleCode =
-  'import { Switch } from "@cachette/ui/switch"\n\n<>\n  <Switch defaultChecked id="activity-visibility" />\n  <Switch disabled id="admin-only" />\n</>';
+  'import { Switch } from "@dumo/ui/switch"\n\n<>\n  <Switch defaultChecked id="activity-visibility" />\n  <Switch disabled id="admin-only" />\n</>';
 
 export const SwitchStory: Story = {
   name: "Switch",
@@ -51,7 +51,7 @@ export const SwitchStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

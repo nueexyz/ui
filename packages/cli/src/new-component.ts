@@ -46,7 +46,7 @@ export async function newComponent(projectDirectory: string, name: string | unde
     ),
     writeFile(
       join(componentDirectory, `${name}.stylex.ts`),
-      `import { colorVars, radiusVars, spacingVars } from "@cachette/tokens/tokens.stylex";\nimport * as stylex from "@stylexjs/stylex";\n\nexport const styles = stylex.create({\n  root: {\n    backgroundColor: colorVars.bgSurface,\n    borderRadius: radiusVars.sm,\n    padding: spacingVars.space3,\n  },\n});\n`,
+      `import { colorVars, radiusVars, spacingVars } from "@dumo/tokens/tokens.stylex";\nimport * as stylex from "@stylexjs/stylex";\n\nexport const styles = stylex.create({\n  root: {\n    backgroundColor: colorVars.bgSurface,\n    borderRadius: radiusVars.sm,\n    padding: spacingVars.space3,\n  },\n});\n`,
       { flag: "wx" },
     ),
     writeFile(

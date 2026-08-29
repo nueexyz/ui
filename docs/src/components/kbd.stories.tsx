@@ -8,7 +8,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Kbd, KbdGroup } from "@cachette/ui/kbd";
+import { Kbd, KbdGroup } from "@dumo/ui/kbd";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -32,7 +32,7 @@ function KbdExample() {
 }
 
 const kbdExampleCode =
-  'import { Kbd, KbdGroup } from "@cachette/ui/kbd"\n\n<KbdGroup>\n  <Kbd>⌘</Kbd>\n  <Kbd>K</Kbd>\n</KbdGroup>';
+  'import { Kbd, KbdGroup } from "@dumo/ui/kbd"\n\n<KbdGroup>\n  <Kbd>⌘</Kbd>\n  <Kbd>K</Kbd>\n</KbdGroup>';
 
 export const KbdStory: Story = {
   name: "Kbd",
@@ -51,7 +51,7 @@ export const KbdStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

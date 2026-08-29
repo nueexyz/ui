@@ -8,8 +8,8 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { spacingVars } from "@cachette/tokens/tokens.stylex";
-import { Button } from "@cachette/ui/button";
+import { spacingVars } from "@dumo/tokens/tokens.stylex";
+import { Button } from "@dumo/ui/button";
 import {
   Empty,
   EmptyContent,
@@ -17,8 +17,8 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@cachette/ui/empty";
-import { Icon } from "@cachette/ui/icon";
+} from "@dumo/ui/empty";
+import { Icon } from "@dumo/ui/icon";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -50,7 +50,7 @@ function EmptyExample() {
 }
 
 const emptyExampleCode =
-  'import { Button } from "@cachette/ui/button"\nimport { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@cachette/ui/empty"\nimport { Icon } from "@cachette/ui/icon"\n\n<Empty>\n  <EmptyHeader>\n    <EmptyMedia><Icon aria-hidden="true" name="folder" /></EmptyMedia>\n    <EmptyTitle>저장한 프로젝트가 없습니다</EmptyTitle>\n    <EmptyDescription>자주 확인할 프로젝트를 저장하면 이곳에서 바로 열 수 있습니다.</EmptyDescription>\n  </EmptyHeader>\n  <EmptyContent><Button>프로젝트 저장하기</Button></EmptyContent>\n</Empty>';
+  'import { Button } from "@dumo/ui/button"\nimport { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@dumo/ui/empty"\nimport { Icon } from "@dumo/ui/icon"\n\n<Empty>\n  <EmptyHeader>\n    <EmptyMedia><Icon aria-hidden="true" name="folder" /></EmptyMedia>\n    <EmptyTitle>저장한 프로젝트가 없습니다</EmptyTitle>\n    <EmptyDescription>자주 확인할 프로젝트를 저장하면 이곳에서 바로 열 수 있습니다.</EmptyDescription>\n  </EmptyHeader>\n  <EmptyContent><Button>프로젝트 저장하기</Button></EmptyContent>\n</Empty>';
 
 export const EmptyStory: Story = {
   name: "Empty",
@@ -71,7 +71,7 @@ export const EmptyStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

@@ -1,4 +1,4 @@
-import { colorVars, sizeVars } from "@cachette/tokens/tokens.stylex";
+import { colorVars, sizeVars } from "@dumo/tokens/tokens.stylex";
 import * as stylex from "@stylexjs/stylex";
 
 export const styles = stylex.create({

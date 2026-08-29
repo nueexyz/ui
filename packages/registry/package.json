@@ -1,5 +1,5 @@
 {
-  "name": "@cachette/registry",
+  "name": "@dumo/registry",
   "version": "0.0.1",
   "private": false,
   "type": "module",

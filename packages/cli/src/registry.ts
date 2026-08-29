@@ -1,4 +1,4 @@
-import { dependencyVersions, registryItems } from "@cachette/registry";
+import { dependencyVersions, registryItems } from "@dumo/registry";
 
 type RegistryFile = { content?: string; path: string };
 
@@ -55,7 +55,7 @@ async function resolveRemoteComponent(url: string) {
 
   const item = (await response.json()) as RegistryItem;
   if (!Array.isArray(item.files) || !Array.isArray(item.dependencies)) {
-    throw new Error("올바른 Cachette 레지스트리 항목이 아닙니다.");
+    throw new Error("올바른 Dumo 레지스트리 항목이 아닙니다.");
   }
 
   return {

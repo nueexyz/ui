@@ -8,9 +8,9 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Bubble } from "@cachette/ui/bubble";
-import { Message, MessageContent } from "@cachette/ui/message";
-import { MessageScroller } from "@cachette/ui/message-scroller";
+import { Bubble } from "@dumo/ui/bubble";
+import { Message, MessageContent } from "@dumo/ui/message";
+import { MessageScroller } from "@dumo/ui/message-scroller";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -58,7 +58,7 @@ function MessageScrollerExample() {
 }
 
 const messageScrollerExampleCode =
-  'import { Bubble } from "@cachette/ui/bubble"\nimport { MessageScroller } from "@cachette/ui/message-scroller"\n\n<MessageScroller style={{ height: "18rem" }}>\n  <Bubble>요청 사항을 확인했어요.</Bubble>\n  <Bubble side="outgoing">고마워요. 오늘 안에 공유할게요.</Bubble>\n</MessageScroller>';
+  'import { Bubble } from "@dumo/ui/bubble"\nimport { MessageScroller } from "@dumo/ui/message-scroller"\n\n<MessageScroller style={{ height: "18rem" }}>\n  <Bubble>요청 사항을 확인했어요.</Bubble>\n  <Bubble side="outgoing">고마워요. 오늘 안에 공유할게요.</Bubble>\n</MessageScroller>';
 
 export const MessageScrollerStory: Story = {
   name: "Message Scroller",
@@ -79,7 +79,7 @@ export const MessageScrollerStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

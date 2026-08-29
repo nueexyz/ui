@@ -16,7 +16,7 @@ import {
   MenubarSeparator,
   MenubarShortcut,
   MenubarTrigger,
-} from "@cachette/ui/menubar";
+} from "@dumo/ui/menubar";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -60,7 +60,7 @@ function MenubarExample() {
 }
 
 const menubarExampleCode =
-  'import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarTrigger } from "@cachette/ui/menubar"\n\n<Menubar>\n  <MenubarMenu>\n    <MenubarTrigger>파일</MenubarTrigger>\n    <MenubarContent>\n      <MenubarItem>새 문서<MenubarShortcut>⌘N</MenubarShortcut></MenubarItem>\n      <MenubarItem>열기<MenubarShortcut>⌘O</MenubarShortcut></MenubarItem>\n      <MenubarSeparator />\n      <MenubarItem>저장<MenubarShortcut>⌘S</MenubarShortcut></MenubarItem>\n    </MenubarContent>\n  </MenubarMenu>\n</Menubar>';
+  'import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarTrigger } from "@dumo/ui/menubar"\n\n<Menubar>\n  <MenubarMenu>\n    <MenubarTrigger>파일</MenubarTrigger>\n    <MenubarContent>\n      <MenubarItem>새 문서<MenubarShortcut>⌘N</MenubarShortcut></MenubarItem>\n      <MenubarItem>열기<MenubarShortcut>⌘O</MenubarShortcut></MenubarItem>\n      <MenubarSeparator />\n      <MenubarItem>저장<MenubarShortcut>⌘S</MenubarShortcut></MenubarItem>\n    </MenubarContent>\n  </MenubarMenu>\n</Menubar>';
 
 export const MenubarStory: Story = {
   name: "Menubar",
@@ -81,7 +81,7 @@ export const MenubarStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

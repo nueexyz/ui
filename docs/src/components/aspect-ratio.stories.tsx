@@ -8,8 +8,8 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { colorVars, sizeVars } from "@cachette/tokens/tokens.stylex";
-import { AspectRatio } from "@cachette/ui/aspect-ratio";
+import { colorVars, sizeVars } from "@dumo/tokens/tokens.stylex";
+import { AspectRatio } from "@dumo/ui/aspect-ratio";
 
 const meta = {
   title: "Components",
@@ -42,7 +42,7 @@ function AspectRatioExample() {
 }
 
 const aspectRatioExampleCode =
-  'import { AspectRatio } from "@cachette/ui/aspect-ratio"\n\n<AspectRatio ratio={16 / 9}>미디어 미리보기</AspectRatio>';
+  'import { AspectRatio } from "@dumo/ui/aspect-ratio"\n\n<AspectRatio ratio={16 / 9}>미디어 미리보기</AspectRatio>';
 
 export const AspectRatioStory: Story = {
   name: "Aspect Ratio",
@@ -63,7 +63,7 @@ export const AspectRatioStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

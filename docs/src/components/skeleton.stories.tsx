@@ -8,8 +8,8 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { sizeVars, spacingVars } from "@cachette/tokens/tokens.stylex";
-import { Skeleton } from "@cachette/ui/skeleton";
+import { sizeVars, spacingVars } from "@dumo/tokens/tokens.stylex";
+import { Skeleton } from "@dumo/ui/skeleton";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -41,7 +41,7 @@ function SkeletonExample() {
 }
 
 const skeletonExampleCode =
-  'import { Skeleton } from "@cachette/ui/skeleton"\n\n<div>\n  <Skeleton style={{ height: "1.5rem", width: "45%" }} />\n  <Skeleton style={{ height: "2.5rem", width: "100%" }} />\n</div>';
+  'import { Skeleton } from "@dumo/ui/skeleton"\n\n<div>\n  <Skeleton style={{ height: "1.5rem", width: "45%" }} />\n  <Skeleton style={{ height: "2.5rem", width: "100%" }} />\n</div>';
 
 export const SkeletonStory: Story = {
   name: "Skeleton",
@@ -62,7 +62,7 @@ export const SkeletonStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

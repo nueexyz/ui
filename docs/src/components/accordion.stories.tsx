@@ -13,8 +13,8 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@cachette/ui/accordion";
-import { colorVars, spacingVars, typographyVars } from "@cachette/tokens/tokens.stylex";
+} from "@dumo/ui/accordion";
+import { colorVars, spacingVars, typographyVars } from "@dumo/tokens/tokens.stylex";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -95,7 +95,7 @@ function AccordionExample() {
 }
 
 const accordionExampleCode =
-  'import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@cachette/ui/accordion"\n\n<Accordion defaultValue={["item-1"]}>\n  <AccordionItem value="item-1">\n    <AccordionTrigger>계정 설정</AccordionTrigger>\n    <AccordionContent>프로필과 알림 설정을 변경할 수 있습니다.</AccordionContent>\n  </AccordionItem>\n</Accordion>';
+  'import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@dumo/ui/accordion"\n\n<Accordion defaultValue={["item-1"]}>\n  <AccordionItem value="item-1">\n    <AccordionTrigger>계정 설정</AccordionTrigger>\n    <AccordionContent>프로필과 알림 설정을 변경할 수 있습니다.</AccordionContent>\n  </AccordionItem>\n</Accordion>';
 
 export const AccordionStory: Story = {
   name: "Accordion",
@@ -116,7 +116,7 @@ export const AccordionStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

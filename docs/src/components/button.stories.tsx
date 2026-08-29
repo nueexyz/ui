@@ -1,5 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
-import { Button } from "@cachette/ui/button";
+import { Button } from "@dumo/ui/button";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   CodeBlock,
@@ -25,7 +25,7 @@ function ButtonExample() {
 }
 
 const buttonExampleCode =
-  'import { Button } from "@cachette/ui/button"\n\n<Button>저장하기</Button>';
+  'import { Button } from "@dumo/ui/button"\n\n<Button>저장하기</Button>';
 
 export const ButtonStory: Story = {
   name: "Button",
@@ -46,7 +46,7 @@ export const ButtonStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

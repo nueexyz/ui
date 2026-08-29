@@ -8,8 +8,8 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Checkbox } from "@cachette/ui/checkbox";
-import { colorVars } from "@cachette/tokens/tokens.stylex";
+import { Checkbox } from "@dumo/ui/checkbox";
+import { colorVars } from "@dumo/tokens/tokens.stylex";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -44,7 +44,7 @@ function CheckboxExample() {
 }
 
 const checkboxExampleCode =
-  'import { Checkbox } from "@cachette/ui/checkbox"\n\n<Checkbox aria-label="이용 약관에 동의" />';
+  'import { Checkbox } from "@dumo/ui/checkbox"\n\n<Checkbox aria-label="이용 약관에 동의" />';
 
 export const CheckboxStory: Story = {
   name: "Checkbox",
@@ -65,7 +65,7 @@ export const CheckboxStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

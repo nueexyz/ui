@@ -8,8 +8,8 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { spacingVars } from "@cachette/tokens/tokens.stylex";
-import { Typography } from "@cachette/ui/typography";
+import { spacingVars } from "@dumo/tokens/tokens.stylex";
+import { Typography } from "@dumo/ui/typography";
 
 const meta = {
   title: "Components",
@@ -39,7 +39,7 @@ function TypographyExample() {
 }
 
 const typographyExampleCode =
-  'import { Typography } from "@cachette/ui/typography"\n\n<Typography variant="display">제품의 핵심 제목</Typography>';
+  'import { Typography } from "@dumo/ui/typography"\n\n<Typography variant="display">제품의 핵심 제목</Typography>';
 
 export const TypographyStory: Story = {
   name: "Typography",
@@ -60,7 +60,7 @@ export const TypographyStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

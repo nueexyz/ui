@@ -8,7 +8,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Button } from "@cachette/ui/button";
+import { Button } from "@dumo/ui/button";
 import {
   Popover,
   PopoverContent,
@@ -16,7 +16,7 @@ import {
   PopoverHeader,
   PopoverTitle,
   PopoverTrigger,
-} from "@cachette/ui/popover";
+} from "@dumo/ui/popover";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -69,7 +69,7 @@ function PopoverExample() {
 }
 
 const popoverExampleCode =
-  'import { Button } from "@cachette/ui/button"\nimport { Popover, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger } from "@cachette/ui/popover"\n\n<Popover>\n  <PopoverTrigger render={<Button variant="secondary">왼쪽 정렬</Button>} />\n  <PopoverContent>\n    <PopoverHeader>\n      <PopoverTitle>왼쪽 정렬</PopoverTitle>\n      <PopoverDescription>Popover의 시작점을 트리거에 맞춥니다.</PopoverDescription>\n    </PopoverHeader>\n  </PopoverContent>\n</Popover>';
+  'import { Button } from "@dumo/ui/button"\nimport { Popover, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger } from "@dumo/ui/popover"\n\n<Popover>\n  <PopoverTrigger render={<Button variant="secondary">왼쪽 정렬</Button>} />\n  <PopoverContent>\n    <PopoverHeader>\n      <PopoverTitle>왼쪽 정렬</PopoverTitle>\n      <PopoverDescription>Popover의 시작점을 트리거에 맞춥니다.</PopoverDescription>\n    </PopoverHeader>\n  </PopoverContent>\n</Popover>';
 
 export const PopoverStory: Story = {
   name: "Popover",
@@ -90,7 +90,7 @@ export const PopoverStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

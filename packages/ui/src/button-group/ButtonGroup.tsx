@@ -10,7 +10,7 @@ import {
 
 import { Separator } from "../separator";
 import { styles } from "./button-group.stylex";
-import { radiusVars } from "@cachette/tokens/tokens.stylex";
+import { radiusVars } from "@dumo/tokens/tokens.stylex";
 
 type StyleProps = { style?: CSSProperties; xstyle?: stylex.StyleXStyles };
 type GroupItem = ReactElement<StyleProps>;

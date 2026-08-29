@@ -16,7 +16,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   NavigationMenuViewport,
-} from "@cachette/ui/navigation-menu";
+} from "@dumo/ui/navigation-menu";
 import type { ReactNode } from "react";
 
 const meta = {
@@ -86,7 +86,7 @@ function NavigationMenuExample() {
 }
 
 const navigationMenuExampleCode =
-  'import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, NavigationMenuViewport } from "@cachette/ui/navigation-menu"\n\n<NavigationMenu>\n  <NavigationMenuList>\n    <NavigationMenuItem>\n      <NavigationMenuTrigger>제품</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <NavigationMenuLink href="#">디자인 토큰</NavigationMenuLink>\n        <NavigationMenuLink href="#">컴포넌트</NavigationMenuLink>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n    <NavigationMenuItem><NavigationMenuLink href="#">문서</NavigationMenuLink></NavigationMenuItem>\n  </NavigationMenuList>\n  <NavigationMenuViewport />\n</NavigationMenu>';
+  'import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, NavigationMenuViewport } from "@dumo/ui/navigation-menu"\n\n<NavigationMenu>\n  <NavigationMenuList>\n    <NavigationMenuItem>\n      <NavigationMenuTrigger>제품</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <NavigationMenuLink href="#">디자인 토큰</NavigationMenuLink>\n        <NavigationMenuLink href="#">컴포넌트</NavigationMenuLink>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n    <NavigationMenuItem><NavigationMenuLink href="#">문서</NavigationMenuLink></NavigationMenuItem>\n  </NavigationMenuList>\n  <NavigationMenuViewport />\n</NavigationMenu>';
 
 export const NavigationMenuStory: Story = {
   name: "Navigation Menu",
@@ -107,7 +107,7 @@ export const NavigationMenuStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

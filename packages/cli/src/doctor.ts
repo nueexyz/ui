@@ -32,8 +32,8 @@ export async function doctor(projectDirectory: string) {
 
   if (!(await hasConfig(projectDirectory))) {
     checks.push({
-      detail: "`cachette init`을 실행하면 기본 UI 별칭을 설정합니다.",
-      name: "cachette.json",
+      detail: "`dumo init`을 실행하면 기본 UI 별칭을 설정합니다.",
+      name: "dumo.json",
       status: "warn",
     });
   } else {
@@ -46,7 +46,7 @@ export async function doctor(projectDirectory: string) {
     hasDependency(packageJson, "@stylexjs/stylex")
       ? { detail: "@stylexjs/stylex가 설치되어 있습니다.", name: "StyleX 런타임", status: "pass" }
       : {
-          detail: "첫 `cachette add`에서 자동 설치됩니다. 설치를 건너뛰려면 --skip-dependencies를 사용하세요.",
+          detail: "첫 `dumo add`에서 자동 설치됩니다. 설치를 건너뛰려면 --skip-dependencies를 사용하세요.",
           name: "StyleX 런타임",
           status: "warn",
         },

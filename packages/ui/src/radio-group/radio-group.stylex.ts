@@ -4,7 +4,7 @@ import {
   radiusVars,
   sizeVars,
   spacingVars,
-} from "@cachette/tokens/tokens.stylex";
+} from "@dumo/tokens/tokens.stylex";
 import * as stylex from "@stylexjs/stylex";
 
 export const styles = stylex.create({

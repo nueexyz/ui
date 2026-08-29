@@ -6,10 +6,10 @@ import {
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@cachette/tokens/tokens.stylex";
-import { Button } from "@cachette/ui/button";
-import { Icon } from "@cachette/ui/icon";
-import { Input } from "@cachette/ui/input";
+} from "@dumo/tokens/tokens.stylex";
+import { Button } from "@dumo/ui/button";
+import { Icon } from "@dumo/ui/icon";
+import { Input } from "@dumo/ui/input";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useLayoutEffect, useRef, useState } from "react";
@@ -289,7 +289,7 @@ export const Typography: Story = {
         value={typographyVars.fontFamily}
       >
         <span {...stylex.props(styles.fontFamilySample(typographyVars.fontFamily))}>
-          Cachette 가나다
+          Dumo 가나다
         </span>
       </TokenRow>
       {fontSizeTokens.map(([name, value, usage]) => (
@@ -303,7 +303,7 @@ export const Typography: Story = {
               ),
             )}
           >
-            Cachette 가나다
+            Dumo 가나다
           </span>
         </TokenRow>
       ))}
@@ -326,7 +326,7 @@ export const Typography: Story = {
               styles.typeSample(typographyVars.fontSizeSm, value, typographyVars.lineHeightNormal),
             )}
           >
-            Cachette 가나다
+            Dumo 가나다
           </span>
         </TokenRow>
       ))}

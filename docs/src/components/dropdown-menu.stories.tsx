@@ -8,7 +8,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Button } from "@cachette/ui/button";
+import { Button } from "@dumo/ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -19,7 +19,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "@cachette/ui/dropdown-menu";
+} from "@dumo/ui/dropdown-menu";
 
 const meta = {
   title: "Components",
@@ -56,7 +56,7 @@ function DropdownMenuExample() {
 }
 
 const dropdownMenuExampleCode =
-  'import { Button } from "@cachette/ui/button"\nimport { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "@cachette/ui/dropdown-menu"\n\n<DropdownMenu>\n  <DropdownMenuTrigger render={<Button variant="secondary">프로젝트 작업</Button>} />\n  <DropdownMenuContent>\n    <DropdownMenuGroup>\n      <DropdownMenuLabel>웹사이트 개편</DropdownMenuLabel>\n      <DropdownMenuItem>이름 바꾸기<DropdownMenuShortcut>⌘R</DropdownMenuShortcut></DropdownMenuItem>\n      <DropdownMenuItem>복제하기<DropdownMenuShortcut>⌘D</DropdownMenuShortcut></DropdownMenuItem>\n    </DropdownMenuGroup>\n    <DropdownMenuSeparator />\n    <DropdownMenuCheckboxItem defaultChecked>즐겨찾기에 표시</DropdownMenuCheckboxItem>\n    <DropdownMenuSeparator />\n    <DropdownMenuItem destructive>프로젝트 삭제하기</DropdownMenuItem>\n  </DropdownMenuContent>\n</DropdownMenu>';
+  'import { Button } from "@dumo/ui/button"\nimport { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "@dumo/ui/dropdown-menu"\n\n<DropdownMenu>\n  <DropdownMenuTrigger render={<Button variant="secondary">프로젝트 작업</Button>} />\n  <DropdownMenuContent>\n    <DropdownMenuGroup>\n      <DropdownMenuLabel>웹사이트 개편</DropdownMenuLabel>\n      <DropdownMenuItem>이름 바꾸기<DropdownMenuShortcut>⌘R</DropdownMenuShortcut></DropdownMenuItem>\n      <DropdownMenuItem>복제하기<DropdownMenuShortcut>⌘D</DropdownMenuShortcut></DropdownMenuItem>\n    </DropdownMenuGroup>\n    <DropdownMenuSeparator />\n    <DropdownMenuCheckboxItem defaultChecked>즐겨찾기에 표시</DropdownMenuCheckboxItem>\n    <DropdownMenuSeparator />\n    <DropdownMenuItem destructive>프로젝트 삭제하기</DropdownMenuItem>\n  </DropdownMenuContent>\n</DropdownMenu>';
 
 export const DropdownMenuStory: Story = {
   name: "Dropdown Menu",
@@ -77,7 +77,7 @@ export const DropdownMenuStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

@@ -16,7 +16,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@cachette/ui/breadcrumb";
+} from "@dumo/ui/breadcrumb";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -82,7 +82,7 @@ function BreadcrumbExample() {
 }
 
 const breadcrumbExampleCode =
-  'import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@cachette/ui/breadcrumb"\n\n<Breadcrumb aria-label="현재 위치">\n  <BreadcrumbList>\n    <BreadcrumbItem><BreadcrumbLink href="#">프로젝트</BreadcrumbLink></BreadcrumbItem>\n    <BreadcrumbSeparator />\n    <BreadcrumbItem><BreadcrumbLink href="#">디자인 시스템</BreadcrumbLink></BreadcrumbItem>\n    <BreadcrumbSeparator />\n    <BreadcrumbItem><BreadcrumbPage>컴포넌트</BreadcrumbPage></BreadcrumbItem>\n  </BreadcrumbList>\n</Breadcrumb>';
+  'import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@dumo/ui/breadcrumb"\n\n<Breadcrumb aria-label="현재 위치">\n  <BreadcrumbList>\n    <BreadcrumbItem><BreadcrumbLink href="#">프로젝트</BreadcrumbLink></BreadcrumbItem>\n    <BreadcrumbSeparator />\n    <BreadcrumbItem><BreadcrumbLink href="#">디자인 시스템</BreadcrumbLink></BreadcrumbItem>\n    <BreadcrumbSeparator />\n    <BreadcrumbItem><BreadcrumbPage>컴포넌트</BreadcrumbPage></BreadcrumbItem>\n  </BreadcrumbList>\n</Breadcrumb>';
 
 export const BreadcrumbStory: Story = {
   name: "Breadcrumb",
@@ -103,7 +103,7 @@ export const BreadcrumbStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

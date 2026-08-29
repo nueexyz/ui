@@ -14,7 +14,7 @@ import {
   InputGroupButton,
   InputGroupInput,
   InputGroupText,
-} from "@cachette/ui/input-group";
+} from "@dumo/ui/input-group";
 
 const meta = {
   title: "Components",
@@ -52,7 +52,7 @@ function InputGroupExample() {
 }
 
 const inputGroupExampleCode =
-  'import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText } from "@cachette/ui/input-group"\n\n<InputGroup>\n  <InputGroupAddon align="inline-start"><InputGroupText>https://</InputGroupText></InputGroupAddon>\n  <InputGroupInput aria-label="웹 주소" placeholder="example.com" />\n  <InputGroupAddon align="inline-end"><InputGroupButton>복사</InputGroupButton></InputGroupAddon>\n</InputGroup>';
+  'import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText } from "@dumo/ui/input-group"\n\n<InputGroup>\n  <InputGroupAddon align="inline-start"><InputGroupText>https://</InputGroupText></InputGroupAddon>\n  <InputGroupInput aria-label="웹 주소" placeholder="example.com" />\n  <InputGroupAddon align="inline-end"><InputGroupButton>복사</InputGroupButton></InputGroupAddon>\n</InputGroup>';
 
 export const InputGroupStory: Story = {
   name: "Input Group",
@@ -73,7 +73,7 @@ export const InputGroupStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

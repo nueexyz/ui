@@ -4,10 +4,10 @@ import {
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@cachette/tokens/tokens.stylex";
+} from "@dumo/tokens/tokens.stylex";
 import * as stylex from "@stylexjs/stylex";
-import { Button } from "@cachette/ui/button";
-import { Icon } from "@cachette/ui/icon";
+import { Button } from "@dumo/ui/button";
+import { Icon } from "@dumo/ui/icon";
 import { type ReactNode, useEffect, useState } from "react";
 
 import { useStoryColorMode } from "./story-source-context";

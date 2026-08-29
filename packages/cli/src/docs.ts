@@ -1,4 +1,4 @@
-import { registryItems } from "@cachette/registry";
+import { registryItems } from "@dumo/registry";
 
 function getComponentNames() {
   return Object.keys(registryItems).sort();
@@ -18,7 +18,7 @@ export function docs(componentName: string | undefined) {
   if (!item) throw new Error(`알 수 없는 컴포넌트입니다: ${componentName}`);
 
   console.log(`${componentName}\n`);
-  console.log(`설치: pnpm dlx @cachette/ui add ${componentName}`);
+  console.log(`설치: pnpm dlx @dumo/ui add ${componentName}`);
   console.log(`파일:\n${item.files.map((file) => `  ${file}`).join("\n")}`);
   console.log(`의존성:\n${item.dependencies.map((dependency) => `  ${dependency}`).join("\n")}`);
   if (item.registryDependencies.length) {

@@ -1,4 +1,4 @@
-import { Input } from "@cachette/ui/input";
+import { Input } from "@dumo/ui/input";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
@@ -29,7 +29,7 @@ function InputExample() {
         <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
           <div {...stylex.props(storyStyles.stack, storyStyles.formWidth)}>
             <Input aria-label="이름" placeholder="홍길동" />
-            <Input aria-label="이메일" defaultValue="hello@cachette.dev" />
+            <Input aria-label="이메일" defaultValue="hello@dumo.dev" />
           </div>
         </div>
       </section>
@@ -58,7 +58,7 @@ function InputExample() {
 }
 
 const inputExampleCode =
-  'import { Input } from "@cachette/ui/input"\n\n<Input aria-label="이메일" placeholder="name@example.com" type="email" />';
+  'import { Input } from "@dumo/ui/input"\n\n<Input aria-label="이메일" placeholder="name@example.com" type="email" />';
 
 export const InputStory: Story = {
   name: "Input",
@@ -79,7 +79,7 @@ export const InputStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

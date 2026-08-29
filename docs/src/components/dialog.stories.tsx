@@ -8,7 +8,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Button } from "@cachette/ui/button";
+import { Button } from "@dumo/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -18,7 +18,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@cachette/ui/dialog";
+} from "@dumo/ui/dialog";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -49,7 +49,7 @@ function DialogExample() {
 }
 
 const dialogExampleCode =
-  'import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@cachette/ui/dialog"\n\n<Dialog>\n  <DialogTrigger>프로필 열기</DialogTrigger>\n  <DialogContent>\n    <DialogTitle>프로필</DialogTitle>\n  </DialogContent>\n</Dialog>';
+  'import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@dumo/ui/dialog"\n\n<Dialog>\n  <DialogTrigger>프로필 열기</DialogTrigger>\n  <DialogContent>\n    <DialogTitle>프로필</DialogTitle>\n  </DialogContent>\n</Dialog>';
 
 export const DialogStory: Story = {
   name: "Dialog",
@@ -70,7 +70,7 @@ export const DialogStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

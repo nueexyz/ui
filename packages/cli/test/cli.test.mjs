@@ -18,7 +18,7 @@ async function writeTsconfig(projectDirectory) {
 }
 
 test("add creates the default config and copies a component with its foundation", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "cachette-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);
@@ -35,14 +35,14 @@ test("add creates the default config and copies a component with its foundation"
       "utf8",
     );
     assert.match(buttonSource, /export function Button/);
-    assert.match(buttonStyleSource, /from "@cachette\/tokens\/tokens\.stylex"/);
+    assert.match(buttonStyleSource, /from "@dumo\/tokens\/tokens\.stylex"/);
   } finally {
     await rm(projectDirectory, { recursive: true });
   }
 });
 
 test("init stores a custom UI alias", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "cachette-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
 
   try {
     await init(projectDirectory, {
@@ -59,7 +59,7 @@ test("init stores a custom UI alias", async () => {
 });
 
 test("add resolves component and icon dependencies", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "cachette-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);
@@ -80,7 +80,7 @@ test("add resolves component and icon dependencies", async () => {
 });
 
 test("add installs renamed and new components", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "cachette-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);
@@ -106,7 +106,7 @@ test("add installs renamed and new components", async () => {
 });
 
 test("add dry-run does not write files", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "cachette-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);
@@ -119,7 +119,7 @@ test("add dry-run does not write files", async () => {
 });
 
 test("add installs a component from a registry URL", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "cachette-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
   const item = {
     dependencies: [],
     files: [{ path: "notice.ts", content: "export const notice = true;\n" }],
@@ -147,7 +147,7 @@ test("add installs a component from a registry URL", async () => {
 });
 
 test("new creates a StyleX component without overwriting an existing file", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "cachette-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);
@@ -176,6 +176,6 @@ test("docs prints the component installation contract", () => {
     console.log = write;
   }
 
-  assert.match(output.join("\n"), /pnpm dlx @cachette\/ui add button/);
+  assert.match(output.join("\n"), /pnpm dlx @dumo\/ui add button/);
   assert.match(output.join("\n"), /@base-ui\/react/);
 });

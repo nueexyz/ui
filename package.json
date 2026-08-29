@@ -1,17 +1,17 @@
 {
-  "name": "cachette-monorepo",
+  "name": "dumo-monorepo",
   "version": "0.0.1",
   "private": true,
-  "description": "Cachette design system monorepo.",
-  "license": "ISC",
+  "description": "Dumo design system monorepo.",
+  "license": "Apache-2.0",
   "author": "Minyeong Jeong",
   "type": "module",
   "scripts": {
-    "build-storybook": "pnpm --filter @cachette/docs build-storybook",
-    "cachette": "pnpm --filter @cachette/ui build && node packages/ui/dist/cli.js",
+    "build-storybook": "pnpm --filter @dumo/docs build-storybook",
+    "dumo": "pnpm --filter @dumo/ui build && node packages/ui/dist/cli.js",
     "check": "pnpm oxlint . && pnpm oxfmt --check .",
-    "storybook": "pnpm --filter @cachette/docs storybook",
-    "typecheck": "pnpm --filter @cachette/tokens typecheck && pnpm --filter @cachette/registry typecheck && pnpm --filter @cachette/cli typecheck && pnpm --filter @cachette/ui typecheck && pnpm --filter @cachette/docs typecheck"
+    "storybook": "pnpm --filter @dumo/docs storybook",
+    "typecheck": "pnpm --filter @dumo/tokens typecheck && pnpm --filter @dumo/registry typecheck && pnpm --filter @dumo/cli typecheck && pnpm --filter @dumo/ui typecheck && pnpm --filter @dumo/docs typecheck"
   },
   "devDependencies": {
     "esbuild": "0.28.2",

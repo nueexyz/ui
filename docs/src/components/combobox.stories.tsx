@@ -15,8 +15,8 @@ import {
   ComboboxEmpty,
   ComboboxInput,
   ComboboxItem,
-} from "@cachette/ui/combobox";
-import { Field, FieldDescription, FieldLabel } from "@cachette/ui/field";
+} from "@dumo/ui/combobox";
+import { Field, FieldDescription, FieldLabel } from "@dumo/ui/field";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -51,7 +51,7 @@ function ComboboxExample() {
 }
 
 const comboboxExampleCode =
-  'import { Combobox, ComboboxCollection, ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem } from "@cachette/ui/combobox"\nimport { Field, FieldDescription, FieldLabel } from "@cachette/ui/field"\n\nconst frameworks = ["React", "Vue", "Svelte"]\n\n<Field>\n  <FieldLabel>프레임워크</FieldLabel>\n  <Combobox items={frameworks}>\n    <ComboboxInput placeholder="프레임워크 검색" />\n    <ComboboxContent>\n      <ComboboxEmpty>일치하는 프레임워크가 없습니다.</ComboboxEmpty>\n      <ComboboxCollection>\n        {(framework) => <ComboboxItem key={framework} value={framework}>{framework}</ComboboxItem>}\n      </ComboboxCollection>\n    </ComboboxContent>\n  </Combobox>\n  <FieldDescription>프로젝트에서 사용하는 프레임워크를 선택하세요.</FieldDescription>\n</Field>';
+  'import { Combobox, ComboboxCollection, ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem } from "@dumo/ui/combobox"\nimport { Field, FieldDescription, FieldLabel } from "@dumo/ui/field"\n\nconst frameworks = ["React", "Vue", "Svelte"]\n\n<Field>\n  <FieldLabel>프레임워크</FieldLabel>\n  <Combobox items={frameworks}>\n    <ComboboxInput placeholder="프레임워크 검색" />\n    <ComboboxContent>\n      <ComboboxEmpty>일치하는 프레임워크가 없습니다.</ComboboxEmpty>\n      <ComboboxCollection>\n        {(framework) => <ComboboxItem key={framework} value={framework}>{framework}</ComboboxItem>}\n      </ComboboxCollection>\n    </ComboboxContent>\n  </Combobox>\n  <FieldDescription>프로젝트에서 사용하는 프레임워크를 선택하세요.</FieldDescription>\n</Field>';
 
 export const ComboboxStory: Story = {
   name: "Combobox",
@@ -72,7 +72,7 @@ export const ComboboxStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

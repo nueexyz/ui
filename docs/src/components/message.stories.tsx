@@ -8,8 +8,8 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Bubble } from "@cachette/ui/bubble";
-import { Message, MessageContent, MessageFooter, MessageHeader } from "@cachette/ui/message";
+import { Bubble } from "@dumo/ui/bubble";
+import { Message, MessageContent, MessageFooter, MessageHeader } from "@dumo/ui/message";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -48,7 +48,7 @@ function MessageExample() {
 }
 
 const messageExampleCode =
-  'import { Bubble } from "@cachette/ui/bubble"\nimport { Message, MessageContent, MessageFooter, MessageHeader } from "@cachette/ui/message"\n\n<Message side="incoming">\n  <MessageHeader>민영</MessageHeader>\n  <MessageContent><Bubble>문서 검토를 시작했어요.</Bubble></MessageContent>\n  <MessageFooter>오후 2:18</MessageFooter>\n</Message>';
+  'import { Bubble } from "@dumo/ui/bubble"\nimport { Message, MessageContent, MessageFooter, MessageHeader } from "@dumo/ui/message"\n\n<Message side="incoming">\n  <MessageHeader>민영</MessageHeader>\n  <MessageContent><Bubble>문서 검토를 시작했어요.</Bubble></MessageContent>\n  <MessageFooter>오후 2:18</MessageFooter>\n</Message>';
 
 export const MessageStory: Story = {
   name: "Message",
@@ -69,7 +69,7 @@ export const MessageStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

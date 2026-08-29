@@ -4,7 +4,7 @@ import {
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@cachette/tokens/tokens.stylex";
+} from "@dumo/tokens/tokens.stylex";
 import * as stylex from "@stylexjs/stylex";
 export const styles = stylex.create({
   root: { display: "inline-flex", position: "relative", width: "fit-content" },

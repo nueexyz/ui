@@ -8,14 +8,14 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@cachette/ui/collapsible";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@dumo/ui/collapsible";
 import {
   colorVars,
   radiusVars,
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@cachette/tokens/tokens.stylex";
+} from "@dumo/tokens/tokens.stylex";
 
 const meta = {
   title: "Components",
@@ -84,7 +84,7 @@ function CollapsibleExample() {
 }
 
 const collapsibleExampleCode =
-  'import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@cachette/ui/collapsible"\n\n<Collapsible>\n  <div>\n    <strong>주문 #4189</strong>\n    <CollapsibleTrigger aria-label="주문 상세 정보 열기" />\n  </div>\n  <p>상태: 배송 완료</p>\n  <CollapsibleContent>\n    <p>배송지: 서울시 성동구 성수이로 18</p>\n    <p>상품: 스튜디오 헤드폰 2개</p>\n  </CollapsibleContent>\n</Collapsible>';
+  'import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@dumo/ui/collapsible"\n\n<Collapsible>\n  <div>\n    <strong>주문 #4189</strong>\n    <CollapsibleTrigger aria-label="주문 상세 정보 열기" />\n  </div>\n  <p>상태: 배송 완료</p>\n  <CollapsibleContent>\n    <p>배송지: 서울시 성동구 성수이로 18</p>\n    <p>상품: 스튜디오 헤드폰 2개</p>\n  </CollapsibleContent>\n</Collapsible>';
 
 export const CollapsibleStory: Story = {
   name: "Collapsible",
@@ -105,7 +105,7 @@ export const CollapsibleStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

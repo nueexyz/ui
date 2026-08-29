@@ -8,8 +8,8 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Input } from "@cachette/ui/input";
-import { Label } from "@cachette/ui/label";
+import { Input } from "@dumo/ui/input";
+import { Label } from "@dumo/ui/label";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -29,7 +29,7 @@ function LabelExample() {
 }
 
 const labelExampleCode =
-  'import { Input } from "@cachette/ui/input"\nimport { Label } from "@cachette/ui/label"\n\n<div>\n  <Label htmlFor="display-name">표시 이름</Label>\n  <Input id="display-name" placeholder="홍길동" />\n</div>';
+  'import { Input } from "@dumo/ui/input"\nimport { Label } from "@dumo/ui/label"\n\n<div>\n  <Label htmlFor="display-name">표시 이름</Label>\n  <Input id="display-name" placeholder="홍길동" />\n</div>';
 
 export const LabelStory: Story = {
   name: "Label",
@@ -50,7 +50,7 @@ export const LabelStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

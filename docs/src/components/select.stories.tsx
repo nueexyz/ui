@@ -8,7 +8,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Field, FieldDescription, FieldLabel } from "@cachette/ui/field";
+import { Field, FieldDescription, FieldLabel } from "@dumo/ui/field";
 import {
   Select,
   SelectContent,
@@ -18,7 +18,7 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "@cachette/ui/select";
+} from "@dumo/ui/select";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -58,7 +58,7 @@ function SelectExample() {
 }
 
 const selectExampleCode =
-  'import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@cachette/ui/select"\n\n<Select defaultValue="design">\n  <SelectTrigger aria-label="팀 선택">\n    <SelectValue />\n  </SelectTrigger>\n  <SelectContent>\n    <SelectItem value="design">디자인</SelectItem>\n    <SelectItem value="development">개발</SelectItem>\n  </SelectContent>\n</Select>';
+  'import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@dumo/ui/select"\n\n<Select defaultValue="design">\n  <SelectTrigger aria-label="팀 선택">\n    <SelectValue />\n  </SelectTrigger>\n  <SelectContent>\n    <SelectItem value="design">디자인</SelectItem>\n    <SelectItem value="development">개발</SelectItem>\n  </SelectContent>\n</Select>';
 
 export const SelectStory: Story = {
   name: "Select",
@@ -77,7 +77,7 @@ export const SelectStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

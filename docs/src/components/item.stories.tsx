@@ -8,9 +8,9 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Avatar, AvatarFallback } from "@cachette/ui/avatar";
-import { Button } from "@cachette/ui/button";
-import { Icon } from "@cachette/ui/icon";
+import { Avatar, AvatarFallback } from "@dumo/ui/avatar";
+import { Button } from "@dumo/ui/button";
+import { Icon } from "@dumo/ui/icon";
 import {
   Item,
   ItemActions,
@@ -19,7 +19,7 @@ import {
   ItemGroup,
   ItemMedia,
   ItemTitle,
-} from "@cachette/ui/item";
+} from "@dumo/ui/item";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -70,7 +70,7 @@ function ItemExample() {
 }
 
 const itemExampleCode =
-  'import { Button } from "@cachette/ui/button"\nimport { Icon } from "@cachette/ui/icon"\nimport { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemMedia, ItemTitle } from "@cachette/ui/item"\n\n<ItemGroup>\n  <Item variant="outline">\n    <ItemMedia><Icon name="folder" /></ItemMedia>\n    <ItemContent><ItemTitle>디자인 시스템</ItemTitle><ItemDescription>마지막 수정: 오늘 오후 2:18</ItemDescription></ItemContent>\n    <ItemActions><Button size="sm" variant="ghost">폴더 열기</Button></ItemActions>\n  </Item>\n</ItemGroup>';
+  'import { Button } from "@dumo/ui/button"\nimport { Icon } from "@dumo/ui/icon"\nimport { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemMedia, ItemTitle } from "@dumo/ui/item"\n\n<ItemGroup>\n  <Item variant="outline">\n    <ItemMedia><Icon name="folder" /></ItemMedia>\n    <ItemContent><ItemTitle>디자인 시스템</ItemTitle><ItemDescription>마지막 수정: 오늘 오후 2:18</ItemDescription></ItemContent>\n    <ItemActions><Button size="sm" variant="ghost">폴더 열기</Button></ItemActions>\n  </Item>\n</ItemGroup>';
 
 export const ItemStory: Story = {
   name: "Item",
@@ -91,7 +91,7 @@ export const ItemStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

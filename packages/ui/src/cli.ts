@@ -2,7 +2,7 @@
 
 import { fileURLToPath } from "node:url";
 
-import { run } from "@cachette/cli";
+import { run } from "@dumo/cli";
 
 const uiSourceDirectory = fileURLToPath(new URL("../src", import.meta.url));
 

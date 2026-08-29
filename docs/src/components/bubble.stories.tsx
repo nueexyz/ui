@@ -8,7 +8,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Bubble } from "@cachette/ui/bubble";
+import { Bubble } from "@dumo/ui/bubble";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -36,7 +36,7 @@ function BubbleExample() {
 }
 
 const bubbleExampleCode =
-  'import { Bubble } from "@cachette/ui/bubble"\n\n<Bubble>오늘 회의 자료를 확인해 줄 수 있을까요?</Bubble>';
+  'import { Bubble } from "@dumo/ui/bubble"\n\n<Bubble>오늘 회의 자료를 확인해 줄 수 있을까요?</Bubble>';
 
 export const BubbleStory: Story = {
   name: "Bubble",
@@ -57,7 +57,7 @@ export const BubbleStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

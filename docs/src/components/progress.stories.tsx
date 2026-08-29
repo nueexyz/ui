@@ -8,7 +8,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Progress } from "@cachette/ui/progress";
+import { Progress } from "@dumo/ui/progress";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -26,7 +26,7 @@ function ProgressExample() {
 }
 
 const progressExampleCode =
-  'import { Progress } from "@cachette/ui/progress"\n\n<>\n  <Progress aria-label="파일 업로드 진행률" value={64} />\n  <Progress aria-label="처리 중" value={null} />\n</>';
+  'import { Progress } from "@dumo/ui/progress"\n\n<>\n  <Progress aria-label="파일 업로드 진행률" value={64} />\n  <Progress aria-label="처리 중" value={null} />\n</>';
 
 export const ProgressStory: Story = {
   name: "Progress",
@@ -47,7 +47,7 @@ export const ProgressStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

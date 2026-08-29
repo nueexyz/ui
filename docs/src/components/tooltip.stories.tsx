@@ -8,9 +8,9 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Button } from "@cachette/ui/button";
-import { Icon } from "@cachette/ui/icon";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@cachette/ui/tooltip";
+import { Button } from "@dumo/ui/button";
+import { Icon } from "@dumo/ui/icon";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@dumo/ui/tooltip";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -55,7 +55,7 @@ function TooltipExample() {
 }
 
 const tooltipExampleCode =
-  'import { Tooltip, TooltipContent, TooltipTrigger } from "@cachette/ui/tooltip"\n\n<Tooltip>\n  <TooltipTrigger aria-label="도움말">?</TooltipTrigger>\n  <TooltipContent>추가 정보를 확인합니다.</TooltipContent>\n</Tooltip>';
+  'import { Tooltip, TooltipContent, TooltipTrigger } from "@dumo/ui/tooltip"\n\n<Tooltip>\n  <TooltipTrigger aria-label="도움말">?</TooltipTrigger>\n  <TooltipContent>추가 정보를 확인합니다.</TooltipContent>\n</Tooltip>';
 
 export const TooltipStory: Story = {
   name: "Tooltip",
@@ -76,7 +76,7 @@ export const TooltipStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

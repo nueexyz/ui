@@ -15,7 +15,7 @@ import {
   ContextMenuSeparator,
   ContextMenuShortcut,
   ContextMenuTrigger,
-} from "@cachette/ui/context-menu";
+} from "@dumo/ui/context-menu";
 
 const meta = {
   title: "Components",
@@ -51,7 +51,7 @@ function ContextMenuExample() {
 }
 
 const contextMenuExampleCode =
-  'import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuShortcut, ContextMenuTrigger } from "@cachette/ui/context-menu"\n\n<ContextMenu>\n  <ContextMenuTrigger>프로젝트-제안서.pdf</ContextMenuTrigger>\n  <ContextMenuContent>\n    <ContextMenuItem>미리 보기<ContextMenuShortcut>Space</ContextMenuShortcut></ContextMenuItem>\n    <ContextMenuItem>이름 바꾸기<ContextMenuShortcut>⌘R</ContextMenuShortcut></ContextMenuItem>\n    <ContextMenuSeparator />\n    <ContextMenuItem>다운로드<ContextMenuShortcut>⌘D</ContextMenuShortcut></ContextMenuItem>\n  </ContextMenuContent>\n</ContextMenu>';
+  'import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuShortcut, ContextMenuTrigger } from "@dumo/ui/context-menu"\n\n<ContextMenu>\n  <ContextMenuTrigger>프로젝트-제안서.pdf</ContextMenuTrigger>\n  <ContextMenuContent>\n    <ContextMenuItem>미리 보기<ContextMenuShortcut>Space</ContextMenuShortcut></ContextMenuItem>\n    <ContextMenuItem>이름 바꾸기<ContextMenuShortcut>⌘R</ContextMenuShortcut></ContextMenuItem>\n    <ContextMenuSeparator />\n    <ContextMenuItem>다운로드<ContextMenuShortcut>⌘D</ContextMenuShortcut></ContextMenuItem>\n  </ContextMenuContent>\n</ContextMenu>';
 
 export const ContextMenuStory: Story = {
   name: "Context Menu",
@@ -72,7 +72,7 @@ export const ContextMenuStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @cachette/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
           label="터미널"
           language="bash"
         />

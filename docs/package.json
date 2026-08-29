@@ -1,5 +1,5 @@
 {
-  "name": "@cachette/docs",
+  "name": "@dumo/docs",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -9,8 +9,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@cachette/tokens": "workspace:*",
-    "@cachette/ui": "workspace:*",
+    "@dumo/tokens": "workspace:*",
+    "@dumo/ui": "workspace:*",
     "@stylexjs/stylex": "catalog:2026-08-27-stable",
     "react": "catalog:2026-08-27-stable",
     "react-dom": "catalog:2026-08-27-stable"

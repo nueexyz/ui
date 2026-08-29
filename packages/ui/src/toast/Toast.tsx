@@ -74,7 +74,7 @@ function ToastClearAll({
 
     const updatePosition = () => {
       const toastRoots = Array.from(
-        viewport.querySelectorAll<HTMLElement>("[data-cachette-toast-root]:not([data-limited])"),
+        viewport.querySelectorAll<HTMLElement>("[data-dumo-toast-root]:not([data-limited])"),
       );
       const toastTop = Math.min(...toastRoots.map((root) => root.getBoundingClientRect().top));
 
@@ -130,7 +130,7 @@ function ToastList({
         <ToastPrimitive.Root
           key={item.id}
           toast={item}
-          data-cachette-toast-root=""
+          data-dumo-toast-root=""
           {...stylex.props(styles.root, isTop && styles.rootTop)}
         >
           <ToastPrimitive.Content {...stylex.props(styles.content)}>
