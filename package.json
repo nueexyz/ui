@@ -8,7 +8,7 @@
   "type": "module",
   "scripts": {
     "build": "pnpm --filter @dumo/ui build",
-    "build-storybook": "pnpm docs:build",
+    "build:storybook": "pnpm docs:build",
     "dumo": "pnpm --filter @dumo/ui build && node packages/ui/dist/cli.js",
     "check": "pnpm lint && pnpm format:check && pnpm typecheck",
     "docs:build": "pnpm --filter @dumo/docs build-storybook",
