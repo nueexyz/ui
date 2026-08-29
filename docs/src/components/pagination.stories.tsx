@@ -28,9 +28,9 @@ function PaginationExample() {
   return (
     <section {...stylex.props(storyStyles.section)}>
       <header {...stylex.props(storyStyles.sectionHeader)}>
-        <h2 {...stylex.props(storyStyles.sectionTitle)}>기본</h2>
+        <h2 {...stylex.props(storyStyles.sectionTitle)}>Default</h2>
         <p {...stylex.props(storyStyles.description)}>
-          현재 페이지는 선택 상태와 접근성 정보로 함께 표시합니다.
+          Indicate the current page through its selected state and accessibility information.
         </p>
       </header>
       <div {...stylex.props(storyStyles.preview)}>
@@ -73,7 +73,7 @@ export const PaginationStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Pagination</h1>
         <p {...stylex.props(storyStyles.description)}>
-          여러 페이지로 나뉜 콘텐츠의 현재 위치와 이동 범위를 보여줍니다.
+          Show the current location and navigation range for paginated content.
         </p>
       </header>
       <ComponentExample>
@@ -82,11 +82,11 @@ export const PaginationStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

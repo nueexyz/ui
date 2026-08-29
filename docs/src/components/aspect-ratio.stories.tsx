@@ -42,7 +42,7 @@ function AspectRatioExample() {
 }
 
 const aspectRatioExampleCode =
-  'import { AspectRatio } from "@dumo/ui/aspect-ratio"\n\n<AspectRatio ratio={16 / 9}>미디어 미리보기</AspectRatio>';
+  'import { AspectRatio } from "@dumo/ui/aspect-ratio"\n\n<AspectRatio ratio={16 / 9}>Media preview</AspectRatio>';
 
 export const AspectRatioStory: Story = {
   name: "Aspect Ratio",
@@ -51,7 +51,7 @@ export const AspectRatioStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Aspect Ratio</h1>
         <p {...stylex.props(storyStyles.description)}>
-          미디어 영역의 비율을 화면 크기와 관계없이 유지합니다.
+          Keep media at a fixed ratio across screen sizes.
         </p>
       </header>
       <ComponentExample>
@@ -60,11 +60,11 @@ export const AspectRatioStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

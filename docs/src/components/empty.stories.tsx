@@ -36,13 +36,13 @@ function EmptyExample() {
           <EmptyMedia>
             <Icon aria-hidden="true" name="folder" />
           </EmptyMedia>
-          <EmptyTitle>저장한 프로젝트가 없습니다</EmptyTitle>
+          <EmptyTitle>No saved projects</EmptyTitle>
           <EmptyDescription>
-            자주 확인할 프로젝트를 저장하면 이곳에서 바로 열 수 있습니다.
+            Save projects you visit often to open them here quickly.
           </EmptyDescription>
         </EmptyHeader>
         <EmptyContent xstyle={styles.content}>
-          <Button>프로젝트 저장하기</Button>
+          <Button>Save project</Button>
         </EmptyContent>
       </Empty>
     </div>
@@ -50,7 +50,7 @@ function EmptyExample() {
 }
 
 const emptyExampleCode =
-  'import { Button } from "@dumo/ui/button"\nimport { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@dumo/ui/empty"\nimport { Icon } from "@dumo/ui/icon"\n\n<Empty>\n  <EmptyHeader>\n    <EmptyMedia><Icon aria-hidden="true" name="folder" /></EmptyMedia>\n    <EmptyTitle>저장한 프로젝트가 없습니다</EmptyTitle>\n    <EmptyDescription>자주 확인할 프로젝트를 저장하면 이곳에서 바로 열 수 있습니다.</EmptyDescription>\n  </EmptyHeader>\n  <EmptyContent><Button>프로젝트 저장하기</Button></EmptyContent>\n</Empty>';
+  'import { Button } from "@dumo/ui/button"\nimport { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@dumo/ui/empty"\nimport { Icon } from "@dumo/ui/icon"\n\n<Empty>\n  <EmptyHeader>\n    <EmptyMedia><Icon aria-hidden="true" name="folder" /></EmptyMedia>\n    <EmptyTitle>No saved projects</EmptyTitle>\n    <EmptyDescription>Save projects you visit often to open them here quickly.</EmptyDescription>\n  </EmptyHeader>\n  <EmptyContent><Button>Save project</Button></EmptyContent>\n</Empty>';
 
 export const EmptyStory: Story = {
   name: "Empty",
@@ -59,7 +59,7 @@ export const EmptyStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Empty</h1>
         <p {...stylex.props(storyStyles.description)}>
-          아직 표시할 내용이 없을 때 이유와 다음 행동을 안내합니다.
+          Explain why there is no content yet and what to do next.
         </p>
       </header>
       <ComponentExample>
@@ -68,11 +68,11 @@ export const EmptyStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

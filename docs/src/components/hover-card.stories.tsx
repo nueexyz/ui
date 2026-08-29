@@ -22,9 +22,9 @@ function HoverCardExample() {
   return (
     <section {...stylex.props(storyStyles.section)}>
       <header {...stylex.props(storyStyles.sectionHeader)}>
-        <h2 {...stylex.props(storyStyles.sectionTitle)}>프로필 미리 보기</h2>
+        <h2 {...stylex.props(storyStyles.sectionTitle)}>Profile preview</h2>
         <p {...stylex.props(storyStyles.description)}>
-          마우스를 올리거나 키보드로 초점을 이동해 내용을 확인합니다.
+          View details by hovering or moving keyboard focus.
         </p>
       </header>
       <div {...stylex.props(storyStyles.preview)}>
@@ -39,7 +39,9 @@ function HoverCardExample() {
               </ItemMedia>
               <ItemContent>
                 <ItemTitle>Dumo</ItemTitle>
-                <ItemDescription>차분하고 일관된 제품 경험을 위한 디자인 시스템</ItemDescription>
+                <ItemDescription>
+                  A calm, consistent design system for product experiences
+                </ItemDescription>
               </ItemContent>
             </Item>
           </HoverCardContent>
@@ -50,7 +52,7 @@ function HoverCardExample() {
 }
 
 const hoverCardExampleCode =
-  'import { Avatar, AvatarFallback } from "@dumo/ui/avatar"\nimport { HoverCard, HoverCardContent, HoverCardTrigger } from "@dumo/ui/hover-card"\nimport { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@dumo/ui/item"\n\n<HoverCard>\n  <HoverCardTrigger href="#">@dumo</HoverCardTrigger>\n  <HoverCardContent align="start">\n    <Item size="sm">\n      <ItemMedia variant="avatar"><Avatar><AvatarFallback>CA</AvatarFallback></Avatar></ItemMedia>\n      <ItemContent>\n        <ItemTitle>Dumo</ItemTitle>\n        <ItemDescription>차분하고 일관된 제품 경험을 위한 디자인 시스템</ItemDescription>\n      </ItemContent>\n    </Item>\n  </HoverCardContent>\n</HoverCard>';
+  'import { Avatar, AvatarFallback } from "@dumo/ui/avatar"\nimport { HoverCard, HoverCardContent, HoverCardTrigger } from "@dumo/ui/hover-card"\nimport { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@dumo/ui/item"\n\n<HoverCard>\n  <HoverCardTrigger href="#">@dumo</HoverCardTrigger>\n  <HoverCardContent align="start">\n    <Item size="sm">\n      <ItemMedia variant="avatar"><Avatar><AvatarFallback>CA</AvatarFallback></Avatar></ItemMedia>\n      <ItemContent>\n        <ItemTitle>Dumo</ItemTitle>\n        <ItemDescription>A calm, consistent design system for product experiences</ItemDescription>\n      </ItemContent>\n    </Item>\n  </HoverCardContent>\n</HoverCard>';
 
 export const HoverCardStory: Story = {
   name: "Hover Card",
@@ -59,7 +61,7 @@ export const HoverCardStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Hover Card</h1>
         <p {...stylex.props(storyStyles.description)}>
-          링크를 열기 전에 대상의 핵심 정보를 미리 확인할 수 있게 합니다.
+          Preview essential information before opening a link.
         </p>
       </header>
       <ComponentExample>
@@ -68,11 +70,11 @@ export const HoverCardStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

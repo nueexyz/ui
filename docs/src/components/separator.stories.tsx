@@ -29,19 +29,19 @@ const styles = stylex.create({
 function SeparatorExample() {
   return (
     <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
-      <span>계정 정보</span>
+      <span>Account information</span>
       <Separator />
       <div {...stylex.props(styles.row)}>
-        <span>프로필</span>
+        <span>Profile</span>
         <Separator orientation="vertical" />
-        <span>보안</span>
+        <span>Security</span>
       </div>
     </div>
   );
 }
 
 const separatorExampleCode =
-  'import { Separator } from "@dumo/ui/separator"\n\n<>\n  <span>계정 정보</span>\n  <Separator />\n  <div>프로필 <Separator orientation="vertical" /> 보안</div>\n</>';
+  'import { Separator } from "@dumo/ui/separator"\n\n<>\n  <span>Account information</span>\n  <Separator />\n  <div>Profile <Separator orientation="vertical" /> Security</div>\n</>';
 
 export const SeparatorStory: Story = {
   name: "Separator",
@@ -49,7 +49,9 @@ export const SeparatorStory: Story = {
     <main {...stylex.props(storyStyles.page)}>
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Separator</h1>
-        <p {...stylex.props(storyStyles.description)}>서로 다른 정보 그룹의 경계를 표시합니다.</p>
+        <p {...stylex.props(storyStyles.description)}>
+          Mark the boundary between distinct information groups.
+        </p>
       </header>
       <ComponentExample>
         <SeparatorExample />
@@ -57,11 +59,11 @@ export const SeparatorStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

@@ -17,7 +17,7 @@ export function MessageScroller({
   children,
   className,
   followOutput = true,
-  scrollLabel = "마지막 메시지로 이동",
+  scrollLabel = "Scroll to latest message",
   style,
   xstyle,
   ...props

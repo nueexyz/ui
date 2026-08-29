@@ -21,15 +21,15 @@ function LabelExample() {
   return (
     <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
       <div {...stylex.props(storyStyles.field, storyStyles.formWidth)}>
-        <Label htmlFor="display-name">표시 이름</Label>
-        <Input id="display-name" placeholder="홍길동" />
+        <Label htmlFor="display-name">Display name</Label>
+        <Input id="display-name" placeholder="Jordan Lee" />
       </div>
     </div>
   );
 }
 
 const labelExampleCode =
-  'import { Input } from "@dumo/ui/input"\nimport { Label } from "@dumo/ui/label"\n\n<div>\n  <Label htmlFor="display-name">표시 이름</Label>\n  <Input id="display-name" placeholder="홍길동" />\n</div>';
+  'import { Input } from "@dumo/ui/input"\nimport { Label } from "@dumo/ui/label"\n\n<div>\n  <Label htmlFor="display-name">Display name</Label>\n  <Input id="display-name" placeholder="Jordan Lee" />\n</div>';
 
 export const LabelStory: Story = {
   name: "Label",
@@ -38,7 +38,7 @@ export const LabelStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Label</h1>
         <p {...stylex.props(storyStyles.description)}>
-          입력할 정보와 컨트롤의 관계를 명확하게 안내합니다.
+          Clearly describe the relationship between information and its control.
         </p>
       </header>
       <ComponentExample>
@@ -47,11 +47,11 @@ export const LabelStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

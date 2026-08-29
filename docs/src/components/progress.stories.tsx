@@ -19,14 +19,14 @@ const componentDocument = getComponentDocument("Progress");
 function ProgressExample() {
   return (
     <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
-      <Progress aria-label="파일 업로드 진행률" value={64} xstyle={storyStyles.formWidth} />
-      <Progress aria-label="처리 중" value={null} xstyle={storyStyles.formWidth} />
+      <Progress aria-label="File upload progress" value={64} xstyle={storyStyles.formWidth} />
+      <Progress aria-label="In progress" value={null} xstyle={storyStyles.formWidth} />
     </div>
   );
 }
 
 const progressExampleCode =
-  'import { Progress } from "@dumo/ui/progress"\n\n<>\n  <Progress aria-label="파일 업로드 진행률" value={64} />\n  <Progress aria-label="처리 중" value={null} />\n</>';
+  'import { Progress } from "@dumo/ui/progress"\n\n<>\n  <Progress aria-label="File upload progress" value={64} />\n  <Progress aria-label="In progress" value={null} />\n</>';
 
 export const ProgressStory: Story = {
   name: "Progress",
@@ -35,7 +35,7 @@ export const ProgressStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Progress</h1>
         <p {...stylex.props(storyStyles.description)}>
-          완료 정도를 알 수 있는 작업의 진행 상태를 보여줍니다.
+          Show the progress of work with a measurable completion state.
         </p>
       </header>
       <ComponentExample>
@@ -44,11 +44,11 @@ export const ProgressStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

@@ -26,25 +26,25 @@ function CheckboxExample() {
     <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
       <label htmlFor="email-updates" {...stylex.props(storyStyles.option)}>
         <Checkbox defaultChecked id="email-updates" />
-        변경사항 이메일로 받기
+        Receive updates by email
       </label>
       <label htmlFor="admin-setting" {...stylex.props(storyStyles.option, styles.disabledOption)}>
         <Checkbox disabled id="admin-setting" />
-        관리자가 설정한 항목 · 변경할 수 없음
+        Set by an administrator · Cannot be changed
       </label>
       <label
         htmlFor="required-setting"
         {...stylex.props(storyStyles.option, styles.disabledOption)}
       >
         <Checkbox defaultChecked disabled id="required-setting" />
-        필수 설정 · 항상 사용
+        Required setting · Always on
       </label>
     </div>
   );
 }
 
 const checkboxExampleCode =
-  'import { Checkbox } from "@dumo/ui/checkbox"\n\n<Checkbox aria-label="이용 약관에 동의" />';
+  'import { Checkbox } from "@dumo/ui/checkbox"\n\n<Checkbox aria-label="Agree to terms" />';
 
 export const CheckboxStory: Story = {
   name: "Checkbox",
@@ -53,7 +53,7 @@ export const CheckboxStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Checkbox</h1>
         <p {...stylex.props(storyStyles.description)}>
-          서로 독립적인 항목을 하나 이상 선택할 때 사용합니다.
+          Use to select one or more independent options.
         </p>
       </header>
       <ComponentExample>
@@ -62,11 +62,11 @@ export const CheckboxStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

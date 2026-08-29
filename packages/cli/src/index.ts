@@ -30,7 +30,7 @@ export async function run(
     } else {
       console.log(`Dumo CLI
 
-사용법:
+Usage:
   dumo init
   dumo add <component> [--skip-dependencies] [--dry-run]
   dumo doctor

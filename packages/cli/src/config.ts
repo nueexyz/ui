@@ -39,18 +39,18 @@ function ensureRelativePath(projectDirectory: string, path: string, name: string
   const absolutePath = resolve(projectDirectory, path);
   const relativePath = relative(projectDirectory, absolutePath);
   if (isAbsolute(relativePath) || relativePath.startsWith("..")) {
-    throw new Error(`${name} 경로는 프로젝트 안에 있어야 합니다.`);
+    throw new Error(`${name} must be inside the project directory.`);
   }
 }
 
 export function validateConfig(config: unknown): DumoConfig {
   const candidate = config as { aliases?: { ui?: unknown }; version?: unknown };
   if (!candidate.aliases || typeof candidate.aliases.ui !== "string" || !candidate.aliases.ui) {
-    throw new Error("aliases.ui를 설정해 주세요.");
+    throw new Error("Configure aliases.ui.");
   }
 
   if (candidate.version !== undefined && candidate.version !== configVersion) {
-    throw new Error(`지원하지 않는 dumo.json 버전입니다: ${String(candidate.version)}`);
+    throw new Error(`Unsupported dumo.json version: ${String(candidate.version)}`);
   }
 
   return {
@@ -71,7 +71,7 @@ export async function readConfig(projectDirectory: string) {
     return validateConfig(config);
   } catch (error) {
     if (isNotFoundError(error)) {
-      throw new Error("dumo.json이 없습니다. 먼저 `dumo init`을 실행해 주세요.");
+      throw new Error("dumo.json was not found. Run `dumo init` first.");
     }
     throw error;
   }
@@ -127,6 +127,6 @@ export async function resolveAliasPath(projectDirectory: string, alias: string) 
   }
 
   throw new Error(
-    `${alias} 별칭을 tsconfig.json 또는 jsconfig.json의 compilerOptions.paths에서 찾을 수 없습니다.`,
+    `Could not find the ${alias} alias in compilerOptions.paths of tsconfig.json or jsconfig.json.`,
   );
 }

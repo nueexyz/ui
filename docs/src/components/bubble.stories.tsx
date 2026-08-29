@@ -20,15 +20,15 @@ function BubbleExample() {
   return (
     <section {...stylex.props(storyStyles.section)}>
       <header {...stylex.props(storyStyles.sectionHeader)}>
-        <h2 {...stylex.props(storyStyles.sectionTitle)}>대화</h2>
+        <h2 {...stylex.props(storyStyles.sectionTitle)}>Conversation</h2>
         <p {...stylex.props(storyStyles.description)}>
-          보낸 메시지와 받은 메시지는 정렬 방향으로 먼저 구분합니다.
+          Differentiate sent and received messages by alignment first.
         </p>
       </header>
       <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
-        <Bubble>오늘 회의 자료를 확인해 줄 수 있을까요?</Bubble>
+        <Bubble>Could you review today’s meeting materials?</Bubble>
         <Bubble side="outgoing" variant="outline">
-          네, 오후 3시 전까지 의견을 남길게요.
+          Yes, I’ll leave feedback before 3 PM.
         </Bubble>
       </div>
     </section>
@@ -36,7 +36,7 @@ function BubbleExample() {
 }
 
 const bubbleExampleCode =
-  'import { Bubble } from "@dumo/ui/bubble"\n\n<Bubble>오늘 회의 자료를 확인해 줄 수 있을까요?</Bubble>';
+  'import { Bubble } from "@dumo/ui/bubble"\n\n<Bubble>Could you review today’s meeting materials?</Bubble>';
 
 export const BubbleStory: Story = {
   name: "Bubble",
@@ -45,7 +45,7 @@ export const BubbleStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Bubble</h1>
         <p {...stylex.props(storyStyles.description)}>
-          대화에서 주고받은 메시지를 방향과 표면으로 구분합니다.
+          Differentiate exchanged messages by direction and surface.
         </p>
       </header>
       <ComponentExample>
@@ -54,11 +54,11 @@ export const BubbleStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

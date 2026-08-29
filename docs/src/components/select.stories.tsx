@@ -30,35 +30,35 @@ function SelectExample() {
   return (
     <div {...stylex.props(storyStyles.preview)}>
       <Field>
-        <FieldLabel>테마</FieldLabel>
+        <FieldLabel>Theme</FieldLabel>
         <Select
           defaultValue="system"
-          items={{ dark: "다크", light: "라이트", system: "시스템 설정" }}
+          items={{ dark: "Dark", light: "Light", system: "System setting" }}
         >
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>화면 모드</SelectLabel>
-              <SelectItem value="light">라이트</SelectItem>
-              <SelectItem value="dark">다크</SelectItem>
-              <SelectItem value="system">시스템 설정</SelectItem>
+              <SelectLabel>Display mode</SelectLabel>
+              <SelectItem value="light">Light</SelectItem>
+              <SelectItem value="dark">Dark</SelectItem>
+              <SelectItem value="system">System setting</SelectItem>
             </SelectGroup>
             <SelectSeparator />
             <SelectItem disabled value="contrast">
-              고대비
+              High contrast
             </SelectItem>
           </SelectContent>
         </Select>
-        <FieldDescription>선택한 테마는 이 기기에 저장됩니다.</FieldDescription>
+        <FieldDescription>The selected theme is saved on this device.</FieldDescription>
       </Field>
     </div>
   );
 }
 
 const selectExampleCode =
-  'import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@dumo/ui/select"\n\n<Select defaultValue="design">\n  <SelectTrigger aria-label="팀 선택">\n    <SelectValue />\n  </SelectTrigger>\n  <SelectContent>\n    <SelectItem value="design">디자인</SelectItem>\n    <SelectItem value="development">개발</SelectItem>\n  </SelectContent>\n</Select>';
+  'import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@dumo/ui/select"\n\n<Select defaultValue="design">\n  <SelectTrigger aria-label="Select team">\n    <SelectValue />\n  </SelectTrigger>\n  <SelectContent>\n    <SelectItem value="design">Design</SelectItem>\n    <SelectItem value="development">Development</SelectItem>\n  </SelectContent>\n</Select>';
 
 export const SelectStory: Story = {
   name: "Select",
@@ -66,7 +66,7 @@ export const SelectStory: Story = {
     <main {...stylex.props(storyStyles.page)}>
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Select</h1>
-        <p {...stylex.props(storyStyles.description)}>정해진 선택지 중 하나를 고릅니다.</p>
+        <p {...stylex.props(storyStyles.description)}>Choose one option from a defined list.</p>
       </header>
       <ComponentExample>
         <SelectExample />
@@ -74,11 +74,11 @@ export const SelectStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

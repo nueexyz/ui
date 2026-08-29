@@ -19,12 +19,12 @@ const componentDocument = getComponentDocument("Button");
 function ButtonExample() {
   return (
     <div {...stylex.props(storyStyles.preview)}>
-      <Button>저장하기</Button>
+      <Button>Save</Button>
     </div>
   );
 }
 
-const buttonExampleCode = 'import { Button } from "@dumo/ui/button"\n\n<Button>저장하기</Button>';
+const buttonExampleCode = 'import { Button } from "@dumo/ui/button"\n\n<Button>Save</Button>';
 
 export const ButtonStory: Story = {
   name: "Button",
@@ -33,7 +33,7 @@ export const ButtonStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Button</h1>
         <p {...stylex.props(storyStyles.description)}>
-          행동의 중요도, 크기, 상태에 따른 표현을 비교합니다.
+          Compare presentations by action priority, size, and state.
         </p>
       </header>
       <ComponentExample>
@@ -42,11 +42,11 @@ export const ButtonStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>
@@ -55,29 +55,29 @@ export const ButtonStory: Story = {
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Variants</h2>
           <p {...stylex.props(storyStyles.description)}>
-            행동의 우선순위와 위험도에 맞는 표현을 선택합니다.
+            Choose a treatment that matches an action’s priority and risk.
           </p>
         </header>
         <div {...stylex.props(storyStyles.preview)}>
-          <Button>저장하기</Button>
-          <Button variant="secondary">미리보기</Button>
-          <Button variant="ghost">닫기</Button>
-          <Button variant="destructive">삭제하기</Button>
+          <Button>Save</Button>
+          <Button variant="secondary">Preview</Button>
+          <Button variant="ghost">Close</Button>
+          <Button variant="destructive">Delete</Button>
         </div>
       </section>
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Variants</h2>
           <p {...stylex.props(storyStyles.description)}>
-            강조 배경 위에서도 행동의 위계와 대비를 유지합니다.
+            Preserve action hierarchy and contrast on an emphasized background.
           </p>
         </header>
         <div {...stylex.props(storyStyles.preview, storyStyles.inverse)}>
           <Button variant="secondary" xstyle={storyStyles.inverseSecondary}>
-            이전으로
+            Back
           </Button>
           <Button variant="ghost" xstyle={storyStyles.inverseGhost}>
-            닫기
+            Close
           </Button>
         </div>
       </section>
@@ -85,32 +85,32 @@ export const ButtonStory: Story = {
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Sizes</h2>
           <p {...stylex.props(storyStyles.description)}>
-            화면의 정보 밀도에 맞는 크기를 선택합니다.
+            Choose a size that matches the screen’s information density.
           </p>
         </header>
         <div {...stylex.props(storyStyles.preview)}>
-          <Button size="sm">저장하기</Button>
-          <Button size="md">저장하기</Button>
-          <Button size="lg">저장하기</Button>
+          <Button size="sm">Save</Button>
+          <Button size="md">Save</Button>
+          <Button size="lg">Save</Button>
         </div>
       </section>
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>States</h2>
           <p {...stylex.props(storyStyles.description)}>
-            사용 가능 여부와 처리 상태가 명확하게 구분되어야 합니다.
+            Availability and processing state should be clearly distinguishable.
           </p>
         </header>
         <div {...stylex.props(storyStyles.preview)}>
-          <Button>저장하기</Button>
-          <Button disabled>저장할 수 없음</Button>
+          <Button>Save</Button>
+          <Button disabled>Save unavailable</Button>
           <Button disabled variant="secondary">
-            미리볼 수 없음
+            Preview unavailable
           </Button>
           <Button disabled variant="ghost">
-            닫을 수 없음
+            Close unavailable
           </Button>
-          <Button isLoading>저장 중</Button>
+          <Button isLoading>Saving</Button>
         </div>
       </section>
       <ComponentPropsTable props={componentDocument.props} />

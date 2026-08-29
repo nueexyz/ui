@@ -259,37 +259,37 @@ function TokenValue({ token }: { token: string }) {
 }
 
 const fontSizeTokens = [
-  ["fontSizeXs", typographyVars.fontSizeXs, "보조 정보와 토큰 값"],
-  ["fontSizeSm", typographyVars.fontSizeSm, "본문과 폼 레이블"],
-  ["fontSizeMd", typographyVars.fontSizeMd, "강조 본문"],
-  ["fontSizeLg", typographyVars.fontSizeLg, "섹션 제목"],
-  ["fontSizeXl", typographyVars.fontSizeXl, "페이지 제목"],
+  ["fontSizeXs", typographyVars.fontSizeXs, "Supporting information and token values"],
+  ["fontSizeSm", typographyVars.fontSizeSm, "Body text and form labels"],
+  ["fontSizeMd", typographyVars.fontSizeMd, "Emphasized body text"],
+  ["fontSizeLg", typographyVars.fontSizeLg, "Section headings"],
+  ["fontSizeXl", typographyVars.fontSizeXl, "Page titles"],
 ] as const;
 
 const lineHeightTokens = [
-  ["lineHeightTight", typographyVars.lineHeightTight, "제목과 한 줄 텍스트"],
-  ["lineHeightNormal", typographyVars.lineHeightNormal, "본문과 여러 줄 텍스트"],
+  ["lineHeightTight", typographyVars.lineHeightTight, "Headings and single-line text"],
+  ["lineHeightNormal", typographyVars.lineHeightNormal, "Body text and multi-line text"],
 ] as const;
 
 const fontWeightTokens = [
-  ["fontWeightRegular", typographyVars.fontWeightRegular, "기본 본문"],
-  ["fontWeightMedium", typographyVars.fontWeightMedium, "레이블과 약한 강조"],
-  ["fontWeightSemibold", typographyVars.fontWeightSemibold, "제목과 강한 강조"],
+  ["fontWeightRegular", typographyVars.fontWeightRegular, "Default body text"],
+  ["fontWeightMedium", typographyVars.fontWeightMedium, "Labels and subtle emphasis"],
+  ["fontWeightSemibold", typographyVars.fontWeightSemibold, "Headings and strong emphasis"],
 ] as const;
 
 export const Typography: Story = {
   render: () => (
     <Page
       title="Typography"
-      description="정보 위계와 읽기 흐름에 맞는 글자 크기, 굵기, 줄 높이를 사용합니다."
+      description="Use font sizes, weights, and line heights that support information hierarchy and reading flow."
     >
       <TokenRow
         name="typographyVars.fontFamily"
-        usage="제품 UI의 기본 서체"
+        usage="Default product UI typeface"
         value={typographyVars.fontFamily}
       >
         <span {...stylex.props(styles.fontFamilySample(typographyVars.fontFamily))}>
-          Dumo 가나다
+          Dumo Aa Bb
         </span>
       </TokenRow>
       {fontSizeTokens.map(([name, value, usage]) => (
@@ -303,7 +303,7 @@ export const Typography: Story = {
               ),
             )}
           >
-            Dumo 가나다
+            Dumo Aa Bb
           </span>
         </TokenRow>
       ))}
@@ -314,8 +314,9 @@ export const Typography: Story = {
               styles.typeSample(typographyVars.fontSizeSm, typographyVars.fontWeightRegular, value),
             )}
           >
-            두 줄 텍스트의
-            <br />줄 높이
+            Line height for
+            <br />
+            two-line text
           </span>
         </TokenRow>
       ))}
@@ -326,7 +327,7 @@ export const Typography: Story = {
               styles.typeSample(typographyVars.fontSizeSm, value, typographyVars.lineHeightNormal),
             )}
           >
-            Dumo 가나다
+            Dumo Aa Bb
           </span>
         </TokenRow>
       ))}
@@ -335,23 +336,23 @@ export const Typography: Story = {
 };
 
 const spacingTokens = [
-  ["space0", spacingVars.space0, "간격 없음"],
-  ["space1", spacingVars.space1, "아이콘 내부와 미세 조정"],
-  ["space2", spacingVars.space2, "가까운 요소 사이"],
-  ["space3", spacingVars.space3, "컨트롤 내부와 작은 그룹"],
-  ["space4", spacingVars.space4, "기본 요소 사이"],
-  ["space5", spacingVars.space5, "넓은 컨트롤 내부"],
-  ["space6", spacingVars.space6, "카드 내부와 섹션 그룹"],
-  ["space8", spacingVars.space8, "페이지 여백"],
-  ["space10", spacingVars.space10, "큰 섹션 사이"],
-  ["space12", spacingVars.space12, "화면 단위 구분"],
+  ["space0", spacingVars.space0, "No spacing"],
+  ["space1", spacingVars.space1, "Inside icons and fine adjustments"],
+  ["space2", spacingVars.space2, "Between nearby elements"],
+  ["space3", spacingVars.space3, "Inside controls and small groups"],
+  ["space4", spacingVars.space4, "Between default elements"],
+  ["space5", spacingVars.space5, "Inside spacious controls"],
+  ["space6", spacingVars.space6, "Inside cards and section groups"],
+  ["space8", spacingVars.space8, "Page padding"],
+  ["space10", spacingVars.space10, "Between large sections"],
+  ["space12", spacingVars.space12, "Screen-level separation"],
 ] as const;
 
 export const Spacing: Story = {
   render: () => (
     <Page
       title="Spacing"
-      description="4px 배수를 기준으로 요소 사이의 관계와 화면 밀도를 조절합니다."
+      description="Use a 4px scale to control relationships between elements and screen density."
     >
       {spacingTokens.map(([name, value, usage]) => (
         <TokenRow key={name} name={`spacingVars.${name}`} usage={usage} value={value}>
@@ -363,58 +364,62 @@ export const Spacing: Story = {
 };
 
 const contentSizeTokens = [
-  ["contentSm", sizeVars.contentSm, "팝오버와 좁은 패널"],
-  ["contentMd", sizeVars.contentMd, "다이얼로그와 기본 패널"],
+  ["contentSm", sizeVars.contentSm, "Popovers and narrow panels"],
+  ["contentMd", sizeVars.contentMd, "Dialogs and default panels"],
 ] as const;
 
 export const Size: Story = {
   render: () => (
     <Page
       title="Size"
-      description="크기 토큰은 컨트롤의 높이, 아이콘의 표시 크기, 실제 조작 영역을 각각 정의합니다."
+      description="Size tokens define control height, displayed icon size, and actual target area independently."
     >
       <TokenRow
         name="sizeVars.controlSm"
-        usage="툴바와 조밀한 화면의 컨트롤"
+        usage="Controls in toolbars and dense screens"
         value={sizeVars.controlSm}
       >
         <Button size="sm" variant="secondary">
-          작은 버튼
+          Small button
         </Button>
       </TokenRow>
       <TokenRow
         name="sizeVars.controlMd"
-        usage="폼과 일반 화면의 기본 컨트롤"
+        usage="Default controls in forms and standard screens"
         value={sizeVars.controlMd}
       >
-        <Input aria-label="기본 입력 예시" placeholder="기본 입력" />
+        <Input aria-label="Default input example" placeholder="Default input" />
       </TokenRow>
       <TokenRow
         name="sizeVars.controlLg"
-        usage="여유가 필요한 단독 컨트롤"
+        usage="Standalone controls that need more space"
         value={sizeVars.controlLg}
       >
         <Button size="lg" variant="secondary">
-          큰 버튼
+          Large button
         </Button>
       </TokenRow>
-      <TokenRow name="sizeVars.iconSm" usage="작은 컨트롤 안의 보조 아이콘" value={sizeVars.iconSm}>
+      <TokenRow
+        name="sizeVars.iconSm"
+        usage="Supporting icon in a small control"
+        value={sizeVars.iconSm}
+      >
         <Icon
-          aria-label="작은 정보 아이콘"
+          aria-label="Small information icon"
           name="info"
           {...stylex.props(styles.iconSample(sizeVars.iconSm))}
         />
       </TokenRow>
-      <TokenRow name="sizeVars.iconMd" usage="기본 컨트롤 안의 아이콘" value={sizeVars.iconMd}>
+      <TokenRow name="sizeVars.iconMd" usage="Icon in a default control" value={sizeVars.iconMd}>
         <Icon
-          aria-label="기본 정보 아이콘"
+          aria-label="Default information icon"
           name="info"
           {...stylex.props(styles.iconSample(sizeVars.iconMd))}
         />
       </TokenRow>
       <TokenRow
         name="sizeVars.touchTarget"
-        usage="아이콘 버튼의 최소 조작 영역"
+        usage="Minimum target area for icon buttons"
         value={sizeVars.touchTarget}
       >
         <span {...stylex.props(styles.touchTarget)}>
@@ -430,30 +435,34 @@ export const Size: Story = {
           <div {...stylex.props(styles.contentSample(value))}>{usage}</div>
         </TokenRow>
       ))}
-      <TokenRow name="sizeVars.stroke" usage="컨트롤과 표면의 기본 테두리" value={sizeVars.stroke}>
-        <span {...stylex.props(styles.strokeSample(sizeVars.stroke))}>기본 테두리</span>
+      <TokenRow
+        name="sizeVars.stroke"
+        usage="Default border for controls and surfaces"
+        value={sizeVars.stroke}
+      >
+        <span {...stylex.props(styles.strokeSample(sizeVars.stroke))}>Default border</span>
       </TokenRow>
       <TokenRow
         name="sizeVars.focusRing"
-        usage="키보드 포커스를 나타내는 링"
+        usage="Ring that indicates keyboard focus"
         value={sizeVars.focusRing}
       >
-        <span {...stylex.props(styles.focusSample(sizeVars.focusRing))}>키보드 포커스</span>
+        <span {...stylex.props(styles.focusSample(sizeVars.focusRing))}>Keyboard focus</span>
       </TokenRow>
     </Page>
   ),
 };
 
 const radiusTokens = [
-  ["sm", radiusVars.sm, "작은 컨트롤"],
-  ["md", radiusVars.md, "기본 컨트롤"],
-  ["lg", radiusVars.lg, "카드와 큰 표면"],
-  ["full", radiusVars.full, "원형 아이콘과 배지"],
+  ["sm", radiusVars.sm, "Small controls"],
+  ["md", radiusVars.md, "Default controls"],
+  ["lg", radiusVars.lg, "Cards and large surfaces"],
+  ["full", radiusVars.full, "Circular icons and badges"],
 ] as const;
 
 export const Radius: Story = {
   render: () => (
-    <Page title="Radius" description="요소의 크기와 성격에 맞는 모서리 곡률을 사용합니다.">
+    <Page title="Radius" description="Use corner radii that fit each element’s size and character.">
       {radiusTokens.map(([name, value, usage]) => (
         <TokenRow key={name} name={`radiusVars.${name}`} usage={usage} value={value}>
           <div {...stylex.props(styles.radiusBox(value))} />
@@ -465,10 +474,13 @@ export const Radius: Story = {
 
 export const Opacity: Story = {
   render: () => (
-    <Page title="Opacity" description="요소의 의미를 유지하면서 사용 가능 여부를 구분합니다.">
+    <Page
+      title="Opacity"
+      description="Differentiate availability while preserving the element’s meaning."
+    >
       <TokenRow
         name="opacityVars.disabled"
-        usage="조작할 수 없는 컨트롤"
+        usage="Unavailable controls"
         value={opacityVars.disabled}
       >
         <div {...stylex.props(styles.disabledSample)}>Disabled</div>
@@ -478,14 +490,17 @@ export const Opacity: Story = {
 };
 
 const motionTokens = [
-  ["durationFast", motionVars.durationFast, "호버와 작은 상태 전환"],
-  ["durationNormal", motionVars.durationNormal, "표면과 콘텐츠 전환"],
-  ["durationSlow", motionVars.durationSlow, "Dialog와 Toast처럼 큰 표면 전환"],
+  ["durationFast", motionVars.durationFast, "Hover and small state changes"],
+  ["durationNormal", motionVars.durationNormal, "Surface and content transitions"],
+  ["durationSlow", motionVars.durationSlow, "Large surface transitions, such as Dialog and Toast"],
 ] as const;
 
 export const Motion: Story = {
   render: () => (
-    <Page title="Motion" description="변화는 빠르게 전달하되 콘텐츠 이해를 방해하지 않습니다.">
+    <Page
+      title="Motion"
+      description="Communicate changes quickly without disrupting content comprehension."
+    >
       {motionTokens.map(([name, duration, usage]) => (
         <TokenRow key={name} name={`motionVars.${name}`} usage={usage} value={duration}>
           <div {...stylex.props(styles.motionTrack)}>
@@ -495,7 +510,7 @@ export const Motion: Story = {
       ))}
       <TokenRow
         name="motionVars.easingStandard"
-        usage="상태 변화의 기본 가속도"
+        usage="Default easing for state changes"
         value={motionVars.easingStandard}
       >
         <div {...stylex.props(styles.motionTrack)}>
@@ -504,14 +519,18 @@ export const Motion: Story = {
       </TokenRow>
       <TokenRow
         name="motionVars.easingEnter"
-        usage="새 요소가 나타날 때"
+        usage="When a new element appears"
         value={motionVars.easingEnter}
       >
         <div {...stylex.props(styles.motionTrack)}>
           <div {...stylex.props(styles.motionDot(motionVars.durationNormal))} />
         </div>
       </TokenRow>
-      <TokenRow name="motionVars.easingExit" usage="요소가 사라질 때" value={motionVars.easingExit}>
+      <TokenRow
+        name="motionVars.easingExit"
+        usage="When an element disappears"
+        value={motionVars.easingExit}
+      >
         <div {...stylex.props(styles.motionTrack)}>
           <div {...stylex.props(styles.motionDot(motionVars.durationFast))} />
         </div>

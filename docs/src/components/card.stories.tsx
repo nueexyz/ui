@@ -30,22 +30,22 @@ function CardExample() {
     <>
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>기본 구조</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Basic structure</h2>
           <p {...stylex.props(storyStyles.description)}>
-            제목, 설명, 본문, 행동 영역을 목적에 맞게 조합합니다.
+            Combine a title, description, content, and actions to fit the task.
           </p>
         </header>
         <div {...stylex.props(storyStyles.preview)}>
           <div {...stylex.props(storyStyles.grid)}>
             <Card>
               <CardHeader>
-                <CardTitle>프로젝트를 보관할까요?</CardTitle>
-                <CardDescription>보관한 프로젝트는 목록에서 숨겨집니다.</CardDescription>
+                <CardTitle>Archive this project?</CardTitle>
+                <CardDescription>Archived projects are hidden from the list.</CardDescription>
               </CardHeader>
-              <CardContent>설정에서 언제든 다시 복원할 수 있습니다.</CardContent>
+              <CardContent>You can restore it anytime in Settings.</CardContent>
               <CardFooter>
-                <Button variant="secondary">취소</Button>
-                <Button>보관하기</Button>
+                <Button variant="secondary">Cancel</Button>
+                <Button>Archive</Button>
               </CardFooter>
             </Card>
           </div>
@@ -53,32 +53,34 @@ function CardExample() {
       </section>
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>계정 생성 폼</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Account creation form</h2>
           <p {...stylex.props(storyStyles.description)}>
-            계정을 만드는 데 필요한 입력과 행동을 하나의 카드에 묶습니다.
+            Group the fields and actions needed to create an account in one card.
           </p>
         </header>
         <div {...stylex.props(storyStyles.preview)}>
           <Card>
             <CardHeader>
-              <CardTitle>계정 만들기</CardTitle>
-              <CardDescription>서비스에서 사용할 이름과 이메일을 입력하세요.</CardDescription>
+              <CardTitle>Create account</CardTitle>
+              <CardDescription>
+                Enter the name and email you’ll use for the service.
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <form {...stylex.props(storyStyles.stack)}>
                 <label htmlFor="account-name" {...stylex.props(storyStyles.field)}>
-                  이름
-                  <Input id="account-name" placeholder="홍길동" />
+                  Name
+                  <Input id="account-name" placeholder="Jordan Lee" />
                 </label>
                 <label htmlFor="account-email" {...stylex.props(storyStyles.field)}>
-                  이메일
+                  Email
                   <Input id="account-email" type="email" placeholder="hello@example.com" />
                 </label>
               </form>
             </CardContent>
             <CardFooter>
-              <Button variant="ghost">취소</Button>
-              <Button>계정 만들기</Button>
+              <Button variant="ghost">Cancel</Button>
+              <Button>Create account</Button>
             </CardFooter>
           </Card>
         </div>
@@ -88,7 +90,7 @@ function CardExample() {
 }
 
 const cardExampleCode =
-  'import { Card, CardContent, CardHeader, CardTitle } from "@dumo/ui/card"\n\n<Card>\n  <CardHeader>\n    <CardTitle>프로젝트</CardTitle>\n  </CardHeader>\n  <CardContent>프로젝트 내용을 입력하세요.</CardContent>\n</Card>';
+  'import { Card, CardContent, CardHeader, CardTitle } from "@dumo/ui/card"\n\n<Card>\n  <CardHeader>\n    <CardTitle>Project</CardTitle>\n  </CardHeader>\n  <CardContent>Enter the project details.</CardContent>\n</Card>';
 
 export const CardStory: Story = {
   name: "Card",
@@ -97,7 +99,7 @@ export const CardStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Card</h1>
         <p {...stylex.props(storyStyles.description)}>
-          하나의 목적에 필요한 정보와 행동을 묶어 보여줍니다.
+          Group the information and actions needed for one task.
         </p>
       </header>
       <ComponentExample>
@@ -106,11 +108,11 @@ export const CardStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

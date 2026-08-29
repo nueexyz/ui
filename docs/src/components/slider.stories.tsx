@@ -22,15 +22,15 @@ function SliderExample() {
     <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
       <div {...stylex.props(storyStyles.stack, storyStyles.formWidth)}>
         <Field>
-          <FieldLabel>알림 음량</FieldLabel>
+          <FieldLabel>Notification volume</FieldLabel>
           <Slider defaultValue={40} />
-          <FieldDescription>키보드 방향키로 세밀하게 조절할 수 있습니다.</FieldDescription>
+          <FieldDescription>Use the arrow keys for fine adjustments.</FieldDescription>
         </Field>
         <Field>
-          <FieldLabel>가격 범위</FieldLabel>
+          <FieldLabel>Price range</FieldLabel>
           <Slider
             defaultValue={[20, 80]}
-            getAriaLabel={(index) => (index === 0 ? "최저 가격" : "최고 가격")}
+            getAriaLabel={(index) => (index === 0 ? "Minimum price" : "Maximum price")}
           />
         </Field>
       </div>
@@ -39,7 +39,7 @@ function SliderExample() {
 }
 
 const sliderExampleCode =
-  'import { Slider } from "@dumo/ui/slider"\n\n<Slider aria-label="볼륨" defaultValue={40} />';
+  'import { Slider } from "@dumo/ui/slider"\n\n<Slider aria-label="Volume" defaultValue={40} />';
 
 export const SliderStory: Story = {
   name: "Slider",
@@ -47,7 +47,9 @@ export const SliderStory: Story = {
     <main {...stylex.props(storyStyles.page)}>
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Slider</h1>
-        <p {...stylex.props(storyStyles.description)}>정해진 범위에서 값을 빠르게 조절합니다.</p>
+        <p {...stylex.props(storyStyles.description)}>
+          Quickly adjust a value within a defined range.
+        </p>
       </header>
       <ComponentExample>
         <SliderExample />
@@ -55,11 +57,11 @@ export const SliderStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

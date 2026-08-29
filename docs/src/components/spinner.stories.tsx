@@ -19,13 +19,13 @@ const componentDocument = getComponentDocument("Spinner");
 function SpinnerExample() {
   return (
     <div {...stylex.props(storyStyles.preview)}>
-      <Spinner label="저장 중" />
+      <Spinner label="Saving" />
     </div>
   );
 }
 
 const spinnerExampleCode =
-  'import { Spinner } from "@dumo/ui/spinner"\n\n<Spinner label="저장 중" />';
+  'import { Spinner } from "@dumo/ui/spinner"\n\n<Spinner label="Saving" />';
 
 export const SpinnerStory: Story = {
   name: "Spinner",
@@ -34,7 +34,7 @@ export const SpinnerStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Spinner</h1>
         <p {...stylex.props(storyStyles.description)}>
-          완료 시점을 예측하기 어려운 짧은 작업을 표시합니다.
+          Indicate short work whose completion time is hard to predict.
         </p>
       </header>
       <ComponentExample>
@@ -43,11 +43,11 @@ export const SpinnerStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

@@ -107,7 +107,7 @@ function ToastClearAll({
       style={{ top: top ?? -999, visibility: top === undefined ? "hidden" : undefined }}
       {...stylex.props(styles.clearAll)}
     >
-      모두 지우기
+      Clear all
     </button>
   );
 }

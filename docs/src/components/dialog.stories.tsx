@@ -30,17 +30,17 @@ function DialogExample() {
   return (
     <div {...stylex.props(storyStyles.preview)}>
       <Dialog>
-        <DialogTrigger render={<Button>프로젝트 보관하기</Button>} />
-        <DialogContent closeLabel="닫기">
+        <DialogTrigger render={<Button>Archive project</Button>} />
+        <DialogContent closeLabel="Close">
           <DialogHeader>
-            <DialogTitle>프로젝트를 보관할까요?</DialogTitle>
+            <DialogTitle>Archive this project?</DialogTitle>
             <DialogDescription>
-              보관한 프로젝트는 목록에서 숨겨지며 설정에서 복원할 수 있습니다.
+              Archived projects are hidden from the list and can be restored in Settings.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <DialogClose render={<Button variant="secondary">취소</Button>} />
-            <Button>보관하기</Button>
+            <DialogClose render={<Button variant="secondary">Cancel</Button>} />
+            <Button>Archive</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -49,7 +49,7 @@ function DialogExample() {
 }
 
 const dialogExampleCode =
-  'import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@dumo/ui/dialog"\n\n<Dialog>\n  <DialogTrigger>프로필 열기</DialogTrigger>\n  <DialogContent>\n    <DialogTitle>프로필</DialogTitle>\n  </DialogContent>\n</Dialog>';
+  'import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@dumo/ui/dialog"\n\n<Dialog>\n  <DialogTrigger>Open profile</DialogTrigger>\n  <DialogContent>\n    <DialogTitle>Profile</DialogTitle>\n  </DialogContent>\n</Dialog>';
 
 export const DialogStory: Story = {
   name: "Dialog",
@@ -58,7 +58,7 @@ export const DialogStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Dialog</h1>
         <p {...stylex.props(storyStyles.description)}>
-          현재 흐름을 잠시 멈추고 확인이나 입력이 필요한 작업을 표시합니다.
+          Temporarily pause the current flow for confirmation or input.
         </p>
       </header>
       <ComponentExample>
@@ -67,11 +67,11 @@ export const DialogStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

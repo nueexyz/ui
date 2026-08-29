@@ -21,25 +21,25 @@ const componentDocument = getComponentDocument("Message Scroller");
 const styles = stylex.create({ viewport: { height: "18rem", width: "28rem" } });
 
 const messages = [
-  { content: "사용자 인터뷰 질문을 정리했어요.", side: "incoming" },
-  { content: "확인했어요. 오후 회의 전에 검토할게요.", side: "outgoing" },
-  { content: "첫 번째 질문은 가입 이유로 시작하면 좋겠어요.", side: "incoming" },
-  { content: "좋아요. 답변 흐름도 함께 적어둘게요.", side: "outgoing" },
-  { content: "인터뷰 대상자 세 분이 일정을 선택했어요.", side: "incoming" },
-  { content: "고마워요. 확정되면 캘린더에 추가해 주세요.", side: "outgoing" },
-  { content: "목요일 오후 2시로 첫 인터뷰를 잡았어요.", side: "incoming" },
-  { content: "회의 링크도 초대 메일에 넣어둘게요.", side: "outgoing" },
-  { content: "녹화 동의 안내도 확인이 필요해요.", side: "incoming" },
-  { content: "안내 문구를 검토해서 공유하겠습니다.", side: "outgoing" },
+  { content: "I organized the user interview questions.", side: "incoming" },
+  { content: "Got it. I’ll review them before the afternoon meeting.", side: "outgoing" },
+  { content: "The first question should ask why they signed up.", side: "incoming" },
+  { content: "Sounds good. I’ll also document the answer flow.", side: "outgoing" },
+  { content: "Three interview participants picked a time.", side: "incoming" },
+  { content: "Thanks. Please add it to the calendar when it’s confirmed.", side: "outgoing" },
+  { content: "I scheduled the first interview for Thursday at 2 PM.", side: "incoming" },
+  { content: "I’ll include the meeting link in the invitation email.", side: "outgoing" },
+  { content: "We also need to confirm the recording consent notice.", side: "incoming" },
+  { content: "I’ll review and share the notice copy.", side: "outgoing" },
 ] as const;
 
 function MessageScrollerExample() {
   return (
     <section {...stylex.props(storyStyles.section)}>
       <header {...stylex.props(storyStyles.sectionHeader)}>
-        <h2 {...stylex.props(storyStyles.sectionTitle)}>대화 내역</h2>
+        <h2 {...stylex.props(storyStyles.sectionTitle)}>Conversation history</h2>
         <p {...stylex.props(storyStyles.description)}>
-          위로 이동해 지난 메시지를 읽으면 최신 메시지 이동 버튼이 나타납니다.
+          Scroll up to read earlier messages and a button appears to return to the latest one.
         </p>
       </header>
       <div {...stylex.props(storyStyles.preview)}>
@@ -58,7 +58,7 @@ function MessageScrollerExample() {
 }
 
 const messageScrollerExampleCode =
-  'import { Bubble } from "@dumo/ui/bubble"\nimport { MessageScroller } from "@dumo/ui/message-scroller"\n\n<MessageScroller style={{ height: "18rem" }}>\n  <Bubble>요청 사항을 확인했어요.</Bubble>\n  <Bubble side="outgoing">고마워요. 오늘 안에 공유할게요.</Bubble>\n</MessageScroller>';
+  'import { Bubble } from "@dumo/ui/bubble"\nimport { MessageScroller } from "@dumo/ui/message-scroller"\n\n<MessageScroller style={{ height: "18rem" }}>\n  <Bubble>I reviewed the request.</Bubble>\n  <Bubble side="outgoing">Thanks. I’ll share it today.</Bubble>\n</MessageScroller>';
 
 export const MessageScrollerStory: Story = {
   name: "Message Scroller",
@@ -67,7 +67,7 @@ export const MessageScrollerStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Message Scroller</h1>
         <p {...stylex.props(storyStyles.description)}>
-          긴 대화를 탐색하고 최신 메시지로 다시 이동할 수 있게 합니다.
+          Navigate long conversations and return to the latest message.
         </p>
       </header>
       <ComponentExample>
@@ -76,11 +76,11 @@ export const MessageScrollerStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

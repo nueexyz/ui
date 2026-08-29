@@ -23,16 +23,16 @@ function MarkerExample() {
     <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
       <Marker>
         <MarkerIcon>
-          <Spinner label="답변 작성 중" />
+          <Spinner label="Writing a reply" />
         </MarkerIcon>
-        <MarkerContent>답변을 작성하고 있어요.</MarkerContent>
+        <MarkerContent>Writing a reply.</MarkerContent>
       </Marker>
     </div>
   );
 }
 
 const markerExampleCode =
-  'import { Marker, MarkerContent, MarkerIcon } from "@dumo/ui/marker"\nimport { Spinner } from "@dumo/ui/spinner"\n\n<Marker>\n  <MarkerIcon><Spinner label="답변 작성 중" /></MarkerIcon>\n  <MarkerContent>답변을 작성하고 있어요.</MarkerContent>\n</Marker>';
+  'import { Marker, MarkerContent, MarkerIcon } from "@dumo/ui/marker"\nimport { Spinner } from "@dumo/ui/spinner"\n\n<Marker>\n  <MarkerIcon><Spinner label="Writing a reply" /></MarkerIcon>\n  <MarkerContent>Writing a reply.</MarkerContent>\n</Marker>';
 
 export const MarkerStory: Story = {
   name: "Marker",
@@ -41,7 +41,7 @@ export const MarkerStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Marker</h1>
         <p {...stylex.props(storyStyles.description)}>
-          대화나 활동 흐름에서 상태가 바뀌는 지점과 구간을 표시합니다.
+          Mark points and sections where state changes in a conversation or activity flow.
         </p>
       </header>
       <ComponentExample>
@@ -50,11 +50,11 @@ export const MarkerStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>
@@ -63,24 +63,24 @@ export const MarkerStory: Story = {
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Variants</h2>
           <p {...stylex.props(storyStyles.description)}>
-            주변 콘텐츠의 구조에 맞춰 기본, 경계선, 구분선 표현을 선택합니다.
+            Choose default, outline, or separator treatments to fit the surrounding structure.
           </p>
         </header>
         <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
           <Marker>
             <MarkerIcon>
-              <Spinner label="답변 작성 중" />
+              <Spinner label="Writing a reply" />
             </MarkerIcon>
-            <MarkerContent>답변을 작성하고 있어요.</MarkerContent>
+            <MarkerContent>Writing a reply.</MarkerContent>
           </Marker>
           <Marker variant="border">
             <MarkerIcon>
               <Icon name="branch" />
             </MarkerIcon>
-            <MarkerContent>새 작업 흐름을 시작했어요.</MarkerContent>
+            <MarkerContent>Started a new task flow.</MarkerContent>
           </Marker>
           <Marker variant="separator">
-            <MarkerContent>읽지 않은 메시지</MarkerContent>
+            <MarkerContent>Unread messages</MarkerContent>
           </Marker>
         </div>
       </section>

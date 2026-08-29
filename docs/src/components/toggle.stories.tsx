@@ -19,8 +19,8 @@ const componentDocument = getComponentDocument("Toggle");
 const toggleExampleCode = `import { Toggle } from "@dumo/ui/toggle"
 
 <div>
-  <Toggle defaultPressed>굵게</Toggle>
-  <Toggle variant="outline">기울임</Toggle>
+  <Toggle defaultPressed>Bold</Toggle>
+  <Toggle variant="outline">Italic</Toggle>
 </div>`;
 
 export const ToggleStory: Story = {
@@ -30,23 +30,23 @@ export const ToggleStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Toggle</h1>
         <p {...stylex.props(storyStyles.description)}>
-          선택적으로 적용할 보기나 편집 모드를 전환합니다.
+          Toggle view or editing modes that apply optionally.
         </p>
       </header>
       <ComponentExample>
         <div {...stylex.props(storyStyles.preview)}>
-          <Toggle defaultPressed>굵게</Toggle>
-          <Toggle variant="outline">기울임</Toggle>
+          <Toggle defaultPressed>Bold</Toggle>
+          <Toggle variant="outline">Italic</Toggle>
         </div>
       </ComponentExample>
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

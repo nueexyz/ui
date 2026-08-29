@@ -36,7 +36,7 @@ export async function doctor(projectDirectory: string) {
 
   if (!(await hasConfig(projectDirectory))) {
     checks.push({
-      detail: "`dumo init`을 실행하면 기본 UI 별칭을 설정합니다.",
+      detail: "Run `dumo init` to configure the default UI alias.",
       name: "dumo.json",
       status: "warn",
     });
@@ -45,31 +45,31 @@ export async function doctor(projectDirectory: string) {
     const uiDirectory = await resolveAliasPath(projectDirectory, config.aliases.ui);
     checks.push({
       detail: `${config.aliases.ui} → ${uiDirectory}`,
-      name: "UI 별칭",
+      name: "UI alias",
       status: "pass",
     });
   }
 
   checks.push(
     hasDependency(packageJson, "@stylexjs/stylex")
-      ? { detail: "@stylexjs/stylex가 설치되어 있습니다.", name: "StyleX 런타임", status: "pass" }
+      ? { detail: "@stylexjs/stylex is installed.", name: "StyleX runtime", status: "pass" }
       : {
           detail:
-            "첫 `dumo add`에서 자동 설치됩니다. 설치를 건너뛰려면 --skip-dependencies를 사용하세요.",
-          name: "StyleX 런타임",
+            "It is installed automatically by the first `dumo add`. Use --skip-dependencies to skip installation.",
+          name: "StyleX runtime",
           status: "warn",
         },
   );
   checks.push(
     hasDependency(packageJson, "@stylexjs/unplugin")
       ? {
-          detail: "@stylexjs/unplugin이 설치되어 있습니다.",
-          name: "StyleX 빌드 플러그인",
+          detail: "@stylexjs/unplugin is installed.",
+          name: "StyleX build plugin",
           status: "pass",
         }
       : {
-          detail: "Vite, esbuild 등 번들러 설정에 @stylexjs/unplugin을 추가해야 합니다.",
-          name: "StyleX 빌드 플러그인",
+          detail: "Add @stylexjs/unplugin to your bundler configuration, such as Vite or esbuild.",
+          name: "StyleX build plugin",
           status: "warn",
         },
   );

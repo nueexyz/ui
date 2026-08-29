@@ -19,16 +19,16 @@ const componentDocument = getComponentDocument("Badge");
 function BadgeExample() {
   return (
     <div {...stylex.props(storyStyles.preview)}>
-      <Badge>진행 중</Badge>
-      <Badge variant="secondary">초안</Badge>
-      <Badge variant="destructive">오류</Badge>
-      <Badge variant="outline">읽지 않음</Badge>
-      <Badge variant="ghost">선택 사항</Badge>
+      <Badge>In progress</Badge>
+      <Badge variant="secondary">Draft</Badge>
+      <Badge variant="destructive">Error</Badge>
+      <Badge variant="outline">Unread</Badge>
+      <Badge variant="ghost">Optional</Badge>
     </div>
   );
 }
 
-const badgeExampleCode = 'import { Badge } from "@dumo/ui/badge"\n\n<Badge>진행 중</Badge>';
+const badgeExampleCode = 'import { Badge } from "@dumo/ui/badge"\n\n<Badge>In progress</Badge>';
 
 export const BadgeStory: Story = {
   name: "Badge",
@@ -37,7 +37,7 @@ export const BadgeStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Badge</h1>
         <p {...stylex.props(storyStyles.description)}>
-          상태나 분류처럼 짧은 정보를 간결하게 표시합니다.
+          Display short information such as a status or category.
         </p>
       </header>
       <ComponentExample>
@@ -46,11 +46,11 @@ export const BadgeStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

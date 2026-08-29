@@ -29,28 +29,28 @@ function MenubarExample() {
     <div {...stylex.props(storyStyles.preview)}>
       <Menubar>
         <MenubarMenu>
-          <MenubarTrigger>파일</MenubarTrigger>
+          <MenubarTrigger>File</MenubarTrigger>
           <MenubarContent>
             <MenubarItem>
-              새 문서<MenubarShortcut>⌘N</MenubarShortcut>
+              New document<MenubarShortcut>⌘N</MenubarShortcut>
             </MenubarItem>
             <MenubarItem>
-              열기<MenubarShortcut>⌘O</MenubarShortcut>
+              Open<MenubarShortcut>⌘O</MenubarShortcut>
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem>
-              저장<MenubarShortcut>⌘S</MenubarShortcut>
+              Save<MenubarShortcut>⌘S</MenubarShortcut>
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
         <MenubarMenu>
-          <MenubarTrigger>편집</MenubarTrigger>
+          <MenubarTrigger>Edit</MenubarTrigger>
           <MenubarContent>
             <MenubarItem>
-              실행 취소<MenubarShortcut>⌘Z</MenubarShortcut>
+              Undo<MenubarShortcut>⌘Z</MenubarShortcut>
             </MenubarItem>
             <MenubarItem>
-              다시 실행<MenubarShortcut>⇧⌘Z</MenubarShortcut>
+              Redo<MenubarShortcut>⇧⌘Z</MenubarShortcut>
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
@@ -60,7 +60,7 @@ function MenubarExample() {
 }
 
 const menubarExampleCode =
-  'import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarTrigger } from "@dumo/ui/menubar"\n\n<Menubar>\n  <MenubarMenu>\n    <MenubarTrigger>파일</MenubarTrigger>\n    <MenubarContent>\n      <MenubarItem>새 문서<MenubarShortcut>⌘N</MenubarShortcut></MenubarItem>\n      <MenubarItem>열기<MenubarShortcut>⌘O</MenubarShortcut></MenubarItem>\n      <MenubarSeparator />\n      <MenubarItem>저장<MenubarShortcut>⌘S</MenubarShortcut></MenubarItem>\n    </MenubarContent>\n  </MenubarMenu>\n</Menubar>';
+  'import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarTrigger } from "@dumo/ui/menubar"\n\n<Menubar>\n  <MenubarMenu>\n    <MenubarTrigger>File</MenubarTrigger>\n    <MenubarContent>\n      <MenubarItem>New document<MenubarShortcut>⌘N</MenubarShortcut></MenubarItem>\n      <MenubarItem>Open<MenubarShortcut>⌘O</MenubarShortcut></MenubarItem>\n      <MenubarSeparator />\n      <MenubarItem>Save<MenubarShortcut>⌘S</MenubarShortcut></MenubarItem>\n    </MenubarContent>\n  </MenubarMenu>\n</Menubar>';
 
 export const MenubarStory: Story = {
   name: "Menubar",
@@ -69,7 +69,7 @@ export const MenubarStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Menubar</h1>
         <p {...stylex.props(storyStyles.description)}>
-          편집 도구처럼 자주 쓰는 명령 묶음을 항상 같은 위치에서 제공합니다.
+          Keep frequently used command groups in a consistent location, like an editor.
         </p>
       </header>
       <ComponentExample>
@@ -78,11 +78,11 @@ export const MenubarStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

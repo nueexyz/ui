@@ -30,9 +30,9 @@ function AttachmentExample() {
   return (
     <section {...stylex.props(storyStyles.section)}>
       <header {...stylex.props(storyStyles.sectionHeader)}>
-        <h2 {...stylex.props(storyStyles.sectionTitle)}>파일 묶음</h2>
+        <h2 {...stylex.props(storyStyles.sectionTitle)}>File list</h2>
         <p {...stylex.props(storyStyles.description)}>
-          여러 파일은 같은 구조로 이어서 확인할 수 있게 합니다.
+          Present multiple files in a consistent, scannable list.
         </p>
       </header>
       <div {...stylex.props(storyStyles.preview)}>
@@ -42,7 +42,7 @@ function AttachmentExample() {
               <Icon name="paperclip" />
             </AttachmentMedia>
             <AttachmentContent>
-              <AttachmentTitle>회의록.txt</AttachmentTitle>
+              <AttachmentTitle>meeting-notes.txt</AttachmentTitle>
               <AttachmentDescription>18 KB</AttachmentDescription>
             </AttachmentContent>
           </Attachment>
@@ -51,7 +51,7 @@ function AttachmentExample() {
               <Icon name="paperclip" />
             </AttachmentMedia>
             <AttachmentContent>
-              <AttachmentTitle>화면설계.fig</AttachmentTitle>
+              <AttachmentTitle>wireframes.fig</AttachmentTitle>
               <AttachmentDescription>8.1 MB</AttachmentDescription>
             </AttachmentContent>
           </Attachment>
@@ -62,7 +62,7 @@ function AttachmentExample() {
 }
 
 const attachmentExampleCode =
-  'import {\n  Attachment,\n  AttachmentContent,\n  AttachmentDescription,\n  AttachmentMedia,\n  AttachmentTitle,\n} from "@dumo/ui/attachment"\nimport { Icon } from "@dumo/ui/icon"\n\n<Attachment>\n  <AttachmentMedia>\n    <Icon name="paperclip" />\n  </AttachmentMedia>\n  <AttachmentContent>\n    <AttachmentTitle>회의록.txt</AttachmentTitle>\n    <AttachmentDescription>18 KB</AttachmentDescription>\n  </AttachmentContent>\n</Attachment>';
+  'import {\n  Attachment,\n  AttachmentContent,\n  AttachmentDescription,\n  AttachmentMedia,\n  AttachmentTitle,\n} from "@dumo/ui/attachment"\nimport { Icon } from "@dumo/ui/icon"\n\n<Attachment>\n  <AttachmentMedia>\n    <Icon name="paperclip" />\n  </AttachmentMedia>\n  <AttachmentContent>\n    <AttachmentTitle>meeting-notes.txt</AttachmentTitle>\n    <AttachmentDescription>18 KB</AttachmentDescription>\n  </AttachmentContent>\n</Attachment>';
 
 function FileAttachment({ error = false }: { error?: boolean }) {
   return (
@@ -71,16 +71,16 @@ function FileAttachment({ error = false }: { error?: boolean }) {
         <Icon name="file" />
       </AttachmentMedia>
       <AttachmentContent>
-        <AttachmentTitle>프로젝트-제안서.pdf</AttachmentTitle>
+        <AttachmentTitle>project-proposal.pdf</AttachmentTitle>
         <AttachmentDescription>
-          {error ? "업로드하지 못했어요. 다시 시도해 주세요." : "2.4 MB · 업로드 완료"}
+          {error ? "Couldn’t upload the file. Try again." : "2.4 MB · Uploaded"}
         </AttachmentDescription>
       </AttachmentContent>
       <AttachmentActions>
-        <AttachmentAction aria-label="파일 다운로드">
+        <AttachmentAction aria-label="Download file">
           <Icon name="download" />
         </AttachmentAction>
-        <AttachmentAction aria-label="첨부 파일 제거">
+        <AttachmentAction aria-label="Remove attachment">
           <Icon name="close" />
         </AttachmentAction>
       </AttachmentActions>
@@ -95,7 +95,7 @@ export const AttachmentStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Attachment</h1>
         <p {...stylex.props(storyStyles.description)}>
-          첨부한 파일의 이름, 크기, 처리 상태와 관련 행동을 함께 보여줍니다.
+          Show an attachment’s name, size, status, and relevant actions together.
         </p>
       </header>
       <ComponentExample>
@@ -104,11 +104,11 @@ export const AttachmentStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>
@@ -117,7 +117,7 @@ export const AttachmentStory: Story = {
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>States</h2>
           <p {...stylex.props(storyStyles.description)}>
-            완료와 오류를 색상뿐 아니라 문구로도 구분합니다.
+            Distinguish success and errors with text as well as color.
           </p>
         </header>
         <div

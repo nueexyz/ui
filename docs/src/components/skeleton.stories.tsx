@@ -50,7 +50,7 @@ export const SkeletonStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Skeleton</h1>
         <p {...stylex.props(storyStyles.description)}>
-          콘텐츠 구조를 유지하며 불러오는 상태를 보여줍니다.
+          Show a loading state while preserving the content structure.
         </p>
       </header>
       <ComponentExample>
@@ -59,11 +59,11 @@ export const SkeletonStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

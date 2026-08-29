@@ -176,7 +176,7 @@ function PrimitiveStory() {
     <main {...stylex.props(styles.page)}>
       <h1 {...stylex.props(styles.heading)}>Primitive</h1>
       <p {...stylex.props(styles.introduction)}>
-        시맨틱 토큰을 만드는 원본 색상입니다. 제품 UI에서는 직접 사용하지 않습니다.
+        Source colors used to create semantic tokens. Do not use them directly in product UI.
       </p>
       {Object.entries(colorPaletteGroups).map(([family, colors]) => (
         <Section key={family} title={family}>
@@ -192,99 +192,109 @@ function PrimitiveStory() {
 }
 
 const backgroundTokens = [
-  ["bgCanvas", colorVars.bgCanvas, colorVars.fgPrimary, "화면의 가장 낮은 배경"],
-  ["bgSurface", colorVars.bgSurface, colorVars.fgPrimary, "기본 콘텐츠 배경"],
-  ["bgSurfacePressed", colorVars.bgSurfacePressed, colorVars.fgPrimary, "기본 표면의 눌림 상태"],
-  ["bgSubtle", colorVars.bgSubtle, colorVars.fgPrimary, "입력 영역과 약한 채움"],
-  ["bgRaised", colorVars.bgRaised, colorVars.fgPrimary, "떠 있는 콘텐츠 배경"],
-  ["bgRaisedPressed", colorVars.bgRaisedPressed, colorVars.fgPrimary, "떠 있는 표면의 눌림 상태"],
-  ["bgActionPrimary", colorVars.bgActionPrimary, colorVars.fgInverse, "가장 중요한 행동의 배경"],
+  ["bgCanvas", colorVars.bgCanvas, colorVars.fgPrimary, "Lowest screen background"],
+  ["bgSurface", colorVars.bgSurface, colorVars.fgPrimary, "Default content background"],
+  ["bgSurfacePressed", colorVars.bgSurfacePressed, colorVars.fgPrimary, "Pressed default surface"],
+  ["bgSubtle", colorVars.bgSubtle, colorVars.fgPrimary, "Inputs and subtle fills"],
+  ["bgRaised", colorVars.bgRaised, colorVars.fgPrimary, "Floating content background"],
+  ["bgRaisedPressed", colorVars.bgRaisedPressed, colorVars.fgPrimary, "Pressed floating surface"],
+  ["bgActionPrimary", colorVars.bgActionPrimary, colorVars.fgInverse, "Primary action background"],
   [
     "bgActionDestructive",
     colorVars.bgActionDestructive,
     colorVars.fgOnActionDestructive,
-    "되돌리기 어려운 행동의 배경",
+    "Destructive action background",
   ],
-  ["bgFeedbackInfo", colorVars.bgFeedbackInfo, colorVars.fgFeedbackInfo, "정보 메시지 배경"],
+  ["bgFeedbackInfo", colorVars.bgFeedbackInfo, colorVars.fgFeedbackInfo, "Info message background"],
   [
     "bgFeedbackSuccess",
     colorVars.bgFeedbackSuccess,
     colorVars.fgFeedbackSuccess,
-    "성공 메시지 배경",
+    "Success message background",
   ],
   [
     "bgFeedbackWarning",
     colorVars.bgFeedbackWarning,
     colorVars.fgFeedbackWarning,
-    "주의 메시지 배경",
+    "Warning message background",
   ],
-  ["bgFeedbackError", colorVars.bgFeedbackError, colorVars.fgFeedbackError, "오류 메시지 배경"],
+  [
+    "bgFeedbackError",
+    colorVars.bgFeedbackError,
+    colorVars.fgFeedbackError,
+    "Error message background",
+  ],
 ] as const;
 
 const foregroundTokens = [
-  ["fgPrimary", colorVars.fgPrimary, colorVars.bgSurface, "기본 텍스트와 아이콘"],
-  ["fgSecondary", colorVars.fgSecondary, colorVars.bgSurface, "보조 텍스트와 아이콘"],
-  ["fgTertiary", colorVars.fgTertiary, colorVars.bgSurface, "플레이스홀더와 약한 정보"],
-  ["fgDisabled", colorVars.fgDisabled, colorVars.bgSurface, "비활성 콘텐츠"],
-  ["fgInverse", colorVars.fgInverse, colorVars.bgActionPrimary, "강조 배경 위 콘텐츠"],
+  ["fgPrimary", colorVars.fgPrimary, colorVars.bgSurface, "Primary text and icons"],
+  ["fgSecondary", colorVars.fgSecondary, colorVars.bgSurface, "Secondary text and icons"],
+  ["fgTertiary", colorVars.fgTertiary, colorVars.bgSurface, "Placeholders and subtle information"],
+  ["fgDisabled", colorVars.fgDisabled, colorVars.bgSurface, "Disabled content"],
+  [
+    "fgInverse",
+    colorVars.fgInverse,
+    colorVars.bgActionPrimary,
+    "Content on emphasized backgrounds",
+  ],
   [
     "fgOnActionDestructive",
     colorVars.fgOnActionDestructive,
     colorVars.bgActionDestructive,
-    "되돌리기 어려운 행동 위 콘텐츠",
+    "Content on destructive actions",
   ],
-  ["fgAction", colorVars.fgAction, colorVars.bgSurface, "행동과 링크"],
-  ["fgFeedbackInfo", colorVars.fgFeedbackInfo, colorVars.bgFeedbackInfo, "정보 메시지 콘텐츠"],
+  ["fgAction", colorVars.fgAction, colorVars.bgSurface, "Actions and links"],
+  ["fgFeedbackInfo", colorVars.fgFeedbackInfo, colorVars.bgFeedbackInfo, "Info message content"],
   [
     "fgFeedbackSuccess",
     colorVars.fgFeedbackSuccess,
     colorVars.bgFeedbackSuccess,
-    "성공 메시지 콘텐츠",
+    "Success message content",
   ],
   [
     "fgFeedbackWarning",
     colorVars.fgFeedbackWarning,
     colorVars.bgFeedbackWarning,
-    "주의 메시지 콘텐츠",
+    "Warning message content",
   ],
-  ["fgFeedbackError", colorVars.fgFeedbackError, colorVars.bgFeedbackError, "오류 메시지 콘텐츠"],
+  [
+    "fgFeedbackError",
+    colorVars.fgFeedbackError,
+    colorVars.bgFeedbackError,
+    "Error message content",
+  ],
 ] as const;
 
 const strokeTokens = [
-  ["strokeDefault", colorVars.strokeDefault, "기본 구분선"],
-  ["strokeStrong", colorVars.strokeStrong, "강조 구분선"],
-  ["strokeFocus", colorVars.strokeFocus, "포커스 링"],
-  ["strokeAction", colorVars.strokeAction, "주요 행동의 테두리"],
-  ["strokeFeedbackInfo", colorVars.strokeFeedbackInfo, "정보 메시지 테두리"],
-  ["strokeFeedbackSuccess", colorVars.strokeFeedbackSuccess, "성공 메시지 테두리"],
-  ["strokeFeedbackWarning", colorVars.strokeFeedbackWarning, "주의 메시지 테두리"],
-  ["strokeFeedbackError", colorVars.strokeFeedbackError, "오류 메시지 테두리"],
+  ["strokeDefault", colorVars.strokeDefault, "Default separator"],
+  ["strokeStrong", colorVars.strokeStrong, "Emphasized separator"],
+  ["strokeFocus", colorVars.strokeFocus, "Focus ring"],
+  ["strokeAction", colorVars.strokeAction, "Primary action border"],
+  ["strokeFeedbackInfo", colorVars.strokeFeedbackInfo, "Info message border"],
+  ["strokeFeedbackSuccess", colorVars.strokeFeedbackSuccess, "Success message border"],
+  ["strokeFeedbackWarning", colorVars.strokeFeedbackWarning, "Warning message border"],
+  ["strokeFeedbackError", colorVars.strokeFeedbackError, "Error message border"],
 ] as const;
 
 const interactionTokens = [
-  ["interactionDefault", colorVars.interactionDefault, colorVars.fgPrimary, "기본 상태"],
-  ["interactionHover", colorVars.interactionHover, colorVars.fgPrimary, "포인터가 올라간 상태"],
-  ["interactionPressed", colorVars.interactionPressed, colorVars.fgPrimary, "누르고 있는 상태"],
+  ["interactionDefault", colorVars.interactionDefault, colorVars.fgPrimary, "Default state"],
+  ["interactionHover", colorVars.interactionHover, colorVars.fgPrimary, "Pointer hover state"],
+  ["interactionPressed", colorVars.interactionPressed, colorVars.fgPrimary, "Pressed state"],
   [
     "interactionSolidHover",
     colorVars.interactionSolidHover,
     colorVars.fgPrimary,
-    "채워진 면에 포인터가 올라간 상태",
+    "Pointer hover state on filled surfaces",
   ],
   [
     "interactionSolidPressed",
     colorVars.interactionSolidPressed,
     colorVars.fgPrimary,
-    "채워진 면을 누르고 있는 상태",
+    "Pressed state on filled surfaces",
   ],
-  ["interactionSelected", colorVars.interactionSelected, colorVars.fgPrimary, "선택된 상태"],
-  [
-    "interactionDisabled",
-    colorVars.interactionDisabled,
-    colorVars.fgPrimary,
-    "조작할 수 없는 상태",
-  ],
-  ["interactionFocus", colorVars.interactionFocus, colorVars.fgInverse, "키보드 포커스 상태"],
+  ["interactionSelected", colorVars.interactionSelected, colorVars.fgPrimary, "Selected state"],
+  ["interactionDisabled", colorVars.interactionDisabled, colorVars.fgPrimary, "Unavailable state"],
+  ["interactionFocus", colorVars.interactionFocus, colorVars.fgInverse, "Keyboard focus state"],
 ] as const;
 
 function SemanticStory() {
@@ -292,30 +302,31 @@ function SemanticStory() {
     <main {...stylex.props(styles.page)}>
       <h1 {...stylex.props(styles.heading)}>Semantic</h1>
       <p {...stylex.props(styles.introduction)}>
-        적용 위치와 역할을 이름에 담은 색상입니다. 테마가 바뀌어도 같은 토큰을 사용합니다.
+        Colors whose names describe their role and application. Use the same token when the theme
+        changes.
       </p>
-      <Section title="Background" description="레이어와 메시지 배경에 사용합니다.">
+      <Section title="Background" description="Used for layers and message backgrounds.">
         {backgroundTokens.map(([name, token, foreground, usage]) => (
           <TokenCard key={name} name={name} usage={usage} value={token}>
-            <div {...stylex.props(styles.semanticSwatch(token, foreground))}>Aa 가나다</div>
+            <div {...stylex.props(styles.semanticSwatch(token, foreground))}>Aa Bb</div>
           </TokenCard>
         ))}
       </Section>
-      <Section title="Foreground" description="텍스트와 아이콘에 사용합니다.">
+      <Section title="Foreground" description="Used for text and icons.">
         {foregroundTokens.map(([name, token, background, usage]) => (
           <TokenCard key={name} name={name} usage={usage} value={token}>
-            <div {...stylex.props(styles.semanticSwatch(background, token))}>Aa 가나다</div>
+            <div {...stylex.props(styles.semanticSwatch(background, token))}>Aa Bb</div>
           </TokenCard>
         ))}
       </Section>
-      <Section title="Stroke" description="경계와 포커스를 표시합니다.">
+      <Section title="Stroke" description="Indicates boundaries and focus.">
         {strokeTokens.map(([name, token, usage]) => (
           <TokenCard key={name} name={name} usage={usage} value={token}>
             <div {...stylex.props(styles.strokeSwatch(token))} />
           </TokenCard>
         ))}
       </Section>
-      <Section title="Interaction" description="조작에 따른 순간 상태를 겹쳐 표현합니다.">
+      <Section title="Interaction" description="Layers transient states caused by interaction.">
         {interactionTokens.map(([name, token, foreground, usage]) => (
           <TokenCard key={name} name={name} usage={usage} value={token}>
             <div {...stylex.props(styles.semanticSwatch(token, foreground))} />

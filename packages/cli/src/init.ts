@@ -14,7 +14,7 @@ async function ask(
 
 export async function init(projectDirectory: string, options: CliOptions) {
   if ((await hasConfig(projectDirectory)) && !options.force) {
-    throw new Error("dumo.json이 이미 있습니다. 다시 만들려면 --force를 사용해 주세요.");
+    throw new Error("dumo.json already exists. Use --force to create it again.");
   }
 
   const isInteractive = process.stdin.isTTY && process.stdout.isTTY && !options.defaults;
@@ -26,12 +26,12 @@ export async function init(projectDirectory: string, options: CliOptions) {
     const uiAlias =
       options["ui-alias"] ??
       (readline
-        ? await ask("UI 별칭을 입력해 주세요.", defaultConfig.aliases.ui, readline)
+        ? await ask("Enter the UI alias.", defaultConfig.aliases.ui, readline)
         : defaultConfig.aliases.ui);
     await writeConfig(projectDirectory, { aliases: { ui: uiAlias } });
   } finally {
     readline?.close();
   }
 
-  console.log(`설정을 만들었습니다: ${configFileName}`);
+  console.log(`Created configuration: ${configFileName}`);
 }

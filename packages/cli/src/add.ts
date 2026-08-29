@@ -45,7 +45,7 @@ async function writeSource(
   try {
     const currentSource = await readFile(targetPath, "utf8");
     if (currentSource === source) return "unchanged";
-    if (!(await confirmOverwrite())) throw new Error("컴포넌트 추가를 취소했습니다.");
+    if (!(await confirmOverwrite())) throw new Error("Component installation canceled.");
   } catch (error) {
     if (!isNotFoundError(error)) throw error;
   }
@@ -74,7 +74,7 @@ function installDependencies(projectDirectory: string, dependencies: readonly st
     child.on("error", reject);
     child.on("exit", (code) => {
       if (code === 0) resolvePromise();
-      else reject(new Error(`의존성 설치가 종료 코드 ${code}로 실패했습니다.`));
+      else reject(new Error(`Dependency installation failed with exit code ${code}.`));
     });
   });
 }
@@ -89,7 +89,7 @@ export async function add(
   componentName: string,
   options: AddOptions = {},
 ) {
-  if (!componentName) throw new Error("추가할 컴포넌트 이름을 입력해 주세요.");
+  if (!componentName) throw new Error("Enter a component name to add.");
 
   const shouldInitialize = !(await hasConfig(projectDirectory));
   if (shouldInitialize && !options["dry-run"]) await init(projectDirectory, options);
@@ -102,14 +102,17 @@ export async function add(
   async function confirmOverwrite() {
     if (isOverwriteConfirmed) return true;
 
-    isOverwriteConfirmed = await askYesNo("같은 이름의 파일이 있습니다. 모두 덮어쓸까요?", false);
+    isOverwriteConfirmed = await askYesNo(
+      "Files with the same names already exist. Overwrite all?",
+      false,
+    );
     return isOverwriteConfirmed;
   }
 
   for (const file of resolved.files) {
     const source = file.content ?? (await readFile(join(uiSourceDirectory, file.path), "utf8"));
     if (options["dry-run"]) {
-      console.log(`추가 예정: ${join(uiDirectory, file.path)}`);
+      console.log(`Will add: ${join(uiDirectory, file.path)}`);
       continue;
     }
     await writeSource(source, join(uiDirectory, file.path), confirmOverwrite);
@@ -121,7 +124,7 @@ export async function add(
     !options["skip-dependencies"] &&
     !options["dry-run"] &&
     (await askYesNo(
-      `외부 의존성(${resolved.externalDependencies.join(", ")})을 설치할까요?`,
+      `Install external dependencies (${resolved.externalDependencies.join(", ")})?`,
       true,
     ));
 
@@ -133,10 +136,10 @@ export async function add(
     ? resolved.components[0]
     : await getPrimaryExport(componentName, uiSourceDirectory);
   if (options["dry-run"]) {
-    console.log(`${componentName} 컴포넌트를 추가할 예정입니다.`);
+    console.log(`Will add ${componentName}.`);
     return;
   }
 
-  console.log(`${componentName} 컴포넌트를 추가했습니다.`);
+  console.log(`Added ${componentName}.`);
   console.log(`import { ${primaryExport} } from "${config.aliases.ui}/${componentName}"`);
 }

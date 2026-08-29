@@ -65,7 +65,7 @@ export const Registry: Story = {
     <main {...stylex.props(styles.page)}>
       <h1 {...stylex.props(styles.heading)}>Phosphor Icon Registry</h1>
       <p {...stylex.props(styles.introduction)}>
-        제품 인터페이스에서 사용할 수 있는 아이콘과 이름을 확인합니다.
+        Browse icons and their names for product interfaces.
       </p>
       <div {...stylex.props(styles.grid)}>
         {iconNames.map((name) => (

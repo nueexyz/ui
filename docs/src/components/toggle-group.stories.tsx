@@ -21,10 +21,10 @@ const componentDocument = getComponentDocument("Toggle Group");
 
 const toggleGroupExampleCode = `import { ToggleGroup, ToggleGroupItem } from "@dumo/ui/toggle-group"
 
-<ToggleGroup aria-label="텍스트 정렬" defaultValue={["left"]} variant="outline">
-  <ToggleGroupItem value="left">왼쪽</ToggleGroupItem>
-  <ToggleGroupItem value="center">가운데</ToggleGroupItem>
-  <ToggleGroupItem value="right">오른쪽</ToggleGroupItem>
+<ToggleGroup aria-label="Text alignment" defaultValue={["left"]} variant="outline">
+  <ToggleGroupItem value="left">Left</ToggleGroupItem>
+  <ToggleGroupItem value="center">Center</ToggleGroupItem>
+  <ToggleGroupItem value="right">Right</ToggleGroupItem>
 </ToggleGroup>`;
 
 export const ToggleGroupStory: Story = {
@@ -34,26 +34,26 @@ export const ToggleGroupStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Toggle Group</h1>
         <p {...stylex.props(storyStyles.description)}>
-          서로 관련된 보기 옵션을 방향키로 탐색하고 선택합니다.
+          Navigate and select related view options with the arrow keys.
         </p>
       </header>
       <ComponentExample>
         <div {...stylex.props(storyStyles.preview)}>
-          <ToggleGroup aria-label="텍스트 정렬" defaultValue={["left"]} variant="outline">
-            <ToggleGroupItem value="left">왼쪽</ToggleGroupItem>
-            <ToggleGroupItem value="center">가운데</ToggleGroupItem>
-            <ToggleGroupItem value="right">오른쪽</ToggleGroupItem>
+          <ToggleGroup aria-label="Text alignment" defaultValue={["left"]} variant="outline">
+            <ToggleGroupItem value="left">Left</ToggleGroupItem>
+            <ToggleGroupItem value="center">Center</ToggleGroupItem>
+            <ToggleGroupItem value="right">Right</ToggleGroupItem>
           </ToggleGroup>
         </div>
       </ComponentExample>
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

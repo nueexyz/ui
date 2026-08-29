@@ -26,20 +26,20 @@ import { ButtonGroup } from "@dumo/ui/button-group"
 import { Icon } from "@dumo/ui/icon"
 
 <div>
-  <ButtonGroup aria-label="이전 화면으로 이동">
-    <Button size="sm" variant="secondary" aria-label="뒤로 가기">
+  <ButtonGroup aria-label="Navigate back">
+    <Button size="sm" variant="secondary" aria-label="Go back">
       <Icon aria-hidden="true" name="chevronLeft" />
     </Button>
   </ButtonGroup>
 
-  <ButtonGroup aria-label="메시지 작업">
-    <Button size="sm" variant="secondary">보관</Button>
-    <Button size="sm" variant="secondary">신고</Button>
+  <ButtonGroup aria-label="Message actions">
+    <Button size="sm" variant="secondary">Archive</Button>
+    <Button size="sm" variant="secondary">Report</Button>
   </ButtonGroup>
 
-  <ButtonGroup aria-label="추가 작업">
-    <Button size="sm" variant="secondary">다시 알림</Button>
-    <Button size="sm" variant="secondary" aria-label="추가 작업">
+  <ButtonGroup aria-label="More actions">
+    <Button size="sm" variant="secondary">Snooze</Button>
+    <Button size="sm" variant="secondary" aria-label="More actions">
       <Icon aria-hidden="true" name="moreHorizontal" />
     </Button>
   </ButtonGroup>
@@ -52,29 +52,29 @@ export const ButtonGroupStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Button Group</h1>
         <p {...stylex.props(storyStyles.description)}>
-          같은 목적을 가진 행동을 하나의 조작 단위로 묶습니다.
+          Group actions that serve the same purpose into one control.
         </p>
       </header>
       <ComponentExample>
         <div {...stylex.props(storyStyles.preview)}>
-          <ButtonGroup aria-label="이전 화면으로 이동">
-            <Button size="sm" variant="secondary" aria-label="뒤로 가기">
+          <ButtonGroup aria-label="Navigate back">
+            <Button size="sm" variant="secondary" aria-label="Go back">
               <Icon aria-hidden="true" name="chevronLeft" />
             </Button>
           </ButtonGroup>
-          <ButtonGroup aria-label="메시지 작업">
+          <ButtonGroup aria-label="Message actions">
             <Button size="sm" variant="secondary">
-              보관
+              Archive
             </Button>
             <Button size="sm" variant="secondary">
-              신고
+              Report
             </Button>
           </ButtonGroup>
-          <ButtonGroup aria-label="추가 작업">
+          <ButtonGroup aria-label="More actions">
             <Button size="sm" variant="secondary">
-              다시 알림
+              Snooze
             </Button>
-            <Button size="sm" variant="secondary" aria-label="추가 작업">
+            <Button size="sm" variant="secondary" aria-label="More actions">
               <Icon aria-hidden="true" name="moreHorizontal" />
             </Button>
           </ButtonGroup>
@@ -83,11 +83,11 @@ export const ButtonGroupStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

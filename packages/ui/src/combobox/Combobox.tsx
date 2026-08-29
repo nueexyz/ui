@@ -31,7 +31,7 @@ export function ComboboxInput({
         }}
       />
       <ComboboxPrimitive.Trigger
-        aria-label="옵션 열기"
+        aria-label="Open options"
         className={(state) =>
           stylex.props(styles.trigger, state.disabled && styles.triggerDisabled).className ?? ""
         }

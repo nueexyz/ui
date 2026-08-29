@@ -29,9 +29,9 @@ function InputGroupExample() {
   return (
     <section {...stylex.props(storyStyles.section)}>
       <header {...stylex.props(storyStyles.sectionHeader)}>
-        <h2 {...stylex.props(storyStyles.sectionTitle)}>주소 입력</h2>
+        <h2 {...stylex.props(storyStyles.sectionTitle)}>Address input</h2>
         <p {...stylex.props(storyStyles.description)}>
-          고정된 접두어는 입력값과 구분해 보여줍니다.
+          Separate fixed prefixes from the entered value.
         </p>
       </header>
       <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
@@ -40,9 +40,9 @@ function InputGroupExample() {
             <InputGroupAddon align="inline-start">
               <InputGroupText>https://</InputGroupText>
             </InputGroupAddon>
-            <InputGroupInput aria-label="웹 주소" placeholder="example.com" />
+            <InputGroupInput aria-label="Web address" placeholder="example.com" />
             <InputGroupAddon align="inline-end">
-              <InputGroupButton>복사</InputGroupButton>
+              <InputGroupButton>Copy</InputGroupButton>
             </InputGroupAddon>
           </InputGroup>
         </div>
@@ -52,7 +52,7 @@ function InputGroupExample() {
 }
 
 const inputGroupExampleCode =
-  'import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText } from "@dumo/ui/input-group"\n\n<InputGroup>\n  <InputGroupAddon align="inline-start"><InputGroupText>https://</InputGroupText></InputGroupAddon>\n  <InputGroupInput aria-label="웹 주소" placeholder="example.com" />\n  <InputGroupAddon align="inline-end"><InputGroupButton>복사</InputGroupButton></InputGroupAddon>\n</InputGroup>';
+  'import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText } from "@dumo/ui/input-group"\n\n<InputGroup>\n  <InputGroupAddon align="inline-start"><InputGroupText>https://</InputGroupText></InputGroupAddon>\n  <InputGroupInput aria-label="Web address" placeholder="example.com" />\n  <InputGroupAddon align="inline-end"><InputGroupButton>Copy</InputGroupButton></InputGroupAddon>\n</InputGroup>';
 
 export const InputGroupStory: Story = {
   name: "Input Group",
@@ -61,7 +61,7 @@ export const InputGroupStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Input Group</h1>
         <p {...stylex.props(storyStyles.description)}>
-          입력값의 맥락과 보조 행동을 하나의 컨트롤 표면에 배치합니다.
+          Place input context and supporting actions on one control surface.
         </p>
       </header>
       <ComponentExample>
@@ -70,11 +70,11 @@ export const InputGroupStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

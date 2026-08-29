@@ -27,7 +27,7 @@ export async function resolveComponent(name: string) {
     const item = registryItems[componentName as keyof typeof registryItems] as
       | LocalRegistryItem
       | undefined;
-    if (!item) throw new Error(`알 수 없는 컴포넌트입니다: ${componentName}`);
+    if (!item) throw new Error(`Unknown component: ${componentName}`);
 
     components.add(componentName);
     for (const path of item.files) files.set(path, { path });
@@ -51,11 +51,11 @@ export async function resolveComponent(name: string) {
 
 async function resolveRemoteComponent(url: string) {
   const response = await fetch(url);
-  if (!response.ok) throw new Error(`레지스트리를 불러오지 못했습니다: ${response.status}`);
+  if (!response.ok) throw new Error(`Could not load the registry: ${response.status}`);
 
   const item = (await response.json()) as RegistryItem;
   if (!Array.isArray(item.files) || !Array.isArray(item.dependencies)) {
-    throw new Error("올바른 Dumo 레지스트리 항목이 아닙니다.");
+    throw new Error("This is not a valid Dumo registry item.");
   }
 
   return {

@@ -27,19 +27,19 @@ const styles = stylex.create({
 function TypographyExample() {
   return (
     <div {...stylex.props(storyStyles.preview, [storyStyles.column, styles.stack])}>
-      <Typography variant="display">제품의 핵심 제목</Typography>
-      <Typography variant="title">화면 제목</Typography>
-      <Typography variant="heading">콘텐츠 제목</Typography>
-      <Typography>본문은 읽기 편한 크기와 줄 높이를 유지합니다.</Typography>
-      <Typography variant="label">필드 레이블</Typography>
-      <Typography variant="caption">업데이트: 방금 전</Typography>
+      <Typography variant="display">Primary product heading</Typography>
+      <Typography variant="title">Page title</Typography>
+      <Typography variant="heading">Content heading</Typography>
+      <Typography>Body text keeps a readable size and line height.</Typography>
+      <Typography variant="label">Field label</Typography>
+      <Typography variant="caption">Updated just now</Typography>
       <Typography variant="code">pnpm storybook</Typography>
     </div>
   );
 }
 
 const typographyExampleCode =
-  'import { Typography } from "@dumo/ui/typography"\n\n<Typography variant="display">제품의 핵심 제목</Typography>';
+  'import { Typography } from "@dumo/ui/typography"\n\n<Typography variant="display">Primary product heading</Typography>';
 
 export const TypographyStory: Story = {
   name: "Typography",
@@ -48,7 +48,7 @@ export const TypographyStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Typography</h1>
         <p {...stylex.props(storyStyles.description)}>
-          정보의 위계와 용도에 맞는 글자 스타일을 사용합니다.
+          Use text styles that match information hierarchy and purpose.
         </p>
       </header>
       <ComponentExample>
@@ -57,11 +57,11 @@ export const TypographyStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

@@ -35,18 +35,18 @@ function FieldExample() {
         <form {...stylex.props(storyStyles.formWidth)}>
           <FieldSet>
             <div>
-              <FieldLegend>결제 정보</FieldLegend>
+              <FieldLegend>Payment details</FieldLegend>
               <p {...stylex.props(storyStyles.description)}>
-                결제 정보는 암호화되어 안전하게 처리됩니다.
+                Payment details are encrypted and handled securely.
               </p>
             </div>
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor="cardholder">카드 소유자 이름</FieldLabel>
-                <Input id="cardholder" autoComplete="cc-name" defaultValue="김민영" />
+                <FieldLabel htmlFor="cardholder">Cardholder name</FieldLabel>
+                <Input id="cardholder" autoComplete="cc-name" defaultValue="Jordan Lee" />
               </Field>
               <Field invalid>
-                <FieldLabel htmlFor="card-number">카드 번호</FieldLabel>
+                <FieldLabel htmlFor="card-number">Card number</FieldLabel>
                 <Input
                   id="card-number"
                   aria-invalid
@@ -54,15 +54,15 @@ function FieldExample() {
                   defaultValue="1234 5678 9012"
                   inputMode="numeric"
                 />
-                <FieldDescription>숫자 16자리를 입력하세요.</FieldDescription>
-                <FieldError>카드 번호가 완전하지 않습니다.</FieldError>
+                <FieldDescription>Enter all 16 digits.</FieldDescription>
+                <FieldError>The card number is incomplete.</FieldError>
               </Field>
               <Field orientation="horizontal">
                 <Checkbox id="billing-address" defaultChecked />
                 <FieldContent>
-                  <FieldTitle>배송지와 청구지 주소가 같습니다.</FieldTitle>
+                  <FieldTitle>Billing address is the same as shipping address.</FieldTitle>
                   <FieldDescription>
-                    다른 주소로 청구해야 한다면 선택을 해제하세요.
+                    Clear this option to use a different billing address.
                   </FieldDescription>
                 </FieldContent>
               </Field>
@@ -75,7 +75,7 @@ function FieldExample() {
 }
 
 const fieldExampleCode =
-  'import { Checkbox } from "@dumo/ui/checkbox"\nimport {\n  Field,\n  FieldContent,\n  FieldDescription,\n  FieldError,\n  FieldGroup,\n  FieldLabel,\n  FieldLegend,\n  FieldSet,\n  FieldTitle,\n} from "@dumo/ui/field"\nimport { Input } from "@dumo/ui/input"\n\n<FieldSet>\n  <FieldLegend>결제 정보</FieldLegend>\n  <p>결제 정보는 암호화되어 안전하게 처리됩니다.</p>\n  <FieldGroup>\n    <Field>\n      <FieldLabel htmlFor="cardholder">카드 소유자 이름</FieldLabel>\n      <Input id="cardholder" autoComplete="cc-name" defaultValue="김민영" />\n    </Field>\n    <Field invalid>\n      <FieldLabel htmlFor="card-number">카드 번호</FieldLabel>\n      <Input\n        id="card-number"\n        aria-invalid\n        autoComplete="cc-number"\n        defaultValue="1234 5678 9012"\n        inputMode="numeric"\n      />\n      <FieldDescription>숫자 16자리를 입력하세요.</FieldDescription>\n      <FieldError>카드 번호가 완전하지 않습니다.</FieldError>\n    </Field>\n    <Field orientation="horizontal">\n      <Checkbox id="billing-address" defaultChecked />\n      <FieldContent>\n        <FieldTitle>배송지와 청구지 주소가 같습니다.</FieldTitle>\n        <FieldDescription>다른 주소로 청구해야 한다면 선택을 해제하세요.</FieldDescription>\n      </FieldContent>\n    </Field>\n  </FieldGroup>\n</FieldSet>';
+  'import { Checkbox } from "@dumo/ui/checkbox"\nimport {\n  Field,\n  FieldContent,\n  FieldDescription,\n  FieldError,\n  FieldGroup,\n  FieldLabel,\n  FieldLegend,\n  FieldSet,\n  FieldTitle,\n} from "@dumo/ui/field"\nimport { Input } from "@dumo/ui/input"\n\n<FieldSet>\n  <FieldLegend>Payment details</FieldLegend>\n  <p>Payment details are encrypted and handled securely.</p>\n  <FieldGroup>\n    <Field>\n      <FieldLabel htmlFor="cardholder">Cardholder name</FieldLabel>\n      <Input id="cardholder" autoComplete="cc-name" defaultValue="Jordan Lee" />\n    </Field>\n    <Field invalid>\n      <FieldLabel htmlFor="card-number">Card number</FieldLabel>\n      <Input\n        id="card-number"\n        aria-invalid\n        autoComplete="cc-number"\n        defaultValue="1234 5678 9012"\n        inputMode="numeric"\n      />\n      <FieldDescription>Enter all 16 digits.</FieldDescription>\n      <FieldError>The card number is incomplete.</FieldError>\n    </Field>\n    <Field orientation="horizontal">\n      <Checkbox id="billing-address" defaultChecked />\n      <FieldContent>\n        <FieldTitle>Billing address is the same as shipping address.</FieldTitle>\n        <FieldDescription>Clear this option to use a different billing address.</FieldDescription>\n      </FieldContent>\n    </Field>\n  </FieldGroup>\n</FieldSet>';
 
 export const FieldStory: Story = {
   name: "Field",
@@ -84,7 +84,7 @@ export const FieldStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Field</h1>
         <p {...stylex.props(storyStyles.description)}>
-          레이블, 설명, 입력, 오류를 하나의 접근 가능한 필드로 연결합니다.
+          Connect labels, descriptions, inputs, and errors in one accessible field.
         </p>
       </header>
       <ComponentExample>
@@ -93,11 +93,11 @@ export const FieldStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

@@ -40,7 +40,9 @@ export const KbdStory: Story = {
     <main {...stylex.props(storyStyles.page)}>
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Kbd</h1>
-        <p {...stylex.props(storyStyles.description)}>키보드 단축키와 입력 조합을 표시합니다.</p>
+        <p {...stylex.props(storyStyles.description)}>
+          Display keyboard shortcuts and key combinations.
+        </p>
       </header>
       <ComponentExample>
         <KbdExample />
@@ -48,11 +50,11 @@ export const KbdStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

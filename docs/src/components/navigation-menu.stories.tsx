@@ -47,36 +47,36 @@ function NavigationMenuExample() {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>제품</NavigationMenuTrigger>
+            <NavigationMenuTrigger>Product</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul {...stylex.props(storyStyles.navigationGrid)}>
-                <NavigationItem title="디자인 토큰">
-                  색상과 간격의 공통 언어를 확인합니다.
+                <NavigationItem title="Design tokens">
+                  Explore the shared language of color and spacing.
                 </NavigationItem>
-                <NavigationItem title="컴포넌트">
-                  제품 화면을 구성하는 요소를 살펴봅니다.
+                <NavigationItem title="Components">
+                  Explore the building blocks of product screens.
                 </NavigationItem>
-                <NavigationItem title="시작하기">
-                  설치부터 첫 화면 구성까지 순서대로 안내합니다.
+                <NavigationItem title="Getting started">
+                  Follow the steps from installation to your first screen.
                 </NavigationItem>
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>리소스</NavigationMenuTrigger>
+            <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul {...stylex.props(storyStyles.navigationGrid, storyStyles.navigationGridCompact)}>
-                <NavigationItem title="설치 안내">
-                  프로젝트에 필요한 패키지를 설치합니다.
+                <NavigationItem title="Installation">
+                  Install the packages your project needs.
                 </NavigationItem>
-                <NavigationItem title="사용 예시">
-                  화면 구성에 필요한 조합을 확인합니다.
+                <NavigationItem title="Examples">
+                  Review useful combinations for building screens.
                 </NavigationItem>
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuLink href="#">문서</NavigationMenuLink>
+            <NavigationMenuLink href="#">Documentation</NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>
         <NavigationMenuViewport />
@@ -86,7 +86,7 @@ function NavigationMenuExample() {
 }
 
 const navigationMenuExampleCode =
-  'import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, NavigationMenuViewport } from "@dumo/ui/navigation-menu"\n\n<NavigationMenu>\n  <NavigationMenuList>\n    <NavigationMenuItem>\n      <NavigationMenuTrigger>제품</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <NavigationMenuLink href="#">디자인 토큰</NavigationMenuLink>\n        <NavigationMenuLink href="#">컴포넌트</NavigationMenuLink>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n    <NavigationMenuItem><NavigationMenuLink href="#">문서</NavigationMenuLink></NavigationMenuItem>\n  </NavigationMenuList>\n  <NavigationMenuViewport />\n</NavigationMenu>';
+  'import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, NavigationMenuViewport } from "@dumo/ui/navigation-menu"\n\n<NavigationMenu>\n  <NavigationMenuList>\n    <NavigationMenuItem>\n      <NavigationMenuTrigger>Product</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <NavigationMenuLink href="#">Design tokens</NavigationMenuLink>\n        <NavigationMenuLink href="#">Components</NavigationMenuLink>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n    <NavigationMenuItem><NavigationMenuLink href="#">Documentation</NavigationMenuLink></NavigationMenuItem>\n  </NavigationMenuList>\n  <NavigationMenuViewport />\n</NavigationMenu>';
 
 export const NavigationMenuStory: Story = {
   name: "Navigation Menu",
@@ -95,7 +95,7 @@ export const NavigationMenuStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Navigation Menu</h1>
         <p {...stylex.props(storyStyles.description)}>
-          사이트의 주요 영역과 하위 페이지를 탐색합니다.
+          Navigate a site’s primary areas and nested pages.
         </p>
       </header>
       <ComponentExample>
@@ -104,11 +104,11 @@ export const NavigationMenuStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

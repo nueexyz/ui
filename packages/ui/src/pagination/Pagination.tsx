@@ -18,7 +18,7 @@ function nativeProps(
 export function Pagination({ className, style, ...props }: ComponentProps<"nav">) {
   return (
     <nav
-      aria-label="페이지 탐색"
+      aria-label="Pagination"
       {...props}
       {...nativeProps(stylex.props(styles.root), className, style)}
     />
@@ -63,17 +63,17 @@ export function PaginationLink({
 
 export function PaginationPrevious({ children, ...props }: PaginationLinkProps) {
   return (
-    <PaginationLink aria-label="이전 페이지" size="default" {...props}>
+    <PaginationLink aria-label="Previous page" size="default" {...props}>
       <Icon aria-hidden="true" name="chevronLeft" />
-      {children ?? "이전"}
+      {children ?? "Previous"}
     </PaginationLink>
   );
 }
 
 export function PaginationNext({ children, ...props }: PaginationLinkProps) {
   return (
-    <PaginationLink aria-label="다음 페이지" size="default" {...props}>
-      {children ?? "다음"}
+    <PaginationLink aria-label="Next page" size="default" {...props}>
+      {children ?? "Next"}
       <Icon aria-hidden="true" name="chevronRight" />
     </PaginationLink>
   );

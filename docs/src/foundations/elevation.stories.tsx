@@ -184,12 +184,12 @@ export const GlobalLevels: Story = {
   render: () => (
     <Page
       title="Global levels"
-      description="화면 전체를 기준으로 콘텐츠가 놓이는 높이를 구분합니다. 높이는 배경, 그림자, 테두리를 함께 조합해 표현합니다."
+      description="Distinguish content levels across the screen. Express elevation with background, shadow, and border together."
     >
       <div {...stylex.props(styles.grid)}>
         <Example
           name="Basement"
-          description="앱 셸과 화면의 가장 낮은 바닥입니다."
+          description="The lowest base for the app shell and screen."
           token="colorVars.bgCanvas"
         >
           <div {...stylex.props(styles.preview, styles.basement)}>
@@ -198,7 +198,7 @@ export const GlobalLevels: Story = {
         </Example>
         <Example
           name="Default"
-          description="페이지의 주요 콘텐츠가 놓이는 기본 높이입니다."
+          description="The default level for primary page content."
           token="colorVars.bgSurface"
         >
           <div {...stylex.props(styles.preview, styles.defaultLayer)}>
@@ -207,7 +207,7 @@ export const GlobalLevels: Story = {
         </Example>
         <Example
           name="Modal"
-          description="현재 흐름 위에 열리는 대화상자와 오버레이입니다."
+          description="Dialogs and overlays that open above the current flow."
           token="colorVars.bgRaised + shadowVars.overlay"
         >
           <div {...stylex.props(styles.preview, styles.basement)}>
@@ -216,7 +216,7 @@ export const GlobalLevels: Story = {
         </Example>
         <Example
           name="Critical modal"
-          description="반드시 먼저 확인해야 하는 흐름입니다. 표면은 Modal과 같고 스택 순서로 최상단에 둡니다."
+          description="A flow that must be acknowledged first. It uses the same surface as a modal and sits at the top of the stack."
           token="colorVars.bgRaised + shadowVars.overlay"
         >
           <div {...stylex.props(styles.preview, styles.basement)}>
@@ -232,12 +232,12 @@ export const LocalLevels: Story = {
   render: () => (
     <Page
       title="Local levels"
-      description="같은 화면 안에서 콘텐츠와 행동의 관계를 구분합니다. 그림자를 더해도 반드시 더 높은 전역 레이어가 되는 것은 아닙니다."
+      description="Distinguish relationships between content and actions on the same screen. Adding a shadow does not necessarily create a higher global layer."
     >
       <div {...stylex.props(styles.grid)}>
         <Example
           name="Main content"
-          description="현재 영역의 기준이 되는 콘텐츠입니다."
+          description="The reference content for the current area."
           token="colorVars.bgSurface"
         >
           <div {...stylex.props(styles.preview, styles.defaultLayer)}>
@@ -246,7 +246,7 @@ export const LocalLevels: Story = {
         </Example>
         <Example
           name="Floating action"
-          description="콘텐츠 위에 고정되거나 떠 있는 행동입니다."
+          description="An action fixed or floating above content."
           token="colorVars.bgRaised + shadowVars.subtle"
         >
           <div {...stylex.props(styles.preview, styles.defaultLayer)}>
@@ -255,7 +255,7 @@ export const LocalLevels: Story = {
         </Example>
         <Example
           name="Transient feedback"
-          description="잠시 나타나는 토스트와 상태 메시지입니다."
+          description="Temporary toasts and status messages."
           token="colorVars.bgRaised + shadowVars.overlay"
         >
           <div {...stylex.props(styles.preview, styles.defaultLayer)}>
@@ -271,17 +271,17 @@ const shadowTokens = [
   [
     "shadowVars.subtle",
     shadowVars.subtle,
-    "콘텐츠 위에 고정된 행동이나 내비게이션의 경계를 보완합니다.",
+    "Supports the boundary of actions or navigation fixed above content.",
   ],
   [
     "shadowVars.floating",
     shadowVars.floating,
-    "메뉴와 팝오버처럼 콘텐츠 위에 떠 있는 요소를 구분합니다.",
+    "Separates elements that float above content, such as menus and popovers.",
   ],
   [
     "shadowVars.overlay",
     shadowVars.overlay,
-    "대화상자와 토스트처럼 주의가 필요한 요소를 강조합니다.",
+    "Emphasizes elements that need attention, such as dialogs and toasts.",
   ],
 ] as const;
 
@@ -289,7 +289,7 @@ export const Shadow: Story = {
   render: () => (
     <Page
       title="Shadow"
-      description="그림자는 배경만으로 경계가 충분하지 않을 때 사용합니다. 다크 모드에서는 더 높은 불투명도로 깊이를 유지합니다."
+      description="Use shadows when the background alone does not establish enough separation. In dark mode, use higher opacity to preserve depth."
     >
       <div {...stylex.props(styles.grid)}>
         {shadowTokens.map(([name, token, description]) => (

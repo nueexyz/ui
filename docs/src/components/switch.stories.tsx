@@ -21,11 +21,11 @@ function SwitchExample() {
     <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
       <label htmlFor="activity-visibility" {...stylex.props(storyStyles.option)}>
         <Switch defaultChecked id="activity-visibility" />
-        활동 상태 공개
+        Show activity status
       </label>
       <label htmlFor="admin-only" {...stylex.props(storyStyles.option)}>
         <Switch disabled id="admin-only" />
-        관리자 전용 설정
+        Admin-only setting
       </label>
     </div>
   );
@@ -40,7 +40,9 @@ export const SwitchStory: Story = {
     <main {...stylex.props(storyStyles.page)}>
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Switch</h1>
-        <p {...stylex.props(storyStyles.description)}>변경 즉시 적용되는 설정을 켜거나 끕니다.</p>
+        <p {...stylex.props(storyStyles.description)}>
+          Turn settings that apply immediately on or off.
+        </p>
       </header>
       <ComponentExample>
         <SwitchExample />
@@ -48,11 +50,11 @@ export const SwitchStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

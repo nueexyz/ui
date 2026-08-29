@@ -20,35 +20,35 @@ function TabsExample() {
   return (
     <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
       <Tabs defaultValue="account" variant="segmented">
-        <TabsList aria-label="분할형 설정 메뉴">
-          <TabsTrigger value="account">계정</TabsTrigger>
-          <TabsTrigger value="security">보안</TabsTrigger>
+        <TabsList aria-label="Segmented settings menu">
+          <TabsTrigger value="account">Account</TabsTrigger>
+          <TabsTrigger value="security">Security</TabsTrigger>
           <TabsTrigger disabled value="billing">
-            결제
+            Billing
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="account">이름과 프로필 정보를 관리합니다.</TabsContent>
-        <TabsContent value="security">비밀번호와 로그인 기록을 관리합니다.</TabsContent>
-        <TabsContent value="billing">결제 수단을 관리합니다.</TabsContent>
+        <TabsContent value="account">Manage your name and profile information.</TabsContent>
+        <TabsContent value="security">Manage passwords and sign-in history.</TabsContent>
+        <TabsContent value="billing">Manage payment methods.</TabsContent>
       </Tabs>
       <Tabs defaultValue="overview" variant="underline">
-        <TabsList aria-label="밑줄형 프로젝트 메뉴">
-          <TabsTrigger value="overview">개요</TabsTrigger>
-          <TabsTrigger value="activity">활동</TabsTrigger>
+        <TabsList aria-label="Underline project menu">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="activity">Activity</TabsTrigger>
           <TabsTrigger disabled value="settings">
-            설정
+            Settings
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="overview">프로젝트의 주요 정보를 확인합니다.</TabsContent>
-        <TabsContent value="activity">최근 변경 내역을 확인합니다.</TabsContent>
-        <TabsContent value="settings">프로젝트 설정을 관리합니다.</TabsContent>
+        <TabsContent value="overview">Review the project’s key information.</TabsContent>
+        <TabsContent value="activity">Review recent changes.</TabsContent>
+        <TabsContent value="settings">Manage project settings.</TabsContent>
       </Tabs>
     </div>
   );
 }
 
 const tabsExampleCode =
-  'import { Tabs, TabsContent, TabsList, TabsTrigger } from "@dumo/ui/tabs"\n\n<Tabs defaultValue="account" variant="segmented">\n  <TabsList>\n    <TabsTrigger value="account">계정</TabsTrigger>\n    <TabsTrigger value="security">보안</TabsTrigger>\n  </TabsList>\n  <TabsContent value="account">계정 설정</TabsContent>\n  <TabsContent value="security">보안 설정</TabsContent>\n</Tabs>';
+  'import { Tabs, TabsContent, TabsList, TabsTrigger } from "@dumo/ui/tabs"\n\n<Tabs defaultValue="account" variant="segmented">\n  <TabsList>\n    <TabsTrigger value="account">Account</TabsTrigger>\n    <TabsTrigger value="security">Security</TabsTrigger>\n  </TabsList>\n  <TabsContent value="account">Account settings</TabsContent>\n  <TabsContent value="security">Security settings</TabsContent>\n</Tabs>';
 
 export const TabsStory: Story = {
   name: "Tabs",
@@ -57,7 +57,7 @@ export const TabsStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Tabs</h1>
         <p {...stylex.props(storyStyles.description)}>
-          같은 맥락의 콘텐츠를 짧은 범주로 나누어 전환합니다.
+          Switch between related content organized into concise categories.
         </p>
       </header>
       <ComponentExample>
@@ -66,11 +66,11 @@ export const TabsStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

@@ -24,19 +24,19 @@ function RadioGroupExample() {
   return (
     <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
       <Field>
-        <FieldLabel>알림 빈도</FieldLabel>
+        <FieldLabel>Notification frequency</FieldLabel>
         <RadioGroup defaultValue="daily">
           <label htmlFor="frequency-daily" {...stylex.props(storyStyles.option)}>
             <RadioGroupItem id="frequency-daily" value="daily" />
-            매일
+            Daily
           </label>
           <label htmlFor="frequency-weekly" {...stylex.props(storyStyles.option)}>
             <RadioGroupItem id="frequency-weekly" value="weekly" />
-            매주
+            Weekly
           </label>
           <label htmlFor="frequency-never" {...stylex.props(storyStyles.option)}>
             <RadioGroupItem id="frequency-never" value="never" />
-            받지 않기
+            Never
           </label>
         </RadioGroup>
       </Field>
@@ -45,7 +45,7 @@ function RadioGroupExample() {
 }
 
 const radioGroupExampleCode =
-  'import { Field, FieldLabel } from "@dumo/ui/field"\nimport { RadioGroup, RadioGroupItem } from "@dumo/ui/radio-group"\n\n<Field>\n  <FieldLabel>알림 빈도</FieldLabel>\n  <RadioGroup defaultValue="daily">\n    <label><RadioGroupItem value="daily" />매일</label>\n    <label><RadioGroupItem value="weekly" />매주</label>\n    <label><RadioGroupItem value="never" />받지 않기</label>\n  </RadioGroup>\n</Field>';
+  'import { Field, FieldLabel } from "@dumo/ui/field"\nimport { RadioGroup, RadioGroupItem } from "@dumo/ui/radio-group"\n\n<Field>\n  <FieldLabel>Notification frequency</FieldLabel>\n  <RadioGroup defaultValue="daily">\n    <label><RadioGroupItem value="daily" />Daily</label>\n    <label><RadioGroupItem value="weekly" />Weekly</label>\n    <label><RadioGroupItem value="never" />Never</label>\n  </RadioGroup>\n</Field>';
 
 export const RadioGroupStory: Story = {
   name: "Radio Group",
@@ -54,7 +54,7 @@ export const RadioGroupStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Radio Group</h1>
         <p {...stylex.props(storyStyles.description)}>
-          여러 선택지 중 하나만 결정할 때 사용합니다.
+          Use it when exactly one option must be selected.
         </p>
       </header>
       <ComponentExample>
@@ -63,11 +63,11 @@ export const RadioGroupStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

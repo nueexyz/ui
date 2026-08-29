@@ -98,7 +98,7 @@ test("add installs renamed and new components", async () => {
     );
     await assert.rejects(
       () => add(projectDirectory, "alert", { skipDependencyInstall: true }),
-      /알 수 없는 컴포넌트입니다: alert/,
+      /Unknown component: alert/,
     );
   } finally {
     await rm(projectDirectory, { recursive: true });
@@ -156,7 +156,10 @@ test("new creates a StyleX component without overwriting an existing file", asyn
 
     const componentPath = join(projectDirectory, "src/components/ui/status-chip/StatusChip.tsx");
     assert.match(await readFile(componentPath, "utf8"), /export function StatusChip/);
-    await assert.rejects(() => newComponent(projectDirectory, "status-chip"), /덮어쓰지 않습니다/);
+    await assert.rejects(
+      () => newComponent(projectDirectory, "status-chip"),
+      /will not be overwritten/,
+    );
   } finally {
     await rm(projectDirectory, { recursive: true });
   }

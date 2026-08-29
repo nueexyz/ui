@@ -29,24 +29,24 @@ function BreadcrumbExample() {
     <>
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>기본</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Default</h2>
           <p {...stylex.props(storyStyles.description)}>
-            가장 가까운 상위 경로부터 현재 페이지까지 표시합니다.
+            Show the path from the nearest parent to the current page.
           </p>
         </header>
         <div {...stylex.props(storyStyles.preview)}>
-          <Breadcrumb aria-label="현재 위치">
+          <Breadcrumb aria-label="Current location">
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink href="#">프로젝트</BreadcrumbLink>
+                <BreadcrumbLink href="#">Projects</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbLink href="#">디자인 시스템</BreadcrumbLink>
+                <BreadcrumbLink href="#">Design system</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>컴포넌트</BreadcrumbPage>
+                <BreadcrumbPage>Components</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -54,16 +54,16 @@ function BreadcrumbExample() {
       </section>
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>경로 축약</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Collapsed path</h2>
           <p {...stylex.props(storyStyles.description)}>
-            경로가 길면 중간 단계를 줄여 현재 위치를 우선 보여줍니다.
+            When a path is long, collapse intermediate steps to prioritize the current location.
           </p>
         </header>
         <div {...stylex.props(storyStyles.preview)}>
-          <Breadcrumb aria-label="현재 위치">
+          <Breadcrumb aria-label="Current location">
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink href="#">문서</BreadcrumbLink>
+                <BreadcrumbLink href="#">Docs</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
@@ -71,7 +71,7 @@ function BreadcrumbExample() {
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>접근성</BreadcrumbPage>
+                <BreadcrumbPage>Accessibility</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -82,7 +82,7 @@ function BreadcrumbExample() {
 }
 
 const breadcrumbExampleCode =
-  'import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@dumo/ui/breadcrumb"\n\n<Breadcrumb aria-label="현재 위치">\n  <BreadcrumbList>\n    <BreadcrumbItem><BreadcrumbLink href="#">프로젝트</BreadcrumbLink></BreadcrumbItem>\n    <BreadcrumbSeparator />\n    <BreadcrumbItem><BreadcrumbLink href="#">디자인 시스템</BreadcrumbLink></BreadcrumbItem>\n    <BreadcrumbSeparator />\n    <BreadcrumbItem><BreadcrumbPage>컴포넌트</BreadcrumbPage></BreadcrumbItem>\n  </BreadcrumbList>\n</Breadcrumb>';
+  'import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@dumo/ui/breadcrumb"\n\n<Breadcrumb aria-label="Current location">\n  <BreadcrumbList>\n    <BreadcrumbItem><BreadcrumbLink href="#">Projects</BreadcrumbLink></BreadcrumbItem>\n    <BreadcrumbSeparator />\n    <BreadcrumbItem><BreadcrumbLink href="#">Design system</BreadcrumbLink></BreadcrumbItem>\n    <BreadcrumbSeparator />\n    <BreadcrumbItem><BreadcrumbPage>Components</BreadcrumbPage></BreadcrumbItem>\n  </BreadcrumbList>\n</Breadcrumb>';
 
 export const BreadcrumbStory: Story = {
   name: "Breadcrumb",
@@ -91,7 +91,7 @@ export const BreadcrumbStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Breadcrumb</h1>
         <p {...stylex.props(storyStyles.description)}>
-          현재 위치와 상위 경로를 한눈에 파악하고 이동할 수 있게 합니다.
+          Help people understand and navigate the current location and parent paths.
         </p>
       </header>
       <ComponentExample>
@@ -100,11 +100,11 @@ export const BreadcrumbStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

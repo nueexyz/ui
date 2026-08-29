@@ -263,7 +263,7 @@ function splitUsage(usage: string) {
 export function ComponentExample({ children }: { children: ReactNode }) {
   return (
     <section {...stylex.props(storyStyles.section)}>
-      <h2 {...stylex.props(storyStyles.sectionTitle)}>사용 예</h2>
+      <h2 {...stylex.props(storyStyles.sectionTitle)}>Usage</h2>
       <div {...stylex.props(storyStyles.exampleContent)}>{children}</div>
     </section>
   );
@@ -274,7 +274,7 @@ export function ComponentCode({ usage }: { usage: string }) {
 
   return (
     <section {...stylex.props(storyStyles.section)}>
-      <h2 {...stylex.props(storyStyles.sectionTitle)}>코드</h2>
+      <h2 {...stylex.props(storyStyles.sectionTitle)}>Code</h2>
       <div {...stylex.props(storyStyles.exampleContent)}>
         <CodeBlock code={imports} label="Import" language="tsx" />
         {component ? <CodeBlock code={component} label="Component" language="tsx" /> : null}
@@ -296,10 +296,10 @@ export function ComponentPropsTable({
       <table {...stylex.props(storyStyles.propsTable)}>
         <thead>
           <tr>
-            <th {...stylex.props(storyStyles.propsCell, storyStyles.propsHeader)}>이름</th>
-            <th {...stylex.props(storyStyles.propsCell, storyStyles.propsHeader)}>타입</th>
-            <th {...stylex.props(storyStyles.propsCell, storyStyles.propsHeader)}>기본값</th>
-            <th {...stylex.props(storyStyles.propsCell, storyStyles.propsHeader)}>설명</th>
+            <th {...stylex.props(storyStyles.propsCell, storyStyles.propsHeader)}>Name</th>
+            <th {...stylex.props(storyStyles.propsCell, storyStyles.propsHeader)}>Type</th>
+            <th {...stylex.props(storyStyles.propsCell, storyStyles.propsHeader)}>Default</th>
+            <th {...stylex.props(storyStyles.propsCell, storyStyles.propsHeader)}>Description</th>
           </tr>
         </thead>
         <tbody>
@@ -368,7 +368,7 @@ export function CodeBlock({
         <span {...stylex.props(styles.codeLabel)}>{label}</span>
         <div {...stylex.props(styles.codeActions)}>
           <Button
-            aria-label={isCopied ? "복사됨" : `${label} 복사`}
+            aria-label={isCopied ? "Copied" : `Copy ${label}`}
             size="sm"
             variant="ghost"
             xstyle={storyStyles.copyButton}
@@ -407,7 +407,7 @@ export function CodeBlock({
   return (
     <details {...stylex.props(styles.codeAccordion)}>
       <summary {...stylex.props(styles.codeSummary)}>
-        코드 보기
+        View code
         <Icon aria-hidden="true" name="chevronDown" weight="regular" />
       </summary>
       {content}

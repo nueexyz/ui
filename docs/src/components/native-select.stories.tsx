@@ -24,9 +24,9 @@ function NativeSelectExample() {
   return (
     <div {...stylex.props(storyStyles.preview)}>
       <Field>
-        <FieldLabel>언어</FieldLabel>
+        <FieldLabel>Language</FieldLabel>
         <NativeSelect defaultValue="ko">
-          <NativeSelectOption value="ko">한국어</NativeSelectOption>
+          <NativeSelectOption value="ko">Korean</NativeSelectOption>
           <NativeSelectOption value="en">English</NativeSelectOption>
           <NativeSelectOption value="ja">日本語</NativeSelectOption>
         </NativeSelect>
@@ -36,7 +36,7 @@ function NativeSelectExample() {
 }
 
 const nativeSelectExampleCode =
-  'import { Field, FieldLabel } from "@dumo/ui/field"\nimport { NativeSelect, NativeSelectOption } from "@dumo/ui/native-select"\n\n<Field>\n  <FieldLabel>언어</FieldLabel>\n  <NativeSelect defaultValue="ko">\n    <NativeSelectOption value="ko">한국어</NativeSelectOption>\n    <NativeSelectOption value="en">English</NativeSelectOption>\n    <NativeSelectOption value="ja">日本語</NativeSelectOption>\n  </NativeSelect>\n</Field>';
+  'import { Field, FieldLabel } from "@dumo/ui/field"\nimport { NativeSelect, NativeSelectOption } from "@dumo/ui/native-select"\n\n<Field>\n  <FieldLabel>Language</FieldLabel>\n  <NativeSelect defaultValue="ko">\n    <NativeSelectOption value="ko">Korean</NativeSelectOption>\n    <NativeSelectOption value="en">English</NativeSelectOption>\n    <NativeSelectOption value="ja">Japanese</NativeSelectOption>\n  </NativeSelect>\n</Field>';
 
 export const NativeSelectStory: Story = {
   name: "Native Select",
@@ -45,7 +45,7 @@ export const NativeSelectStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Native Select</h1>
         <p {...stylex.props(storyStyles.description)}>
-          운영체제의 익숙한 선택 화면을 그대로 사용할 때 적합합니다.
+          Use it when the operating system’s familiar selection interface is appropriate.
         </p>
       </header>
       <ComponentExample>
@@ -54,11 +54,11 @@ export const NativeSelectStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

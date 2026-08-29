@@ -20,18 +20,18 @@ function TextareaExample() {
   return (
     <section {...stylex.props(storyStyles.section)}>
       <header {...stylex.props(storyStyles.sectionHeader)}>
-        <h2 {...stylex.props(storyStyles.sectionTitle)}>기본</h2>
+        <h2 {...stylex.props(storyStyles.sectionTitle)}>Default</h2>
         <p {...stylex.props(storyStyles.description)}>
-          플레이스홀더는 입력 형식을 보여주는 짧은 예시로 사용합니다.
+          Use placeholders as short examples of the expected input.
         </p>
       </header>
       <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
         <div {...stylex.props(storyStyles.stack, storyStyles.formWidth)}>
-          <Textarea aria-label="메모" placeholder="회의에서 결정한 내용을 적어 주세요." />
+          <Textarea aria-label="Note" placeholder="Write down the decisions from the meeting." />
           <Textarea
-            aria-label="수정할 수 없는 메모"
+            aria-label="Read-only note"
             disabled
-            defaultValue="검토가 끝난 메모입니다."
+            defaultValue="This note has been reviewed."
           />
         </div>
       </div>
@@ -40,7 +40,7 @@ function TextareaExample() {
 }
 
 const textareaExampleCode =
-  'import { Textarea } from "@dumo/ui/textarea"\n\n<>\n  <Textarea aria-label="메모" placeholder="회의에서 결정한 내용을 적어 주세요." />\n  <Textarea aria-label="수정할 수 없는 메모" disabled defaultValue="검토가 끝난 메모입니다." />\n</>';
+  'import { Textarea } from "@dumo/ui/textarea"\n\n<>\n  <Textarea aria-label="Note" placeholder="Write down the decisions from the meeting." />\n  <Textarea aria-label="Read-only note" disabled defaultValue="This note has been reviewed." />\n</>';
 
 export const TextareaStory: Story = {
   name: "Textarea",
@@ -49,7 +49,7 @@ export const TextareaStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Textarea</h1>
         <p {...stylex.props(storyStyles.description)}>
-          여러 줄로 작성하는 내용과 입력 상태를 비교합니다.
+          Compare multi-line content and input states.
         </p>
       </header>
       <ComponentExample>
@@ -58,11 +58,11 @@ export const TextareaStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

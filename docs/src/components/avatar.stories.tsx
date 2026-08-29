@@ -21,19 +21,21 @@ function AvatarExample() {
   return (
     <section {...stylex.props(storyStyles.section)}>
       <header {...stylex.props(storyStyles.sectionHeader)}>
-        <h2 {...stylex.props(storyStyles.sectionTitle)}>그룹</h2>
-        <p {...stylex.props(storyStyles.description)}>함께 참여한 사람을 한 묶음으로 보여줍니다.</p>
+        <h2 {...stylex.props(storyStyles.sectionTitle)}>Group</h2>
+        <p {...stylex.props(storyStyles.description)}>
+          Show people who participated together as a group.
+        </p>
       </header>
       <div {...stylex.props(storyStyles.preview)}>
         <AvatarGroup>
           <Avatar>
-            <AvatarFallback>김</AvatarFallback>
+            <AvatarFallback>JL</AvatarFallback>
           </Avatar>
           <Avatar>
-            <AvatarFallback>이</AvatarFallback>
+            <AvatarFallback>SK</AvatarFallback>
           </Avatar>
           <Avatar>
-            <AvatarFallback>박</AvatarFallback>
+            <AvatarFallback>MH</AvatarFallback>
           </Avatar>
           <AvatarGroupCount>+4</AvatarGroupCount>
         </AvatarGroup>
@@ -52,7 +54,7 @@ export const AvatarStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Avatar</h1>
         <p {...stylex.props(storyStyles.description)}>
-          사람이나 팀을 이미지 또는 짧은 대체 문자로 나타냅니다.
+          Represent a person or team with an image or brief fallback text.
         </p>
       </header>
       <ComponentExample>
@@ -61,11 +63,11 @@ export const AvatarStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>
@@ -74,7 +76,7 @@ export const AvatarStory: Story = {
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Sizes</h2>
           <p {...stylex.props(storyStyles.description)}>
-            주변 콘텐츠의 밀도와 중요도에 맞는 크기를 선택합니다.
+            Choose a size that matches the surrounding content and importance.
           </p>
         </header>
         <div {...stylex.props(storyStyles.preview)}>
@@ -82,7 +84,7 @@ export const AvatarStory: Story = {
             <AvatarFallback>MJ</AvatarFallback>
           </Avatar>
           <Avatar>
-            <AvatarFallback>민영</AvatarFallback>
+            <AvatarFallback>MY</AvatarFallback>
           </Avatar>
           <Avatar size="lg">
             <AvatarFallback>DS</AvatarFallback>

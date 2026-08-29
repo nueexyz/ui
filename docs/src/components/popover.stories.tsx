@@ -28,38 +28,38 @@ function PopoverExample() {
   return (
     <section {...stylex.props(storyStyles.section)}>
       <header {...stylex.props(storyStyles.sectionHeader)}>
-        <h2 {...stylex.props(storyStyles.sectionTitle)}>정렬</h2>
+        <h2 {...stylex.props(storyStyles.sectionTitle)}>Alignment</h2>
         <p {...stylex.props(storyStyles.description)}>
-          기본값은 트리거의 왼쪽 모서리에 맞추며 필요에 따라 가운데나 오른쪽으로 정렬합니다.
+          Align to the trigger’s left edge by default, or center and right as needed.
         </p>
       </header>
       <div {...stylex.props(storyStyles.preview)}>
         <Popover>
-          <PopoverTrigger render={<Button variant="secondary">왼쪽 정렬</Button>} />
+          <PopoverTrigger render={<Button variant="secondary">Align left</Button>} />
           <PopoverContent>
             <PopoverHeader>
-              <PopoverTitle>왼쪽 정렬</PopoverTitle>
-              <PopoverDescription>Popover의 시작점을 트리거에 맞춥니다.</PopoverDescription>
+              <PopoverTitle>Align left</PopoverTitle>
+              <PopoverDescription>Align the popover start with the trigger.</PopoverDescription>
             </PopoverHeader>
           </PopoverContent>
         </Popover>
 
         <Popover>
-          <PopoverTrigger render={<Button variant="secondary">가운데 정렬</Button>} />
+          <PopoverTrigger render={<Button variant="secondary">Align center</Button>} />
           <PopoverContent align="center">
             <PopoverHeader>
-              <PopoverTitle>가운데 정렬</PopoverTitle>
-              <PopoverDescription>Popover의 가운데를 트리거에 맞춥니다.</PopoverDescription>
+              <PopoverTitle>Align center</PopoverTitle>
+              <PopoverDescription>Align the popover center with the trigger.</PopoverDescription>
             </PopoverHeader>
           </PopoverContent>
         </Popover>
 
         <Popover>
-          <PopoverTrigger render={<Button variant="secondary">오른쪽 정렬</Button>} />
+          <PopoverTrigger render={<Button variant="secondary">Align right</Button>} />
           <PopoverContent align="end">
             <PopoverHeader>
-              <PopoverTitle>오른쪽 정렬</PopoverTitle>
-              <PopoverDescription>Popover의 끝점을 트리거에 맞춥니다.</PopoverDescription>
+              <PopoverTitle>Align right</PopoverTitle>
+              <PopoverDescription>Align the popover end with the trigger.</PopoverDescription>
             </PopoverHeader>
           </PopoverContent>
         </Popover>
@@ -69,7 +69,7 @@ function PopoverExample() {
 }
 
 const popoverExampleCode =
-  'import { Button } from "@dumo/ui/button"\nimport { Popover, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger } from "@dumo/ui/popover"\n\n<Popover>\n  <PopoverTrigger render={<Button variant="secondary">왼쪽 정렬</Button>} />\n  <PopoverContent>\n    <PopoverHeader>\n      <PopoverTitle>왼쪽 정렬</PopoverTitle>\n      <PopoverDescription>Popover의 시작점을 트리거에 맞춥니다.</PopoverDescription>\n    </PopoverHeader>\n  </PopoverContent>\n</Popover>';
+  'import { Button } from "@dumo/ui/button"\nimport { Popover, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger } from "@dumo/ui/popover"\n\n<Popover>\n  <PopoverTrigger render={<Button variant="secondary">Align left</Button>} />\n  <PopoverContent>\n    <PopoverHeader>\n      <PopoverTitle>Align left</PopoverTitle>\n      <PopoverDescription>Align the popover start with the trigger.</PopoverDescription>\n    </PopoverHeader>\n  </PopoverContent>\n</Popover>';
 
 export const PopoverStory: Story = {
   name: "Popover",
@@ -78,7 +78,7 @@ export const PopoverStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Popover</h1>
         <p {...stylex.props(storyStyles.description)}>
-          현재 화면을 벗어나지 않고 보조 정보나 간단한 조작을 제공합니다.
+          Provide supporting information or simple controls without leaving the current screen.
         </p>
       </header>
       <ComponentExample>
@@ -87,11 +87,11 @@ export const PopoverStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

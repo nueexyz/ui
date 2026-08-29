@@ -22,18 +22,18 @@ function TooltipExample() {
   return (
     <section {...stylex.props(storyStyles.section)}>
       <header {...stylex.props(storyStyles.sectionHeader)}>
-        <h2 {...stylex.props(storyStyles.sectionTitle)}>정렬</h2>
+        <h2 {...stylex.props(storyStyles.sectionTitle)}>Alignment</h2>
         <p {...stylex.props(storyStyles.description)}>
-          트리거의 시작, 가운데, 끝을 기준으로 설명 위치를 맞춥니다.
+          Align descriptions to the trigger’s start, center, or end.
         </p>
       </header>
       <div {...stylex.props(storyStyles.preview)}>
         <TooltipProvider delay={100}>
           {(
             [
-              ["start", "왼쪽 정렬"],
-              ["center", "가운데 정렬"],
-              ["end", "오른쪽 정렬"],
+              ["start", "Align left"],
+              ["center", "Align center"],
+              ["end", "Align right"],
             ] as const
           ).map(([align, label]) => (
             <Tooltip key={align}>
@@ -45,7 +45,7 @@ function TooltipExample() {
                   </Button>
                 }
               />
-              <TooltipContent align={align}>프로젝트 공개 범위를 변경합니다.</TooltipContent>
+              <TooltipContent align={align}>Change project visibility.</TooltipContent>
             </Tooltip>
           ))}
         </TooltipProvider>
@@ -55,7 +55,7 @@ function TooltipExample() {
 }
 
 const tooltipExampleCode =
-  'import { Tooltip, TooltipContent, TooltipTrigger } from "@dumo/ui/tooltip"\n\n<Tooltip>\n  <TooltipTrigger aria-label="도움말">?</TooltipTrigger>\n  <TooltipContent>추가 정보를 확인합니다.</TooltipContent>\n</Tooltip>';
+  'import { Tooltip, TooltipContent, TooltipTrigger } from "@dumo/ui/tooltip"\n\n<Tooltip>\n  <TooltipTrigger aria-label="Help">?</TooltipTrigger>\n  <TooltipContent>View additional information.</TooltipContent>\n</Tooltip>';
 
 export const TooltipStory: Story = {
   name: "Tooltip",
@@ -64,7 +64,7 @@ export const TooltipStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Tooltip</h1>
         <p {...stylex.props(storyStyles.description)}>
-          아이콘이나 짧은 컨트롤의 의미를 한 문장으로 설명합니다.
+          Explain an icon or short control in one sentence.
         </p>
       </header>
       <ComponentExample>
@@ -73,11 +73,11 @@ export const TooltipStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

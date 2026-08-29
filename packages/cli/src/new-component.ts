@@ -13,7 +13,7 @@ function toPascalCase(name: string) {
 
 export async function newComponent(projectDirectory: string, name: string | undefined) {
   if (!name || !/^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/.test(name)) {
-    throw new Error("컴포넌트 이름은 kebab-case로 입력해 주세요. 예: status-chip");
+    throw new Error("Enter a component name in kebab-case. For example: status-chip.");
   }
 
   const config = await readConfig(projectDirectory);
@@ -30,9 +30,9 @@ export async function newComponent(projectDirectory: string, name: string | unde
   for (const file of files) {
     try {
       await access(file);
-      throw new Error(`${file}이 이미 있습니다. 기존 컴포넌트를 덮어쓰지 않습니다.`);
+      throw new Error(`${file} already exists. Existing components will not be overwritten.`);
     } catch (error) {
-      if (!(error instanceof Error) || !error.message.includes("이미 있습니다")) continue;
+      if (!(error instanceof Error) || !error.message.includes("already exists")) continue;
       throw error;
     }
   }
@@ -56,5 +56,5 @@ export async function newComponent(projectDirectory: string, name: string | unde
     ),
   ]);
 
-  console.log(`${name} 컴포넌트 뼈대를 만들었습니다: ${componentDirectory}`);
+  console.log(`Created a ${name} component scaffold: ${componentDirectory}`);
 }

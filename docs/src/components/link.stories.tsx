@@ -20,18 +20,18 @@ function LinkExample() {
   return (
     <section {...stylex.props(storyStyles.section)}>
       <header {...stylex.props(storyStyles.sectionHeader)}>
-        <h2 {...stylex.props(storyStyles.sectionTitle)}>외부 이동</h2>
+        <h2 {...stylex.props(storyStyles.sectionTitle)}>External navigation</h2>
         <p {...stylex.props(storyStyles.description)}>
-          다른 사이트로 이동하면 아이콘으로 목적지를 구분합니다.
+          Use an icon to distinguish destinations outside the current site.
         </p>
       </header>
       <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
         <p>
-          자세한 내용은{" "}
+          Learn more in the{" "}
           <Link href="https://example.com" rel="noreferrer" target="_blank">
-            외부 문서 <Link.ExternalIcon />
+            external documentation <Link.ExternalIcon />
           </Link>
-          에서 확인할 수 있습니다.
+          .
         </p>
       </div>
     </section>
@@ -47,7 +47,7 @@ export const LinkStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Link</h1>
         <p {...stylex.props(storyStyles.description)}>
-          현재 화면 안이나 외부 위치로 이동할 수 있는 텍스트 행동입니다.
+          A text action that navigates within the current screen or to an external location.
         </p>
       </header>
       <ComponentExample>
@@ -56,11 +56,11 @@ export const LinkStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>
@@ -69,19 +69,19 @@ export const LinkStory: Story = {
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Variants</h2>
           <p {...stylex.props(storyStyles.description)}>
-            주변 콘텐츠와 링크의 강조 수준에 맞게 선택합니다.
+            Choose a treatment that matches the surrounding content and link emphasis.
           </p>
         </header>
         <div {...stylex.props(storyStyles.preview)}>
-          <Link href="#">기본 링크</Link>
+          <Link href="#">Default link</Link>
           <span>
-            현재 색상을 따르는{" "}
+            Inherit the current color{" "}
             <Link href="#" variant="current">
-              링크
+              link
             </Link>
           </span>
           <Link href="#" variant="plain">
-            밑줄 없는 링크
+            Link without underline
           </Link>
         </div>
       </section>

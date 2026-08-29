@@ -11,7 +11,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { CodeBlock, storyStyles } from "./components/story-layout/StoryLayout";
 
 const meta = {
-  title: "시작하기",
+  title: "Getting Started",
   parameters: { layout: "fullscreen" },
 } satisfies Meta;
 
@@ -74,52 +74,52 @@ const styles = stylex.create({
 });
 
 export const GettingStarted: Story = {
-  name: "시작하기",
+  name: "Getting Started",
   render: () => (
     <main {...stylex.props(storyStyles.page)}>
       <header {...stylex.props(storyStyles.header)}>
-        <h1 {...stylex.props(storyStyles.title)}>시작하기</h1>
+        <h1 {...stylex.props(storyStyles.title)}>Getting Started</h1>
         <p {...stylex.props(storyStyles.description)}>
-          프로젝트에 필요한 컴포넌트를 파일로 추가해 사용합니다.
+          Add the components your project needs as local files.
         </p>
       </header>
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>1. 초기화</h2>
-          <p {...stylex.props(storyStyles.description)}>프로젝트 루트에서 한 번만 실행합니다.</p>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>1. Initialize</h2>
+          <p {...stylex.props(storyStyles.description)}>Run this once from the project root.</p>
         </header>
-        <CodeBlock code="pnpm dlx @dumo/ui init" label="터미널" language="bash" />
+        <CodeBlock code="pnpm dlx @dumo/ui init" label="Terminal" language="bash" />
       </section>
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>2. import 별칭</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>2. Import alias</h2>
           <p {...stylex.props(storyStyles.description)}>
-            init에서 입력한 UI import 별칭은 프로젝트 루트의 dumo.json에 저장됩니다.
+            The UI import alias entered during init is saved to dumo.json in the project root.
           </p>
         </header>
         <CodeBlock code={config} label="dumo.json" language="json" />
         <dl {...stylex.props(styles.configDetail)}>
           <dt {...stylex.props(styles.configField)}>aliases.ui</dt>
           <dd {...stylex.props(styles.configDescription)}>
-            추가된 UI 컴포넌트를 import할 때 사용하는 별칭입니다.
+            The alias used to import added UI components.
           </dd>
         </dl>
         <p {...stylex.props(styles.note)}>
-          실제 파일 위치는 tsconfig.json 또는 jsconfig.json의 paths에서 정합니다.
+          Define the actual file location in paths within tsconfig.json or jsconfig.json.
         </p>
       </section>
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>3. 파일 위치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>3. File location</h2>
           <p {...stylex.props(storyStyles.description)}>
-            add 명령은 import 별칭과 paths를 함께 읽어 컴포넌트를 저장할 폴더를 찾습니다.
+            The add command reads the import alias and paths to find where to save components.
           </p>
         </header>
         <CodeBlock code={tsconfig} label="tsconfig.json" language="json" />
         <p {...stylex.props(styles.path)}>@/components/ui → src/components/ui</p>
         <p {...stylex.props(styles.note)}>
-          별칭을 바꾸면 dumo.json과 tsconfig 또는 jsconfig의 paths를 함께 수정하세요. 이미 추가한
-          파일은 자동으로 옮겨지지 않습니다.
+          When changing the alias, also update paths in dumo.json and tsconfig.json or
+          jsconfig.json. Existing files are not moved automatically.
         </p>
       </section>
     </main>

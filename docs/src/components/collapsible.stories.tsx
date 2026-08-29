@@ -61,21 +61,21 @@ function CollapsibleExample() {
     <div {...stylex.props(storyStyles.preview, storyStyles.componentWidth)}>
       <Collapsible>
         <div {...stylex.props(styles.header)}>
-          <h3 {...stylex.props(styles.title)}>주문 #4189</h3>
-          <CollapsibleTrigger aria-label="주문 상세 정보 열기" />
+          <h3 {...stylex.props(styles.title)}>Order #4189</h3>
+          <CollapsibleTrigger aria-label="Show order details" />
         </div>
         <div {...stylex.props(styles.detail)}>
-          <span {...stylex.props(styles.detailLabel)}>상태</span>
-          <span {...stylex.props(styles.detailValue)}>배송 완료</span>
+          <span {...stylex.props(styles.detailLabel)}>Status</span>
+          <span {...stylex.props(styles.detailValue)}>Delivered</span>
         </div>
         <CollapsibleContent>
           <div {...stylex.props(styles.detailGroup, styles.detail)}>
-            <span {...stylex.props(styles.detailValue)}>배송지</span>
-            <span {...stylex.props(styles.detailLabel)}>서울시 성동구 성수이로 18</span>
+            <span {...stylex.props(styles.detailValue)}>Shipping address</span>
+            <span {...stylex.props(styles.detailLabel)}>18 Seongsui-ro, Seongdong-gu, Seoul</span>
           </div>
           <div {...stylex.props(styles.detailGroup, styles.detail)}>
-            <span {...stylex.props(styles.detailValue)}>상품</span>
-            <span {...stylex.props(styles.detailLabel)}>스튜디오 헤드폰 2개</span>
+            <span {...stylex.props(styles.detailValue)}>Items</span>
+            <span {...stylex.props(styles.detailLabel)}>2 studio headphones</span>
           </div>
         </CollapsibleContent>
       </Collapsible>
@@ -84,7 +84,7 @@ function CollapsibleExample() {
 }
 
 const collapsibleExampleCode =
-  'import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@dumo/ui/collapsible"\n\n<Collapsible>\n  <div>\n    <strong>주문 #4189</strong>\n    <CollapsibleTrigger aria-label="주문 상세 정보 열기" />\n  </div>\n  <p>상태: 배송 완료</p>\n  <CollapsibleContent>\n    <p>배송지: 서울시 성동구 성수이로 18</p>\n    <p>상품: 스튜디오 헤드폰 2개</p>\n  </CollapsibleContent>\n</Collapsible>';
+  'import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@dumo/ui/collapsible"\n\n<Collapsible>\n  <div>\n    <strong>Order #4189</strong>\n    <CollapsibleTrigger aria-label="Show order details" />\n  </div>\n  <p>Status: Delivered</p>\n  <CollapsibleContent>\n    <p>Shipping address: 18 Seongsui-ro, Seongdong-gu, Seoul</p>\n    <p>Items: 2 studio headphones</p>\n  </CollapsibleContent>\n</Collapsible>';
 
 export const CollapsibleStory: Story = {
   name: "Collapsible",
@@ -93,7 +93,7 @@ export const CollapsibleStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Collapsible</h1>
         <p {...stylex.props(storyStyles.description)}>
-          보조 정보를 한 영역 안에서 간단히 접고 펼칩니다.
+          Expand and collapse supporting information within one area.
         </p>
       </header>
       <ComponentExample>
@@ -102,11 +102,11 @@ export const CollapsibleStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

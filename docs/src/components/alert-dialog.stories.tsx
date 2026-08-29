@@ -31,17 +31,17 @@ function AlertDialogExample() {
   return (
     <div {...stylex.props(storyStyles.preview)}>
       <AlertDialog>
-        <AlertDialogTrigger render={<Button variant="secondary">프로젝트 삭제하기</Button>} />
+        <AlertDialogTrigger render={<Button variant="secondary">Delete project</Button>} />
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>프로젝트를 삭제할까요?</AlertDialogTitle>
+            <AlertDialogTitle>Delete this project?</AlertDialogTitle>
             <AlertDialogDescription>
-              프로젝트와 관련 파일이 모두 삭제되며, 이 작업은 되돌릴 수 없습니다.
+              The project and its related files will be deleted. This cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>취소</AlertDialogCancel>
-            <AlertDialogAction>삭제하기</AlertDialogAction>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction>Delete</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -50,7 +50,7 @@ function AlertDialogExample() {
 }
 
 const alertDialogExampleCode =
-  'import {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from "@dumo/ui/alert-dialog"\n\n<AlertDialog>\n  <AlertDialogTrigger>프로젝트 삭제</AlertDialogTrigger>\n  <AlertDialogContent>\n    <AlertDialogHeader>\n      <AlertDialogTitle>프로젝트를 삭제할까요?</AlertDialogTitle>\n      <AlertDialogDescription>삭제한 프로젝트는 복구할 수 없습니다.</AlertDialogDescription>\n    </AlertDialogHeader>\n    <AlertDialogFooter>\n      <AlertDialogCancel>취소</AlertDialogCancel>\n      <AlertDialogAction>삭제</AlertDialogAction>\n    </AlertDialogFooter>\n  </AlertDialogContent>\n</AlertDialog>';
+  'import {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from "@dumo/ui/alert-dialog"\n\n<AlertDialog>\n  <AlertDialogTrigger>Delete project</AlertDialogTrigger>\n  <AlertDialogContent>\n    <AlertDialogHeader>\n      <AlertDialogTitle>Delete this project?</AlertDialogTitle>\n      <AlertDialogDescription>A deleted project cannot be restored.</AlertDialogDescription>\n    </AlertDialogHeader>\n    <AlertDialogFooter>\n      <AlertDialogCancel>Cancel</AlertDialogCancel>\n      <AlertDialogAction>Delete</AlertDialogAction>\n    </AlertDialogFooter>\n  </AlertDialogContent>\n</AlertDialog>';
 
 export const AlertDialogStory: Story = {
   name: "Alert Dialog",
@@ -59,7 +59,7 @@ export const AlertDialogStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Alert Dialog</h1>
         <p {...stylex.props(storyStyles.description)}>
-          되돌리기 어렵거나 중요한 작업을 실행하기 전에 명시적인 응답을 받습니다.
+          Ask for explicit confirmation before an important or irreversible action.
         </p>
       </header>
       <ComponentExample>
@@ -68,11 +68,11 @@ export const AlertDialogStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>

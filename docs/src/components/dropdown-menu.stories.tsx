@@ -34,21 +34,21 @@ function DropdownMenuExample() {
   return (
     <div {...stylex.props(storyStyles.preview)}>
       <DropdownMenu>
-        <DropdownMenuTrigger render={<Button variant="secondary">프로젝트 작업</Button>} />
+        <DropdownMenuTrigger render={<Button variant="secondary">Project actions</Button>} />
         <DropdownMenuContent>
           <DropdownMenuGroup>
-            <DropdownMenuLabel>웹사이트 개편</DropdownMenuLabel>
+            <DropdownMenuLabel>Website redesign</DropdownMenuLabel>
             <DropdownMenuItem>
-              이름 바꾸기<DropdownMenuShortcut>⌘R</DropdownMenuShortcut>
+              Rename<DropdownMenuShortcut>⌘R</DropdownMenuShortcut>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              복제하기<DropdownMenuShortcut>⌘D</DropdownMenuShortcut>
+              Duplicate<DropdownMenuShortcut>⌘D</DropdownMenuShortcut>
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuCheckboxItem defaultChecked>즐겨찾기에 표시</DropdownMenuCheckboxItem>
+          <DropdownMenuCheckboxItem defaultChecked>Show in favorites</DropdownMenuCheckboxItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem destructive>프로젝트 삭제하기</DropdownMenuItem>
+          <DropdownMenuItem destructive>Delete project</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
@@ -56,7 +56,7 @@ function DropdownMenuExample() {
 }
 
 const dropdownMenuExampleCode =
-  'import { Button } from "@dumo/ui/button"\nimport { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "@dumo/ui/dropdown-menu"\n\n<DropdownMenu>\n  <DropdownMenuTrigger render={<Button variant="secondary">프로젝트 작업</Button>} />\n  <DropdownMenuContent>\n    <DropdownMenuGroup>\n      <DropdownMenuLabel>웹사이트 개편</DropdownMenuLabel>\n      <DropdownMenuItem>이름 바꾸기<DropdownMenuShortcut>⌘R</DropdownMenuShortcut></DropdownMenuItem>\n      <DropdownMenuItem>복제하기<DropdownMenuShortcut>⌘D</DropdownMenuShortcut></DropdownMenuItem>\n    </DropdownMenuGroup>\n    <DropdownMenuSeparator />\n    <DropdownMenuCheckboxItem defaultChecked>즐겨찾기에 표시</DropdownMenuCheckboxItem>\n    <DropdownMenuSeparator />\n    <DropdownMenuItem destructive>프로젝트 삭제하기</DropdownMenuItem>\n  </DropdownMenuContent>\n</DropdownMenu>';
+  'import { Button } from "@dumo/ui/button"\nimport { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "@dumo/ui/dropdown-menu"\n\n<DropdownMenu>\n  <DropdownMenuTrigger render={<Button variant="secondary">Project actions</Button>} />\n  <DropdownMenuContent>\n    <DropdownMenuGroup>\n      <DropdownMenuLabel>Website redesign</DropdownMenuLabel>\n      <DropdownMenuItem>Rename<DropdownMenuShortcut>⌘R</DropdownMenuShortcut></DropdownMenuItem>\n      <DropdownMenuItem>Duplicate<DropdownMenuShortcut>⌘D</DropdownMenuShortcut></DropdownMenuItem>\n    </DropdownMenuGroup>\n    <DropdownMenuSeparator />\n    <DropdownMenuCheckboxItem defaultChecked>Show in favorites</DropdownMenuCheckboxItem>\n    <DropdownMenuSeparator />\n    <DropdownMenuItem destructive>Delete project</DropdownMenuItem>\n  </DropdownMenuContent>\n</DropdownMenu>';
 
 export const DropdownMenuStory: Story = {
   name: "Dropdown Menu",
@@ -65,7 +65,7 @@ export const DropdownMenuStory: Story = {
       <header {...stylex.props(storyStyles.header)}>
         <h1 {...stylex.props(storyStyles.title)}>Dropdown Menu</h1>
         <p {...stylex.props(storyStyles.description)}>
-          현재 대상에 적용할 수 있는 행동과 설정을 버튼에서 엽니다.
+          Open actions and settings for the current target from a button.
         </p>
       </header>
       <ComponentExample>
@@ -74,11 +74,11 @@ export const DropdownMenuStory: Story = {
 
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>설치</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
           code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
-          label="터미널"
+          label="Terminal"
           language="bash"
         />
       </section>
