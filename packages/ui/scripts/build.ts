@@ -1,4 +1,4 @@
-import { access, cp, readdir, rm } from "node:fs/promises";
+import { access, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
 import { build } from "esbuild";
@@ -56,4 +56,5 @@ await build({
   target: "es2022",
 });
 
-await cp(join(sourceDirectory, "global.css"), join(outputDirectory, "global.css"));
+const globalCss = await readFile(join(sourceDirectory, "global.css"), "utf8");
+await writeFile(join(outputDirectory, "global.css"), `@import "./stylex.css";\n\n${globalCss}`);
