@@ -12,7 +12,7 @@ export const styles = stylex.create({
     alignItems: "center",
     backgroundColor: colorVars.bgSurface,
     borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.sm,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     display: "flex",
@@ -42,7 +42,7 @@ export const styles = stylex.create({
       outlineWidth: sizeVars.focusRing,
     },
   },
-  triggerOpen: { backgroundColor: colorVars.interactionSelected },
+  triggerOpen: { backgroundColor: colorVars.bgSurfacePressed },
   triggerDisabled: {
     backgroundColor: "transparent",
     color: colorVars.fgDisabled,

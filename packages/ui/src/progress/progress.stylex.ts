@@ -2,7 +2,7 @@ import { colorVars, motionVars, radiusVars } from "@cachette/tokens/tokens.style
 import * as stylex from "@stylexjs/stylex";
 export const styles = stylex.create({
   root: {
-    backgroundColor: colorVars.interactionSelected,
+    backgroundColor: colorVars.strokeDefault,
     borderRadius: radiusVars.full,
     height: "0.5rem",
     overflow: "hidden",

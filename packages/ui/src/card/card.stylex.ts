@@ -11,7 +11,7 @@ export const styles = stylex.create({
   card: {
     backgroundColor: colorVars.bgSurface,
     borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.lg,
+    borderRadius: radiusVars.sm,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     color: colorVars.fgPrimary,

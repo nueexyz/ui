@@ -11,7 +11,7 @@ export const styles = stylex.create({
   root: {
     alignItems: "center",
     borderColor: "transparent",
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.sm,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     color: colorVars.fgPrimary,
@@ -35,14 +35,14 @@ export const styles = stylex.create({
   },
   mediaicon: {
     backgroundColor: colorVars.bgSubtle,
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.sm,
     color: colorVars.fgSecondary,
     height: sizeVars.controlMd,
     width: sizeVars.controlMd,
   },
   mediaavatar: { borderRadius: radiusVars.full },
   mediaimage: {
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.sm,
     height: sizeVars.touchTarget,
     width: sizeVars.touchTarget,
   },

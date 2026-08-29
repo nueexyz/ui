@@ -14,7 +14,7 @@ export const styles = stylex.create({
     alignItems: "center",
     backgroundColor: colorVars.bgSurface,
     borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.sm,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     display: "flex",
@@ -71,7 +71,7 @@ export const styles = stylex.create({
   popup: {
     backgroundColor: colorVars.bgRaised,
     borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.sm,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     boxShadow: shadowVars.floating,
@@ -129,6 +129,7 @@ export const styles = stylex.create({
     fontSize: typographyVars.fontSizeSm,
     padding: spacingVars.space4,
     textAlign: "center",
+    ":empty": { padding: 0 },
   },
   label: {
     color: colorVars.fgSecondary,

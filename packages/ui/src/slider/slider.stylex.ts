@@ -11,7 +11,7 @@ export const styles = stylex.create({
     width: "100%",
   },
   track: {
-    backgroundColor: colorVars.interactionSelected,
+    backgroundColor: colorVars.bgActionPrimary,
     borderRadius: radiusVars.full,
     height: "0.375rem",
     overflow: "hidden",

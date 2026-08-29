@@ -21,7 +21,7 @@ export const styles = stylex.create({
   segmentedList: {
     backgroundColor: colorVars.bgSubtle,
     borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.sm,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     minHeight: sizeVars.controlMd,

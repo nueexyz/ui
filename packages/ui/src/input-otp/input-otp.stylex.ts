@@ -30,14 +30,14 @@ export const styles = stylex.create({
     transitionProperty: "background-color, border-color, box-shadow, opacity",
     width: sizeVars.controlLg,
     ":first-child": {
-      borderBottomLeftRadius: radiusVars.md,
-      borderTopLeftRadius: radiusVars.md,
+      borderBottomLeftRadius: radiusVars.sm,
+      borderTopLeftRadius: radiusVars.sm,
       marginInlineStart: 0,
     },
-    ":last-child": { borderBottomRightRadius: radiusVars.md, borderTopRightRadius: radiusVars.md },
+    ":last-child": { borderBottomRightRadius: radiusVars.sm, borderTopRightRadius: radiusVars.sm },
     ":hover:not(:disabled)": { borderColor: colorVars.strokeStrong },
     ":focus-visible": {
-      outlineColor: colorVars.interactionSelected,
+      outlineColor: colorVars.strokeFocus,
       outlineOffset: sizeVars.stroke,
       outlineStyle: "solid",
       outlineWidth: sizeVars.focusRing,

@@ -28,7 +28,7 @@ export const styles = stylex.create({
   root: {
     backgroundColor: colorVars.bgRaised,
     borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.lg,
+    borderRadius: radiusVars.sm,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     bottom: 0,
@@ -232,7 +232,7 @@ export const styles = stylex.create({
     backgroundColor: colorVars.bgSubtle,
     borderColor: colorVars.strokeDefault,
     borderStyle: "solid",
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.sm,
     borderWidth: sizeVars.stroke,
     color: colorVars.fgSecondary,
     cursor: "pointer",

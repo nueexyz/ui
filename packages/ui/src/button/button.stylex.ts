@@ -115,12 +115,12 @@ export const styles = stylex.create({
     paddingInline: spacingVars.space3,
   },
   md: {
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.sm,
     height: sizeVars.controlMd,
     paddingInline: spacingVars.space4,
   },
   lg: {
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.sm,
     height: sizeVars.controlLg,
     paddingInline: spacingVars.space5,
   },

@@ -27,7 +27,7 @@ export const styles = stylex.create({
       ":active": colorVars.interactionPressed,
     },
     borderColor: "transparent",
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.sm,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     color: colorVars.fgPrimary,
@@ -55,7 +55,7 @@ export const styles = stylex.create({
   },
   icon: { width: sizeVars.controlMd },
   default: { paddingInline: spacingVars.space3 },
-  active: { backgroundColor: colorVars.interactionSelected, borderColor: colorVars.strokeStrong },
+  active: { backgroundColor: colorVars.bgSurfacePressed, borderColor: colorVars.strokeStrong },
   ellipsis: {
     alignItems: "center",
     color: colorVars.fgTertiary,

@@ -11,7 +11,7 @@ export const styles = stylex.create({
   root: {
     alignItems: "center",
     borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.lg,
+    borderRadius: radiusVars.sm,
     borderStyle: "dashed",
     borderWidth: sizeVars.stroke,
     display: "flex",
@@ -32,7 +32,7 @@ export const styles = stylex.create({
   media: {
     alignItems: "center",
     backgroundColor: colorVars.bgSubtle,
-    borderRadius: radiusVars.lg,
+    borderRadius: radiusVars.sm,
     color: colorVars.fgSecondary,
     display: "flex",
     height: sizeVars.touchTarget,

@@ -10,7 +10,7 @@ export const styles = stylex.create({
     animationName: pulse,
     animationTimingFunction: "ease-in-out",
     backgroundColor: colorVars.bgSubtle,
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.sm,
     "@media (prefers-reduced-motion: reduce)": { animationName: "none" },
   },
 });

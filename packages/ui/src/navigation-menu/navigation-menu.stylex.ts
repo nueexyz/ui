@@ -36,7 +36,7 @@ export const styles = stylex.create({
     backgroundColor: "transparent",
     borderStyle: "none",
     borderWidth: 0,
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.sm,
     color: colorVars.fgPrimary,
     cursor: "pointer",
     display: "inline-flex",
@@ -93,7 +93,7 @@ export const styles = stylex.create({
   contentEndingToRight: { opacity: 0, transform: "translateX(50%)" },
   link: {
     alignItems: "center",
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.sm,
     color: colorVars.fgPrimary,
     display: "flex",
     gap: spacingVars.space2,
@@ -121,7 +121,7 @@ export const styles = stylex.create({
   popup: {
     backgroundColor: colorVars.bgRaised,
     borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.sm,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     boxShadow: shadowVars.floating,

@@ -21,7 +21,7 @@ export const styles = stylex.create({
     appearance: "none",
     backgroundColor: "transparent",
     borderColor: "transparent",
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.sm,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     color: colorVars.fgPrimary,

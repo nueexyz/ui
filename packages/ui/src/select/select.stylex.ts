@@ -15,7 +15,7 @@ export const styles = stylex.create({
     appearance: "none",
     backgroundColor: colorVars.bgSurface,
     borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.sm,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     color: colorVars.fgPrimary,
@@ -56,7 +56,7 @@ export const styles = stylex.create({
   popup: {
     backgroundColor: colorVars.bgRaised,
     borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.sm,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     boxShadow: shadowVars.floating,

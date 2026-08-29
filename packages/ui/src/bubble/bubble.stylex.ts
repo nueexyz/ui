@@ -13,12 +13,12 @@ export const styles = stylex.create({
   incoming: {
     alignSelf: "flex-start",
     borderBottomLeftRadius: radiusVars.sm,
-    borderRadius: radiusVars.lg,
+    borderRadius: radiusVars.sm,
   },
   outgoing: {
     alignSelf: "flex-end",
     borderBottomRightRadius: radiusVars.sm,
-    borderRadius: radiusVars.lg,
+    borderRadius: radiusVars.sm,
   },
   variantDefault: { backgroundColor: colorVars.bgSubtle, color: colorVars.fgPrimary },
   outline: {

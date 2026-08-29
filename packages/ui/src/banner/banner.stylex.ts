@@ -10,7 +10,7 @@ import * as stylex from "@stylexjs/stylex";
 export const styles = stylex.create({
   root: {
     alignItems: "start",
-    borderRadius: radiusVars.lg,
+    borderRadius: radiusVars.sm,
     color: colorVars.fgPrimary,
     display: "grid",
     width: "100%",
@@ -22,7 +22,7 @@ export const styles = stylex.create({
   },
   sm: {
     alignItems: "center",
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.sm,
     columnGap: spacingVars.space2,
     paddingBlock: spacingVars.space2,
     paddingInline: spacingVars.space3,
