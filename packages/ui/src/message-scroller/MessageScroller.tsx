@@ -7,7 +7,7 @@ import { styles } from "./message-scroller.stylex";
 
 export type MessageScrollerProps = ComponentProps<"div"> & {
   children: ReactNode;
-  /** 새 메시지가 추가될 때 마지막 메시지를 계속 보여줍니다. @default true */
+  /** Keeps the latest message in view when new messages are added. @default true */
   followOutput?: boolean;
   scrollLabel?: string;
   xstyle?: stylex.StyleXStyles;

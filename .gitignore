@@ -5,6 +5,7 @@ node_modules/
 # Build output and caches
 dist/
 storybook-static/
+debug-storybook.log
 .registry/
 .reference/
 coverage/
@@ -25,3 +26,5 @@ pnpm-debug.log*
 .vscode/
 .idea/
 .DS_Store
+
+
