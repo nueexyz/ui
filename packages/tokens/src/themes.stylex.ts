@@ -6,10 +6,10 @@ import { colorVars, shadowVars } from "./tokens.stylex";
 export const lightColorTheme = stylex.createTheme(colorVars, {
   bgCanvas: colorPalette.neutral100,
   bgSurface: colorPalette.neutral0,
-  bgSurfacePressed: colorPalette.neutral100,
+  bgSurfacePressed: "oklch(97% 0 0)",
   bgSubtle: colorPalette.neutral50,
   bgRaised: colorPalette.neutral0,
-  bgRaisedPressed: colorPalette.neutral100,
+  bgRaisedPressed: "oklch(97% 0 0)",
   bgActionPrimary: colorPalette.primarySolid,
   bgActionDestructive: colorPalette.redFeedback,
   bgFeedbackInfo: colorPalette.blueWeak,
@@ -37,10 +37,10 @@ export const lightColorTheme = stylex.createTheme(colorVars, {
   strokeFeedbackError: colorPalette.redMuted,
   interactionDefault: "transparent",
   interactionHover: colorPalette.alphaBlack6,
-  interactionPressed: colorPalette.alphaBlack10,
+  interactionPressed: "oklch(97% 0 0)",
   interactionSolidHover: colorPalette.alphaWhite10,
-  interactionSolidPressed: colorPalette.alphaWhite20,
-  interactionSelected: colorPalette.primaryWeak,
+  interactionSolidPressed: "oklch(97% 0 0)",
+  interactionSelected: "oklch(97% 0 0)",
   interactionDisabled: colorPalette.alphaBlack8,
   interactionFocus: colorPalette.blueBadge,
 });
@@ -88,13 +88,13 @@ export const darkColorTheme = stylex.createTheme(colorVars, {
 });
 
 export const lightShadowTheme = stylex.createTheme(shadowVars, {
-  subtle: "0 1px 4px #00000014",
-  floating: "0 2px 10px #0000001a",
-  overlay: "0 4px 16px #0000001f",
+  subtle: "0 1px 4px oklch(0% 0 0 / 8%)",
+  floating: "0 2px 10px oklch(0% 0 0 / 10%)",
+  overlay: "0 4px 16px oklch(0% 0 0 / 12%)",
 });
 
 export const darkShadowTheme = stylex.createTheme(shadowVars, {
-  subtle: "0 1px 4px #00000080",
-  floating: "0 2px 10px #000000ad",
-  overlay: "0 4px 16px #000000cc",
+  subtle: "0 1px 4px oklch(0% 0 0 / 50%)",
+  floating: "0 2px 10px oklch(0% 0 0 / 68%)",
+  overlay: "0 4px 16px oklch(0% 0 0 / 80%)",
 });
