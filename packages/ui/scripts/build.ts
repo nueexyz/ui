@@ -2,6 +2,7 @@ import { access, cp, readdir, rm } from "node:fs/promises";
 import { join } from "node:path";
 
 import { build } from "esbuild";
+import reactCompiler from "babel-plugin-react-compiler";
 import stylex from "@stylexjs/unplugin";
 
 const sourceDirectory = "src";
@@ -41,7 +42,12 @@ await build({
   outdir: outputDirectory,
   packages: "external",
   platform: "browser",
-  plugins: [stylex.esbuild({ useCSSLayers: true })],
+  plugins: [
+    stylex.esbuild({
+      babelConfig: { plugins: [reactCompiler] },
+      useCSSLayers: true,
+    }),
+  ],
   metafile: true,
   sourcemap: true,
   target: "es2022",

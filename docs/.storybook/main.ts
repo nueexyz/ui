@@ -1,4 +1,5 @@
 import type { StorybookConfig } from "@storybook/react-vite";
+import reactCompiler from "babel-plugin-react-compiler";
 import stylex from "@stylexjs/unplugin";
 
 const config: StorybookConfig = {
@@ -7,7 +8,13 @@ const config: StorybookConfig = {
   async viteFinal(config) {
     return {
       ...config,
-      plugins: [stylex.vite({ useCSSLayers: true }), ...(config.plugins ?? [])],
+      plugins: [
+        stylex.vite({
+          babelConfig: { plugins: [reactCompiler] },
+          useCSSLayers: true,
+        }),
+        ...(config.plugins ?? []),
+      ],
     };
   },
 };

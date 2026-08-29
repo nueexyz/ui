@@ -40,8 +40,14 @@ test("@dumo/ui CLI initializes a project and adds a card", async () => {
   }
 });
 
-test("published package keeps CSS and Base UI primitive escape hatch", async () => {
+test("published package keeps compiled UI, CSS, and Base UI primitive escape hatch", async () => {
   await access(fileURLToPath(new URL("../dist/global.css", import.meta.url)));
+
+  const buttonSource = await readFile(
+    fileURLToPath(new URL("../dist/button/index.js", import.meta.url)),
+    "utf8",
+  );
+  assert.match(buttonSource, /react\/compiler-runtime/);
 
   const primitives = await import("../dist/primitives.js");
   assert.ok(primitives.Popover);
