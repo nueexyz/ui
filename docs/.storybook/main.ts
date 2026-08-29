@@ -1,6 +1,15 @@
 import type { StorybookConfig } from "@storybook/react-vite";
 import reactCompiler from "babel-plugin-react-compiler";
-import stylex from "@stylexjs/unplugin";
+import stylex from "@stylexjs/unplugin/vite";
+
+type StylexCompilerOptions = NonNullable<Parameters<typeof stylex>[0]> & {
+  babelConfig: { plugins: [typeof reactCompiler] };
+};
+
+const stylexCompilerOptions: StylexCompilerOptions = {
+  babelConfig: { plugins: [reactCompiler] },
+  useCSSLayers: true,
+};
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.stories.@(ts|tsx)"],
@@ -8,13 +17,7 @@ const config: StorybookConfig = {
   async viteFinal(config) {
     return {
       ...config,
-      plugins: [
-        stylex.vite({
-          babelConfig: { plugins: [reactCompiler] },
-          useCSSLayers: true,
-        }),
-        ...(config.plugins ?? []),
-      ],
+      plugins: [stylex(stylexCompilerOptions), ...(config.plugins ?? [])],
     };
   },
 };

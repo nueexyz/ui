@@ -3,10 +3,18 @@ import { join } from "node:path";
 
 import { build } from "esbuild";
 import reactCompiler from "babel-plugin-react-compiler";
-import stylex from "@stylexjs/unplugin";
+import stylex from "@stylexjs/unplugin/esbuild";
 
 const sourceDirectory = "src";
 const outputDirectory = "dist";
+type StylexCompilerOptions = NonNullable<Parameters<typeof stylex>[0]> & {
+  babelConfig: { plugins: [typeof reactCompiler] };
+};
+
+const stylexCompilerOptions: StylexCompilerOptions = {
+  babelConfig: { plugins: [reactCompiler] },
+  useCSSLayers: true,
+};
 
 async function getEntryPoints() {
   const entries = [
@@ -42,12 +50,7 @@ await build({
   outdir: outputDirectory,
   packages: "external",
   platform: "browser",
-  plugins: [
-    stylex.esbuild({
-      babelConfig: { plugins: [reactCompiler] },
-      useCSSLayers: true,
-    }),
-  ],
+  plugins: [stylex(stylexCompilerOptions)],
   metafile: true,
   sourcemap: true,
   target: "es2022",
