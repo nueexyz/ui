@@ -6,12 +6,7 @@ export const registryItems = {
       "accordion/accordion.stylex.ts",
       "accordion/index.ts",
     ],
-    dependencies: [
-      "@base-ui/react",
-      "@dumo/tokens",
-      "@phosphor-icons/react",
-      "@stylexjs/stylex",
-    ],
+    dependencies: ["@base-ui/react", "@dumo/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
   "alert-dialog": {
@@ -89,12 +84,7 @@ export const registryItems = {
       "checkbox/checkbox.stylex.ts",
       "checkbox/index.ts",
     ],
-    dependencies: [
-      "@base-ui/react",
-      "@dumo/tokens",
-      "@phosphor-icons/react",
-      "@stylexjs/stylex",
-    ],
+    dependencies: ["@base-ui/react", "@dumo/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
   collapsible: {
@@ -104,12 +94,7 @@ export const registryItems = {
       "collapsible/collapsible.stylex.ts",
       "collapsible/index.ts",
     ],
-    dependencies: [
-      "@base-ui/react",
-      "@dumo/tokens",
-      "@phosphor-icons/react",
-      "@stylexjs/stylex",
-    ],
+    dependencies: ["@base-ui/react", "@dumo/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
   combobox: {
@@ -119,12 +104,7 @@ export const registryItems = {
       "combobox/combobox.stylex.ts",
       "combobox/index.ts",
     ],
-    dependencies: [
-      "@base-ui/react",
-      "@dumo/tokens",
-      "@phosphor-icons/react",
-      "@stylexjs/stylex",
-    ],
+    dependencies: ["@base-ui/react", "@dumo/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
   "context-menu": {
@@ -134,12 +114,7 @@ export const registryItems = {
   },
   dialog: {
     files: ["Icon.tsx", "dialog/Dialog.tsx", "dialog/dialog.stylex.ts", "dialog/index.ts"],
-    dependencies: [
-      "@base-ui/react",
-      "@dumo/tokens",
-      "@phosphor-icons/react",
-      "@stylexjs/stylex",
-    ],
+    dependencies: ["@base-ui/react", "@dumo/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
   "dropdown-menu": {
@@ -149,12 +124,7 @@ export const registryItems = {
       "dropdown-menu/dropdown-menu.stylex.ts",
       "dropdown-menu/index.ts",
     ],
-    dependencies: [
-      "@base-ui/react",
-      "@dumo/tokens",
-      "@phosphor-icons/react",
-      "@stylexjs/stylex",
-    ],
+    dependencies: ["@base-ui/react", "@dumo/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
   empty: {
@@ -208,12 +178,7 @@ export const registryItems = {
   },
   link: {
     files: ["Icon.tsx", "link/Link.tsx", "link/index.ts", "link/link.stylex.ts"],
-    dependencies: [
-      "@base-ui/react",
-      "@dumo/tokens",
-      "@phosphor-icons/react",
-      "@stylexjs/stylex",
-    ],
+    dependencies: ["@base-ui/react", "@dumo/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
   marker: {
@@ -258,12 +223,7 @@ export const registryItems = {
       "navigation-menu/index.ts",
       "navigation-menu/navigation-menu.stylex.ts",
     ],
-    dependencies: [
-      "@base-ui/react",
-      "@dumo/tokens",
-      "@phosphor-icons/react",
-      "@stylexjs/stylex",
-    ],
+    dependencies: ["@base-ui/react", "@dumo/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
   pagination: {
@@ -306,12 +266,7 @@ export const registryItems = {
   },
   select: {
     files: ["Icon.tsx", "select/Select.tsx", "select/index.ts", "select/select.stylex.ts"],
-    dependencies: [
-      "@base-ui/react",
-      "@dumo/tokens",
-      "@phosphor-icons/react",
-      "@stylexjs/stylex",
-    ],
+    dependencies: ["@base-ui/react", "@dumo/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
   separator: {
@@ -356,12 +311,7 @@ export const registryItems = {
   },
   toast: {
     files: ["Icon.tsx", "toast/Toast.tsx", "toast/index.ts", "toast/toast.stylex.ts"],
-    dependencies: [
-      "@base-ui/react",
-      "@dumo/tokens",
-      "@phosphor-icons/react",
-      "@stylexjs/stylex",
-    ],
+    dependencies: ["@base-ui/react", "@dumo/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
   toggle: {

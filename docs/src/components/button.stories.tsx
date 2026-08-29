@@ -24,8 +24,7 @@ function ButtonExample() {
   );
 }
 
-const buttonExampleCode =
-  'import { Button } from "@dumo/ui/button"\n\n<Button>저장하기</Button>';
+const buttonExampleCode = 'import { Button } from "@dumo/ui/button"\n\n<Button>저장하기</Button>';
 
 export const ButtonStory: Story = {
   name: "Button",

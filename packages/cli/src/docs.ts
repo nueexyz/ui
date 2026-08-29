@@ -22,6 +22,8 @@ export function docs(componentName: string | undefined) {
   console.log(`파일:\n${item.files.map((file) => `  ${file}`).join("\n")}`);
   console.log(`의존성:\n${item.dependencies.map((dependency) => `  ${dependency}`).join("\n")}`);
   if (item.registryDependencies.length) {
-    console.log(`함께 설치:\n${item.registryDependencies.map((dependency) => `  ${dependency}`).join("\n")}`);
+    console.log(
+      `함께 설치:\n${item.registryDependencies.map((dependency) => `  ${dependency}`).join("\n")}`,
+    );
   }
 }

@@ -118,8 +118,8 @@ export const GettingStarted: Story = {
         <CodeBlock code={tsconfig} label="tsconfig.json" language="json" />
         <p {...stylex.props(styles.path)}>@/components/ui → src/components/ui</p>
         <p {...stylex.props(styles.note)}>
-          별칭을 바꾸면 dumo.json과 tsconfig 또는 jsconfig의 paths를 함께 수정하세요. 이미
-          추가한 파일은 자동으로 옮겨지지 않습니다.
+          별칭을 바꾸면 dumo.json과 tsconfig 또는 jsconfig의 paths를 함께 수정하세요. 이미 추가한
+          파일은 자동으로 옮겨지지 않습니다.
         </p>
       </section>
     </main>

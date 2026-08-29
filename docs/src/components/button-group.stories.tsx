@@ -63,11 +63,17 @@ export const ButtonGroupStory: Story = {
             </Button>
           </ButtonGroup>
           <ButtonGroup aria-label="메시지 작업">
-            <Button size="sm" variant="secondary">보관</Button>
-            <Button size="sm" variant="secondary">신고</Button>
+            <Button size="sm" variant="secondary">
+              보관
+            </Button>
+            <Button size="sm" variant="secondary">
+              신고
+            </Button>
           </ButtonGroup>
           <ButtonGroup aria-label="추가 작업">
-            <Button size="sm" variant="secondary">다시 알림</Button>
+            <Button size="sm" variant="secondary">
+              다시 알림
+            </Button>
             <Button size="sm" variant="secondary" aria-label="추가 작업">
               <Icon aria-hidden="true" name="moreHorizontal" />
             </Button>
