@@ -9,7 +9,7 @@ import {
   radiusVars,
   sizeVars,
   spacingVars,
-} from "@dumo/tokens/tokens.stylex";
+} from "@nooeh/tokens/tokens.stylex";
 
 const styles = stylex.create({
   group: { display: "flex", flexDirection: "column", gap: spacingVars.space3 },

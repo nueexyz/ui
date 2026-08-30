@@ -8,8 +8,8 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Field, FieldLabel } from "@dumo/ui/field";
-import { RadioGroup, RadioGroupItem } from "@dumo/ui/radio-group";
+import { Field, FieldLabel } from "@nooeh/ui/field";
+import { RadioGroup, RadioGroupItem } from "@nooeh/ui/radio-group";
 
 const meta = {
   title: "Components",
@@ -45,7 +45,7 @@ function RadioGroupExample() {
 }
 
 const radioGroupExampleCode =
-  'import { Field, FieldLabel } from "@dumo/ui/field"\nimport { RadioGroup, RadioGroupItem } from "@dumo/ui/radio-group"\n\n<Field>\n  <FieldLabel>Notification frequency</FieldLabel>\n  <RadioGroup defaultValue="daily">\n    <label><RadioGroupItem value="daily" />Daily</label>\n    <label><RadioGroupItem value="weekly" />Weekly</label>\n    <label><RadioGroupItem value="never" />Never</label>\n  </RadioGroup>\n</Field>';
+  'import { Field, FieldLabel } from "@nooeh/ui/field"\nimport { RadioGroup, RadioGroupItem } from "@nooeh/ui/radio-group"\n\n<Field>\n  <FieldLabel>Notification frequency</FieldLabel>\n  <RadioGroup defaultValue="daily">\n    <label><RadioGroupItem value="daily" />Daily</label>\n    <label><RadioGroupItem value="weekly" />Weekly</label>\n    <label><RadioGroupItem value="never" />Never</label>\n  </RadioGroup>\n</Field>';
 
 export const RadioGroupStory: Story = {
   name: "Radio Group",
@@ -66,7 +66,7 @@ export const RadioGroupStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

@@ -69,22 +69,22 @@ function configureVite(source: string) {
 
 async function writeViteFiles(projectDirectory: string) {
   const sourceDirectory = getSourceDirectory(projectDirectory);
-  const stylePath = join(sourceDirectory, "styles", "dumo.css");
-  const themePath = join(sourceDirectory, "dumo-theme.ts");
+  const stylePath = join(sourceDirectory, "styles", "nooeh.css");
+  const themePath = join(sourceDirectory, "nooeh-theme.ts");
   const entryPath = join(sourceDirectory, "main.tsx");
   const relativeStylePath = relative(projectDirectory, stylePath);
   const { path: configPath, source: configSource } = await readViteConfig(projectDirectory);
   const entrySource = await readFile(entryPath, "utf8");
   const configuredVite = configureVite(configSource);
-  const styleImport = 'import "./styles/dumo.css";';
-  const themeImport = 'import { applyDumoTheme } from "./dumo-theme";';
-  const themeApply = "applyDumoTheme();";
+  const styleImport = 'import "./styles/nooeh.css";';
+  const themeImport = 'import { applyNooehTheme } from "./nooeh-theme";';
+  const themeApply = "applyNooehTheme();";
 
   await mkdir(dirname(stylePath), { recursive: true });
-  await writeFile(stylePath, '@import "@dumo/ui/global.css";\n', "utf8");
+  await writeFile(stylePath, '@import "@nooeh/ui/global.css";\n', "utf8");
   await writeFile(
     themePath,
-    `import { darkColorTheme, darkShadowTheme, lightColorTheme, lightShadowTheme } from "@dumo/tokens/themes.stylex";\nimport * as stylex from "@stylexjs/stylex";\n\nexport type DumoColorMode = "light" | "dark";\n\nlet activeThemeClassName = "";\n\nexport function applyDumoTheme(mode: DumoColorMode = "light") {\n  const colorTheme = mode === "dark" ? darkColorTheme : lightColorTheme;\n  const shadowTheme = mode === "dark" ? darkShadowTheme : lightShadowTheme;\n  const nextThemeClassName = stylex.props(colorTheme, shadowTheme).className ?? "";\n  const root = document.documentElement;\n\n  root.classList.remove(...activeThemeClassName.split(" ").filter(Boolean));\n  root.classList.add(...nextThemeClassName.split(" ").filter(Boolean));\n  activeThemeClassName = nextThemeClassName;\n}\n`,
+    `import { darkColorTheme, darkShadowTheme, lightColorTheme, lightShadowTheme } from "@nooeh/tokens/themes.stylex";\nimport * as stylex from "@stylexjs/stylex";\n\nexport type NooehColorMode = "light" | "dark";\n\nlet activeThemeClassName = "";\n\nexport function applyNooehTheme(mode: NooehColorMode = "light") {\n  const colorTheme = mode === "dark" ? darkColorTheme : lightColorTheme;\n  const shadowTheme = mode === "dark" ? darkShadowTheme : lightShadowTheme;\n  const nextThemeClassName = stylex.props(colorTheme, shadowTheme).className ?? "";\n  const root = document.documentElement;\n\n  root.classList.remove(...activeThemeClassName.split(" ").filter(Boolean));\n  root.classList.add(...nextThemeClassName.split(" ").filter(Boolean));\n  activeThemeClassName = nextThemeClassName;\n}\n`,
     "utf8",
   );
   const imports = [styleImport, themeImport].filter((line) => !entrySource.includes(line));
@@ -102,7 +102,7 @@ async function writeViteFiles(projectDirectory: string) {
 
 export async function init(projectDirectory: string, options: CliOptions) {
   if ((await hasConfig(projectDirectory)) && !options.force) {
-    throw new Error("dumo.json already exists. Use --force to create it again.");
+    throw new Error("nooeh.json already exists. Use --force to create it again.");
   }
 
   const isInteractive = process.stdin.isTTY && process.stdout.isTTY && !options.defaults;

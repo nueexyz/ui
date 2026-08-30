@@ -11,7 +11,7 @@ import {
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@dumo/tokens/tokens.stylex";
+} from "@nooeh/tokens/tokens.stylex";
 
 const spin = stylex.keyframes({ to: { transform: "rotate(360deg)" } });
 

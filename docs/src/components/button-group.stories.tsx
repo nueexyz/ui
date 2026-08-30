@@ -1,8 +1,8 @@
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Button } from "@dumo/ui/button";
-import { ButtonGroup } from "@dumo/ui/button-group";
-import { Icon } from "@dumo/ui/icon";
+import { Button } from "@nooeh/ui/button";
+import { ButtonGroup } from "@nooeh/ui/button-group";
+import { Icon } from "@nooeh/ui/icon";
 import {
   CodeBlock,
   ComponentCode,
@@ -21,9 +21,9 @@ type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Button Group");
 
-const buttonGroupExampleCode = `import { Button } from "@dumo/ui/button"
-import { ButtonGroup } from "@dumo/ui/button-group"
-import { Icon } from "@dumo/ui/icon"
+const buttonGroupExampleCode = `import { Button } from "@nooeh/ui/button"
+import { ButtonGroup } from "@nooeh/ui/button-group"
+import { Icon } from "@nooeh/ui/icon"
 
 <div>
   <ButtonGroup aria-label="Navigate back">
@@ -86,7 +86,7 @@ export const ButtonGroupStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

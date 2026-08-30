@@ -15,7 +15,7 @@ import {
   ContextMenuSeparator,
   ContextMenuShortcut,
   ContextMenuTrigger,
-} from "@dumo/ui/context-menu";
+} from "@nooeh/ui/context-menu";
 
 const meta = {
   title: "Components",
@@ -51,7 +51,7 @@ function ContextMenuExample() {
 }
 
 const contextMenuExampleCode =
-  'import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuShortcut, ContextMenuTrigger } from "@dumo/ui/context-menu"\n\n<ContextMenu>\n  <ContextMenuTrigger>project-proposal.pdf</ContextMenuTrigger>\n  <ContextMenuContent>\n    <ContextMenuItem>Preview<ContextMenuShortcut>Space</ContextMenuShortcut></ContextMenuItem>\n    <ContextMenuItem>Rename<ContextMenuShortcut>⌘R</ContextMenuShortcut></ContextMenuItem>\n    <ContextMenuSeparator />\n    <ContextMenuItem>Download<ContextMenuShortcut>⌘D</ContextMenuShortcut></ContextMenuItem>\n  </ContextMenuContent>\n</ContextMenu>';
+  'import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuShortcut, ContextMenuTrigger } from "@nooeh/ui/context-menu"\n\n<ContextMenu>\n  <ContextMenuTrigger>project-proposal.pdf</ContextMenuTrigger>\n  <ContextMenuContent>\n    <ContextMenuItem>Preview<ContextMenuShortcut>Space</ContextMenuShortcut></ContextMenuItem>\n    <ContextMenuItem>Rename<ContextMenuShortcut>⌘R</ContextMenuShortcut></ContextMenuItem>\n    <ContextMenuSeparator />\n    <ContextMenuItem>Download<ContextMenuShortcut>⌘D</ContextMenuShortcut></ContextMenuItem>\n  </ContextMenuContent>\n</ContextMenu>';
 
 export const ContextMenuStory: Story = {
   name: "Context Menu",
@@ -72,7 +72,7 @@ export const ContextMenuStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

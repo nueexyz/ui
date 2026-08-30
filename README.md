@@ -1,14 +1,14 @@
-# Dumo
+# nooeh/ui
 
-Dumo is an open-code React component system built with Base UI and StyleX. Its official path is
+nooeh is an open-code React component system built with Base UI and StyleX. Its official path is
 to copy component source files into your project, so the components remain yours to read and
 change.
 
-## What Dumo provides
+## What Nooeh provides
 
-- Accessible interaction primitives from Base UI with Dumo's visual defaults.
+- Accessible interaction primitives from Base UI with Nooeh's visual defaults.
 - Semantic StyleX tokens, light and dark themes, and a small global reset.
-- A registry-aware CLI that installs a component together with its Dumo dependencies.
+- A registry-aware CLI that installs a component together with its Nooeh dependencies.
 - Storybook documentation for foundations and 53 components.
 
 ## Requirements
@@ -22,47 +22,47 @@ change.
 Install the runtime and build dependencies in an existing Vite React app:
 
 ```sh
-pnpm add @base-ui/react @dumo/tokens @phosphor-icons/react @stylexjs/stylex
+pnpm add @base-ui/react @nooeh/tokens @phosphor-icons/react @stylexjs/stylex
 pnpm add -D @stylexjs/unplugin
-pnpm dlx @dumo/ui init --framework vite
-pnpm dlx @dumo/ui add button
+pnpm dlx @nooeh/ui init --framework vite
+pnpm dlx @nooeh/ui add button
 ```
 
-`init --framework vite` creates `dumo.json`, adds the StyleX Vite plugin, and creates and
-imports `src/styles/dumo.css`. It also creates `src/dumo-theme.ts` and applies the light theme
+`init --framework vite` creates `nooeh.json`, adds the StyleX Vite plugin, and creates and
+imports `src/styles/nooeh.css`. It also creates `src/nooeh-theme.ts` and applies the light theme
 before React renders. It safely updates TypeScript, JavaScript, and module Vite config files
 only when they use a literal `plugins: [...]` array; otherwise it stops before changing project
 files and tells you to add the StyleX configuration manually.
 
-Use the generated helper to switch color modes. It replaces only the Dumo theme classes on
+Use the generated helper to switch color modes. It replaces only the Nooeh theme classes on
 `<html>`.
 
 ```tsx
-import { applyDumoTheme } from "./dumo-theme";
+import { applyNooehTheme } from "./nooeh-theme";
 
-applyDumoTheme("dark");
+applyNooehTheme("dark");
 ```
 
 ## CLI
 
 ```sh
-dumo init [--framework vite] [--ui-alias @/components/ui]
-dumo add <component> [--skip-dependencies] [--dry-run]
-dumo list
-dumo docs [component]
-dumo doctor
+nooeh init [--framework vite] [--ui-alias @/components/ui]
+nooeh add <component> [--skip-dependencies] [--dry-run]
+nooeh list
+nooeh docs [component]
+nooeh doctor
 ```
 
 `add --dry-run` never writes a config, component, or dependency. URL registry items are
-validated before Dumo writes them, and every registry file must remain inside the configured
+validated before Nooeh writes them, and every registry file must remain inside the configured
 UI directory.
 
 ## Packages
 
-- `@dumo/ui`: the public `dumo` CLI and global CSS. Install component source with `dumo add`.
-- `@dumo/tokens`: StyleX token and theme definitions.
-- `@dumo/cli`: CLI implementation used by `@dumo/ui`.
-- `@dumo/registry`: registry metadata and packaged component source.
+- `@nooeh/ui`: the public `nooeh` CLI and global CSS. Install component source with `nooeh add`.
+- `@nooeh/tokens`: StyleX token and theme definitions.
+- `@nooeh/cli`: CLI implementation used by `@nooeh/ui`.
+- `@nooeh/registry`: registry metadata and packaged component source.
 
 ## Development
 

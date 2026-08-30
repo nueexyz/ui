@@ -8,7 +8,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Button } from "@dumo/ui/button";
+import { Button } from "@nooeh/ui/button";
 import {
   Card,
   CardContent,
@@ -16,8 +16,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@dumo/ui/card";
-import { Input } from "@dumo/ui/input";
+} from "@nooeh/ui/card";
+import { Input } from "@nooeh/ui/input";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -90,7 +90,7 @@ function CardExample() {
 }
 
 const cardExampleCode =
-  'import { Card, CardContent, CardHeader, CardTitle } from "@dumo/ui/card"\n\n<Card>\n  <CardHeader>\n    <CardTitle>Project</CardTitle>\n  </CardHeader>\n  <CardContent>Enter the project details.</CardContent>\n</Card>';
+  'import { Card, CardContent, CardHeader, CardTitle } from "@nooeh/ui/card"\n\n<Card>\n  <CardHeader>\n    <CardTitle>Project</CardTitle>\n  </CardHeader>\n  <CardContent>Enter the project details.</CardContent>\n</Card>';
 
 export const CardStory: Story = {
   name: "Card",
@@ -111,7 +111,7 @@ export const CardStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

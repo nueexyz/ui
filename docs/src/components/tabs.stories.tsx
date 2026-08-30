@@ -8,7 +8,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@dumo/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@nooeh/ui/tabs";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -48,7 +48,7 @@ function TabsExample() {
 }
 
 const tabsExampleCode =
-  'import { Tabs, TabsContent, TabsList, TabsTrigger } from "@dumo/ui/tabs"\n\n<Tabs defaultValue="account" variant="segmented">\n  <TabsList>\n    <TabsTrigger value="account">Account</TabsTrigger>\n    <TabsTrigger value="security">Security</TabsTrigger>\n  </TabsList>\n  <TabsContent value="account">Account settings</TabsContent>\n  <TabsContent value="security">Security settings</TabsContent>\n</Tabs>';
+  'import { Tabs, TabsContent, TabsList, TabsTrigger } from "@nooeh/ui/tabs"\n\n<Tabs defaultValue="account" variant="segmented">\n  <TabsList>\n    <TabsTrigger value="account">Account</TabsTrigger>\n    <TabsTrigger value="security">Security</TabsTrigger>\n  </TabsList>\n  <TabsContent value="account">Account settings</TabsContent>\n  <TabsContent value="security">Security settings</TabsContent>\n</Tabs>';
 
 export const TabsStory: Story = {
   name: "Tabs",
@@ -69,7 +69,7 @@ export const TabsStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

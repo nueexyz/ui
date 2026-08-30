@@ -1,7 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { colorVars, motionVars, spacingVars, typographyVars } from "@dumo/tokens/tokens.stylex";
+import { colorVars, motionVars, spacingVars, typographyVars } from "@nooeh/tokens/tokens.stylex";
 
 const styles = stylex.create({
   container: { overflowX: "auto", position: "relative", width: "100%" },

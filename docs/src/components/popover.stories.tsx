@@ -8,7 +8,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Button } from "@dumo/ui/button";
+import { Button } from "@nooeh/ui/button";
 import {
   Popover,
   PopoverContent,
@@ -16,7 +16,7 @@ import {
   PopoverHeader,
   PopoverTitle,
   PopoverTrigger,
-} from "@dumo/ui/popover";
+} from "@nooeh/ui/popover";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -69,7 +69,7 @@ function PopoverExample() {
 }
 
 const popoverExampleCode =
-  'import { Button } from "@dumo/ui/button"\nimport { Popover, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger } from "@dumo/ui/popover"\n\n<Popover>\n  <PopoverTrigger render={<Button variant="secondary">Align left</Button>} />\n  <PopoverContent>\n    <PopoverHeader>\n      <PopoverTitle>Align left</PopoverTitle>\n      <PopoverDescription>Align the popover start with the trigger.</PopoverDescription>\n    </PopoverHeader>\n  </PopoverContent>\n</Popover>';
+  'import { Button } from "@nooeh/ui/button"\nimport { Popover, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger } from "@nooeh/ui/popover"\n\n<Popover>\n  <PopoverTrigger render={<Button variant="secondary">Align left</Button>} />\n  <PopoverContent>\n    <PopoverHeader>\n      <PopoverTitle>Align left</PopoverTitle>\n      <PopoverDescription>Align the popover start with the trigger.</PopoverDescription>\n    </PopoverHeader>\n  </PopoverContent>\n</Popover>';
 
 export const PopoverStory: Story = {
   name: "Popover",
@@ -90,7 +90,7 @@ export const PopoverStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

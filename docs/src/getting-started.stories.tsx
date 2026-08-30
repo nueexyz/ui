@@ -4,7 +4,7 @@ import {
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@dumo/tokens/tokens.stylex";
+} from "@nooeh/tokens/tokens.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
@@ -88,16 +88,16 @@ export const GettingStarted: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>1. Initialize</h2>
           <p {...stylex.props(storyStyles.description)}>Run this once from the project root.</p>
         </header>
-        <CodeBlock code="pnpm dlx @dumo/ui init" label="Terminal" language="bash" />
+        <CodeBlock code="pnpm dlx @nooeh/ui init" label="Terminal" language="bash" />
       </section>
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>2. Import alias</h2>
           <p {...stylex.props(storyStyles.description)}>
-            The UI import alias entered during init is saved to dumo.json in the project root.
+            The UI import alias entered during init is saved to nooeh.json in the project root.
           </p>
         </header>
-        <CodeBlock code={config} label="dumo.json" language="json" />
+        <CodeBlock code={config} label="nooeh.json" language="json" />
         <dl {...stylex.props(styles.configDetail)}>
           <dt {...stylex.props(styles.configField)}>aliases.ui</dt>
           <dd {...stylex.props(styles.configDescription)}>
@@ -118,7 +118,7 @@ export const GettingStarted: Story = {
         <CodeBlock code={tsconfig} label="tsconfig.json" language="json" />
         <p {...stylex.props(styles.path)}>@/components/ui → src/components/ui</p>
         <p {...stylex.props(styles.note)}>
-          When changing the alias, also update paths in dumo.json and tsconfig.json or
+          When changing the alias, also update paths in nooeh.json and tsconfig.json or
           jsconfig.json. Existing files are not moved automatically.
         </p>
       </section>

@@ -1,7 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 import { createElement, type CSSProperties, type HTMLAttributes } from "react";
 
-import { colorVars, radiusVars, spacingVars, typographyVars } from "@dumo/tokens/tokens.stylex";
+import { colorVars, radiusVars, spacingVars, typographyVars } from "@nooeh/tokens/tokens.stylex";
 
 const styles = stylex.create({
   root: { color: colorVars.fgPrimary, fontFamily: typographyVars.fontFamily, margin: 0 },

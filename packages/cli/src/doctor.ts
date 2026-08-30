@@ -36,8 +36,8 @@ export async function doctor(projectDirectory: string) {
 
   if (!(await hasConfig(projectDirectory))) {
     checks.push({
-      detail: "Run `dumo init` to configure the default UI alias.",
-      name: "dumo.json",
+      detail: "Run `nooeh init` to configure the default UI alias.",
+      name: "nooeh.json",
       status: "warn",
     });
   } else {
@@ -55,7 +55,7 @@ export async function doctor(projectDirectory: string) {
       ? { detail: "@stylexjs/stylex is installed.", name: "StyleX runtime", status: "pass" }
       : {
           detail:
-            "It is installed automatically by the first `dumo add`. Use --skip-dependencies to skip installation.",
+            "It is installed automatically by the first `nooeh add`. Use --skip-dependencies to skip installation.",
           name: "StyleX runtime",
           status: "warn",
         },

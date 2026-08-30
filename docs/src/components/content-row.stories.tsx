@@ -8,9 +8,9 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Avatar, AvatarFallback } from "@dumo/ui/avatar";
-import { Button } from "@dumo/ui/button";
-import { Icon } from "@dumo/ui/icon";
+import { Avatar, AvatarFallback } from "@nooeh/ui/avatar";
+import { Button } from "@nooeh/ui/button";
+import { Icon } from "@nooeh/ui/icon";
 import {
   ContentRow,
   ContentRowActions,
@@ -19,7 +19,7 @@ import {
   ContentRowGroup,
   ContentRowMedia,
   ContentRowTitle,
-} from "@dumo/ui/content-row";
+} from "@nooeh/ui/content-row";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -70,7 +70,7 @@ function ContentRowExample() {
 }
 
 const contentRowExampleCode =
-  'import { Button } from "@dumo/ui/button"\nimport { ContentRow, ContentRowActions, ContentRowContent, ContentRowDescription, ContentRowGroup, ContentRowMedia, ContentRowTitle } from "@dumo/ui/content-row"\nimport { Icon } from "@dumo/ui/icon"\n\n<ContentRowGroup>\n  <ContentRow variant="outline">\n    <ContentRowMedia><Icon name="folder" /></ContentRowMedia>\n    <ContentRowContent><ContentRowTitle>Design system</ContentRowTitle><ContentRowDescription>Last edited today at 2:18 PM</ContentRowDescription></ContentRowContent>\n    <ContentRowActions><Button size="sm" variant="ghost">Open folder</Button></ContentRowActions>\n  </ContentRow>\n</ContentRowGroup>';
+  'import { Button } from "@nooeh/ui/button"\nimport { ContentRow, ContentRowActions, ContentRowContent, ContentRowDescription, ContentRowGroup, ContentRowMedia, ContentRowTitle } from "@nooeh/ui/content-row"\nimport { Icon } from "@nooeh/ui/icon"\n\n<ContentRowGroup>\n  <ContentRow variant="outline">\n    <ContentRowMedia><Icon name="folder" /></ContentRowMedia>\n    <ContentRowContent><ContentRowTitle>Design system</ContentRowTitle><ContentRowDescription>Last edited today at 2:18 PM</ContentRowDescription></ContentRowContent>\n    <ContentRowActions><Button size="sm" variant="ghost">Open folder</Button></ContentRowActions>\n  </ContentRow>\n</ContentRowGroup>';
 
 export const ContentRowStory: Story = {
   name: "Content Row",
@@ -91,7 +91,7 @@ export const ContentRowStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

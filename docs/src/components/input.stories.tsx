@@ -1,4 +1,4 @@
-import { Input } from "@dumo/ui/input";
+import { Input } from "@nooeh/ui/input";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
@@ -29,7 +29,7 @@ function InputExample() {
         <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
           <div {...stylex.props(storyStyles.stack, storyStyles.formWidth)}>
             <Input aria-label="Name" placeholder="Jordan Lee" />
-            <Input aria-label="Email" defaultValue="hello@dumo.dev" />
+            <Input aria-label="Email" defaultValue="hello@nooeh.dev" />
           </div>
         </div>
       </section>
@@ -58,7 +58,7 @@ function InputExample() {
 }
 
 const inputExampleCode =
-  'import { Input } from "@dumo/ui/input"\n\n<Input aria-label="Email" placeholder="name@example.com" type="email" />';
+  'import { Input } from "@nooeh/ui/input"\n\n<Input aria-label="Email" placeholder="name@example.com" type="email" />';
 
 export const InputStory: Story = {
   name: "Input",
@@ -79,7 +79,7 @@ export const InputStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

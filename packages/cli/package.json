@@ -1,9 +1,9 @@
 {
-  "name": "@dumo/cli",
+  "name": "@nooeh/cli",
   "version": "0.0.1",
   "private": false,
   "bin": {
-    "dumo": "./dist/cli.js"
+    "nooeh": "./dist/cli.js"
   },
   "files": [
     "dist"
@@ -19,13 +19,13 @@
     "access": "public"
   },
   "scripts": {
-    "build": "pnpm --filter @dumo/registry build && tsc -p tsconfig.build.json",
+    "build": "pnpm --filter @nooeh/registry build && tsc -p tsconfig.build.json",
     "prepack": "pnpm build",
     "test": "pnpm build && node test/cli.test.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@dumo/registry": "workspace:*"
+    "@nooeh/registry": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.20.1",

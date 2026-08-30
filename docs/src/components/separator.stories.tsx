@@ -8,8 +8,8 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { sizeVars, spacingVars } from "@dumo/tokens/tokens.stylex";
-import { Separator } from "@dumo/ui/separator";
+import { sizeVars, spacingVars } from "@nooeh/tokens/tokens.stylex";
+import { Separator } from "@nooeh/ui/separator";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -41,7 +41,7 @@ function SeparatorExample() {
 }
 
 const separatorExampleCode =
-  'import { Separator } from "@dumo/ui/separator"\n\n<>\n  <span>Account information</span>\n  <Separator />\n  <div>Profile <Separator orientation="vertical" /> Security</div>\n</>';
+  'import { Separator } from "@nooeh/ui/separator"\n\n<>\n  <span>Account information</span>\n  <Separator />\n  <div>Profile <Separator orientation="vertical" /> Security</div>\n</>';
 
 export const SeparatorStory: Story = {
   name: "Separator",
@@ -62,7 +62,7 @@ export const SeparatorStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

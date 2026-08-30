@@ -8,8 +8,8 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Checkbox } from "@dumo/ui/checkbox";
-import { colorVars } from "@dumo/tokens/tokens.stylex";
+import { Checkbox } from "@nooeh/ui/checkbox";
+import { colorVars } from "@nooeh/tokens/tokens.stylex";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -44,7 +44,7 @@ function CheckboxExample() {
 }
 
 const checkboxExampleCode =
-  'import { Checkbox } from "@dumo/ui/checkbox"\n\n<Checkbox aria-label="Agree to terms" />';
+  'import { Checkbox } from "@nooeh/ui/checkbox"\n\n<Checkbox aria-label="Agree to terms" />';
 
 export const CheckboxStory: Story = {
   name: "Checkbox",
@@ -65,7 +65,7 @@ export const CheckboxStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

@@ -2,7 +2,7 @@ import { Switch as SwitchPrimitive } from "@base-ui/react/switch";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { colorVars, motionVars, radiusVars, sizeVars } from "@dumo/tokens/tokens.stylex";
+import { colorVars, motionVars, radiusVars, sizeVars } from "@nooeh/tokens/tokens.stylex";
 
 const styles = stylex.create({
   root: {

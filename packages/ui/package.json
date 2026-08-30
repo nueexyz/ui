@@ -1,9 +1,9 @@
 {
-  "name": "@dumo/ui",
+  "name": "@nooeh/ui",
   "version": "0.0.1",
   "private": false,
   "bin": {
-    "dumo": "./dist/cli.js"
+    "nooeh": "./dist/cli.js"
   },
   "files": [
     "dist"
@@ -72,14 +72,14 @@
     "access": "public"
   },
   "scripts": {
-    "build": "pnpm --filter @dumo/cli build && node --experimental-strip-types scripts/build.ts && tsc -p tsconfig.build.json && tsc -p tsconfig.cli.json",
+    "build": "pnpm --filter @nooeh/cli build && node --experimental-strip-types scripts/build.ts && tsc -p tsconfig.build.json && tsc -p tsconfig.cli.json",
     "prepack": "pnpm build",
     "test": "pnpm build && node test/cli.test.mjs",
     "typecheck": "tsc --noEmit && tsc -p tsconfig.cli.json --noEmit"
   },
   "dependencies": {
-    "@dumo/cli": "workspace:*",
-    "@dumo/tokens": "workspace:*"
+    "@nooeh/cli": "workspace:*",
+    "@nooeh/tokens": "workspace:*"
   },
   "devDependencies": {
     "@base-ui/react": "catalog:2026-08-27-stable",

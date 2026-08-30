@@ -1,6 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { ToggleGroup, ToggleGroupItem } from "@dumo/ui/toggle-group";
+import { ToggleGroup, ToggleGroupItem } from "@nooeh/ui/toggle-group";
 import {
   CodeBlock,
   ComponentCode,
@@ -19,7 +19,7 @@ type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Toggle Group");
 
-const toggleGroupExampleCode = `import { ToggleGroup, ToggleGroupItem } from "@dumo/ui/toggle-group"
+const toggleGroupExampleCode = `import { ToggleGroup, ToggleGroupItem } from "@nooeh/ui/toggle-group"
 
 <ToggleGroup aria-label="Text alignment" defaultValue={["left"]} variant="outline">
   <ToggleGroupItem value="left">Left</ToggleGroupItem>
@@ -52,7 +52,7 @@ export const ToggleGroupStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

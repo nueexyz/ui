@@ -1,4 +1,4 @@
-import { registryItems } from "@dumo/registry";
+import { registryItems } from "@nooeh/registry";
 
 function getComponentNames() {
   return Object.keys(registryItems).sort();
@@ -18,7 +18,7 @@ export function docs(componentName: string | undefined) {
   if (!item) throw new Error(`Unknown component: ${componentName}`);
 
   console.log(`${componentName}\n`);
-  console.log(`Install: pnpm dlx @dumo/ui add ${componentName}`);
+  console.log(`Install: pnpm dlx @nooeh/ui add ${componentName}`);
   console.log(`Files:\n${item.files.map((file) => `  ${file}`).join("\n")}`);
   console.log(
     `Dependencies:\n${item.dependencies.map((dependency) => `  ${dependency}`).join("\n")}`,

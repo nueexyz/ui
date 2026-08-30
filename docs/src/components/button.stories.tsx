@@ -1,5 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
-import { Button } from "@dumo/ui/button";
+import { Button } from "@nooeh/ui/button";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   CodeBlock,
@@ -24,7 +24,7 @@ function ButtonExample() {
   );
 }
 
-const buttonExampleCode = 'import { Button } from "@dumo/ui/button"\n\n<Button>Save</Button>';
+const buttonExampleCode = 'import { Button } from "@nooeh/ui/button"\n\n<Button>Save</Button>';
 
 export const ButtonStory: Story = {
   name: "Button",
@@ -45,7 +45,7 @@ export const ButtonStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

@@ -8,9 +8,9 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { ScrollArea } from "@dumo/ui/scroll-area";
-import { Separator } from "@dumo/ui/separator";
-import { spacingVars } from "@dumo/tokens/tokens.stylex";
+import { ScrollArea } from "@nooeh/ui/scroll-area";
+import { Separator } from "@nooeh/ui/separator";
+import { spacingVars } from "@nooeh/tokens/tokens.stylex";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -62,7 +62,7 @@ function ScrollAreaExample() {
 }
 
 const scrollAreaExampleCode =
-  'import { ScrollArea } from "@dumo/ui/scroll-area"\nimport { Separator } from "@dumo/ui/separator"\n\nconst activities = [\n  "Completed the deployment checklist.",\n  "Sent a design review request.",\n  "Updated the sign-in screen.",\n]\n\n<ScrollArea style={{ height: "14rem", width: "20rem" }}>\n  {activities.map((activity, index) => (\n    <div key={activity}>\n      <div style={{ paddingBlock: "0.75rem" }}>{activity}</div>\n      {index < activities.length - 1 ? <Separator /> : null}\n    </div>\n  ))}\n</ScrollArea>';
+  'import { ScrollArea } from "@nooeh/ui/scroll-area"\nimport { Separator } from "@nooeh/ui/separator"\n\nconst activities = [\n  "Completed the deployment checklist.",\n  "Sent a design review request.",\n  "Updated the sign-in screen.",\n]\n\n<ScrollArea style={{ height: "14rem", width: "20rem" }}>\n  {activities.map((activity, index) => (\n    <div key={activity}>\n      <div style={{ paddingBlock: "0.75rem" }}>{activity}</div>\n      {index < activities.length - 1 ? <Separator /> : null}\n    </div>\n  ))}\n</ScrollArea>';
 
 export const ScrollAreaStory: Story = {
   name: "Scroll Area",
@@ -83,7 +83,7 @@ export const ScrollAreaStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

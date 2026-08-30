@@ -6,10 +6,10 @@ import {
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@dumo/tokens/tokens.stylex";
-import { Button } from "@dumo/ui/button";
-import { Icon } from "@dumo/ui/icon";
-import { Input } from "@dumo/ui/input";
+} from "@nooeh/tokens/tokens.stylex";
+import { Button } from "@nooeh/ui/button";
+import { Icon } from "@nooeh/ui/icon";
+import { Input } from "@nooeh/ui/input";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useLayoutEffect, useRef, useState } from "react";
@@ -289,7 +289,7 @@ export const Typography: Story = {
         value={typographyVars.fontFamily}
       >
         <span {...stylex.props(styles.fontFamilySample(typographyVars.fontFamily))}>
-          Dumo Aa Bb
+          Nooeh Aa Bb
         </span>
       </TokenRow>
       {fontSizeTokens.map(([name, value, usage]) => (
@@ -303,7 +303,7 @@ export const Typography: Story = {
               ),
             )}
           >
-            Dumo Aa Bb
+            Nooeh Aa Bb
           </span>
         </TokenRow>
       ))}
@@ -327,7 +327,7 @@ export const Typography: Story = {
               styles.typeSample(typographyVars.fontSizeSm, value, typographyVars.lineHeightNormal),
             )}
           >
-            Dumo Aa Bb
+            Nooeh Aa Bb
           </span>
         </TokenRow>
       ))}

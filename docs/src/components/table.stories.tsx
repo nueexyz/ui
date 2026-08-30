@@ -17,7 +17,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@dumo/ui/table";
+} from "@nooeh/ui/table";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -74,7 +74,7 @@ function TableExample() {
 }
 
 const tableExampleCode =
-  'import {\n  Table,\n  TableBody,\n  TableCaption,\n  TableCell,\n  TableFooter,\n  TableHead,\n  TableHeader,\n  TableRow,\n} from "@dumo/ui/table"\n\nconst rows = [\n  { name: "Brand guide", owner: "Minyeong", status: "Complete", updated: "Aug 28" },\n  { name: "Mobile navigation", owner: "Jiwoo", status: "In review", updated: "Aug 27" },\n  { name: "Payment screen", owner: "Seojun", status: "In progress", updated: "Aug 25" },\n]\n\n<Table>\n  <TableCaption>Three recently updated projects</TableCaption>\n  <TableHeader>\n    <TableRow>\n      <TableHead>Project</TableHead>\n      <TableHead>Owner</TableHead>\n      <TableHead>Status</TableHead>\n      <TableHead>Updated</TableHead>\n    </TableRow>\n  </TableHeader>\n  <TableBody>\n    {rows.map((row) => (\n      <TableRow key={row.name}>\n        <TableCell>{row.name}</TableCell>\n        <TableCell>{row.owner}</TableCell>\n        <TableCell>{row.status}</TableCell>\n        <TableCell>{row.updated}</TableCell>\n      </TableRow>\n    ))}\n  </TableBody>\n  <TableFooter>\n    <TableRow>\n      <TableCell colSpan={3}>All projects</TableCell>\n      <TableCell>3</TableCell>\n    </TableRow>\n  </TableFooter>\n</Table>';
+  'import {\n  Table,\n  TableBody,\n  TableCaption,\n  TableCell,\n  TableFooter,\n  TableHead,\n  TableHeader,\n  TableRow,\n} from "@nooeh/ui/table"\n\nconst rows = [\n  { name: "Brand guide", owner: "Minyeong", status: "Complete", updated: "Aug 28" },\n  { name: "Mobile navigation", owner: "Jiwoo", status: "In review", updated: "Aug 27" },\n  { name: "Payment screen", owner: "Seojun", status: "In progress", updated: "Aug 25" },\n]\n\n<Table>\n  <TableCaption>Three recently updated projects</TableCaption>\n  <TableHeader>\n    <TableRow>\n      <TableHead>Project</TableHead>\n      <TableHead>Owner</TableHead>\n      <TableHead>Status</TableHead>\n      <TableHead>Updated</TableHead>\n    </TableRow>\n  </TableHeader>\n  <TableBody>\n    {rows.map((row) => (\n      <TableRow key={row.name}>\n        <TableCell>{row.name}</TableCell>\n        <TableCell>{row.owner}</TableCell>\n        <TableCell>{row.status}</TableCell>\n        <TableCell>{row.updated}</TableCell>\n      </TableRow>\n    ))}\n  </TableBody>\n  <TableFooter>\n    <TableRow>\n      <TableCell colSpan={3}>All projects</TableCell>\n      <TableCell>3</TableCell>\n    </TableRow>\n  </TableFooter>\n</Table>';
 
 export const TableStory: Story = {
   name: "Table",
@@ -95,7 +95,7 @@ export const TableStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

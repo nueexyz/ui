@@ -8,14 +8,14 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@dumo/ui/collapsible";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@nooeh/ui/collapsible";
 import {
   colorVars,
   radiusVars,
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@dumo/tokens/tokens.stylex";
+} from "@nooeh/tokens/tokens.stylex";
 
 const meta = {
   title: "Components",
@@ -84,7 +84,7 @@ function CollapsibleExample() {
 }
 
 const collapsibleExampleCode =
-  'import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@dumo/ui/collapsible"\n\n<Collapsible>\n  <div>\n    <strong>Order #4189</strong>\n    <CollapsibleTrigger aria-label="Show order details" />\n  </div>\n  <p>Status: Delivered</p>\n  <CollapsibleContent>\n    <p>Shipping address: 18 Seongsui-ro, Seongdong-gu, Seoul</p>\n    <p>Items: 2 studio headphones</p>\n  </CollapsibleContent>\n</Collapsible>';
+  'import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@nooeh/ui/collapsible"\n\n<Collapsible>\n  <div>\n    <strong>Order #4189</strong>\n    <CollapsibleTrigger aria-label="Show order details" />\n  </div>\n  <p>Status: Delivered</p>\n  <CollapsibleContent>\n    <p>Shipping address: 18 Seongsui-ro, Seongdong-gu, Seoul</p>\n    <p>Items: 2 studio headphones</p>\n  </CollapsibleContent>\n</Collapsible>';
 
 export const CollapsibleStory: Story = {
   name: "Collapsible",
@@ -105,7 +105,7 @@ export const CollapsibleStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

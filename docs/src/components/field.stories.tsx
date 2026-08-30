@@ -8,7 +8,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Checkbox } from "@dumo/ui/checkbox";
+import { Checkbox } from "@nooeh/ui/checkbox";
 import {
   Field,
   FieldContent,
@@ -19,8 +19,8 @@ import {
   FieldLegend,
   FieldSet,
   FieldTitle,
-} from "@dumo/ui/field";
-import { Input } from "@dumo/ui/input";
+} from "@nooeh/ui/field";
+import { Input } from "@nooeh/ui/input";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -75,7 +75,7 @@ function FieldExample() {
 }
 
 const fieldExampleCode =
-  'import { Checkbox } from "@dumo/ui/checkbox"\nimport {\n  Field,\n  FieldContent,\n  FieldDescription,\n  FieldError,\n  FieldGroup,\n  FieldLabel,\n  FieldLegend,\n  FieldSet,\n  FieldTitle,\n} from "@dumo/ui/field"\nimport { Input } from "@dumo/ui/input"\n\n<FieldSet>\n  <FieldLegend>Payment details</FieldLegend>\n  <p>Payment details are encrypted and handled securely.</p>\n  <FieldGroup>\n    <Field>\n      <FieldLabel htmlFor="cardholder">Cardholder name</FieldLabel>\n      <Input id="cardholder" autoComplete="cc-name" defaultValue="Jordan Lee" />\n    </Field>\n    <Field invalid>\n      <FieldLabel htmlFor="card-number">Card number</FieldLabel>\n      <Input\n        id="card-number"\n        aria-invalid\n        autoComplete="cc-number"\n        defaultValue="1234 5678 9012"\n        inputMode="numeric"\n      />\n      <FieldDescription>Enter all 16 digits.</FieldDescription>\n      <FieldError>The card number is incomplete.</FieldError>\n    </Field>\n    <Field orientation="horizontal">\n      <Checkbox id="billing-address" defaultChecked />\n      <FieldContent>\n        <FieldTitle>Billing address is the same as shipping address.</FieldTitle>\n        <FieldDescription>Clear this option to use a different billing address.</FieldDescription>\n      </FieldContent>\n    </Field>\n  </FieldGroup>\n</FieldSet>';
+  'import { Checkbox } from "@nooeh/ui/checkbox"\nimport {\n  Field,\n  FieldContent,\n  FieldDescription,\n  FieldError,\n  FieldGroup,\n  FieldLabel,\n  FieldLegend,\n  FieldSet,\n  FieldTitle,\n} from "@nooeh/ui/field"\nimport { Input } from "@nooeh/ui/input"\n\n<FieldSet>\n  <FieldLegend>Payment details</FieldLegend>\n  <p>Payment details are encrypted and handled securely.</p>\n  <FieldGroup>\n    <Field>\n      <FieldLabel htmlFor="cardholder">Cardholder name</FieldLabel>\n      <Input id="cardholder" autoComplete="cc-name" defaultValue="Jordan Lee" />\n    </Field>\n    <Field invalid>\n      <FieldLabel htmlFor="card-number">Card number</FieldLabel>\n      <Input\n        id="card-number"\n        aria-invalid\n        autoComplete="cc-number"\n        defaultValue="1234 5678 9012"\n        inputMode="numeric"\n      />\n      <FieldDescription>Enter all 16 digits.</FieldDescription>\n      <FieldError>The card number is incomplete.</FieldError>\n    </Field>\n    <Field orientation="horizontal">\n      <Checkbox id="billing-address" defaultChecked />\n      <FieldContent>\n        <FieldTitle>Billing address is the same as shipping address.</FieldTitle>\n        <FieldDescription>Clear this option to use a different billing address.</FieldDescription>\n      </FieldContent>\n    </Field>\n  </FieldGroup>\n</FieldSet>';
 
 export const FieldStory: Story = {
   name: "Field",
@@ -96,7 +96,7 @@ export const FieldStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

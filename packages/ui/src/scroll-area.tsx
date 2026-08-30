@@ -2,7 +2,7 @@ import { ScrollArea as ScrollAreaPrimitive } from "@base-ui/react/scroll-area";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, ReactNode } from "react";
 
-import { colorVars, motionVars, radiusVars } from "@dumo/tokens/tokens.stylex";
+import { colorVars, motionVars, radiusVars } from "@nooeh/tokens/tokens.stylex";
 
 const styles = stylex.create({
   root: { overflow: "hidden", position: "relative" },

@@ -1,12 +1,12 @@
-import { Icon, iconRegistry } from "@dumo/ui/icon";
-import type { IconName } from "@dumo/ui/icon";
+import { Icon, iconRegistry } from "@nooeh/ui/icon";
+import type { IconName } from "@nooeh/ui/icon";
 import {
   colorVars,
   radiusVars,
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@dumo/tokens/tokens.stylex";
+} from "@nooeh/tokens/tokens.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 

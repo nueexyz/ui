@@ -8,7 +8,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Bubble } from "@dumo/ui/bubble";
+import { Bubble } from "@nooeh/ui/bubble";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -36,7 +36,7 @@ function BubbleExample() {
 }
 
 const bubbleExampleCode =
-  'import { Bubble } from "@dumo/ui/bubble"\n\n<Bubble>Could you review today’s meeting materials?</Bubble>';
+  'import { Bubble } from "@nooeh/ui/bubble"\n\n<Bubble>Could you review today’s meeting materials?</Bubble>';
 
 export const BubbleStory: Story = {
   name: "Bubble",
@@ -57,7 +57,7 @@ export const BubbleStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

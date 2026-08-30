@@ -18,7 +18,7 @@ async function writeTsconfig(projectDirectory) {
 }
 
 test("add creates the default config and copies a component with its foundation", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);
@@ -31,14 +31,14 @@ test("add creates the default config and copies a component with its foundation"
       "utf8",
     );
     assert.match(buttonSource, /export function Button/);
-    assert.match(buttonSource, /from "@dumo\/tokens\/tokens\.stylex"/);
+    assert.match(buttonSource, /from "@nooeh\/tokens\/tokens\.stylex"/);
   } finally {
     await rm(projectDirectory, { recursive: true });
   }
 });
 
 test("init stores a custom UI alias", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
 
   try {
     await init(projectDirectory, {
@@ -55,7 +55,7 @@ test("init stores a custom UI alias", async () => {
 });
 
 test("init configures a standard Vite project", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
 
   try {
     await writeFile(
@@ -67,8 +67,8 @@ test("init configures a standard Vite project", async () => {
     await init(projectDirectory, { defaults: true, framework: "vite" });
 
     assert.equal(
-      await readFile(join(projectDirectory, "src/styles/dumo.css"), "utf8"),
-      '@import "@dumo/ui/global.css";\n',
+      await readFile(join(projectDirectory, "src/styles/nooeh.css"), "utf8"),
+      '@import "@nooeh/ui/global.css";\n',
     );
     assert.match(
       await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
@@ -76,10 +76,10 @@ test("init configures a standard Vite project", async () => {
     );
     assert.match(
       await readFile(join(projectDirectory, "src/main.tsx"), "utf8"),
-      /applyDumoTheme\(\)/,
+      /applyNooehTheme\(\)/,
     );
     assert.match(
-      await readFile(join(projectDirectory, "src/dumo-theme.ts"), "utf8"),
+      await readFile(join(projectDirectory, "src/nooeh-theme.ts"), "utf8"),
       /darkColorTheme/,
     );
   } finally {
@@ -88,7 +88,7 @@ test("init configures a standard Vite project", async () => {
 });
 
 test("init does not change a Vite project when its plugin array cannot be updated safely", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
 
   try {
     const configSource = "export default { plugins: createPlugins() };\n";
@@ -101,14 +101,14 @@ test("init does not change a Vite project when its plugin array cannot be update
       /Could not safely update/,
     );
     assert.equal(await readFile(join(projectDirectory, "vite.config.ts"), "utf8"), configSource);
-    await assert.rejects(() => access(join(projectDirectory, "src/dumo-theme.ts")));
+    await assert.rejects(() => access(join(projectDirectory, "src/nooeh-theme.ts")));
   } finally {
     await rm(projectDirectory, { recursive: true });
   }
 });
 
 test("add resolves component and icon dependencies", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);
@@ -129,7 +129,7 @@ test("add resolves component and icon dependencies", async () => {
 });
 
 test("add uses packaged registry content without a UI source directory", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);
@@ -146,7 +146,7 @@ test("add uses packaged registry content without a UI source directory", async (
 });
 
 test("add installs renamed and new components", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);
@@ -172,7 +172,7 @@ test("add installs renamed and new components", async () => {
 });
 
 test("add dry-run does not write files", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);
@@ -185,7 +185,7 @@ test("add dry-run does not write files", async () => {
 });
 
 test("add installs a component from a registry URL", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
   const item = {
     dependencies: [],
     files: [{ path: "notice.ts", content: "export const notice = true;\n" }],
@@ -213,7 +213,7 @@ test("add installs a component from a registry URL", async () => {
 });
 
 test("add rejects a registry file path that escapes the UI directory", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
   const item = {
     dependencies: [],
     files: [{ path: "../outside.ts", content: "export const outside = true;\n" }],
@@ -238,7 +238,7 @@ test("add rejects a registry file path that escapes the UI directory", async () 
 });
 
 test("new creates a StyleX component without overwriting an existing file", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);
@@ -267,6 +267,6 @@ test("docs prints the component installation contract", () => {
     console.log = write;
   }
 
-  assert.match(output.join("\n"), /pnpm dlx @dumo\/ui add button/);
+  assert.match(output.join("\n"), /pnpm dlx @nooeh\/ui add button/);
   assert.match(output.join("\n"), /@base-ui\/react/);
 });

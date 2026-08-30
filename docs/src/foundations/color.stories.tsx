@@ -1,11 +1,11 @@
-import { colorPaletteGroups } from "@dumo/tokens/color-palette";
+import { colorPaletteGroups } from "@nooeh/tokens/color-palette";
 import {
   colorVars,
   radiusVars,
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@dumo/tokens/tokens.stylex";
+} from "@nooeh/tokens/tokens.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useLayoutEffect, useRef, useState } from "react";

@@ -8,8 +8,8 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { spacingVars } from "@dumo/tokens/tokens.stylex";
-import { Button } from "@dumo/ui/button";
+import { spacingVars } from "@nooeh/tokens/tokens.stylex";
+import { Button } from "@nooeh/ui/button";
 import {
   Empty,
   EmptyContent,
@@ -17,8 +17,8 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@dumo/ui/empty";
-import { Icon } from "@dumo/ui/icon";
+} from "@nooeh/ui/empty";
+import { Icon } from "@nooeh/ui/icon";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -50,7 +50,7 @@ function EmptyExample() {
 }
 
 const emptyExampleCode =
-  'import { Button } from "@dumo/ui/button"\nimport { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@dumo/ui/empty"\nimport { Icon } from "@dumo/ui/icon"\n\n<Empty>\n  <EmptyHeader>\n    <EmptyMedia><Icon aria-hidden="true" name="folder" /></EmptyMedia>\n    <EmptyTitle>No saved projects</EmptyTitle>\n    <EmptyDescription>Save projects you visit often to open them here quickly.</EmptyDescription>\n  </EmptyHeader>\n  <EmptyContent><Button>Save project</Button></EmptyContent>\n</Empty>';
+  'import { Button } from "@nooeh/ui/button"\nimport { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@nooeh/ui/empty"\nimport { Icon } from "@nooeh/ui/icon"\n\n<Empty>\n  <EmptyHeader>\n    <EmptyMedia><Icon aria-hidden="true" name="folder" /></EmptyMedia>\n    <EmptyTitle>No saved projects</EmptyTitle>\n    <EmptyDescription>Save projects you visit often to open them here quickly.</EmptyDescription>\n  </EmptyHeader>\n  <EmptyContent><Button>Save project</Button></EmptyContent>\n</Empty>';
 
 export const EmptyStory: Story = {
   name: "Empty",
@@ -71,7 +71,7 @@ export const EmptyStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

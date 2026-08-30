@@ -3,9 +3,9 @@ import {
   darkShadowTheme,
   lightColorTheme,
   lightShadowTheme,
-} from "@dumo/tokens/themes.stylex";
-import { colorVars, typographyVars } from "@dumo/tokens/tokens.stylex";
-import "@dumo/ui/global.css";
+} from "@nooeh/tokens/themes.stylex";
+import { colorVars, typographyVars } from "@nooeh/tokens/tokens.stylex";
+import "@nooeh/ui/global.css";
 import * as stylex from "@stylexjs/stylex";
 import type { Preview } from "@storybook/react-vite";
 import { type ReactNode, useLayoutEffect } from "react";

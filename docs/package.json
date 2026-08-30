@@ -1,5 +1,5 @@
 {
-  "name": "@dumo/docs",
+  "name": "@nooeh/docs",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -9,8 +9,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@dumo/tokens": "workspace:*",
-    "@dumo/ui": "workspace:*",
+    "@nooeh/tokens": "workspace:*",
+    "@nooeh/ui": "workspace:*",
     "@stylexjs/stylex": "catalog:2026-08-27-stable",
     "react": "catalog:2026-08-27-stable",
     "react-dom": "catalog:2026-08-27-stable"

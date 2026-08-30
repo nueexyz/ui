@@ -1,11 +1,11 @@
 import { access, readFile, writeFile } from "node:fs/promises";
 import { isAbsolute, relative, resolve } from "node:path";
 
-export const configFileName = "dumo.json";
+export const configFileName = "nooeh.json";
 
 export const configVersion = 1;
 
-export type DumoConfig = {
+export type NooehConfig = {
   aliases: {
     ui: string;
   };
@@ -21,7 +21,7 @@ type TypeScriptConfig = {
 
 type TypeScriptPaths = Record<string, readonly string[]>;
 
-export const defaultConfig: DumoConfig = {
+export const defaultConfig: NooehConfig = {
   aliases: { ui: "@/components/ui" },
   version: configVersion,
 };
@@ -43,14 +43,14 @@ function ensureRelativePath(projectDirectory: string, path: string, name: string
   }
 }
 
-export function validateConfig(config: unknown): DumoConfig {
+export function validateConfig(config: unknown): NooehConfig {
   const candidate = config as { aliases?: { ui?: unknown }; version?: unknown };
   if (!candidate.aliases || typeof candidate.aliases.ui !== "string" || !candidate.aliases.ui) {
     throw new Error("Configure aliases.ui.");
   }
 
   if (candidate.version !== undefined && candidate.version !== configVersion) {
-    throw new Error(`Unsupported dumo.json version: ${String(candidate.version)}`);
+    throw new Error(`Unsupported nooeh.json version: ${String(candidate.version)}`);
   }
 
   return {
@@ -71,13 +71,13 @@ export async function readConfig(projectDirectory: string) {
     return validateConfig(config);
   } catch (error) {
     if (isNotFoundError(error)) {
-      throw new Error("dumo.json was not found. Run `dumo init` first.");
+      throw new Error("nooeh.json was not found. Run `nooeh init` first.");
     }
     throw error;
   }
 }
 
-export async function writeConfig(projectDirectory: string, config: DumoConfig) {
+export async function writeConfig(projectDirectory: string, config: NooehConfig) {
   const validatedConfig = validateConfig(config);
   const configPath = resolve(projectDirectory, configFileName);
   await writeFile(configPath, `${JSON.stringify(validatedConfig, null, 2)}\n`, "utf8");

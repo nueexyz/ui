@@ -2,7 +2,7 @@
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { colorVars, spacingVars, typographyVars } from "@dumo/tokens/tokens.stylex";
+import { colorVars, spacingVars, typographyVars } from "@nooeh/tokens/tokens.stylex";
 
 const styles = stylex.create({
   root: {

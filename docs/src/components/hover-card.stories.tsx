@@ -8,15 +8,15 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Avatar, AvatarFallback } from "@dumo/ui/avatar";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@dumo/ui/hover-card";
+import { Avatar, AvatarFallback } from "@nooeh/ui/avatar";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@nooeh/ui/hover-card";
 import {
   ContentRow,
   ContentRowContent,
   ContentRowDescription,
   ContentRowMedia,
   ContentRowTitle,
-} from "@dumo/ui/content-row";
+} from "@nooeh/ui/content-row";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -35,7 +35,7 @@ function HoverCardExample() {
       </header>
       <div {...stylex.props(storyStyles.preview)}>
         <HoverCard>
-          <HoverCardTrigger href="#">@dumo</HoverCardTrigger>
+          <HoverCardTrigger href="#">@nooeh</HoverCardTrigger>
           <HoverCardContent align="start">
             <ContentRow size="sm">
               <ContentRowMedia variant="avatar">
@@ -44,7 +44,7 @@ function HoverCardExample() {
                 </Avatar>
               </ContentRowMedia>
               <ContentRowContent>
-                <ContentRowTitle>Dumo</ContentRowTitle>
+                <ContentRowTitle>Nooeh</ContentRowTitle>
                 <ContentRowDescription>
                   A calm, consistent design system for product experiences
                 </ContentRowDescription>
@@ -58,7 +58,7 @@ function HoverCardExample() {
 }
 
 const hoverCardExampleCode =
-  'import { Avatar, AvatarFallback } from "@dumo/ui/avatar"\nimport { ContentRow, ContentRowContent, ContentRowDescription, ContentRowMedia, ContentRowTitle } from "@dumo/ui/content-row"\nimport { HoverCard, HoverCardContent, HoverCardTrigger } from "@dumo/ui/hover-card"\n\n<HoverCard>\n  <HoverCardTrigger href="#">@dumo</HoverCardTrigger>\n  <HoverCardContent align="start">\n    <ContentRow size="sm">\n      <ContentRowMedia variant="avatar"><Avatar><AvatarFallback>CA</AvatarFallback></Avatar></ContentRowMedia>\n      <ContentRowContent>\n        <ContentRowTitle>Dumo</ContentRowTitle>\n        <ContentRowDescription>A calm, consistent design system for product experiences</ContentRowDescription>\n      </ContentRowContent>\n    </ContentRow>\n  </HoverCardContent>\n</HoverCard>';
+  'import { Avatar, AvatarFallback } from "@nooeh/ui/avatar"\nimport { ContentRow, ContentRowContent, ContentRowDescription, ContentRowMedia, ContentRowTitle } from "@nooeh/ui/content-row"\nimport { HoverCard, HoverCardContent, HoverCardTrigger } from "@nooeh/ui/hover-card"\n\n<HoverCard>\n  <HoverCardTrigger href="#">@nooeh</HoverCardTrigger>\n  <HoverCardContent align="start">\n    <ContentRow size="sm">\n      <ContentRowMedia variant="avatar"><Avatar><AvatarFallback>CA</AvatarFallback></Avatar></ContentRowMedia>\n      <ContentRowContent>\n        <ContentRowTitle>Nooeh</ContentRowTitle>\n        <ContentRowDescription>A calm, consistent design system for product experiences</ContentRowDescription>\n      </ContentRowContent>\n    </ContentRow>\n  </HoverCardContent>\n</HoverCard>';
 
 export const HoverCardStory: Story = {
   name: "Hover Card",
@@ -79,7 +79,7 @@ export const HoverCardStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

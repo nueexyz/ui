@@ -15,8 +15,8 @@ import {
   ComboboxEmpty,
   ComboboxInput,
   ComboboxItem,
-} from "@dumo/ui/combobox";
-import { Field, FieldDescription, FieldLabel } from "@dumo/ui/field";
+} from "@nooeh/ui/combobox";
+import { Field, FieldDescription, FieldLabel } from "@nooeh/ui/field";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -51,7 +51,7 @@ function ComboboxExample() {
 }
 
 const comboboxExampleCode =
-  'import { Combobox, ComboboxCollection, ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem } from "@dumo/ui/combobox"\nimport { Field, FieldDescription, FieldLabel } from "@dumo/ui/field"\n\nconst frameworks = ["React", "Vue", "Svelte"]\n\n<Field>\n  <FieldLabel>Framework</FieldLabel>\n  <Combobox items={frameworks}>\n    <ComboboxInput placeholder="Search frameworks" />\n    <ComboboxContent>\n      <ComboboxEmpty>No matching frameworks.</ComboboxEmpty>\n      <ComboboxCollection>\n        {(framework) => <ComboboxItem key={framework} value={framework}>{framework}</ComboboxItem>}\n      </ComboboxCollection>\n    </ComboboxContent>\n  </Combobox>\n  <FieldDescription>Select the framework used in your project.</FieldDescription>\n</Field>';
+  'import { Combobox, ComboboxCollection, ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem } from "@nooeh/ui/combobox"\nimport { Field, FieldDescription, FieldLabel } from "@nooeh/ui/field"\n\nconst frameworks = ["React", "Vue", "Svelte"]\n\n<Field>\n  <FieldLabel>Framework</FieldLabel>\n  <Combobox items={frameworks}>\n    <ComboboxInput placeholder="Search frameworks" />\n    <ComboboxContent>\n      <ComboboxEmpty>No matching frameworks.</ComboboxEmpty>\n      <ComboboxCollection>\n        {(framework) => <ComboboxItem key={framework} value={framework}>{framework}</ComboboxItem>}\n      </ComboboxCollection>\n    </ComboboxContent>\n  </Combobox>\n  <FieldDescription>Select the framework used in your project.</FieldDescription>\n</Field>';
 
 export const ComboboxStory: Story = {
   name: "Combobox",
@@ -72,7 +72,7 @@ export const ComboboxStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

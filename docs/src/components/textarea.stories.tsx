@@ -8,7 +8,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Textarea } from "@dumo/ui/textarea";
+import { Textarea } from "@nooeh/ui/textarea";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -40,7 +40,7 @@ function TextareaExample() {
 }
 
 const textareaExampleCode =
-  'import { Textarea } from "@dumo/ui/textarea"\n\n<>\n  <Textarea aria-label="Note" placeholder="Write down the decisions from the meeting." />\n  <Textarea aria-label="Read-only note" disabled defaultValue="This note has been reviewed." />\n</>';
+  'import { Textarea } from "@nooeh/ui/textarea"\n\n<>\n  <Textarea aria-label="Note" placeholder="Write down the decisions from the meeting." />\n  <Textarea aria-label="Read-only note" disabled defaultValue="This note has been reviewed." />\n</>';
 
 export const TextareaStory: Story = {
   name: "Textarea",
@@ -61,7 +61,7 @@ export const TextareaStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

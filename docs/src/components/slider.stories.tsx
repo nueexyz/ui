@@ -8,8 +8,8 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Field, FieldDescription, FieldLabel } from "@dumo/ui/field";
-import { Slider } from "@dumo/ui/slider";
+import { Field, FieldDescription, FieldLabel } from "@nooeh/ui/field";
+import { Slider } from "@nooeh/ui/slider";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -39,7 +39,7 @@ function SliderExample() {
 }
 
 const sliderExampleCode =
-  'import { Slider } from "@dumo/ui/slider"\n\n<Slider aria-label="Volume" defaultValue={40} />';
+  'import { Slider } from "@nooeh/ui/slider"\n\n<Slider aria-label="Volume" defaultValue={40} />';
 
 export const SliderStory: Story = {
   name: "Slider",
@@ -60,7 +60,7 @@ export const SliderStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

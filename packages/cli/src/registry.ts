@@ -1,4 +1,4 @@
-import { dependencyVersions, getRegistryItem, type RegistryItem } from "@dumo/registry";
+import { dependencyVersions, getRegistryItem, type RegistryItem } from "@nooeh/registry";
 
 type RegistryFile = RegistryItem["files"][number];
 
@@ -64,7 +64,7 @@ async function resolveRemoteComponent(url: string) {
           typeof file.content === "string",
       )
     ) {
-      throw new Error("This is not a valid Dumo registry item.");
+      throw new Error("This is not a valid Nooeh registry item.");
     }
 
     const itemName = item.name ?? itemUrl;

@@ -10,8 +10,8 @@ import {
 } from "react";
 
 import { Separator } from "./separator";
-import { radiusVars } from "@dumo/tokens/tokens.stylex";
-import { colorVars, sizeVars, spacingVars, typographyVars } from "@dumo/tokens/tokens.stylex";
+import { radiusVars } from "@nooeh/tokens/tokens.stylex";
+import { colorVars, sizeVars, spacingVars, typographyVars } from "@nooeh/tokens/tokens.stylex";
 
 const styles = stylex.create({
   root: {

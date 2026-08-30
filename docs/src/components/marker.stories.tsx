@@ -1,7 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
-import { Icon } from "@dumo/ui/icon";
-import { Marker, MarkerContent, MarkerIcon } from "@dumo/ui/marker";
-import { Spinner } from "@dumo/ui/spinner";
+import { Icon } from "@nooeh/ui/icon";
+import { Marker, MarkerContent, MarkerIcon } from "@nooeh/ui/marker";
+import { Spinner } from "@nooeh/ui/spinner";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   CodeBlock,
@@ -32,7 +32,7 @@ function MarkerExample() {
 }
 
 const markerExampleCode =
-  'import { Marker, MarkerContent, MarkerIcon } from "@dumo/ui/marker"\nimport { Spinner } from "@dumo/ui/spinner"\n\n<Marker>\n  <MarkerIcon><Spinner label="Writing a reply" /></MarkerIcon>\n  <MarkerContent>Writing a reply.</MarkerContent>\n</Marker>';
+  'import { Marker, MarkerContent, MarkerIcon } from "@nooeh/ui/marker"\nimport { Spinner } from "@nooeh/ui/spinner"\n\n<Marker>\n  <MarkerIcon><Spinner label="Writing a reply" /></MarkerIcon>\n  <MarkerContent>Writing a reply.</MarkerContent>\n</Marker>';
 
 export const MarkerStory: Story = {
   name: "Marker",
@@ -53,7 +53,7 @@ export const MarkerStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

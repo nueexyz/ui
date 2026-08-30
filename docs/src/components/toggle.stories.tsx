@@ -1,6 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Toggle } from "@dumo/ui/toggle";
+import { Toggle } from "@nooeh/ui/toggle";
 import {
   CodeBlock,
   ComponentCode,
@@ -16,7 +16,7 @@ type Story = StoryObj<typeof meta>;
 
 const componentDocument = getComponentDocument("Toggle");
 
-const toggleExampleCode = `import { Toggle } from "@dumo/ui/toggle"
+const toggleExampleCode = `import { Toggle } from "@nooeh/ui/toggle"
 
 <div>
   <Toggle defaultPressed>Bold</Toggle>
@@ -45,7 +45,7 @@ export const ToggleStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

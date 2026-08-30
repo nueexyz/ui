@@ -1,5 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
-import { Avatar, AvatarBadge, AvatarFallback } from "@dumo/ui/avatar";
+import { Avatar, AvatarBadge, AvatarFallback } from "@nooeh/ui/avatar";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   CodeBlock,
@@ -9,7 +9,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { AvatarGroup, AvatarGroupCount } from "@dumo/ui/avatar";
+import { AvatarGroup, AvatarGroupCount } from "@nooeh/ui/avatar";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -45,7 +45,7 @@ function AvatarExample() {
 }
 
 const avatarExampleCode =
-  'import { Avatar, AvatarFallback } from "@dumo/ui/avatar"\n\n<Avatar>\n  <AvatarFallback>MY</AvatarFallback>\n</Avatar>';
+  'import { Avatar, AvatarFallback } from "@nooeh/ui/avatar"\n\n<Avatar>\n  <AvatarFallback>MY</AvatarFallback>\n</Avatar>';
 
 export const AvatarStory: Story = {
   name: "Avatar",
@@ -66,7 +66,7 @@ export const AvatarStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

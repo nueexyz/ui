@@ -8,7 +8,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Button } from "@dumo/ui/button";
+import { Button } from "@nooeh/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -18,7 +18,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@dumo/ui/dialog";
+} from "@nooeh/ui/dialog";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -49,7 +49,7 @@ function DialogExample() {
 }
 
 const dialogExampleCode =
-  'import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@dumo/ui/dialog"\n\n<Dialog>\n  <DialogTrigger>Open profile</DialogTrigger>\n  <DialogContent>\n    <DialogTitle>Profile</DialogTitle>\n  </DialogContent>\n</Dialog>';
+  'import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@nooeh/ui/dialog"\n\n<Dialog>\n  <DialogTrigger>Open profile</DialogTrigger>\n  <DialogContent>\n    <DialogTitle>Profile</DialogTitle>\n  </DialogContent>\n</Dialog>';
 
 export const DialogStory: Story = {
   name: "Dialog",
@@ -70,7 +70,7 @@ export const DialogStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

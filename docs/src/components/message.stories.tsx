@@ -8,8 +8,8 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { getComponentDocument } from "./story-layout/component-docs";
-import { Bubble } from "@dumo/ui/bubble";
-import { Message, MessageContent, MessageFooter, MessageHeader } from "@dumo/ui/message";
+import { Bubble } from "@nooeh/ui/bubble";
+import { Message, MessageContent, MessageFooter, MessageHeader } from "@nooeh/ui/message";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -48,7 +48,7 @@ function MessageExample() {
 }
 
 const messageExampleCode =
-  'import { Bubble } from "@dumo/ui/bubble"\nimport { Message, MessageContent, MessageFooter, MessageHeader } from "@dumo/ui/message"\n\n<Message side="incoming">\n  <MessageHeader>Minyeong</MessageHeader>\n  <MessageContent><Bubble>I started reviewing the documentation.</Bubble></MessageContent>\n  <MessageFooter>2:18 PM</MessageFooter>\n</Message>';
+  'import { Bubble } from "@nooeh/ui/bubble"\nimport { Message, MessageContent, MessageFooter, MessageHeader } from "@nooeh/ui/message"\n\n<Message side="incoming">\n  <MessageHeader>Minyeong</MessageHeader>\n  <MessageContent><Bubble>I started reviewing the documentation.</Bubble></MessageContent>\n  <MessageFooter>2:18 PM</MessageFooter>\n</Message>';
 
 export const MessageStory: Story = {
   name: "Message",
@@ -69,7 +69,7 @@ export const MessageStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @dumo/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
           label="Terminal"
           language="bash"
         />

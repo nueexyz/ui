@@ -1,7 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { colorVars, radiusVars, sizeVars } from "@dumo/tokens/tokens.stylex";
+import { colorVars, radiusVars, sizeVars } from "@nooeh/tokens/tokens.stylex";
 
 const spin = stylex.keyframes({ to: { transform: "rotate(360deg)" } });
 
