@@ -7,10 +7,8 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 
 const meta = {
   title: "Components",
@@ -19,7 +17,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Button Group");
+const registryName = "button-group";
 
 const buttonGroupExampleCode = `import { Button } from "@nooeh/ui/button"
 import { ButtonGroup } from "@nooeh/ui/button-group"
@@ -81,18 +79,17 @@ export const ButtonGroupStory: Story = {
         </div>
       </ComponentExample>
 
+      <ComponentCode usage={buttonGroupExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={buttonGroupExampleCode} />
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };

@@ -4,10 +4,8 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@nooeh/ui/collapsible";
 import {
   colorVars,
@@ -24,7 +22,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Collapsible");
+const registryName = "collapsible";
 
 const styles = stylex.create({
   header: {
@@ -100,18 +98,17 @@ export const CollapsibleStory: Story = {
         <CollapsibleExample />
       </ComponentExample>
 
+      <ComponentCode usage={collapsibleExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={collapsibleExampleCode} />
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };

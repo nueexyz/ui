@@ -4,10 +4,8 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 import { Avatar, AvatarFallback } from "@nooeh/ui/avatar";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@nooeh/ui/hover-card";
 import {
@@ -22,7 +20,7 @@ const meta = { title: "Components", parameters: { layout: "fullscreen" } } satis
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Hover Card");
+const registryName = "hover-card";
 
 function HoverCardExample() {
   return (
@@ -74,18 +72,17 @@ export const HoverCardStory: Story = {
         <HoverCardExample />
       </ComponentExample>
 
+      <ComponentCode usage={hoverCardExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={hoverCardExampleCode} />
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };

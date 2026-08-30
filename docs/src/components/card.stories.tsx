@@ -4,10 +4,8 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 import { Button } from "@nooeh/ui/button";
 import {
   Card,
@@ -23,7 +21,7 @@ const meta = { title: "Components", parameters: { layout: "fullscreen" } } satis
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Card");
+const registryName = "card";
 
 function CardExample() {
   return (
@@ -106,18 +104,17 @@ export const CardStory: Story = {
         <CardExample />
       </ComponentExample>
 
+      <ComponentCode usage={cardExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={cardExampleCode} />
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };

@@ -283,42 +283,6 @@ export function ComponentCode({ usage }: { usage: string }) {
   );
 }
 
-export function ComponentPropsTable({
-  props,
-}: {
-  props?: readonly { defaultValue?: string; description: string; name: string; type: string }[];
-}) {
-  if (!props?.length) return null;
-
-  return (
-    <section {...stylex.props(storyStyles.section)}>
-      <h2 {...stylex.props(storyStyles.sectionTitle)}>Props</h2>
-      <table {...stylex.props(storyStyles.propsTable)}>
-        <thead>
-          <tr>
-            <th {...stylex.props(storyStyles.propsCell, storyStyles.propsHeader)}>Name</th>
-            <th {...stylex.props(storyStyles.propsCell, storyStyles.propsHeader)}>Type</th>
-            <th {...stylex.props(storyStyles.propsCell, storyStyles.propsHeader)}>Default</th>
-            <th {...stylex.props(storyStyles.propsCell, storyStyles.propsHeader)}>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.map((prop) => (
-            <tr key={prop.name}>
-              <td {...stylex.props(storyStyles.propsCell, storyStyles.propsName)}>{prop.name}</td>
-              <td {...stylex.props(storyStyles.propsCell, storyStyles.propsName)}>{prop.type}</td>
-              <td {...stylex.props(storyStyles.propsCell, storyStyles.propsName)}>
-                {prop.defaultValue ?? "–"}
-              </td>
-              <td {...stylex.props(storyStyles.propsCell)}>{prop.description}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </section>
-  );
-}
-
 export function CodeBlock({
   code,
   collapsible = false,

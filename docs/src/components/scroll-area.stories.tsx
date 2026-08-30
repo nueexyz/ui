@@ -4,10 +4,8 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 import { ScrollArea } from "@nooeh/ui/scroll-area";
 import { Separator } from "@nooeh/ui/separator";
 import { spacingVars } from "@nooeh/tokens/tokens.stylex";
@@ -16,7 +14,7 @@ const meta = { title: "Components", parameters: { layout: "fullscreen" } } satis
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Scroll Area");
+const registryName = "scroll-area";
 
 const styles = stylex.create({
   viewport: { height: "14rem", width: "20rem" },
@@ -78,18 +76,17 @@ export const ScrollAreaStory: Story = {
         <ScrollAreaExample />
       </ComponentExample>
 
+      <ComponentCode usage={scrollAreaExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={scrollAreaExampleCode} />
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };

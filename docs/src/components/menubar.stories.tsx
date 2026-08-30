@@ -4,10 +4,8 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 import {
   Menubar,
   MenubarContent,
@@ -22,7 +20,7 @@ const meta = { title: "Components", parameters: { layout: "fullscreen" } } satis
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Menubar");
+const registryName = "menubar";
 
 function MenubarExample() {
   return (
@@ -76,18 +74,17 @@ export const MenubarStory: Story = {
         <MenubarExample />
       </ComponentExample>
 
+      <ComponentCode usage={menubarExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={menubarExampleCode} />
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };

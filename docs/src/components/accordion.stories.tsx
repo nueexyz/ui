@@ -4,10 +4,8 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@nooeh/ui/accordion";
 import { colorVars, spacingVars, typographyVars } from "@nooeh/tokens/tokens.stylex";
 
@@ -15,7 +13,7 @@ const meta = { title: "Components", parameters: { layout: "fullscreen" } } satis
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Accordion");
+const registryName = "accordion";
 
 const styles = stylex.create({
   disabledLabel: {
@@ -108,18 +106,17 @@ export const AccordionStory: Story = {
         <AccordionExample />
       </ComponentExample>
 
+      <ComponentCode usage={accordionExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={accordionExampleCode} />
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };

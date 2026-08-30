@@ -4,10 +4,8 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 import { Field, FieldLabel } from "@nooeh/ui/field";
 import { NativeSelect, NativeSelectOption } from "@nooeh/ui/native-select";
 
@@ -18,7 +16,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Native Select");
+const registryName = "native-select";
 
 function NativeSelectExample() {
   return (
@@ -52,18 +50,17 @@ export const NativeSelectStory: Story = {
         <NativeSelectExample />
       </ComponentExample>
 
+      <ComponentCode usage={nativeSelectExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={nativeSelectExampleCode} />
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };

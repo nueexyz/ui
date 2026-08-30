@@ -14,17 +14,15 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 import { AttachmentGroup } from "@nooeh/ui/attachment";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Attachment");
+const registryName = "attachment";
 
 function AttachmentExample() {
   return (
@@ -102,17 +100,17 @@ export const AttachmentStory: Story = {
         <AttachmentExample />
       </ComponentExample>
 
+      <ComponentCode usage={attachmentExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={attachmentExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>States</h2>
@@ -127,7 +125,6 @@ export const AttachmentStory: Story = {
           <FileAttachment error />
         </div>
       </section>
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };

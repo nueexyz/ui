@@ -4,10 +4,8 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 import { Bubble } from "@nooeh/ui/bubble";
 import { Message, MessageContent, MessageFooter, MessageHeader } from "@nooeh/ui/message";
 
@@ -15,7 +13,7 @@ const meta = { title: "Components", parameters: { layout: "fullscreen" } } satis
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Message");
+const registryName = "message";
 
 function MessageExample() {
   return (
@@ -64,18 +62,17 @@ export const MessageStory: Story = {
         <MessageExample />
       </ComponentExample>
 
+      <ComponentCode usage={messageExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={messageExampleCode} />
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };

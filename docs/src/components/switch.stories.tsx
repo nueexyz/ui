@@ -4,17 +4,15 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 import { Switch } from "@nooeh/ui/switch";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Switch");
+const registryName = "switch";
 
 function SwitchExample() {
   return (
@@ -48,18 +46,17 @@ export const SwitchStory: Story = {
         <SwitchExample />
       </ComponentExample>
 
+      <ComponentCode usage={switchExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={switchExampleCode} />
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };

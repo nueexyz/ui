@@ -5,17 +5,15 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 import { AvatarGroup, AvatarGroupCount } from "@nooeh/ui/avatar";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Avatar");
+const registryName = "avatar";
 
 function AvatarExample() {
   return (
@@ -61,17 +59,17 @@ export const AvatarStory: Story = {
         <AvatarExample />
       </ComponentExample>
 
+      <ComponentCode usage={avatarExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={avatarExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Sizes</h2>
@@ -92,7 +90,6 @@ export const AvatarStory: Story = {
           </Avatar>
         </div>
       </section>
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };

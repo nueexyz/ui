@@ -4,10 +4,8 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 import { Field, FieldDescription, FieldLabel } from "@nooeh/ui/field";
 import { Slider } from "@nooeh/ui/slider";
 
@@ -15,7 +13,7 @@ const meta = { title: "Components", parameters: { layout: "fullscreen" } } satis
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Slider");
+const registryName = "slider";
 
 function SliderExample() {
   return (
@@ -55,18 +53,17 @@ export const SliderStory: Story = {
         <SliderExample />
       </ComponentExample>
 
+      <ComponentCode usage={sliderExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={sliderExampleCode} />
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };

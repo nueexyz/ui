@@ -4,10 +4,8 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 import { Input } from "@nooeh/ui/input";
 import { Label } from "@nooeh/ui/label";
 
@@ -15,7 +13,7 @@ const meta = { title: "Components", parameters: { layout: "fullscreen" } } satis
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Label");
+const registryName = "label";
 
 function LabelExample() {
   return (
@@ -45,18 +43,17 @@ export const LabelStory: Story = {
         <LabelExample />
       </ComponentExample>
 
+      <ComponentCode usage={labelExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={labelExampleCode} />
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };

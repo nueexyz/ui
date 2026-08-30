@@ -4,10 +4,8 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 import { Button } from "@nooeh/ui/button";
 import {
   DropdownMenu,
@@ -28,7 +26,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Dropdown Menu");
+const registryName = "dropdown-menu";
 
 function DropdownMenuExample() {
   return (
@@ -72,18 +70,17 @@ export const DropdownMenuStory: Story = {
         <DropdownMenuExample />
       </ComponentExample>
 
+      <ComponentCode usage={dropdownMenuExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={dropdownMenuExampleCode} />
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };

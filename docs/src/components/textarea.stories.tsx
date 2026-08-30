@@ -4,17 +4,15 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 import { Textarea } from "@nooeh/ui/textarea";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Textarea");
+const registryName = "textarea";
 
 function TextareaExample() {
   return (
@@ -56,18 +54,17 @@ export const TextareaStory: Story = {
         <TextareaExample />
       </ComponentExample>
 
+      <ComponentCode usage={textareaExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={textareaExampleCode} />
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };

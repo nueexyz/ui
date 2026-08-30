@@ -4,10 +4,8 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 import { Checkbox } from "@nooeh/ui/checkbox";
 import { colorVars } from "@nooeh/tokens/tokens.stylex";
 
@@ -15,7 +13,7 @@ const meta = { title: "Components", parameters: { layout: "fullscreen" } } satis
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Checkbox");
+const registryName = "checkbox";
 
 const styles = stylex.create({
   disabledOption: { color: colorVars.fgDisabled, cursor: "not-allowed" },
@@ -60,18 +58,17 @@ export const CheckboxStory: Story = {
         <CheckboxExample />
       </ComponentExample>
 
+      <ComponentCode usage={checkboxExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={checkboxExampleCode} />
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };

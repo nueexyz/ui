@@ -4,10 +4,8 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -26,7 +24,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Navigation Menu");
+const registryName = "navigation-menu";
 
 function NavigationItem({ children, title }: { children: ReactNode; title: string }) {
   return (
@@ -102,18 +100,17 @@ export const NavigationMenuStory: Story = {
         <NavigationMenuExample />
       </ComponentExample>
 
+      <ComponentCode usage={navigationMenuExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={navigationMenuExampleCode} />
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };

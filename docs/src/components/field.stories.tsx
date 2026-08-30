@@ -4,10 +4,8 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 import { Checkbox } from "@nooeh/ui/checkbox";
 import {
   Field,
@@ -26,7 +24,7 @@ const meta = { title: "Components", parameters: { layout: "fullscreen" } } satis
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Field");
+const registryName = "field";
 
 function FieldExample() {
   return (
@@ -91,18 +89,17 @@ export const FieldStory: Story = {
         <FieldExample />
       </ComponentExample>
 
+      <ComponentCode usage={fieldExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={fieldExampleCode} />
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };

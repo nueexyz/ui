@@ -4,17 +4,15 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@nooeh/ui/tabs";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Tabs");
+const registryName = "tabs";
 
 function TabsExample() {
   return (
@@ -64,18 +62,17 @@ export const TabsStory: Story = {
         <TabsExample />
       </ComponentExample>
 
+      <ComponentCode usage={tabsExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={tabsExampleCode} />
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };

@@ -4,10 +4,8 @@ import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
-  ComponentPropsTable,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { getComponentDocument } from "./story-layout/component-docs";
 import {
   Table,
   TableBody,
@@ -23,7 +21,7 @@ const meta = { title: "Components", parameters: { layout: "fullscreen" } } satis
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Table");
+const registryName = "table";
 
 const rows = [
   { name: "Brand guide", owner: "Minyeong", status: "Complete", updated: "Aug 28" },
@@ -90,18 +88,17 @@ export const TableStory: Story = {
         <TableExample />
       </ComponentExample>
 
+      <ComponentCode usage={tableExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${componentDocument.registryName}`}
+          code={`pnpm dlx @nooeh/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />
       </section>
-      <ComponentCode usage={tableExampleCode} />
-      <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),
 };
