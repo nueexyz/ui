@@ -88,6 +88,11 @@ const preview: Preview = {
     colorMode: "light",
   },
   parameters: {
+    a11y: {
+      config: {
+        rules: [{ id: "color-contrast", enabled: true }],
+      },
+    },
     layout: "padded",
     options: {
       storySort: {

@@ -16,6 +16,7 @@
     "react-dom": "catalog:2026-08-27-stable"
   },
   "devDependencies": {
+    "@storybook/addon-a11y": "10.5.10",
     "@storybook/react-vite": "catalog:2026-08-27-stable",
     "@stylexjs/unplugin": "catalog:2026-08-27-stable",
     "@types/react": "catalog:2026-08-27-stable",

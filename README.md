@@ -78,9 +78,10 @@ pnpm build
 pnpm docs:build
 ```
 
-The Storybook build is the visual documentation surface. Component interactions inherit Base
-UI's accessible primitives; changes that alter focus, keyboard navigation, dialogs, menus, or
-toasts should be checked in Storybook with a keyboard and screen reader before release.
+The Storybook build is the visual documentation surface. The a11y addon runs axe checks,
+including color contrast, for each story. Component interactions inherit Base UI's accessible
+primitives; changes that alter focus, keyboard navigation, dialogs, menus, or toasts should
+also be checked in Storybook with a keyboard and screen reader before release.
 
 ## License
 

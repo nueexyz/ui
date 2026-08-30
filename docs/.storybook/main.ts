@@ -12,6 +12,7 @@ const stylexCompilerOptions: StylexCompilerOptions = {
 };
 
 const config: StorybookConfig = {
+  addons: ["@storybook/addon-a11y"],
   stories: ["../src/**/*.stories.@(ts|tsx)"],
   framework: "@storybook/react-vite",
   async viteFinal(config) {
