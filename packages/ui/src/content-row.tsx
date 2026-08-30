@@ -69,12 +69,12 @@ const styles = stylex.create({
   actions: { alignItems: "center", display: "flex", flexShrink: 0, gap: spacingVars.space2 },
 });
 
-export type ItemSize = "default" | "sm" | "xs";
-export type ItemVariant = "default" | "muted" | "outline";
+export type ContentRowSize = "default" | "sm" | "xs";
+export type ContentRowVariant = "default" | "muted" | "outline";
 
-export type ItemProps = ComponentProps<"div"> & {
-  size?: ItemSize;
-  variant?: ItemVariant;
+export type ContentRowProps = ComponentProps<"div"> & {
+  size?: ContentRowSize;
+  variant?: ContentRowVariant;
   xstyle?: stylex.StyleXStyles;
 };
 
@@ -89,14 +89,14 @@ function getStyleProps(
   };
 }
 
-export function Item({
+export function ContentRow({
   className,
   size = "default",
   style,
   variant = "default",
   xstyle,
   ...props
-}: ItemProps) {
+}: ContentRowProps) {
   return (
     <div
       {...props}
@@ -114,15 +114,20 @@ export function Item({
   );
 }
 
-export function ItemGroup({ className, style, ...props }: ComponentProps<"div">) {
+export function ContentRowGroup({ className, style, ...props }: ComponentProps<"div">) {
   return <div {...props} {...getStyleProps(stylex.props(styles.group), className, style)} />;
 }
 
-export type ItemMediaProps = ComponentProps<"div"> & {
+export type ContentRowMediaProps = ComponentProps<"div"> & {
   variant?: "avatar" | "icon" | "image";
 };
 
-export function ItemMedia({ className, style, variant = "icon", ...props }: ItemMediaProps) {
+export function ContentRowMedia({
+  className,
+  style,
+  variant = "icon",
+  ...props
+}: ContentRowMediaProps) {
   return (
     <div
       {...props}
@@ -131,18 +136,18 @@ export function ItemMedia({ className, style, variant = "icon", ...props }: Item
   );
 }
 
-export function ItemContent({ className, style, ...props }: ComponentProps<"div">) {
+export function ContentRowContent({ className, style, ...props }: ComponentProps<"div">) {
   return <div {...props} {...getStyleProps(stylex.props(styles.content), className, style)} />;
 }
 
-export function ItemTitle({ className, style, ...props }: ComponentProps<"div">) {
+export function ContentRowTitle({ className, style, ...props }: ComponentProps<"div">) {
   return <div {...props} {...getStyleProps(stylex.props(styles.title), className, style)} />;
 }
 
-export function ItemDescription({ className, style, ...props }: ComponentProps<"p">) {
+export function ContentRowDescription({ className, style, ...props }: ComponentProps<"p">) {
   return <p {...props} {...getStyleProps(stylex.props(styles.description), className, style)} />;
 }
 
-export function ItemActions({ className, style, ...props }: ComponentProps<"div">) {
+export function ContentRowActions({ className, style, ...props }: ComponentProps<"div">) {
   return <div {...props} {...getStyleProps(stylex.props(styles.actions), className, style)} />;
 }

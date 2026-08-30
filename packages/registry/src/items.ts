@@ -119,8 +119,8 @@ export const registryItems = {
     dependencies: ["@base-ui/react", "@dumo/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
-  item: {
-    files: ["item.tsx"],
+  "content-row": {
+    files: ["content-row.tsx"],
     dependencies: ["@dumo/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },

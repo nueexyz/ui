@@ -142,8 +142,8 @@ const componentDocuments: Record<string, ComponentDocument> = {
   "Input Group": {
     registryName: "input-group",
   },
-  Item: {
-    registryName: "item",
+  "Content Row": {
+    registryName: "content-row",
   },
   Kbd: {
     registryName: "kbd",

@@ -12,22 +12,22 @@ import { Avatar, AvatarFallback } from "@dumo/ui/avatar";
 import { Button } from "@dumo/ui/button";
 import { Icon } from "@dumo/ui/icon";
 import {
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemDescription,
-  ItemGroup,
-  ItemMedia,
-  ItemTitle,
-} from "@dumo/ui/item";
+  ContentRow,
+  ContentRowActions,
+  ContentRowContent,
+  ContentRowDescription,
+  ContentRowGroup,
+  ContentRowMedia,
+  ContentRowTitle,
+} from "@dumo/ui/content-row";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const componentDocument = getComponentDocument("Item");
+const componentDocument = getComponentDocument("Content Row");
 
-function ItemExample() {
+function ContentRowExample() {
   return (
     <section {...stylex.props(storyStyles.section)}>
       <header {...stylex.props(storyStyles.sectionHeader)}>
@@ -37,53 +37,53 @@ function ItemExample() {
         </p>
       </header>
       <div {...stylex.props(storyStyles.preview, storyStyles.componentWidth)}>
-        <ItemGroup>
-          <Item variant="outline">
-            <ItemMedia>
+        <ContentRowGroup>
+          <ContentRow variant="outline">
+            <ContentRowMedia>
               <Icon name="folder" />
-            </ItemMedia>
-            <ItemContent>
-              <ItemTitle>Design system</ItemTitle>
-              <ItemDescription>Last edited today at 2:18 PM</ItemDescription>
-            </ItemContent>
-            <ItemActions>
+            </ContentRowMedia>
+            <ContentRowContent>
+              <ContentRowTitle>Design system</ContentRowTitle>
+              <ContentRowDescription>Last edited today at 2:18 PM</ContentRowDescription>
+            </ContentRowContent>
+            <ContentRowActions>
               <Button size="sm" variant="ghost">
                 Open folder
               </Button>
-            </ItemActions>
-          </Item>
-          <Item variant="muted">
-            <ItemMedia variant="avatar">
+            </ContentRowActions>
+          </ContentRow>
+          <ContentRow variant="muted">
+            <ContentRowMedia variant="avatar">
               <Avatar>
                 <AvatarFallback>MY</AvatarFallback>
               </Avatar>
-            </ItemMedia>
-            <ItemContent>
-              <ItemTitle>Minyeong Jeong</ItemTitle>
-              <ItemDescription>Can edit</ItemDescription>
-            </ItemContent>
-          </Item>
-        </ItemGroup>
+            </ContentRowMedia>
+            <ContentRowContent>
+              <ContentRowTitle>Minyeong Jeong</ContentRowTitle>
+              <ContentRowDescription>Can edit</ContentRowDescription>
+            </ContentRowContent>
+          </ContentRow>
+        </ContentRowGroup>
       </div>
     </section>
   );
 }
 
-const itemExampleCode =
-  'import { Button } from "@dumo/ui/button"\nimport { Icon } from "@dumo/ui/icon"\nimport { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemMedia, ItemTitle } from "@dumo/ui/item"\n\n<ItemGroup>\n  <Item variant="outline">\n    <ItemMedia><Icon name="folder" /></ItemMedia>\n    <ItemContent><ItemTitle>Design system</ItemTitle><ItemDescription>Last edited today at 2:18 PM</ItemDescription></ItemContent>\n    <ItemActions><Button size="sm" variant="ghost">Open folder</Button></ItemActions>\n  </Item>\n</ItemGroup>';
+const contentRowExampleCode =
+  'import { Button } from "@dumo/ui/button"\nimport { ContentRow, ContentRowActions, ContentRowContent, ContentRowDescription, ContentRowGroup, ContentRowMedia, ContentRowTitle } from "@dumo/ui/content-row"\nimport { Icon } from "@dumo/ui/icon"\n\n<ContentRowGroup>\n  <ContentRow variant="outline">\n    <ContentRowMedia><Icon name="folder" /></ContentRowMedia>\n    <ContentRowContent><ContentRowTitle>Design system</ContentRowTitle><ContentRowDescription>Last edited today at 2:18 PM</ContentRowDescription></ContentRowContent>\n    <ContentRowActions><Button size="sm" variant="ghost">Open folder</Button></ContentRowActions>\n  </ContentRow>\n</ContentRowGroup>';
 
-export const ItemStory: Story = {
-  name: "Item",
+export const ContentRowStory: Story = {
+  name: "Content Row",
   render: () => (
     <main {...stylex.props(storyStyles.page)}>
       <header {...stylex.props(storyStyles.header)}>
-        <h1 {...stylex.props(storyStyles.title)}>Item</h1>
+        <h1 {...stylex.props(storyStyles.title)}>Content Row</h1>
         <p {...stylex.props(storyStyles.description)}>
           Group information, supporting text, and related actions into a repeatable row.
         </p>
       </header>
       <ComponentExample>
-        <ItemExample />
+        <ContentRowExample />
       </ComponentExample>
 
       <section {...stylex.props(storyStyles.section)}>
@@ -96,7 +96,7 @@ export const ItemStory: Story = {
           language="bash"
         />
       </section>
-      <ComponentCode usage={itemExampleCode} />
+      <ComponentCode usage={contentRowExampleCode} />
       <ComponentPropsTable props={componentDocument.props} />
     </main>
   ),

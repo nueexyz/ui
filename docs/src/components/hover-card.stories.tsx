@@ -10,7 +10,13 @@ import {
 import { getComponentDocument } from "./story-layout/component-docs";
 import { Avatar, AvatarFallback } from "@dumo/ui/avatar";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@dumo/ui/hover-card";
-import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@dumo/ui/item";
+import {
+  ContentRow,
+  ContentRowContent,
+  ContentRowDescription,
+  ContentRowMedia,
+  ContentRowTitle,
+} from "@dumo/ui/content-row";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -31,19 +37,19 @@ function HoverCardExample() {
         <HoverCard>
           <HoverCardTrigger href="#">@dumo</HoverCardTrigger>
           <HoverCardContent align="start">
-            <Item size="sm">
-              <ItemMedia variant="avatar">
+            <ContentRow size="sm">
+              <ContentRowMedia variant="avatar">
                 <Avatar>
                   <AvatarFallback>CA</AvatarFallback>
                 </Avatar>
-              </ItemMedia>
-              <ItemContent>
-                <ItemTitle>Dumo</ItemTitle>
-                <ItemDescription>
+              </ContentRowMedia>
+              <ContentRowContent>
+                <ContentRowTitle>Dumo</ContentRowTitle>
+                <ContentRowDescription>
                   A calm, consistent design system for product experiences
-                </ItemDescription>
-              </ItemContent>
-            </Item>
+                </ContentRowDescription>
+              </ContentRowContent>
+            </ContentRow>
           </HoverCardContent>
         </HoverCard>
       </div>
@@ -52,7 +58,7 @@ function HoverCardExample() {
 }
 
 const hoverCardExampleCode =
-  'import { Avatar, AvatarFallback } from "@dumo/ui/avatar"\nimport { HoverCard, HoverCardContent, HoverCardTrigger } from "@dumo/ui/hover-card"\nimport { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@dumo/ui/item"\n\n<HoverCard>\n  <HoverCardTrigger href="#">@dumo</HoverCardTrigger>\n  <HoverCardContent align="start">\n    <Item size="sm">\n      <ItemMedia variant="avatar"><Avatar><AvatarFallback>CA</AvatarFallback></Avatar></ItemMedia>\n      <ItemContent>\n        <ItemTitle>Dumo</ItemTitle>\n        <ItemDescription>A calm, consistent design system for product experiences</ItemDescription>\n      </ItemContent>\n    </Item>\n  </HoverCardContent>\n</HoverCard>';
+  'import { Avatar, AvatarFallback } from "@dumo/ui/avatar"\nimport { ContentRow, ContentRowContent, ContentRowDescription, ContentRowMedia, ContentRowTitle } from "@dumo/ui/content-row"\nimport { HoverCard, HoverCardContent, HoverCardTrigger } from "@dumo/ui/hover-card"\n\n<HoverCard>\n  <HoverCardTrigger href="#">@dumo</HoverCardTrigger>\n  <HoverCardContent align="start">\n    <ContentRow size="sm">\n      <ContentRowMedia variant="avatar"><Avatar><AvatarFallback>CA</AvatarFallback></Avatar></ContentRowMedia>\n      <ContentRowContent>\n        <ContentRowTitle>Dumo</ContentRowTitle>\n        <ContentRowDescription>A calm, consistent design system for product experiences</ContentRowDescription>\n      </ContentRowContent>\n    </ContentRow>\n  </HoverCardContent>\n</HoverCard>';
 
 export const HoverCardStory: Story = {
   name: "Hover Card",
