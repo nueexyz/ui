@@ -12,6 +12,7 @@ const stylexCompilerOptions: StylexCompilerOptions = {
 };
 
 const config: StorybookConfig = {
+  // Keep axe checks available for every rendered story.
   addons: ["@storybook/addon-a11y"],
   stories: ["../src/**/*.stories.@(ts|tsx)"],
   framework: "@storybook/react-vite",
