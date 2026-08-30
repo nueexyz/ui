@@ -1,6 +1,6 @@
 import { Toast as ToastPrimitive } from "@base-ui/react/toast";
 import * as stylex from "@stylexjs/stylex";
-import { useState, type ComponentProps } from "react";
+import { useLayoutEffect, useRef, useState, type ComponentProps } from "react";
 
 import { Icon, type IconName } from "./Icon";
 import {
@@ -23,12 +23,25 @@ const styles = stylex.create({
     position: "fixed",
     width: "calc(100vw - 2rem)",
     zIndex: 70,
+    ":is([data-expanded]) [data-nooeh-toast-stack]": { pointerEvents: "auto" },
+    ":not([data-expanded]) [data-nooeh-toast-clear-all]": {
+      opacity: 0,
+      pointerEvents: "none",
+    },
   },
   viewportTop: { top: spacingVars.space4 },
   viewportBottom: { bottom: spacingVars.space4 },
   viewportLeft: { left: spacingVars.space4 },
   viewportCenter: { left: "50%", transform: "translateX(-50%)" },
   viewportRight: { right: spacingVars.space4 },
+  stack: {
+    bottom: 0,
+    left: 0,
+    pointerEvents: "none",
+    position: "absolute",
+    right: 0,
+  },
+  stackTop: { bottom: "auto", top: 0 },
   root: {
     backgroundColor: colorVars.bgRaised,
     borderColor: colorVars.strokeDefault,
@@ -243,13 +256,15 @@ const styles = stylex.create({
     fontFamily: typographyVars.fontFamily,
     fontSize: typographyVars.fontSizeXs,
     fontWeight: typographyVars.fontWeightMedium,
+    height: "1.75rem",
     outline: "none",
     paddingBlock: spacingVars.space1,
     paddingInline: spacingVars.space2,
     pointerEvents: "auto",
     position: "absolute",
-    bottom: `calc(100% + ${spacingVars.space2})`,
     right: 0,
+    top: 0,
+    zIndex: 1001,
     ":hover": { backgroundColor: colorVars.bgRaised, color: colorVars.fgPrimary },
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
@@ -258,6 +273,7 @@ const styles = stylex.create({
       outlineWidth: sizeVars.focusRing,
     },
   },
+  clearAllTop: { bottom: 0, top: "auto" },
 });
 
 type ToastType = "default" | "success" | "info" | "warning" | "error" | "loading";
@@ -308,28 +324,69 @@ function ToastStatusIcon({ type }: { type?: string }) {
   );
 }
 
-function ToastClearAll({ isExpanded }: { isExpanded: boolean }) {
-  if (!isExpanded) {
-    return null;
-  }
-
-  return (
-    <button type="button" onClick={() => toast.close()} {...stylex.props(styles.clearAll)}>
-      Clear all
-    </button>
-  );
-}
-
-function ToastList({ isExpanded, position }: { isExpanded: boolean; position: ToastPosition }) {
+function ToastStack({ position }: { position: ToastPosition }) {
   const { toasts } = ToastPrimitive.useToastManager();
+  const stackRef = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState(0);
   const isTop = position.startsWith("top");
+  const hasClearAction = toasts.length > 1;
+  const stackHeight = hasClearAction
+    ? `calc(${height}px + 1.75rem + ${spacingVars.space2})`
+    : height;
+
+  useLayoutEffect(() => {
+    const stack = stackRef.current;
+
+    if (!stack) {
+      return;
+    }
+
+    const measuredStack = stack;
+
+    function updateHeight() {
+      const rootList = Array.from(
+        measuredStack.querySelectorAll<HTMLElement>("[data-nooeh-toast-root]:not([data-limited])"),
+      );
+      const toastGap =
+        Number.parseFloat(getComputedStyle(document.documentElement).fontSize) * 0.75;
+      const nextHeight = rootList.reduce((maximumHeight, root) => {
+        const rootStyles = getComputedStyle(root);
+        const offset = Number.parseFloat(rootStyles.getPropertyValue("--toast-offset-y")) || 0;
+        const index = Number.parseFloat(rootStyles.getPropertyValue("--toast-index")) || 0;
+        const rootHeight =
+          Number.parseFloat(rootStyles.getPropertyValue("--toast-height")) || root.offsetHeight;
+
+        return Math.max(maximumHeight, offset + index * toastGap + rootHeight);
+      }, 0);
+
+      setHeight((currentHeight) => (currentHeight === nextHeight ? currentHeight : nextHeight));
+    }
+
+    updateHeight();
+
+    const resizeObserver = new ResizeObserver(updateHeight);
+    const rootList = measuredStack.querySelectorAll<HTMLElement>("[data-nooeh-toast-root]");
+    rootList.forEach((root) => resizeObserver.observe(root));
+    window.addEventListener("resize", updateHeight);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updateHeight);
+    };
+  }, [toasts]);
 
   return (
-    <>
-      {toasts.map((item, index) => (
+    <div
+      ref={stackRef}
+      style={{ height: stackHeight }}
+      data-nooeh-toast-stack=""
+      {...stylex.props(styles.stack, isTop && styles.stackTop)}
+    >
+      {toasts.map((item) => (
         <ToastPrimitive.Root
           key={item.id}
           toast={item}
+          data-nooeh-toast-root=""
           {...stylex.props(styles.root, isTop && styles.rootTop)}
         >
           <ToastPrimitive.Content {...stylex.props(styles.content)}>
@@ -343,17 +400,23 @@ function ToastList({ isExpanded, position }: { isExpanded: boolean; position: To
               <Icon aria-hidden="true" name="close" />
             </ToastPrimitive.Close>
           </ToastPrimitive.Content>
-          {index === toasts.length - 1 && toasts.length > 1 ? (
-            <ToastClearAll isExpanded={isExpanded} />
-          ) : null}
         </ToastPrimitive.Root>
       ))}
-    </>
+      {hasClearAction ? (
+        <button
+          type="button"
+          onClick={() => toast.close()}
+          data-nooeh-toast-clear-all=""
+          {...stylex.props(styles.clearAll, isTop && styles.clearAllTop)}
+        >
+          Clear all
+        </button>
+      ) : null}
+    </div>
   );
 }
 
 export function Toaster({ limit = 3, position = "bottom-right", ...props }: ToasterProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
   const [verticalPosition, horizontalPosition] = position.split("-") as [
     "bottom" | "top",
     "center" | "left" | "right",
@@ -370,10 +433,8 @@ export function Toaster({ limit = 3, position = "bottom-right", ...props }: Toas
             horizontalPosition === "center" && styles.viewportCenter,
             horizontalPosition === "right" && styles.viewportRight,
           )}
-          onMouseEnter={() => setIsExpanded(true)}
-          onMouseLeave={() => setIsExpanded(false)}
         >
-          <ToastList isExpanded={isExpanded} position={position} />
+          <ToastStack position={position} />
         </ToastPrimitive.Viewport>
       </ToastPrimitive.Portal>
     </ToastPrimitive.Provider>
