@@ -16,9 +16,17 @@ for (const [name, item] of Object.entries(registryItems)) {
       path,
     })),
   );
+  const componentFile = files.find((file) => file.path === `${name}.tsx`);
+  const primaryExport = componentFile?.content.match(
+    /export\s+(?:async\s+)?(?:function|const|class)\s+([A-Za-z0-9]+)/,
+  )?.[1];
+
+  if (!primaryExport) {
+    throw new Error(`Could not determine the primary export for ${name}.`);
+  }
 
   await writeFile(
     join(outputDirectory, `${name}.json`),
-    `${JSON.stringify({ name, ...item, files }, null, 2)}\n`,
+    `${JSON.stringify({ name, primaryExport, ...item, files }, null, 2)}\n`,
   );
 }

@@ -1,6 +1,7 @@
 export type CliOptions = Record<string, boolean | string | undefined> & {
   cwd?: string;
   defaults?: boolean;
+  framework?: string;
   "dry-run"?: boolean;
   force?: boolean;
   "skip-dependencies"?: boolean;

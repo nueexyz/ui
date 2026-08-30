@@ -1,8 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, join } from "node:path";
+import { dirname, isAbsolute, relative, resolve } from "node:path";
 import { spawn } from "node:child_process";
 import { createInterface } from "node:readline/promises";
-import { fileURLToPath } from "node:url";
 
 import { defaultConfig, hasConfig, readConfig, resolveAliasPath } from "./config.js";
 import { init } from "./init.js";
@@ -13,10 +12,7 @@ export type AddOptions = {
   "dry-run"?: boolean;
   skipDependencyInstall?: boolean;
   "skip-dependencies"?: boolean;
-  uiSourceDirectory?: string;
 } & Record<string, boolean | string | undefined>;
-
-const localUiSourceDirectory = fileURLToPath(new URL("../../ui/src", import.meta.url));
 
 function isNotFoundError(error: unknown) {
   return typeof error === "object" && error !== null && "code" in error && error.code === "ENOENT";
@@ -55,6 +51,18 @@ async function writeSource(
   return "written";
 }
 
+function resolveTargetPath(uiDirectory: string, filePath: string) {
+  if (isAbsolute(filePath)) throw new Error(`Registry file path must be relative: ${filePath}`);
+
+  const targetPath = resolve(uiDirectory, filePath);
+  const relativePath = relative(uiDirectory, targetPath);
+  if (relativePath === ".." || relativePath.startsWith(`..${"/"}`) || isAbsolute(relativePath)) {
+    throw new Error(`Registry file path must stay inside the UI directory: ${filePath}`);
+  }
+
+  return targetPath;
+}
+
 function detectPackageManager() {
   const userAgent = process.env.npm_config_user_agent ?? "";
   if (userAgent.startsWith("pnpm")) return "pnpm";
@@ -79,11 +87,6 @@ function installDependencies(projectDirectory: string, dependencies: readonly st
   });
 }
 
-async function getPrimaryExport(componentName: string, uiSourceDirectory: string) {
-  const componentSource = await readFile(join(uiSourceDirectory, `${componentName}.tsx`), "utf8");
-  return componentSource.match(/export function\s+([A-Za-z0-9]+)/)?.[1] ?? componentName;
-}
-
 export async function add(
   projectDirectory: string,
   componentName: string,
@@ -95,7 +98,6 @@ export async function add(
   if (shouldInitialize && !options["dry-run"]) await init(projectDirectory, options);
   const config = shouldInitialize ? defaultConfig : await readConfig(projectDirectory);
   const resolved = await resolveComponent(componentName);
-  const uiSourceDirectory = options.uiSourceDirectory ?? localUiSourceDirectory;
   const uiDirectory = await resolveAliasPath(projectDirectory, config.aliases.ui);
   let isOverwriteConfirmed = false;
 
@@ -110,12 +112,12 @@ export async function add(
   }
 
   for (const file of resolved.files) {
-    const source = file.content ?? (await readFile(join(uiSourceDirectory, file.path), "utf8"));
+    const targetPath = resolveTargetPath(uiDirectory, file.path);
     if (options["dry-run"]) {
-      console.log(`Will add: ${join(uiDirectory, file.path)}`);
+      console.log(`Will add: ${targetPath}`);
       continue;
     }
-    await writeSource(source, join(uiDirectory, file.path), confirmOverwrite);
+    await writeSource(file.content, targetPath, confirmOverwrite);
   }
 
   const shouldInstallDependencies =
@@ -132,9 +134,7 @@ export async function add(
     await installDependencies(projectDirectory, resolved.externalDependencies);
   }
 
-  const primaryExport = URL.canParse(componentName)
-    ? resolved.components[0]
-    : await getPrimaryExport(componentName, uiSourceDirectory);
+  const primaryExport = resolved.primaryExport;
   if (options["dry-run"]) {
     console.log(`Will add ${componentName}.`);
     return;

@@ -7,10 +7,7 @@ import { docs, list } from "./docs.js";
 import { init } from "./init.js";
 import { newComponent } from "./new-component.js";
 
-export async function run(
-  arguments_ = process.argv.slice(2),
-  context: { uiSourceDirectory?: string } = {},
-) {
+export async function run(arguments_ = process.argv.slice(2)) {
   const { command, options, positionals } = parseArguments(arguments_);
   const projectDirectory = resolve(String(options.cwd ?? process.cwd()));
 
@@ -18,7 +15,7 @@ export async function run(
     if (command === "init") {
       await init(projectDirectory, options as CliOptions);
     } else if (command === "add") {
-      await add(projectDirectory, positionals[0], { ...options, ...context });
+      await add(projectDirectory, positionals[0], options);
     } else if (command === "doctor") {
       await doctor(projectDirectory);
     } else if (command === "docs") {
@@ -32,6 +29,7 @@ export async function run(
 
 Usage:
   dumo init
+  dumo init --framework vite
   dumo add <component> [--skip-dependencies] [--dry-run]
   dumo doctor
   dumo list

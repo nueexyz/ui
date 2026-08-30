@@ -1,19 +1,6 @@
-import { dependencyVersions, registryItems } from "@dumo/registry";
+import { dependencyVersions, getRegistryItem, type RegistryItem } from "@dumo/registry";
 
-type RegistryFile = { content?: string; path: string };
-
-type LocalRegistryItem = {
-  dependencies: readonly string[];
-  files: readonly string[];
-  registryDependencies: readonly string[];
-};
-
-type RegistryItem = {
-  dependencies: readonly string[];
-  files: readonly RegistryFile[];
-  name?: string;
-  registryDependencies: readonly string[];
-};
+type RegistryFile = RegistryItem["files"][number];
 
 export async function resolveComponent(name: string) {
   if (URL.canParse(name)) return resolveRemoteComponent(name);
@@ -22,22 +9,19 @@ export async function resolveComponent(name: string) {
   const externalDependencies = new Set<string>();
   const files = new Map<string, RegistryFile>();
 
-  function visit(componentName: string) {
+  async function visit(componentName: string) {
     if (components.has(componentName)) return;
-    const item = registryItems[componentName as keyof typeof registryItems] as
-      | LocalRegistryItem
-      | undefined;
-    if (!item) throw new Error(`Unknown component: ${componentName}`);
+    const item = await getRegistryItem(componentName);
 
     components.add(componentName);
-    for (const path of item.files) files.set(path, { path });
+    for (const file of item.files) files.set(file.path, file);
     for (const dependency of item.dependencies) externalDependencies.add(dependency);
     for (const dependency of item.registryDependencies) {
-      visit(dependency);
+      await visit(dependency);
     }
   }
 
-  visit(name);
+  await visit(name);
 
   return {
     components: [...components],
@@ -46,24 +30,65 @@ export async function resolveComponent(name: string) {
       (dependency) =>
         `${dependency}@${(dependencyVersions as Record<string, string>)[dependency] ?? "latest"}`,
     ),
+    primaryExport: (await getRegistryItem(name)).primaryExport,
   };
 }
 
 async function resolveRemoteComponent(url: string) {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`Could not load the registry: ${response.status}`);
+  const components = new Set<string>();
+  const externalDependencies = new Set<string>();
+  const files = new Map<string, RegistryFile>();
 
-  const item = (await response.json()) as RegistryItem;
-  if (!Array.isArray(item.files) || !Array.isArray(item.dependencies)) {
-    throw new Error("This is not a valid Dumo registry item.");
+  async function visitLocal(name: string) {
+    if (components.has(name)) return;
+    const item = await getRegistryItem(name);
+    components.add(name);
+    for (const file of item.files) files.set(file.path, file);
+    for (const dependency of item.dependencies) externalDependencies.add(dependency);
+    for (const dependency of item.registryDependencies) await visitLocal(dependency);
   }
 
+  async function visitRemote(itemUrl: string) {
+    const response = await fetch(itemUrl);
+    if (!response.ok) throw new Error(`Could not load the registry: ${response.status}`);
+
+    const item = (await response.json()) as Partial<RegistryItem>;
+    if (
+      !Array.isArray(item.files) ||
+      !Array.isArray(item.dependencies) ||
+      !item.files.every(
+        (file) =>
+          typeof file === "object" &&
+          file !== null &&
+          typeof file.path === "string" &&
+          typeof file.content === "string",
+      )
+    ) {
+      throw new Error("This is not a valid Dumo registry item.");
+    }
+
+    const itemName = item.name ?? itemUrl;
+    if (components.has(itemName)) return;
+    components.add(itemName);
+    for (const file of item.files) files.set(file.path, file);
+    for (const dependency of item.dependencies) externalDependencies.add(dependency);
+    for (const dependency of item.registryDependencies ?? []) {
+      if (URL.canParse(dependency)) await visitRemote(dependency);
+      else await visitLocal(dependency);
+    }
+
+    return item.primaryExport ?? item.name ?? "Component";
+  }
+
+  const primaryExport = (await visitRemote(url)) ?? "Component";
+
   return {
-    components: [item.name ?? url],
-    externalDependencies: item.dependencies.map(
+    components: [...components],
+    externalDependencies: [...externalDependencies].map(
       (dependency) =>
         `${dependency}@${(dependencyVersions as Record<string, string>)[dependency] ?? "latest"}`,
     ),
-    files: item.files,
+    files: [...files.values()],
+    primaryExport,
   };
 }

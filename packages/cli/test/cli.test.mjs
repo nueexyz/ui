@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { access, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { access, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
@@ -54,6 +54,32 @@ test("init stores a custom UI alias", async () => {
   }
 });
 
+test("init configures a standard Vite project", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
+
+  try {
+    await writeFile(
+      join(projectDirectory, "vite.config.ts"),
+      'import { defineConfig } from "vite";\n\nexport default defineConfig({ plugins: [] });\n',
+    );
+    await mkdir(join(projectDirectory, "src"), { recursive: true });
+    await writeFile(join(projectDirectory, "src/main.tsx"), "export {};\n");
+    await init(projectDirectory, { defaults: true, framework: "vite" });
+
+    assert.equal(
+      await readFile(join(projectDirectory, "src/styles/dumo.css"), "utf8"),
+      '@import "@dumo/ui/global.css";\n',
+    );
+    assert.match(
+      await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
+      /stylex\(\{ useCSSLayers: true \}\)/,
+    );
+    assert.match(await readFile(join(projectDirectory, "src/main.tsx"), "utf8"), /dumo\.css/);
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
 test("add resolves component and icon dependencies", async () => {
   const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
 
@@ -69,6 +95,23 @@ test("add resolves component and icon dependencies", async () => {
     assert.match(
       await readFile(join(projectDirectory, "src/components/ui/Icon.tsx"), "utf8"),
       /iconRegistry/,
+    );
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
+test("add uses packaged registry content without a UI source directory", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
+
+  try {
+    await writeTsconfig(projectDirectory);
+    await init(projectDirectory, { defaults: true });
+    await add(projectDirectory, "card", { skipDependencyInstall: true });
+
+    assert.match(
+      await readFile(join(projectDirectory, "src/components/ui/card.tsx"), "utf8"),
+      /export function Card/,
     );
   } finally {
     await rm(projectDirectory, { recursive: true });
@@ -137,6 +180,31 @@ test("add installs a component from a registry URL", async () => {
       await readFile(join(projectDirectory, "src/components/ui/notice.ts"), "utf8"),
       item.files[0].content,
     );
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
+test("add rejects a registry file path that escapes the UI directory", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
+  const item = {
+    dependencies: [],
+    files: [{ path: "../outside.ts", content: "export const outside = true;\n" }],
+    name: "outside",
+    registryDependencies: [],
+  };
+
+  try {
+    await writeTsconfig(projectDirectory);
+    await init(projectDirectory, { defaults: true });
+    await assert.rejects(
+      () =>
+        add(projectDirectory, `data:application/json,${encodeURIComponent(JSON.stringify(item))}`, {
+          skipDependencyInstall: true,
+        }),
+      /must stay inside the UI directory/,
+    );
+    await assert.rejects(() => access(join(projectDirectory, "src/components/outside.ts")));
   } finally {
     await rm(projectDirectory, { recursive: true });
   }

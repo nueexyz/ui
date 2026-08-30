@@ -132,36 +132,32 @@ importers:
         version: 7.0.2
 
   packages/tokens:
-    dependencies:
+    devDependencies:
       '@stylexjs/stylex':
         specifier: catalog:2026-08-27-stable
         version: 0.19.0
-    devDependencies:
       typescript:
         specifier: catalog:2026-08-27-stable
         version: 7.0.2
 
   packages/ui:
     dependencies:
-      '@base-ui/react':
-        specifier: catalog:2026-08-27-stable
-        version: 1.7.0(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@dumo/cli':
         specifier: workspace:*
         version: link:../cli
       '@dumo/tokens':
         specifier: workspace:*
         version: link:../tokens
+    devDependencies:
+      '@base-ui/react':
+        specifier: catalog:2026-08-27-stable
+        version: 1.7.0(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@phosphor-icons/react':
         specifier: catalog:2026-08-27-stable
         version: 2.1.10(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@stylexjs/stylex':
         specifier: catalog:2026-08-27-stable
         version: 0.19.0
-      react:
-        specifier: catalog:2026-08-27-stable
-        version: 19.2.8
-    devDependencies:
       '@stylexjs/unplugin':
         specifier: catalog:2026-08-27-stable
         version: 0.19.0(unplugin@2.3.11)
@@ -177,6 +173,12 @@ importers:
       esbuild:
         specifier: 0.28.2
         version: 0.28.2
+      react:
+        specifier: catalog:2026-08-27-stable
+        version: 19.2.8
+      react-dom:
+        specifier: catalog:2026-08-27-stable
+        version: 19.2.8(react@19.2.8)
       typescript:
         specifier: catalog:2026-08-27-stable
         version: 7.0.2
