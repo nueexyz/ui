@@ -2,6 +2,8 @@ import { OTPField } from "@base-ui/react/otp-field";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import { getNativeStyleProps } from "./stylex-props";
+
 import {
   colorVars,
   motionVars,
@@ -73,19 +75,8 @@ export function InputOTP({ className, style, xstyle, ...props }: InputOTPProps) 
   );
 }
 
-function nativeProps(
-  resolved: ReturnType<typeof stylex.props>,
-  className: string | undefined,
-  style: ComponentProps<"div">["style"],
-) {
-  return {
-    className: [resolved.className, className].filter(Boolean).join(" "),
-    style: { ...resolved.style, ...style },
-  };
-}
-
 export function InputOTPGroup({ className, style, ...props }: ComponentProps<"div">) {
-  return <div {...props} {...nativeProps(stylex.props(styles.group), className, style)} />;
+  return <div {...props} {...getNativeStyleProps(stylex.props(styles.group), className, style)} />;
 }
 
 export function InputOTPSlot({
@@ -115,7 +106,7 @@ export function InputOTPSeparator({ className, style, ...props }: ComponentProps
     <span
       aria-hidden="true"
       {...props}
-      {...nativeProps(stylex.props(styles.separator), className, style)}
+      {...getNativeStyleProps(stylex.props(styles.separator), className, style)}
     >
       {props.children ?? "–"}
     </span>

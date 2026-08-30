@@ -2,6 +2,8 @@ import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import { getNativeStyleProps } from "./stylex-props";
+
 import {
   colorVars,
   radiusVars,
@@ -143,20 +145,8 @@ export function AvatarFallback({
   );
 }
 
-function getStyleProps(
-  baseStyle: stylex.StyleXStyles,
-  className: string | undefined,
-  style: ComponentProps<"span">["style"],
-) {
-  const stylexProps = stylex.props(baseStyle);
-  return {
-    className: [stylexProps.className, className].filter(Boolean).join(" "),
-    style: { ...stylexProps.style, ...style },
-  };
-}
-
 export function AvatarBadge({ className, style, ...props }: ComponentProps<"span">) {
-  return <span {...props} {...getStyleProps(styles.badge, className, style)} />;
+  return <span {...props} {...getNativeStyleProps(stylex.props(styles.badge), className, style)} />;
 }
 
 export function AvatarGroup({ className, style, ...props }: ComponentProps<"div">) {
@@ -171,5 +161,7 @@ export function AvatarGroup({ className, style, ...props }: ComponentProps<"div"
 }
 
 export function AvatarGroupCount({ className, style, ...props }: ComponentProps<"span">) {
-  return <span {...props} {...getStyleProps(styles.groupCount, className, style)} />;
+  return (
+    <span {...props} {...getNativeStyleProps(stylex.props(styles.groupCount), className, style)} />
+  );
 }

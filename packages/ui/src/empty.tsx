@@ -1,6 +1,8 @@
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import { getNativeStyleProps } from "./stylex-props";
+
 import {
   colorVars,
   radiusVars,
@@ -66,21 +68,10 @@ const styles = stylex.create({
 
 type StyleProps = { xstyle?: stylex.StyleXStyles };
 
-function createStyleProps(
-  baseStyle: stylex.StyleXStyles,
-  className: string | undefined,
-  style: ComponentProps<"div">["style"],
-  xstyle: stylex.StyleXStyles | undefined,
-) {
-  const stylexProps = stylex.props(baseStyle, xstyle);
-  return {
-    className: [stylexProps.className, className].filter(Boolean).join(" "),
-    style: { ...stylexProps.style, ...style },
-  };
-}
-
 export function Empty({ className, style, xstyle, ...props }: ComponentProps<"div"> & StyleProps) {
-  return <div {...props} {...createStyleProps(styles.root, className, style, xstyle)} />;
+  return (
+    <div {...props} {...getNativeStyleProps(stylex.props(styles.root, xstyle), className, style)} />
+  );
 }
 
 export function EmptyHeader({
@@ -89,7 +80,12 @@ export function EmptyHeader({
   xstyle,
   ...props
 }: ComponentProps<"div"> & StyleProps) {
-  return <div {...props} {...createStyleProps(styles.header, className, style, xstyle)} />;
+  return (
+    <div
+      {...props}
+      {...getNativeStyleProps(stylex.props(styles.header, xstyle), className, style)}
+    />
+  );
 }
 
 export function EmptyMedia({
@@ -102,7 +98,7 @@ export function EmptyMedia({
     <div
       {...props}
       aria-hidden="true"
-      {...createStyleProps(styles.media, className, style, xstyle)}
+      {...getNativeStyleProps(stylex.props(styles.media, xstyle), className, style)}
     />
   );
 }
@@ -115,7 +111,7 @@ export function EmptyTitle({
   ...props
 }: ComponentProps<"h3"> & StyleProps) {
   return (
-    <h3 {...props} {...createStyleProps(styles.title, className, style, xstyle)}>
+    <h3 {...props} {...getNativeStyleProps(stylex.props(styles.title, xstyle), className, style)}>
       {children}
     </h3>
   );
@@ -127,7 +123,12 @@ export function EmptyDescription({
   xstyle,
   ...props
 }: ComponentProps<"p"> & StyleProps) {
-  return <p {...props} {...createStyleProps(styles.description, className, style, xstyle)} />;
+  return (
+    <p
+      {...props}
+      {...getNativeStyleProps(stylex.props(styles.description, xstyle), className, style)}
+    />
+  );
 }
 
 export function EmptyContent({
@@ -136,5 +137,10 @@ export function EmptyContent({
   xstyle,
   ...props
 }: ComponentProps<"div"> & StyleProps) {
-  return <div {...props} {...createStyleProps(styles.content, className, style, xstyle)} />;
+  return (
+    <div
+      {...props}
+      {...getNativeStyleProps(stylex.props(styles.content, xstyle), className, style)}
+    />
+  );
 }

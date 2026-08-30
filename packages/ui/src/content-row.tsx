@@ -1,6 +1,8 @@
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import { getNativeStyleProps } from "./stylex-props";
+
 import {
   colorVars,
   radiusVars,
@@ -78,17 +80,6 @@ export type ContentRowProps = ComponentProps<"div"> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-function getStyleProps(
-  stylexProps: ReturnType<typeof stylex.props>,
-  className: string | undefined,
-  style: ComponentProps<"div">["style"],
-) {
-  return {
-    className: [stylexProps.className, className].filter(Boolean).join(" "),
-    style: { ...stylexProps.style, ...style },
-  };
-}
-
 export function ContentRow({
   className,
   size = "default",
@@ -100,7 +91,7 @@ export function ContentRow({
   return (
     <div
       {...props}
-      {...getStyleProps(
+      {...getNativeStyleProps(
         stylex.props(
           styles.root,
           size === "default" ? styles.sizeDefault : styles[size],
@@ -115,7 +106,7 @@ export function ContentRow({
 }
 
 export function ContentRowGroup({ className, style, ...props }: ComponentProps<"div">) {
-  return <div {...props} {...getStyleProps(stylex.props(styles.group), className, style)} />;
+  return <div {...props} {...getNativeStyleProps(stylex.props(styles.group), className, style)} />;
 }
 
 export type ContentRowMediaProps = ComponentProps<"div"> & {
@@ -131,23 +122,33 @@ export function ContentRowMedia({
   return (
     <div
       {...props}
-      {...getStyleProps(stylex.props(styles.media, styles[`media${variant}`]), className, style)}
+      {...getNativeStyleProps(
+        stylex.props(styles.media, styles[`media${variant}`]),
+        className,
+        style,
+      )}
     />
   );
 }
 
 export function ContentRowContent({ className, style, ...props }: ComponentProps<"div">) {
-  return <div {...props} {...getStyleProps(stylex.props(styles.content), className, style)} />;
+  return (
+    <div {...props} {...getNativeStyleProps(stylex.props(styles.content), className, style)} />
+  );
 }
 
 export function ContentRowTitle({ className, style, ...props }: ComponentProps<"div">) {
-  return <div {...props} {...getStyleProps(stylex.props(styles.title), className, style)} />;
+  return <div {...props} {...getNativeStyleProps(stylex.props(styles.title), className, style)} />;
 }
 
 export function ContentRowDescription({ className, style, ...props }: ComponentProps<"p">) {
-  return <p {...props} {...getStyleProps(stylex.props(styles.description), className, style)} />;
+  return (
+    <p {...props} {...getNativeStyleProps(stylex.props(styles.description), className, style)} />
+  );
 }
 
 export function ContentRowActions({ className, style, ...props }: ComponentProps<"div">) {
-  return <div {...props} {...getStyleProps(stylex.props(styles.actions), className, style)} />;
+  return (
+    <div {...props} {...getNativeStyleProps(stylex.props(styles.actions), className, style)} />
+  );
 }

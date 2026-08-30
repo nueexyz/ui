@@ -2,6 +2,8 @@ import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import { getNativeStyleProps } from "./stylex-props";
+
 import {
   colorVars,
   motionVars,
@@ -118,28 +120,18 @@ export function PopoverContent({
   );
 }
 
-function getStyleProps(
-  baseStyle: stylex.StyleXStyles,
-  className: string | undefined,
-  style: ComponentProps<"div">["style"],
-) {
-  const stylexProps = stylex.props(baseStyle);
-  return {
-    className: [stylexProps.className, className].filter(Boolean).join(" "),
-    style: { ...stylexProps.style, ...style },
-  };
-}
-
 export function PopoverHeader({ className, style, ...props }: ComponentProps<"div">) {
-  return <div {...props} {...getStyleProps(styles.header, className, style)} />;
+  return <div {...props} {...getNativeStyleProps(stylex.props(styles.header), className, style)} />;
 }
 export function PopoverTitle({ children, className, style, ...props }: ComponentProps<"h2">) {
   return (
-    <h2 {...props} {...getStyleProps(styles.title, className, style)}>
+    <h2 {...props} {...getNativeStyleProps(stylex.props(styles.title), className, style)}>
       {children}
     </h2>
   );
 }
 export function PopoverDescription({ className, style, ...props }: ComponentProps<"p">) {
-  return <p {...props} {...getStyleProps(styles.description, className, style)} />;
+  return (
+    <p {...props} {...getNativeStyleProps(stylex.props(styles.description), className, style)} />
+  );
 }

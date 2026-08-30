@@ -2,6 +2,8 @@ import { Field as FieldPrimitive } from "@base-ui/react/field";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import { getNativeStyleProps } from "./stylex-props";
+
 import { colorVars, spacingVars, typographyVars } from "@nooeh/tokens/tokens.stylex";
 
 const styles = stylex.create({
@@ -71,19 +73,6 @@ function mergeClassName<State>(
   }
 
   return [generatedClassName, className].filter(Boolean).join(" ");
-}
-
-function getStyleProps(
-  baseStyle: stylex.StyleXStyles,
-  className: string | undefined,
-  style: ComponentProps<"div">["style"],
-  xstyle: stylex.StyleXStyles | undefined,
-) {
-  const stylexProps = stylex.props(baseStyle, xstyle);
-  return {
-    className: [stylexProps.className, className].filter(Boolean).join(" "),
-    style: { ...stylexProps.style, ...style },
-  };
 }
 
 export type FieldProps = ComponentProps<typeof FieldPrimitive.Root> &
@@ -162,7 +151,12 @@ export function FieldSet({
   xstyle,
   ...props
 }: ComponentProps<"fieldset"> & StyleProps) {
-  return <fieldset {...props} {...getStyleProps(styles.set, className, style, xstyle)} />;
+  return (
+    <fieldset
+      {...props}
+      {...getNativeStyleProps(stylex.props(styles.set, xstyle), className, style)}
+    />
+  );
 }
 
 export function FieldLegend({
@@ -171,7 +165,12 @@ export function FieldLegend({
   xstyle,
   ...props
 }: ComponentProps<"legend"> & StyleProps) {
-  return <legend {...props} {...getStyleProps(styles.legend, className, style, xstyle)} />;
+  return (
+    <legend
+      {...props}
+      {...getNativeStyleProps(stylex.props(styles.legend, xstyle), className, style)}
+    />
+  );
 }
 
 export function FieldGroup({
@@ -180,7 +179,12 @@ export function FieldGroup({
   xstyle,
   ...props
 }: ComponentProps<"div"> & StyleProps) {
-  return <div {...props} {...getStyleProps(styles.group, className, style, xstyle)} />;
+  return (
+    <div
+      {...props}
+      {...getNativeStyleProps(stylex.props(styles.group, xstyle), className, style)}
+    />
+  );
 }
 
 export function FieldContent({
@@ -189,7 +193,12 @@ export function FieldContent({
   xstyle,
   ...props
 }: ComponentProps<"div"> & StyleProps) {
-  return <div {...props} {...getStyleProps(styles.content, className, style, xstyle)} />;
+  return (
+    <div
+      {...props}
+      {...getNativeStyleProps(stylex.props(styles.content, xstyle), className, style)}
+    />
+  );
 }
 
 export function FieldTitle({
@@ -198,5 +207,10 @@ export function FieldTitle({
   xstyle,
   ...props
 }: ComponentProps<"div"> & StyleProps) {
-  return <div {...props} {...getStyleProps(styles.title, className, style, xstyle)} />;
+  return (
+    <div
+      {...props}
+      {...getNativeStyleProps(stylex.props(styles.title, xstyle), className, style)}
+    />
+  );
 }

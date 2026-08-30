@@ -1,6 +1,8 @@
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import { getNativeStyleProps } from "./stylex-props";
+
 import { Button, type ButtonProps } from "./button";
 import {
   colorVars,
@@ -113,17 +115,6 @@ const styles = stylex.create({
 export type AttachmentState = "done" | "error" | "idle" | "processing" | "uploading";
 export type AttachmentSize = "default" | "sm" | "xs";
 
-function mergeProps(
-  resolved: ReturnType<typeof stylex.props>,
-  className: string | undefined,
-  style: ComponentProps<"div">["style"],
-) {
-  return {
-    className: [resolved.className, className].filter(Boolean).join(" "),
-    style: { ...resolved.style, ...style },
-  };
-}
-
 export type AttachmentProps = Omit<ComponentProps<"div">, "title"> & {
   orientation?: "horizontal" | "vertical";
   size?: AttachmentSize;
@@ -145,7 +136,7 @@ export function Attachment({
       {...props}
       data-orientation={orientation}
       data-state={state}
-      {...mergeProps(
+      {...getNativeStyleProps(
         stylex.props(
           styles.root,
           styles[orientation],
@@ -173,25 +164,35 @@ export function AttachmentMedia({
   return (
     <div
       {...props}
-      {...mergeProps(stylex.props(styles.media, styles[`media${variant}`]), className, style)}
+      {...getNativeStyleProps(
+        stylex.props(styles.media, styles[`media${variant}`]),
+        className,
+        style,
+      )}
     />
   );
 }
 
 export function AttachmentContent({ className, style, ...props }: ComponentProps<"div">) {
-  return <div {...props} {...mergeProps(stylex.props(styles.content), className, style)} />;
+  return (
+    <div {...props} {...getNativeStyleProps(stylex.props(styles.content), className, style)} />
+  );
 }
 
 export function AttachmentTitle({ className, style, ...props }: ComponentProps<"div">) {
-  return <div {...props} {...mergeProps(stylex.props(styles.title), className, style)} />;
+  return <div {...props} {...getNativeStyleProps(stylex.props(styles.title), className, style)} />;
 }
 
 export function AttachmentDescription({ className, style, ...props }: ComponentProps<"p">) {
-  return <p {...props} {...mergeProps(stylex.props(styles.description), className, style)} />;
+  return (
+    <p {...props} {...getNativeStyleProps(stylex.props(styles.description), className, style)} />
+  );
 }
 
 export function AttachmentActions({ className, style, ...props }: ComponentProps<"div">) {
-  return <div {...props} {...mergeProps(stylex.props(styles.actions), className, style)} />;
+  return (
+    <div {...props} {...getNativeStyleProps(stylex.props(styles.actions), className, style)} />
+  );
 }
 
 export type AttachmentActionProps = Omit<ButtonProps, "size" | "variant">;
@@ -210,11 +211,11 @@ export function AttachmentTrigger({
     <button
       {...props}
       type={type}
-      {...mergeProps(stylex.props(styles.trigger), className, style)}
+      {...getNativeStyleProps(stylex.props(styles.trigger), className, style)}
     />
   );
 }
 
 export function AttachmentGroup({ className, style, ...props }: ComponentProps<"div">) {
-  return <div {...props} {...mergeProps(stylex.props(styles.group), className, style)} />;
+  return <div {...props} {...getNativeStyleProps(stylex.props(styles.group), className, style)} />;
 }

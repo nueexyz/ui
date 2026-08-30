@@ -2,6 +2,7 @@ import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, ReactNode } from "react";
 
 import { Icon } from "./Icon";
+import { getNativeStyleProps } from "./stylex-props";
 import {
   colorVars,
   radiusVars,
@@ -50,42 +51,40 @@ const styles = stylex.create({
   },
 });
 
-function getStyleProps(
-  baseStyle: stylex.StyleXStyles,
-  className: string | undefined,
-  style: ComponentProps<"div">["style"],
-) {
-  const stylexProps = stylex.props(baseStyle);
-  return {
-    className: [stylexProps.className, className].filter(Boolean).join(" "),
-    style: { ...stylexProps.style, ...style },
-  };
-}
-
 export function Breadcrumb({ className, style, ...props }: ComponentProps<"nav">) {
   return (
-    <nav aria-label="Breadcrumb" {...props} {...getStyleProps(styles.root, className, style)} />
+    <nav
+      aria-label="Breadcrumb"
+      {...props}
+      {...getNativeStyleProps(stylex.props(styles.root), className, style)}
+    />
   );
 }
 
 export function BreadcrumbList({ className, style, ...props }: ComponentProps<"ol">) {
-  return <ol {...props} {...getStyleProps(styles.list, className, style)} />;
+  return <ol {...props} {...getNativeStyleProps(stylex.props(styles.list), className, style)} />;
 }
 
 export function BreadcrumbItem({ className, style, ...props }: ComponentProps<"li">) {
-  return <li {...props} {...getStyleProps(styles.item, className, style)} />;
+  return <li {...props} {...getNativeStyleProps(stylex.props(styles.item), className, style)} />;
 }
 
 export function BreadcrumbLink({ children, className, style, ...props }: ComponentProps<"a">) {
   return (
-    <a {...props} {...getStyleProps(styles.link, className, style)}>
+    <a {...props} {...getNativeStyleProps(stylex.props(styles.link), className, style)}>
       {children}
     </a>
   );
 }
 
 export function BreadcrumbPage({ className, style, ...props }: ComponentProps<"span">) {
-  return <span aria-current="page" {...props} {...getStyleProps(styles.page, className, style)} />;
+  return (
+    <span
+      aria-current="page"
+      {...props}
+      {...getNativeStyleProps(stylex.props(styles.page), className, style)}
+    />
+  );
 }
 
 export function BreadcrumbSeparator({
@@ -99,7 +98,7 @@ export function BreadcrumbSeparator({
       aria-hidden="true"
       role="presentation"
       {...props}
-      {...getStyleProps(styles.separator, className, style)}
+      {...getNativeStyleProps(stylex.props(styles.separator), className, style)}
     >
       {children ?? <Icon name="chevronRight" />}
     </li>
@@ -108,7 +107,11 @@ export function BreadcrumbSeparator({
 
 export function BreadcrumbEllipsis({ className, style, ...props }: ComponentProps<"span">) {
   return (
-    <span aria-hidden="true" {...props} {...getStyleProps(styles.ellipsis, className, style)}>
+    <span
+      aria-hidden="true"
+      {...props}
+      {...getNativeStyleProps(stylex.props(styles.ellipsis), className, style)}
+    >
       …
     </span>
   );

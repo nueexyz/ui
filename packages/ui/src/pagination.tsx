@@ -1,6 +1,8 @@
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import { getNativeStyleProps } from "./stylex-props";
+
 import { Icon } from "./Icon";
 import {
   colorVars,
@@ -69,33 +71,22 @@ const styles = stylex.create({
   },
 });
 
-function nativeProps(
-  resolved: ReturnType<typeof stylex.props>,
-  className?: string,
-  style?: ComponentProps<"div">["style"],
-) {
-  return {
-    className: [resolved.className, className].filter(Boolean).join(" "),
-    style: { ...resolved.style, ...style },
-  };
-}
-
 export function Pagination({ className, style, ...props }: ComponentProps<"nav">) {
   return (
     <nav
       aria-label="Pagination"
       {...props}
-      {...nativeProps(stylex.props(styles.root), className, style)}
+      {...getNativeStyleProps(stylex.props(styles.root), className, style)}
     />
   );
 }
 
 export function PaginationContent({ className, style, ...props }: ComponentProps<"ul">) {
-  return <ul {...props} {...nativeProps(stylex.props(styles.content), className, style)} />;
+  return <ul {...props} {...getNativeStyleProps(stylex.props(styles.content), className, style)} />;
 }
 
 export function PaginationItem({ className, style, ...props }: ComponentProps<"li">) {
-  return <li {...props} {...nativeProps(stylex.props(styles.item), className, style)} />;
+  return <li {...props} {...getNativeStyleProps(stylex.props(styles.item), className, style)} />;
 }
 
 export type PaginationLinkProps = ComponentProps<"a"> & {
@@ -115,7 +106,7 @@ export function PaginationLink({
     <a
       aria-current={isActive ? "page" : undefined}
       {...props}
-      {...nativeProps(
+      {...getNativeStyleProps(
         stylex.props(styles.link, styles[size], isActive && styles.active),
         className,
         style,
@@ -149,7 +140,7 @@ export function PaginationEllipsis({ className, style, ...props }: ComponentProp
     <span
       aria-hidden="true"
       {...props}
-      {...nativeProps(stylex.props(styles.ellipsis), className, style)}
+      {...getNativeStyleProps(stylex.props(styles.ellipsis), className, style)}
     >
       …
     </span>

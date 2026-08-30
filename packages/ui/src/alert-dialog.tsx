@@ -3,6 +3,7 @@ import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, ReactNode } from "react";
 
 import { Button } from "./button";
+import { getNativeStyleProps } from "./stylex-props";
 import {
   colorVars,
   motionVars,
@@ -167,26 +168,18 @@ export function AlertDialogContent({
   );
 }
 
-function getNativeStyleProps(
-  baseStyle: stylex.StyleXStyles,
-  className: string | undefined,
-  style: ComponentProps<"div">["style"],
-  xstyle: stylex.StyleXStyles | undefined,
-) {
-  const stylexProps = stylex.props(baseStyle, xstyle);
-  return {
-    className: [stylexProps.className, className].filter(Boolean).join(" "),
-    style: { ...stylexProps.style, ...style },
-  };
-}
-
 export function AlertDialogHeader({
   className,
   style,
   xstyle,
   ...props
 }: ComponentProps<"div"> & { xstyle?: stylex.StyleXStyles }) {
-  return <div {...props} {...getNativeStyleProps(styles.header, className, style, xstyle)} />;
+  return (
+    <div
+      {...props}
+      {...getNativeStyleProps(stylex.props(styles.header, xstyle), className, style)}
+    />
+  );
 }
 
 export function AlertDialogFooter({
@@ -195,7 +188,12 @@ export function AlertDialogFooter({
   xstyle,
   ...props
 }: ComponentProps<"div"> & { xstyle?: stylex.StyleXStyles }) {
-  return <div {...props} {...getNativeStyleProps(styles.footer, className, style, xstyle)} />;
+  return (
+    <div
+      {...props}
+      {...getNativeStyleProps(stylex.props(styles.footer, xstyle), className, style)}
+    />
+  );
 }
 
 export function AlertDialogTitle({
