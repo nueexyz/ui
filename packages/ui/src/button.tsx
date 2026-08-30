@@ -11,10 +11,6 @@ import {
   typographyVars,
 } from "@nooeh/tokens/tokens.stylex";
 
-const spin = stylex.keyframes({
-  to: { transform: "rotate(360deg)" },
-});
-
 const styles = stylex.create({
   root: {
     alignItems: "center",
@@ -127,19 +123,6 @@ const styles = stylex.create({
     height: sizeVars.controlLg,
     paddingInline: spacingVars.space5,
   },
-  spinner: {
-    animationDuration: "700ms",
-    animationIterationCount: "infinite",
-    animationName: spin,
-    animationTimingFunction: "linear",
-    borderColor: "currentColor",
-    borderRadius: radiusVars.full,
-    borderRightColor: colorVars.interactionDefault,
-    borderStyle: "solid",
-    borderWidth: sizeVars.focusRing,
-    height: sizeVars.iconMd,
-    width: sizeVars.iconMd,
-  },
 });
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "destructive";
@@ -147,7 +130,6 @@ type ButtonSize = "sm" | "md" | "lg";
 
 export type ButtonProps = ComponentProps<typeof ButtonPrimitive> & {
   children: ReactNode;
-  isLoading?: boolean;
   size?: ButtonSize;
   variant?: ButtonVariant;
   xstyle?: stylex.StyleXStyles;
@@ -157,15 +139,13 @@ export function Button({
   children,
   className,
   disabled,
-  isLoading = false,
   size = "md",
   style,
   variant = "primary",
   xstyle,
   ...props
 }: ButtonProps) {
-  const isDisabled = Boolean(disabled && !isLoading);
-  const isInteractionDisabled = Boolean(disabled || isLoading);
+  const isDisabled = Boolean(disabled);
   const hasSolidBackground = variant === "primary" || variant === "destructive";
   const stylexProps = stylex.props(
     styles.root,
@@ -174,7 +154,7 @@ export function Button({
     hasSolidBackground ? styles.solidInteraction : styles.surfaceInteraction,
     isDisabled && styles.disabled,
     isDisabled && variant === "ghost" && styles.disabledGhost,
-    isInteractionDisabled && styles.disabledInteraction,
+    isDisabled && styles.disabledInteraction,
     xstyle,
   );
   const mergedClassName = [stylexProps.className, className].filter(Boolean).join(" ");
@@ -183,13 +163,10 @@ export function Button({
     <ButtonPrimitive
       {...props}
       className={mergedClassName}
-      disabled={disabled || isLoading}
+      disabled={disabled}
       style={{ ...stylexProps.style, ...style }}
     >
-      <span {...stylex.props(styles.content)}>
-        {isLoading ? <span aria-hidden="true" {...stylex.props(styles.spinner)} /> : null}
-        {children}
-      </span>
+      <span {...stylex.props(styles.content)}>{children}</span>
     </ButtonPrimitive>
   );
 }
