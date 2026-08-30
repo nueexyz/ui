@@ -1,6 +1,6 @@
 import { Toast as ToastPrimitive } from "@base-ui/react/toast";
 import * as stylex from "@stylexjs/stylex";
-import { useLayoutEffect, useRef, useState, type ComponentProps, type RefObject } from "react";
+import { useState, type ComponentProps } from "react";
 
 import { Icon, type IconName } from "./Icon";
 import {
@@ -248,8 +248,8 @@ const styles = stylex.create({
     paddingInline: spacingVars.space2,
     pointerEvents: "auto",
     position: "absolute",
+    bottom: `calc(100% + ${spacingVars.space2})`,
     right: 0,
-    transition: "top 500ms cubic-bezier(0.22, 1, 0.36, 1)",
     ":hover": { backgroundColor: colorVars.bgRaised, color: colorVars.fgPrimary },
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
@@ -308,84 +308,28 @@ function ToastStatusIcon({ type }: { type?: string }) {
   );
 }
 
-function ToastClearAll({
-  isExpanded,
-  viewportRef,
-}: {
-  isExpanded: boolean;
-  viewportRef: RefObject<HTMLDivElement | null>;
-}) {
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const [top, setTop] = useState<number>();
-
-  useLayoutEffect(() => {
-    const viewport = viewportRef.current;
-    const button = buttonRef.current;
-
-    if (!isExpanded || !viewport || !button) {
-      setTop(undefined);
-      return;
-    }
-
-    const updatePosition = () => {
-      const toastRoots = Array.from(
-        viewport.querySelectorAll<HTMLElement>("[data-dumo-toast-root]:not([data-limited])"),
-      );
-      const toastTop = Math.min(...toastRoots.map((root) => root.getBoundingClientRect().top));
-
-      setTop(toastTop - viewport.getBoundingClientRect().top - button.offsetHeight - 8);
-    };
-
-    updatePosition();
-
-    const resizeObserver = new ResizeObserver(updatePosition);
-    resizeObserver.observe(viewport);
-    window.addEventListener("resize", updatePosition);
-    const timeoutId = window.setTimeout(updatePosition, 500);
-
-    return () => {
-      resizeObserver.disconnect();
-      window.removeEventListener("resize", updatePosition);
-      window.clearTimeout(timeoutId);
-    };
-  }, [isExpanded, viewportRef]);
-
+function ToastClearAll({ isExpanded }: { isExpanded: boolean }) {
   if (!isExpanded) {
     return null;
   }
 
   return (
-    <button
-      ref={buttonRef}
-      type="button"
-      onClick={() => toast.close()}
-      style={{ top: top ?? -999, visibility: top === undefined ? "hidden" : undefined }}
-      {...stylex.props(styles.clearAll)}
-    >
+    <button type="button" onClick={() => toast.close()} {...stylex.props(styles.clearAll)}>
       Clear all
     </button>
   );
 }
 
-function ToastList({
-  isExpanded,
-  position,
-  viewportRef,
-}: {
-  isExpanded: boolean;
-  position: ToastPosition;
-  viewportRef: RefObject<HTMLDivElement | null>;
-}) {
+function ToastList({ isExpanded, position }: { isExpanded: boolean; position: ToastPosition }) {
   const { toasts } = ToastPrimitive.useToastManager();
   const isTop = position.startsWith("top");
 
   return (
     <>
-      {toasts.map((item) => (
+      {toasts.map((item, index) => (
         <ToastPrimitive.Root
           key={item.id}
           toast={item}
-          data-dumo-toast-root=""
           {...stylex.props(styles.root, isTop && styles.rootTop)}
         >
           <ToastPrimitive.Content {...stylex.props(styles.content)}>
@@ -399,18 +343,17 @@ function ToastList({
               <Icon aria-hidden="true" name="close" />
             </ToastPrimitive.Close>
           </ToastPrimitive.Content>
+          {index === toasts.length - 1 && toasts.length > 1 ? (
+            <ToastClearAll isExpanded={isExpanded} />
+          ) : null}
         </ToastPrimitive.Root>
       ))}
-      {toasts.length > 1 ? (
-        <ToastClearAll isExpanded={isExpanded} viewportRef={viewportRef} />
-      ) : null}
     </>
   );
 }
 
 export function Toaster({ limit = 3, position = "bottom-right", ...props }: ToasterProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const viewportRef = useRef<HTMLDivElement>(null);
   const [verticalPosition, horizontalPosition] = position.split("-") as [
     "bottom" | "top",
     "center" | "left" | "right",
@@ -420,7 +363,6 @@ export function Toaster({ limit = 3, position = "bottom-right", ...props }: Toas
     <ToastPrimitive.Provider {...props} limit={limit} toastManager={toast}>
       <ToastPrimitive.Portal>
         <ToastPrimitive.Viewport
-          ref={viewportRef}
           {...stylex.props(
             styles.viewport,
             verticalPosition === "top" ? styles.viewportTop : styles.viewportBottom,
@@ -431,7 +373,7 @@ export function Toaster({ limit = 3, position = "bottom-right", ...props }: Toas
           onMouseEnter={() => setIsExpanded(true)}
           onMouseLeave={() => setIsExpanded(false)}
         >
-          <ToastList isExpanded={isExpanded} position={position} viewportRef={viewportRef} />
+          <ToastList isExpanded={isExpanded} position={position} />
         </ToastPrimitive.Viewport>
       </ToastPrimitive.Portal>
     </ToastPrimitive.Provider>
