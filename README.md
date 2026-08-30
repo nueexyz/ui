@@ -1,8 +1,8 @@
-# nooeh/ui
+# Nooeh Design System
 
-nooeh is an open-code React component system built with Base UI and StyleX. Its official path is
-to copy component source files into your project, so the components remain yours to read and
-change.
+`nooeh/ds` is an open-code design system for React, built with Base UI and StyleX. It includes
+semantic tokens, UI components, documentation, a registry, and a CLI. Its official path is to
+copy component source files into your project, so the components remain yours to read and change.
 
 ## What Nooeh provides
 
