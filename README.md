@@ -1,14 +1,14 @@
-# Nooeh Design System
+# nooeh Design System
 
 `nooeh/ds` is an open-code design system for React, built with Base UI and StyleX. It includes
 semantic tokens, UI components, documentation, a registry, and a CLI. Its official path is to
 copy component source files into your project, so the components remain yours to read and change.
 
-## What Nooeh provides
+## What nooeh provides
 
-- Accessible interaction primitives from Base UI with Nooeh's visual defaults.
+- Accessible interaction primitives from Base UI with nooeh's visual defaults.
 - Semantic StyleX tokens, light and dark themes, and a small global reset.
-- A registry-aware CLI that installs a component together with its Nooeh dependencies.
+- A registry-aware CLI that installs a component together with its nooeh dependencies.
 - Storybook documentation for foundations and 53 components.
 
 ## Requirements
@@ -34,7 +34,7 @@ before React renders. It safely updates TypeScript, JavaScript, and module Vite 
 only when they use a literal `plugins: [...]` array; otherwise it stops before changing project
 files and tells you to add the StyleX configuration manually.
 
-Use the generated helper to switch color modes. It replaces only the Nooeh theme classes on
+Use the generated helper to switch color modes. It replaces only the nooeh theme classes on
 `<html>`.
 
 ```tsx
@@ -54,7 +54,7 @@ nooeh doctor
 ```
 
 `add --dry-run` never writes a config, component, or dependency. URL registry items are
-validated before Nooeh writes them, and every registry file must remain inside the configured
+validated before nooeh writes them, and every registry file must remain inside the configured
 UI directory.
 
 ## Packages
