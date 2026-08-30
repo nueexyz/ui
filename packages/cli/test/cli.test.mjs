@@ -74,7 +74,34 @@ test("init configures a standard Vite project", async () => {
       await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
       /stylex\(\{ useCSSLayers: true \}\)/,
     );
-    assert.match(await readFile(join(projectDirectory, "src/main.tsx"), "utf8"), /dumo\.css/);
+    assert.match(
+      await readFile(join(projectDirectory, "src/main.tsx"), "utf8"),
+      /applyDumoTheme\(\)/,
+    );
+    assert.match(
+      await readFile(join(projectDirectory, "src/dumo-theme.ts"), "utf8"),
+      /darkColorTheme/,
+    );
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
+test("init does not change a Vite project when its plugin array cannot be updated safely", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "dumo-cli-"));
+
+  try {
+    const configSource = "export default { plugins: createPlugins() };\n";
+    await writeFile(join(projectDirectory, "vite.config.ts"), configSource);
+    await mkdir(join(projectDirectory, "src"), { recursive: true });
+    await writeFile(join(projectDirectory, "src/main.tsx"), "export {};\n");
+
+    await assert.rejects(
+      () => init(projectDirectory, { defaults: true, framework: "vite" }),
+      /Could not safely update/,
+    );
+    assert.equal(await readFile(join(projectDirectory, "vite.config.ts"), "utf8"), configSource);
+    await assert.rejects(() => access(join(projectDirectory, "src/dumo-theme.ts")));
   } finally {
     await rm(projectDirectory, { recursive: true });
   }

@@ -1,7 +1,8 @@
 # Dumo
 
-Dumo is an open-code React component system built with Base UI and StyleX. It distributes
-component source files into your project, so the components remain yours to read and change.
+Dumo is an open-code React component system built with Base UI and StyleX. Its official path is
+to copy component source files into your project, so the components remain yours to read and
+change.
 
 ## What Dumo provides
 
@@ -28,25 +29,19 @@ pnpm dlx @dumo/ui add button
 ```
 
 `init --framework vite` creates `dumo.json`, adds the StyleX Vite plugin, and creates and
-imports `src/styles/dumo.css`. It expects the usual `src/main.tsx` entry and a
-`vite.config.ts` file with a `plugins: []` array. For another bundler, run `dumo init` and
-configure `@stylexjs/unplugin` yourself.
+imports `src/styles/dumo.css`. It also creates `src/dumo-theme.ts` and applies the light theme
+before React renders. It safely updates TypeScript, JavaScript, and module Vite config files
+only when they use a literal `plugins: [...]` array; otherwise it stops before changing project
+files and tells you to add the StyleX configuration manually.
 
-Wrap the application with a Dumo theme. The theme classes provide the semantic color and
-shadow variables used by every component.
+Use the generated helper to switch color modes. It replaces only the Dumo theme classes on
+`<html>`.
 
 ```tsx
-import { lightColorTheme, lightShadowTheme } from "@dumo/tokens/themes.stylex";
-import * as stylex from "@stylexjs/stylex";
+import { applyDumoTheme } from "./dumo-theme";
 
-const theme = stylex.props(lightColorTheme, lightShadowTheme);
-
-export function App() {
-  return <main {...theme}>{/* application */}</main>;
-}
+applyDumoTheme("dark");
 ```
-
-Switch to `darkColorTheme` and `darkShadowTheme` for dark mode.
 
 ## CLI
 
@@ -64,7 +59,7 @@ UI directory.
 
 ## Packages
 
-- `@dumo/ui`: compiled React components, global CSS, and the public `dumo` CLI.
+- `@dumo/ui`: the public `dumo` CLI and global CSS. Install component source with `dumo add`.
 - `@dumo/tokens`: StyleX token and theme definitions.
 - `@dumo/cli`: CLI implementation used by `@dumo/ui`.
 - `@dumo/registry`: registry metadata and packaged component source.
