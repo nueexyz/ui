@@ -34,7 +34,8 @@ Call `applyNooehTheme("dark")` when your application switches mode. It updates
 ## What you get
 
 - Editable local StyleX tokens with light and dark themes.
-- No `@nooeh/tokens` runtime dependency; token source lives in your project.
+- Added component source uses local tokens that live in your project.
+- Direct `@nooeh/ui` package exports retain `@nooeh/tokens` internally.
 - Accessible React primitives from Base UI with nooeh visual defaults.
 - Component source in your project, ready to read and change.
 
