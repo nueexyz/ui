@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { access, mkdtemp, readFile, rm } from "node:fs/promises";
+import { access, mkdir, mkdtemp, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
@@ -13,7 +13,6 @@ test("add creates the default config and copies a component with its foundation"
   const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
 
   try {
-    await writeTsconfig(projectDirectory);
     await add(projectDirectory, "button", { defaults: true, skipDependencyInstall: true });
     assert.deepEqual(await readConfig(projectDirectory), defaultConfig);
     await access(join(projectDirectory, configFileName));
@@ -23,7 +22,7 @@ test("add creates the default config and copies a component with its foundation"
       "utf8",
     );
     assert.match(buttonSource, /export function Button/);
-    assert.match(buttonSource, /from "\.\.\/\.\.\/styles\/nooeh\/tokens\.stylex"/);
+    assert.match(buttonSource, /from "\.\.\/\.\.\/design\/nooeh\/tokens\.stylex"/);
   } finally {
     await rm(projectDirectory, { recursive: true });
   }
@@ -33,16 +32,17 @@ test("add uses the configured local token directory", async () => {
   const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
 
   try {
-    await writeTsconfig(projectDirectory);
+    await mkdir(join(projectDirectory, "src"), { recursive: true });
     await init(projectDirectory, {
       defaults: true,
       "skip-dependencies": true,
+      ui: "src/design/ui",
       tokens: "src/design-system/nooeh",
     });
     await add(projectDirectory, "card", { skipDependencyInstall: true });
 
     assert.match(
-      await readFile(join(projectDirectory, "src/components/ui/card.tsx"), "utf8"),
+      await readFile(join(projectDirectory, "src/design/ui/card.tsx"), "utf8"),
       /from "\.\.\/\.\.\/design-system\/nooeh\/tokens\.stylex"/,
     );
   } finally {

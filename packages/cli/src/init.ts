@@ -6,7 +6,7 @@ import {
   configFileName,
   defaultConfig,
   hasConfig,
-  resolveTokensPath,
+  resolveConfigPath,
   writeConfig,
 } from "./config.js";
 import { installDependencies } from "./dependencies.js";
@@ -85,7 +85,7 @@ async function writeViteFiles(projectDirectory: string, tokenDirectory: string) 
   const configuredVite = configureVite(configSource);
   const { entryPath, stylePath, themePath } = getNooehPaths(projectDirectory, tokenDirectory);
   const entrySource = await readFile(entryPath, "utf8");
-  const styleImport = 'import "./styles/nooeh.css";';
+  const styleImport = `import "${toModuleSpecifier(dirname(entryPath), stylePath)}";`;
   const themeImport = `import { applyNooehTheme } from "${toModuleSpecifier(dirname(entryPath), themePath)}";`;
   const themeApply = "applyNooehTheme();";
 
@@ -107,7 +107,7 @@ function getNooehPaths(projectDirectory: string, tokenDirectory: string) {
   const sourceDirectory = getSourceDirectory(projectDirectory);
   return {
     entryPath: join(sourceDirectory, "main.tsx"),
-    stylePath: join(sourceDirectory, "styles", "nooeh.css"),
+    stylePath: join(dirname(tokenDirectory), "nooeh.css"),
     themePath: join(tokenDirectory, "theme.ts"),
   };
 }
@@ -151,17 +151,18 @@ export async function init(projectDirectory: string, options: CliOptions) {
     if (options.framework && options.framework !== "vite") {
       throw new Error(`Unsupported framework: ${options.framework}. Use vite or omit --framework.`);
     }
-    const uiAlias =
-      options["ui-alias"] ??
+    const uiPath =
+      options.ui ??
       (readline
-        ? await ask("Enter the UI alias.", defaultConfig.aliases.ui, readline)
-        : defaultConfig.aliases.ui);
+        ? await ask("Enter the UI directory.", defaultConfig.paths.ui, readline)
+        : defaultConfig.paths.ui);
     const tokens =
       options.tokens ??
       (readline
-        ? await ask("Enter the token directory.", defaultConfig.tokens, readline)
-        : defaultConfig.tokens);
-    const tokenDirectory = resolveTokensPath(projectDirectory, tokens);
+        ? await ask("Enter the token directory.", defaultConfig.paths.tokens, readline)
+        : defaultConfig.paths.tokens);
+    const tokenDirectory = resolveConfigPath(projectDirectory, tokens, "paths.tokens");
+    resolveConfigPath(projectDirectory, uiPath, "paths.ui");
     if (!options["skip-dependencies"]) {
       await installDependencies(projectDirectory, ["@stylexjs/stylex"]);
       await installDependencies(projectDirectory, ["@stylexjs/unplugin"], true);
@@ -175,7 +176,7 @@ export async function init(projectDirectory: string, options: CliOptions) {
       );
       console.log("Import the CSS and call applyNooehTheme() from your application entry point.");
     }
-    await writeConfig(projectDirectory, { aliases: { ui: uiAlias }, tokens });
+    await writeConfig(projectDirectory, { paths: { ui: uiPath, tokens } });
   } finally {
     readline?.close();
   }

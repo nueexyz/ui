@@ -4,22 +4,40 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
 
-import { defaultConfig, readConfig } from "../dist/config.js";
+import { configFileName, defaultConfig, readConfig } from "../dist/config.js";
 import { init } from "../dist/init.js";
 
-test("init stores a custom UI alias", async () => {
+test("init stores a custom UI path", async () => {
   const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
 
   try {
     await init(projectDirectory, {
       "skip-dependencies": true,
-      "ui-alias": "~/design/ui",
+      ui: "src/design/ui",
     });
 
     assert.deepEqual(await readConfig(projectDirectory), {
       ...defaultConfig,
-      aliases: { ui: "~/design/ui" },
+      paths: { ...defaultConfig.paths, ui: "src/design/ui" },
     });
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
+test("readConfig explains how to replace an older configuration", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+
+  try {
+    await writeFile(
+      join(projectDirectory, configFileName),
+      JSON.stringify({ aliases: { ui: "@/components/ui" }, tokens: "src/styles/nooeh" }),
+    );
+
+    await assert.rejects(
+      () => readConfig(projectDirectory),
+      /uses an older format\. Run `nooeh init --force`/,
+    );
   } finally {
     await rm(projectDirectory, { recursive: true });
   }
@@ -34,16 +52,16 @@ test("init creates framework-neutral theme files without changing an entry point
     await init(projectDirectory, { defaults: true, "skip-dependencies": true });
 
     assert.equal(
-      await readFile(join(projectDirectory, "src/styles/nooeh.css"), "utf8"),
+      await readFile(join(projectDirectory, "src/design/nooeh.css"), "utf8"),
       '@import "@nooeh/ui/global.css";\n',
     );
     assert.match(
-      await readFile(join(projectDirectory, "src/styles/nooeh/theme.ts"), "utf8"),
+      await readFile(join(projectDirectory, "src/design/nooeh/theme.ts"), "utf8"),
       /root\.dataset\.theme = mode/,
     );
-    await access(join(projectDirectory, "src/styles/nooeh/color-palette.stylex.ts"));
-    await access(join(projectDirectory, "src/styles/nooeh/tokens.stylex.ts"));
-    await access(join(projectDirectory, "src/styles/nooeh/themes.stylex.ts"));
+    await access(join(projectDirectory, "src/design/nooeh/color-palette.stylex.ts"));
+    await access(join(projectDirectory, "src/design/nooeh/tokens.stylex.ts"));
+    await access(join(projectDirectory, "src/design/nooeh/themes.stylex.ts"));
     assert.equal(await readFile(join(projectDirectory, "src/main.tsx"), "utf8"), "export {};\n");
   } finally {
     await rm(projectDirectory, { recursive: true });
@@ -54,18 +72,18 @@ test("init keeps existing local nooeh files", async () => {
   const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
 
   try {
-    await mkdir(join(projectDirectory, "src/styles"), { recursive: true });
-    await writeFile(join(projectDirectory, "src/styles/nooeh.css"), "/* custom */\n");
-    await mkdir(join(projectDirectory, "src/styles/nooeh"), { recursive: true });
-    await writeFile(join(projectDirectory, "src/styles/nooeh/theme.ts"), "/* custom */\n");
+    await mkdir(join(projectDirectory, "src/design"), { recursive: true });
+    await writeFile(join(projectDirectory, "src/design/nooeh.css"), "/* custom */\n");
+    await mkdir(join(projectDirectory, "src/design/nooeh"), { recursive: true });
+    await writeFile(join(projectDirectory, "src/design/nooeh/theme.ts"), "/* custom */\n");
     await init(projectDirectory, { defaults: true, "skip-dependencies": true });
 
     assert.equal(
-      await readFile(join(projectDirectory, "src/styles/nooeh.css"), "utf8"),
+      await readFile(join(projectDirectory, "src/design/nooeh.css"), "utf8"),
       "/* custom */\n",
     );
     assert.equal(
-      await readFile(join(projectDirectory, "src/styles/nooeh/theme.ts"), "utf8"),
+      await readFile(join(projectDirectory, "src/design/nooeh/theme.ts"), "utf8"),
       "/* custom */\n",
     );
   } finally {
@@ -86,7 +104,7 @@ test("init configures a standard Vite project", async () => {
     await init(projectDirectory, { defaults: true, framework: "vite", "skip-dependencies": true });
 
     assert.equal(
-      await readFile(join(projectDirectory, "src/styles/nooeh.css"), "utf8"),
+      await readFile(join(projectDirectory, "src/design/nooeh.css"), "utf8"),
       '@import "@nooeh/ui/global.css";\n',
     );
     assert.match(
@@ -98,7 +116,7 @@ test("init configures a standard Vite project", async () => {
       /applyNooehTheme\(\)/,
     );
     assert.match(
-      await readFile(join(projectDirectory, "src/styles/nooeh/theme.ts"), "utf8"),
+      await readFile(join(projectDirectory, "src/design/nooeh/theme.ts"), "utf8"),
       /root\.dataset\.theme = mode/,
     );
   } finally {
@@ -121,7 +139,7 @@ test("init does not change a Vite project when its plugin array cannot be update
       /Could not safely update/,
     );
     assert.equal(await readFile(join(projectDirectory, "vite.config.ts"), "utf8"), configSource);
-    await assert.rejects(() => access(join(projectDirectory, "src/styles/nooeh/theme.ts")));
+    await assert.rejects(() => access(join(projectDirectory, "src/design/nooeh/theme.ts")));
   } finally {
     await rm(projectDirectory, { recursive: true });
   }
@@ -139,8 +157,26 @@ test("init writes tokens to a configured project-local directory", async () => {
     });
 
     const config = await readConfig(projectDirectory);
-    assert.equal(config.tokens, "src/design-system/nooeh");
+    assert.equal(config.paths.tokens, "src/design-system/nooeh");
     await access(join(projectDirectory, "src/design-system/nooeh/tokens.stylex.ts"));
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
+test("init rejects a path outside the project", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+
+  try {
+    await assert.rejects(
+      () =>
+        init(projectDirectory, {
+          defaults: true,
+          "skip-dependencies": true,
+          tokens: "../outside",
+        }),
+      /paths\.tokens must be inside the project directory/,
+    );
   } finally {
     await rm(projectDirectory, { recursive: true });
   }

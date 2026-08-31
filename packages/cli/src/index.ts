@@ -28,7 +28,7 @@ export async function run(arguments_ = process.argv.slice(2)) {
       console.log(`Nooeh CLI
 
 Usage:
-  nooeh init
+  nooeh init [--ui <path>] [--tokens <path>]
   nooeh init --framework vite
   nooeh add <component> [--skip-dependencies] [--dry-run]
   nooeh doctor

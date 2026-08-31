@@ -6,7 +6,7 @@ export type CliOptions = Record<string, boolean | string | undefined> & {
   force?: boolean;
   "skip-dependencies"?: boolean;
   tokens?: string;
-  "ui-alias"?: string;
+  ui?: string;
 };
 
 export function parseArguments(arguments_: readonly string[]) {

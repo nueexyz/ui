@@ -1,7 +1,7 @@
 import { access, readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
-import { hasConfig, readConfig, resolveAliasPath, resolveTokensPath } from "./config.js";
+import { hasConfig, readConfig, resolveConfigPath } from "./config.js";
 
 type PackageJson = {
   dependencies?: Record<string, string>;
@@ -101,13 +101,13 @@ export async function doctor(projectDirectory: string) {
     });
   } else {
     const config = await readConfig(projectDirectory);
-    const uiDirectory = await resolveAliasPath(projectDirectory, config.aliases.ui);
+    const uiDirectory = resolveConfigPath(projectDirectory, config.paths.ui, "paths.ui");
     checks.push({
-      detail: `${config.aliases.ui} → ${uiDirectory}`,
-      name: "UI alias",
+      detail: `${config.paths.ui} → ${uiDirectory}`,
+      name: "UI path",
       status: "pass",
     });
-    const tokenDirectory = resolveTokensPath(projectDirectory, config.tokens);
+    const tokenDirectory = resolveConfigPath(projectDirectory, config.paths.tokens, "paths.tokens");
     const tokenFiles = [
       "color-palette.stylex.ts",
       "tokens.stylex.ts",
@@ -127,12 +127,12 @@ export async function doctor(projectDirectory: string) {
     checks.push(
       hasTokenFiles.every(Boolean)
         ? {
-            detail: `${config.tokens} contains local token sources.`,
+            detail: `${config.paths.tokens} contains local token sources.`,
             name: "Local tokens",
             status: "pass",
           }
         : {
-            detail: `Create local token sources in ${config.tokens} with \`nooeh init --force\`.`,
+            detail: `Create local token sources in ${config.paths.tokens} with \`nooeh init --force\`.`,
             name: "Local tokens",
             status: "warn",
           },
@@ -165,7 +165,7 @@ export async function doctor(projectDirectory: string) {
   );
   checks.push(
     entrySources.some(
-      (source) => source.includes("./styles/nooeh.css") || source.includes("@nooeh/ui/global.css"),
+      (source) => source.includes("nooeh.css") || source.includes("@nooeh/ui/global.css"),
     )
       ? {
           detail: "An application entry imports nooeh global CSS.",
@@ -173,7 +173,7 @@ export async function doctor(projectDirectory: string) {
           status: "pass",
         }
       : {
-          detail: "Import `src/styles/nooeh.css` from an application entry point.",
+          detail: "Import the generated nooeh.css file from an application entry point.",
           name: "Global CSS",
           status: "warn",
         },

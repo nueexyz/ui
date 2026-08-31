@@ -1,7 +1,7 @@
 import { access, mkdir, writeFile } from "node:fs/promises";
 import { dirname, join, relative, sep } from "node:path";
 
-import { readConfig, resolveAliasPath, resolveTokensPath } from "./config.js";
+import { readConfig, resolveConfigPath } from "./config.js";
 
 function toPascalCase(name: string) {
   return name
@@ -17,10 +17,13 @@ export async function newComponent(projectDirectory: string, name: string | unde
   }
 
   const config = await readConfig(projectDirectory);
-  const uiDirectory = await resolveAliasPath(projectDirectory, config.aliases.ui);
+  const uiDirectory = resolveConfigPath(projectDirectory, config.paths.ui, "paths.ui");
   const componentName = toPascalCase(name);
   const componentPath = join(uiDirectory, `${name}.tsx`);
-  const tokenPath = join(resolveTokensPath(projectDirectory, config.tokens), "tokens.stylex.ts");
+  const tokenPath = join(
+    resolveConfigPath(projectDirectory, config.paths.tokens, "paths.tokens"),
+    "tokens.stylex.ts",
+  );
   const relativeTokenPath = relative(dirname(componentPath), tokenPath)
     .replace(/\.ts$/, "")
     .split(sep)

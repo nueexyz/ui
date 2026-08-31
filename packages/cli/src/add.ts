@@ -2,13 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { createInterface } from "node:readline/promises";
 
-import {
-  defaultConfig,
-  hasConfig,
-  readConfig,
-  resolveAliasPath,
-  resolveTokensPath,
-} from "./config.js";
+import { defaultConfig, hasConfig, readConfig, resolveConfigPath } from "./config.js";
 import { installDependencies } from "./dependencies.js";
 import { init } from "./init.js";
 import { resolveComponent } from "./registry.js";
@@ -97,8 +91,8 @@ export async function add(
   const config =
     options["dry-run"] && shouldInitialize ? defaultConfig : await readConfig(projectDirectory);
   const resolved = await resolveComponent(componentName);
-  const uiDirectory = await resolveAliasPath(projectDirectory, config.aliases.ui);
-  const tokenDirectory = resolveTokensPath(projectDirectory, config.tokens);
+  const uiDirectory = resolveConfigPath(projectDirectory, config.paths.ui, "paths.ui");
+  const tokenDirectory = resolveConfigPath(projectDirectory, config.paths.tokens, "paths.tokens");
   let isOverwriteConfirmed = false;
 
   async function confirmOverwrite() {
@@ -145,5 +139,6 @@ export async function add(
   }
 
   console.log(`Added ${componentName}.`);
-  console.log(`import { ${primaryExport} } from "${config.aliases.ui}/${componentName}"`);
+  console.log(`Export: ${primaryExport}`);
+  console.log(`Location: ${relative(projectDirectory, join(uiDirectory, `${componentName}.tsx`))}`);
 }
