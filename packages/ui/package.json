@@ -74,8 +74,8 @@
   "scripts": {
     "build": "pnpm --filter @nooeh/cli build && node --experimental-strip-types scripts/build.ts && tsc -p tsconfig.build.json && tsc -p tsconfig.cli.json",
     "prepack": "pnpm build",
-    "test": "pnpm build && node test/cli.test.mjs",
-    "typecheck": "tsc --noEmit && tsc -p tsconfig.cli.json --noEmit"
+    "test": "pnpm build && node --experimental-strip-types --test test/*.test.ts",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.cli.json --noEmit && tsc -p tsconfig.test.json"
   },
   "dependencies": {
     "@nooeh/cli": "workspace:*",

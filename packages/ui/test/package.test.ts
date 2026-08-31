@@ -2,8 +2,8 @@ import assert from "node:assert/strict";
 import { execFile as execFileCallback } from "node:child_process";
 import { access, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { fileURLToPath } from "node:url";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import test from "node:test";
 
@@ -18,7 +18,14 @@ test("@nooeh/ui CLI initializes a project and adds a card", async () => {
       join(projectDirectory, "tsconfig.json"),
       JSON.stringify({ compilerOptions: { paths: { "@/*": ["./src/*"] } } }),
     );
-    await execFile(process.execPath, [cliPath, "init", "--defaults", "--cwd", projectDirectory]);
+    await execFile(process.execPath, [
+      cliPath,
+      "init",
+      "--defaults",
+      "--skip-dependencies",
+      "--cwd",
+      projectDirectory,
+    ]);
     await execFile(process.execPath, [
       cliPath,
       "add",
