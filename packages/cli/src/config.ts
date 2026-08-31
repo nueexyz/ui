@@ -3,12 +3,13 @@ import { isAbsolute, relative, resolve } from "node:path";
 
 export const configFileName = "nooeh.json";
 
-export const configVersion = 1;
+export const configVersion = 2;
 
 export type NooehConfig = {
   aliases: {
     ui: string;
   };
+  tokens: string;
   version?: number;
 };
 
@@ -23,6 +24,7 @@ type TypeScriptPaths = Record<string, readonly string[]>;
 
 export const defaultConfig: NooehConfig = {
   aliases: { ui: "@/components/ui" },
+  tokens: "src/styles/nooeh",
   version: configVersion,
 };
 
@@ -44,7 +46,7 @@ function ensureRelativePath(projectDirectory: string, path: string, name: string
 }
 
 export function validateConfig(config: unknown): NooehConfig {
-  const candidate = config as { aliases?: { ui?: unknown }; version?: unknown };
+  const candidate = config as { aliases?: { ui?: unknown }; tokens?: unknown; version?: unknown };
   if (!candidate.aliases || typeof candidate.aliases.ui !== "string" || !candidate.aliases.ui) {
     throw new Error("Configure aliases.ui.");
   }
@@ -53,8 +55,17 @@ export function validateConfig(config: unknown): NooehConfig {
     throw new Error(`Unsupported nooeh.json version: ${String(candidate.version)}`);
   }
 
+  if (typeof candidate.tokens !== "string" || !candidate.tokens.trim()) {
+    throw new Error("Configure tokens.");
+  }
+
+  if (isAbsolute(candidate.tokens)) {
+    throw new Error("tokens must be inside the project directory.");
+  }
+
   return {
     aliases: { ui: candidate.aliases.ui },
+    tokens: candidate.tokens,
     version: configVersion,
   };
 }
@@ -79,9 +90,15 @@ export async function readConfig(projectDirectory: string) {
 
 export async function writeConfig(projectDirectory: string, config: NooehConfig) {
   const validatedConfig = validateConfig(config);
+  ensureRelativePath(projectDirectory, validatedConfig.tokens, "tokens");
   const configPath = resolve(projectDirectory, configFileName);
   await writeFile(configPath, `${JSON.stringify(validatedConfig, null, 2)}\n`, "utf8");
   return configPath;
+}
+
+export function resolveTokensPath(projectDirectory: string, tokens: string) {
+  ensureRelativePath(projectDirectory, tokens, "tokens");
+  return resolve(projectDirectory, tokens);
 }
 
 function findAliasTarget(alias: string, paths?: TypeScriptPaths) {

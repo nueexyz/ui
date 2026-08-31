@@ -1,10 +1,17 @@
 import { access, mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, join, relative } from "node:path";
+import { dirname, join, relative, sep } from "node:path";
 import { createInterface } from "node:readline/promises";
 
-import { configFileName, defaultConfig, hasConfig, writeConfig } from "./config.js";
+import {
+  configFileName,
+  defaultConfig,
+  hasConfig,
+  resolveTokensPath,
+  writeConfig,
+} from "./config.js";
 import { installDependencies } from "./dependencies.js";
 import type { CliOptions } from "./arguments.js";
+import { getTokenFiles } from "@nooeh/registry";
 
 async function ask(
   question: string,
@@ -68,18 +75,23 @@ function configureVite(source: string) {
   });
 }
 
-async function writeViteFiles(projectDirectory: string) {
+function toModuleSpecifier(fromDirectory: string, path: string) {
+  const source = relative(fromDirectory, path).replace(/\.ts$/, "").split(sep).join("/");
+  return source.startsWith(".") ? source : `./${source}`;
+}
+
+async function writeViteFiles(projectDirectory: string, tokenDirectory: string) {
   const { path: configPath, source: configSource } = await readViteConfig(projectDirectory);
   const configuredVite = configureVite(configSource);
-  const { entryPath, stylePath } = getNooehPaths(projectDirectory);
+  const { entryPath, stylePath, themePath } = getNooehPaths(projectDirectory, tokenDirectory);
   const entrySource = await readFile(entryPath, "utf8");
   const styleImport = 'import "./styles/nooeh.css";';
-  const themeImport = 'import { applyNooehTheme } from "./nooeh-theme";';
+  const themeImport = `import { applyNooehTheme } from "${toModuleSpecifier(dirname(entryPath), themePath)}";`;
   const themeApply = "applyNooehTheme();";
 
   const imports = [styleImport, themeImport].filter((line) => !entrySource.includes(line));
   const nextEntrySource = `${imports.join("\n")}\n${entrySource}`;
-  await writeNooehFiles(projectDirectory);
+  await writeNooehFiles(projectDirectory, tokenDirectory);
   await writeFile(
     entryPath,
     nextEntrySource.includes(themeApply)
@@ -91,23 +103,27 @@ async function writeViteFiles(projectDirectory: string) {
   console.log(`Configured Vite and created ${relative(projectDirectory, stylePath)}.`);
 }
 
-function getNooehPaths(projectDirectory: string) {
+function getNooehPaths(projectDirectory: string, tokenDirectory: string) {
   const sourceDirectory = getSourceDirectory(projectDirectory);
   return {
     entryPath: join(sourceDirectory, "main.tsx"),
     stylePath: join(sourceDirectory, "styles", "nooeh.css"),
-    themePath: join(sourceDirectory, "nooeh-theme.ts"),
+    themePath: join(tokenDirectory, "theme.ts"),
   };
 }
 
-async function writeNooehFiles(projectDirectory: string) {
-  const { entryPath, stylePath, themePath } = getNooehPaths(projectDirectory);
+async function writeNooehFiles(projectDirectory: string, tokenDirectory: string) {
+  const { entryPath, stylePath, themePath } = getNooehPaths(projectDirectory, tokenDirectory);
 
   await mkdir(dirname(stylePath), { recursive: true });
+  await mkdir(tokenDirectory, { recursive: true });
   await writeFileIfMissing(stylePath, '@import "@nooeh/ui/global.css";\n');
+  for (const file of await getTokenFiles()) {
+    await writeFileIfMissing(join(tokenDirectory, file.name), file.content);
+  }
   await writeFileIfMissing(
     themePath,
-    `import { darkColorTheme, darkShadowTheme, lightColorTheme, lightShadowTheme } from "@nooeh/tokens/themes.stylex";\nimport * as stylex from "@stylexjs/stylex";\n\nexport type NooehColorMode = "light" | "dark";\n\nlet activeThemeClassName = "";\n\nexport function applyNooehTheme(mode: NooehColorMode = "light") {\n  const colorTheme = mode === "dark" ? darkColorTheme : lightColorTheme;\n  const shadowTheme = mode === "dark" ? darkShadowTheme : lightShadowTheme;\n  const nextThemeClassName = stylex.props(colorTheme, shadowTheme).className ?? "";\n  const root = document.documentElement;\n\n  root.classList.remove(...activeThemeClassName.split(" ").filter(Boolean));\n  root.classList.add(...nextThemeClassName.split(" ").filter(Boolean));\n  activeThemeClassName = nextThemeClassName;\n}\n`,
+    `import { darkColorTheme, darkShadowTheme, lightColorTheme, lightShadowTheme } from "./themes.stylex";\nimport * as stylex from "@stylexjs/stylex";\n\nexport type NooehColorMode = "light" | "dark";\n\nconst themeClassNames = [\n  stylex.props(lightColorTheme, lightShadowTheme).className,\n  stylex.props(darkColorTheme, darkShadowTheme).className,\n]\n  .filter(Boolean)\n  .flatMap((className) => className.split(" "));\n\nexport function applyNooehTheme(mode: NooehColorMode = "light") {\n  const colorTheme = mode === "dark" ? darkColorTheme : lightColorTheme;\n  const shadowTheme = mode === "dark" ? darkShadowTheme : lightShadowTheme;\n  const themeClassName = stylex.props(colorTheme, shadowTheme).className ?? "";\n  const root = document.documentElement;\n\n  root.dataset.theme = mode;\n  root.classList.remove(...themeClassNames);\n  root.classList.add(...themeClassName.split(" ").filter(Boolean));\n}\n`,
   );
 
   return { entryPath, stylePath, themePath };
@@ -140,20 +156,26 @@ export async function init(projectDirectory: string, options: CliOptions) {
       (readline
         ? await ask("Enter the UI alias.", defaultConfig.aliases.ui, readline)
         : defaultConfig.aliases.ui);
+    const tokens =
+      options.tokens ??
+      (readline
+        ? await ask("Enter the token directory.", defaultConfig.tokens, readline)
+        : defaultConfig.tokens);
+    const tokenDirectory = resolveTokensPath(projectDirectory, tokens);
     if (!options["skip-dependencies"]) {
-      await installDependencies(projectDirectory, ["@nooeh/tokens", "@stylexjs/stylex"]);
+      await installDependencies(projectDirectory, ["@stylexjs/stylex"]);
       await installDependencies(projectDirectory, ["@stylexjs/unplugin"], true);
     }
     if (options.framework === "vite") {
-      await writeViteFiles(projectDirectory);
+      await writeViteFiles(projectDirectory, tokenDirectory);
     } else {
-      const { stylePath, themePath } = await writeNooehFiles(projectDirectory);
+      const { stylePath, themePath } = await writeNooehFiles(projectDirectory, tokenDirectory);
       console.log(
         `Created ${relative(projectDirectory, stylePath)} and ${relative(projectDirectory, themePath)}.`,
       );
       console.log("Import the CSS and call applyNooehTheme() from your application entry point.");
     }
-    await writeConfig(projectDirectory, { aliases: { ui: uiAlias } });
+    await writeConfig(projectDirectory, { aliases: { ui: uiAlias }, tokens });
   } finally {
     readline?.close();
   }

@@ -1,7 +1,7 @@
-import { readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
-import { hasConfig, readConfig, resolveAliasPath } from "./config.js";
+import { hasConfig, readConfig, resolveAliasPath, resolveTokensPath } from "./config.js";
 
 type PackageJson = {
   dependencies?: Record<string, string>;
@@ -107,6 +107,36 @@ export async function doctor(projectDirectory: string) {
       name: "UI alias",
       status: "pass",
     });
+    const tokenDirectory = resolveTokensPath(projectDirectory, config.tokens);
+    const tokenFiles = [
+      "color-palette.stylex.ts",
+      "tokens.stylex.ts",
+      "themes.stylex.ts",
+      "theme.ts",
+    ];
+    const hasTokenFiles = await Promise.all(
+      tokenFiles.map(async (fileName) => {
+        try {
+          await access(resolve(tokenDirectory, fileName));
+          return true;
+        } catch {
+          return false;
+        }
+      }),
+    );
+    checks.push(
+      hasTokenFiles.every(Boolean)
+        ? {
+            detail: `${config.tokens} contains local token sources.`,
+            name: "Local tokens",
+            status: "pass",
+          }
+        : {
+            detail: `Create local token sources in ${config.tokens} with \`nooeh init --force\`.`,
+            name: "Local tokens",
+            status: "warn",
+          },
+    );
   }
 
   checks.push(

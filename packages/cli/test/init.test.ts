@@ -38,22 +38,26 @@ test("init creates framework-neutral theme files without changing an entry point
       '@import "@nooeh/ui/global.css";\n',
     );
     assert.match(
-      await readFile(join(projectDirectory, "src/nooeh-theme.ts"), "utf8"),
-      /lightShadowTheme/,
+      await readFile(join(projectDirectory, "src/styles/nooeh/theme.ts"), "utf8"),
+      /root\.dataset\.theme = mode/,
     );
+    await access(join(projectDirectory, "src/styles/nooeh/color-palette.stylex.ts"));
+    await access(join(projectDirectory, "src/styles/nooeh/tokens.stylex.ts"));
+    await access(join(projectDirectory, "src/styles/nooeh/themes.stylex.ts"));
     assert.equal(await readFile(join(projectDirectory, "src/main.tsx"), "utf8"), "export {};\n");
   } finally {
     await rm(projectDirectory, { recursive: true });
   }
 });
 
-test("init keeps existing nooeh integration files", async () => {
+test("init keeps existing local nooeh files", async () => {
   const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
 
   try {
     await mkdir(join(projectDirectory, "src/styles"), { recursive: true });
     await writeFile(join(projectDirectory, "src/styles/nooeh.css"), "/* custom */\n");
-    await writeFile(join(projectDirectory, "src/nooeh-theme.ts"), "/* custom */\n");
+    await mkdir(join(projectDirectory, "src/styles/nooeh"), { recursive: true });
+    await writeFile(join(projectDirectory, "src/styles/nooeh/theme.ts"), "/* custom */\n");
     await init(projectDirectory, { defaults: true, "skip-dependencies": true });
 
     assert.equal(
@@ -61,7 +65,7 @@ test("init keeps existing nooeh integration files", async () => {
       "/* custom */\n",
     );
     assert.equal(
-      await readFile(join(projectDirectory, "src/nooeh-theme.ts"), "utf8"),
+      await readFile(join(projectDirectory, "src/styles/nooeh/theme.ts"), "utf8"),
       "/* custom */\n",
     );
   } finally {
@@ -94,8 +98,8 @@ test("init configures a standard Vite project", async () => {
       /applyNooehTheme\(\)/,
     );
     assert.match(
-      await readFile(join(projectDirectory, "src/nooeh-theme.ts"), "utf8"),
-      /darkColorTheme/,
+      await readFile(join(projectDirectory, "src/styles/nooeh/theme.ts"), "utf8"),
+      /root\.dataset\.theme = mode/,
     );
   } finally {
     await rm(projectDirectory, { recursive: true });
@@ -117,7 +121,26 @@ test("init does not change a Vite project when its plugin array cannot be update
       /Could not safely update/,
     );
     assert.equal(await readFile(join(projectDirectory, "vite.config.ts"), "utf8"), configSource);
-    await assert.rejects(() => access(join(projectDirectory, "src/nooeh-theme.ts")));
+    await assert.rejects(() => access(join(projectDirectory, "src/styles/nooeh/theme.ts")));
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
+test("init writes tokens to a configured project-local directory", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+
+  try {
+    await mkdir(join(projectDirectory, "src"), { recursive: true });
+    await init(projectDirectory, {
+      defaults: true,
+      "skip-dependencies": true,
+      tokens: "src/design-system/nooeh",
+    });
+
+    const config = await readConfig(projectDirectory);
+    assert.equal(config.tokens, "src/design-system/nooeh");
+    await access(join(projectDirectory, "src/design-system/nooeh/tokens.stylex.ts"));
   } finally {
     await rm(projectDirectory, { recursive: true });
   }

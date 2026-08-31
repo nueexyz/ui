@@ -15,6 +15,11 @@ export type RegistryItem = {
   registryDependencies: readonly string[];
 };
 
+export type TokenFile = {
+  content: string;
+  name: string;
+};
+
 function isRegistryItem(value: unknown): value is RegistryItem {
   if (typeof value !== "object" || value === null) return false;
 
@@ -50,9 +55,19 @@ export async function getRegistryItem(name: string): Promise<RegistryItem> {
   }
 }
 
+export async function getTokenFiles(): Promise<TokenFile[]> {
+  const names = ["color-palette.stylex.ts", "tokens.stylex.ts", "themes.stylex.ts"];
+
+  return Promise.all(
+    names.map(async (name) => ({
+      content: await readFile(new URL(`./tokens/${name}`, import.meta.url), "utf8"),
+      name,
+    })),
+  );
+}
+
 export const dependencyVersions = {
   "@base-ui/react": "^1.7.0",
-  "@nooeh/tokens": "^0.0.1",
   "@phosphor-icons/react": "^2.1.10",
   "@stylexjs/stylex": "^0.19.0",
 };

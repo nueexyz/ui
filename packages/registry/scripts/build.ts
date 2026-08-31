@@ -5,9 +5,13 @@ import { registryItems } from "../src/items.ts";
 
 const outputDirectory = "dist/items";
 const uiSourceDirectory = "../ui/src";
+const tokenSourceDirectory = "../tokens/src";
+const tokenOutputDirectory = "dist/tokens";
 
 await rm(outputDirectory, { force: true, recursive: true });
 await mkdir(outputDirectory, { recursive: true });
+await rm(tokenOutputDirectory, { force: true, recursive: true });
+await mkdir(tokenOutputDirectory, { recursive: true });
 
 for (const [name, item] of Object.entries(registryItems)) {
   const files = await Promise.all(
@@ -27,6 +31,23 @@ for (const [name, item] of Object.entries(registryItems)) {
 
   await writeFile(
     join(outputDirectory, `${name}.json`),
-    `${JSON.stringify({ name, primaryExport, ...item, files }, null, 2)}\n`,
+    `${JSON.stringify(
+      {
+        name,
+        primaryExport,
+        ...item,
+        dependencies: item.dependencies.filter((dependency) => dependency !== "@nooeh/tokens"),
+        files,
+      },
+      null,
+      2,
+    )}\n`,
+  );
+}
+
+for (const name of ["color-palette.stylex.ts", "tokens.stylex.ts", "themes.stylex.ts"]) {
+  await writeFile(
+    join(tokenOutputDirectory, name),
+    await readFile(join(tokenSourceDirectory, name), "utf8"),
   );
 }

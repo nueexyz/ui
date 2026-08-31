@@ -37,7 +37,9 @@ test("@nooeh/ui CLI initializes a project and adds a card", async () => {
 
     const config = JSON.parse(await readFile(join(projectDirectory, "nooeh.json"), "utf8"));
     assert.equal(config.aliases.ui, "@/components/ui");
-    assert.equal(config.version, 1);
+    assert.equal(config.version, 2);
+    assert.equal(config.tokens, "src/styles/nooeh");
+    await access(join(projectDirectory, "src/styles/nooeh/tokens.stylex.ts"));
     assert.match(
       await readFile(join(projectDirectory, "src/components/ui/card.tsx"), "utf8"),
       /Card/,

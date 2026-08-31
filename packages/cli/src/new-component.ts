@@ -1,7 +1,7 @@
 import { access, mkdir, writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { dirname, join, relative, sep } from "node:path";
 
-import { readConfig, resolveAliasPath } from "./config.js";
+import { readConfig, resolveAliasPath, resolveTokensPath } from "./config.js";
 
 function toPascalCase(name: string) {
   return name
@@ -20,6 +20,14 @@ export async function newComponent(projectDirectory: string, name: string | unde
   const uiDirectory = await resolveAliasPath(projectDirectory, config.aliases.ui);
   const componentName = toPascalCase(name);
   const componentPath = join(uiDirectory, `${name}.tsx`);
+  const tokenPath = join(resolveTokensPath(projectDirectory, config.tokens), "tokens.stylex.ts");
+  const relativeTokenPath = relative(dirname(componentPath), tokenPath)
+    .replace(/\.ts$/, "")
+    .split(sep)
+    .join("/");
+  const tokenImport = relativeTokenPath.startsWith(".")
+    ? relativeTokenPath
+    : `./${relativeTokenPath}`;
   const files = [componentPath];
 
   for (const file of files) {
@@ -35,7 +43,7 @@ export async function newComponent(projectDirectory: string, name: string | unde
   await mkdir(uiDirectory, { recursive: true });
   await writeFile(
     componentPath,
-    `import { colorVars, radiusVars, spacingVars } from "@nooeh/tokens/tokens.stylex";\nimport * as stylex from "@stylexjs/stylex";\nimport type { ComponentProps } from "react";\n\nconst styles = stylex.create({\n  root: {\n    backgroundColor: colorVars.bgSurface,\n    borderRadius: radiusVars.sm,\n    padding: spacingVars.space3,\n  },\n});\n\nexport type ${componentName}Props = ComponentProps<"div"> & {\n  xstyle?: stylex.StyleXStyles;\n};\n\nexport function ${componentName}({ className, style, xstyle, ...props }: ${componentName}Props) {\n  const stylexProps = stylex.props(styles.root, xstyle);\n\n  return (\n    <div\n      {...props}\n      className={[stylexProps.className, className].filter(Boolean).join(" ")}\n      style={{ ...stylexProps.style, ...style }}\n    />\n  );\n}\n`,
+    `import { colorVars, radiusVars, spacingVars } from "${tokenImport}";\nimport * as stylex from "@stylexjs/stylex";\nimport type { ComponentProps } from "react";\n\nconst styles = stylex.create({\n  root: {\n    backgroundColor: colorVars.bgSurface,\n    borderRadius: radiusVars.sm,\n    padding: spacingVars.space3,\n  },\n});\n\nexport type ${componentName}Props = ComponentProps<"div"> & {\n  xstyle?: stylex.StyleXStyles;\n};\n\nexport function ${componentName}({ className, style, xstyle, ...props }: ${componentName}Props) {\n  const stylexProps = stylex.props(styles.root, xstyle);\n\n  return (\n    <div\n      {...props}\n      className={[stylexProps.className, className].filter(Boolean).join(" ")}\n      style={{ ...stylexProps.style, ...style }}\n    />\n  );\n}\n`,
     { flag: "wx" },
   );
 

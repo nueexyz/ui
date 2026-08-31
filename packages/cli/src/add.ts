@@ -1,8 +1,14 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, isAbsolute, relative, resolve } from "node:path";
+import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { createInterface } from "node:readline/promises";
 
-import { defaultConfig, hasConfig, readConfig, resolveAliasPath } from "./config.js";
+import {
+  defaultConfig,
+  hasConfig,
+  readConfig,
+  resolveAliasPath,
+  resolveTokensPath,
+} from "./config.js";
 import { installDependencies } from "./dependencies.js";
 import { init } from "./init.js";
 import { resolveComponent } from "./registry.js";
@@ -63,6 +69,17 @@ function resolveTargetPath(uiDirectory: string, filePath: string) {
   return targetPath;
 }
 
+function replaceTokenImport(source: string, targetPath: string, tokenDirectory: string) {
+  const tokenModulePath = join(tokenDirectory, "tokens.stylex.ts");
+  const relativePath = relative(dirname(targetPath), tokenModulePath)
+    .replace(/\.ts$/, "")
+    .split(sep)
+    .join("/");
+  const tokenModule = relativePath.startsWith(".") ? relativePath : `./${relativePath}`;
+
+  return source.replaceAll("@nooeh/tokens/tokens.stylex", tokenModule);
+}
+
 export async function add(
   projectDirectory: string,
   componentName: string,
@@ -77,9 +94,11 @@ export async function add(
       "skip-dependencies": options.skipDependencyInstall || options["skip-dependencies"],
     });
   }
-  const config = shouldInitialize ? defaultConfig : await readConfig(projectDirectory);
+  const config =
+    options["dry-run"] && shouldInitialize ? defaultConfig : await readConfig(projectDirectory);
   const resolved = await resolveComponent(componentName);
   const uiDirectory = await resolveAliasPath(projectDirectory, config.aliases.ui);
+  const tokenDirectory = resolveTokensPath(projectDirectory, config.tokens);
   let isOverwriteConfirmed = false;
 
   async function confirmOverwrite() {
@@ -98,7 +117,11 @@ export async function add(
       console.log(`Will add: ${targetPath}`);
       continue;
     }
-    await writeSource(file.content, targetPath, confirmOverwrite);
+    await writeSource(
+      replaceTokenImport(file.content, targetPath, tokenDirectory),
+      targetPath,
+      confirmOverwrite,
+    );
   }
 
   const shouldInstallDependencies =
