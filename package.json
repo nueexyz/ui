@@ -19,7 +19,7 @@
     "release:check": "pnpm check && pnpm test && pnpm build && pnpm docs:build",
     "storybook": "pnpm --filter @nooeh/docs storybook",
     "test": "pnpm --filter @nooeh/cli test && pnpm --filter @nooeh/ui test",
-    "typecheck": "pnpm --filter @nooeh/tokens typecheck && pnpm --filter @nooeh/registry typecheck && pnpm --filter @nooeh/cli typecheck && pnpm --filter @nooeh/ui typecheck && pnpm --filter @nooeh/docs typecheck"
+    "typecheck": "pnpm --filter @nooeh/tokens typecheck && pnpm --filter @nooeh/registry build && pnpm --filter @nooeh/cli typecheck && pnpm --filter @nooeh/ui typecheck && pnpm --filter @nooeh/docs typecheck"
   },
   "devDependencies": {
     "lefthook": "2.1.10",
