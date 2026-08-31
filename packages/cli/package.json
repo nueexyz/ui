@@ -22,7 +22,7 @@
     "build": "pnpm --filter @nooeh/registry build && tsc -p tsconfig.build.json",
     "prepack": "pnpm build",
     "test": "pnpm build && node --experimental-strip-types --test test/*.test.ts",
-    "typecheck": "tsc --noEmit && tsc -p tsconfig.test.json"
+    "typecheck": "tsc --noEmit && pnpm build && tsc -p tsconfig.test.json"
   },
   "dependencies": {
     "@nooeh/registry": "workspace:*"
