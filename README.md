@@ -1,7 +1,6 @@
 # nooeh
 
-An open-code React design system built with Base UI and StyleX. Copy component
-source into your app and adapt it to your product.
+An open-code React design system built with Base UI and StyleX.
 
 ## Start
 
@@ -13,17 +12,18 @@ pnpm dlx @nooeh/ui init --framework vite
 pnpm dlx @nooeh/ui add button
 ```
 
-`init` installs StyleX, creates `nooeh.json`, and copies editable token and
-theme source into `src/styles/nooeh`. Use `--tokens src/design-system/nooeh` to
-choose another project-local location. The Vite option also adds the StyleX
-plugin, imports nooeh's global CSS, and applies the default light theme.
+`init` installs StyleX and creates `nooeh.json` with project-local component
+and token paths. By default, components go in `src/components/ui` and token
+source goes in `src/design/nooeh`. Use `--ui` or `--tokens` to choose other
+locations. The Vite option also adds the StyleX plugin, imports nooeh's global
+CSS, and applies the default light theme.
 
 For another bundler, configure its StyleX compiler and add this to the
 application entry point:
 
 ```ts
-import "./styles/nooeh.css";
-import { applyNooehTheme } from "./styles/nooeh/theme";
+import "./design/nooeh.css";
+import { applyNooehTheme } from "./design/nooeh/theme";
 
 applyNooehTheme();
 ```
