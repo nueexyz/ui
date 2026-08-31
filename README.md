@@ -17,13 +17,22 @@ copy component source files into your project, so the components remain yours to
 - A StyleX-enabled bundler. The CLI can configure the standard Vite `plugins` array.
 - TypeScript path aliases. The default UI destination is `@/components/ui`.
 
-## Start with Vite
+## Start with any StyleX bundler
 
-Install the runtime and build dependencies in an existing Vite React app:
+Install the runtime and build dependencies in an existing React app:
 
 ```sh
-pnpm add @base-ui/react @nooeh/tokens @phosphor-icons/react @stylexjs/stylex
-pnpm add -D @stylexjs/unplugin
+pnpm dlx @nooeh/ui init
+pnpm dlx @nooeh/ui add button
+```
+
+`init` creates `nooeh.json`, `src/styles/nooeh.css`, and `src/nooeh-theme.ts` without changing your application entry point. Import `./styles/nooeh.css` and call `applyNooehTheme()` before rendering. Configure the StyleX compiler using your bundler's integration.
+
+## Vite quick start
+
+For a standard Vite React app, use the Vite adapter:
+
+```sh
 pnpm dlx @nooeh/ui init --framework vite
 pnpm dlx @nooeh/ui add button
 ```
@@ -53,7 +62,7 @@ nooeh docs [component]
 nooeh doctor
 ```
 
-`add --dry-run` never writes a config, component, or dependency. URL registry items are
+`add --dry-run` never writes a config, component, or dependency. `doctor` verifies the configured UI alias, StyleX dependencies and compiler, global CSS import, and theme application. URL registry items are
 validated before nooeh writes them, and every registry file must remain inside the configured
 UI directory.
 

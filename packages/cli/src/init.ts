@@ -3,6 +3,7 @@ import { dirname, join, relative } from "node:path";
 import { createInterface } from "node:readline/promises";
 
 import { configFileName, defaultConfig, hasConfig, writeConfig } from "./config.js";
+import { installDependencies } from "./dependencies.js";
 import type { CliOptions } from "./arguments.js";
 
 async function ask(
@@ -68,27 +69,17 @@ function configureVite(source: string) {
 }
 
 async function writeViteFiles(projectDirectory: string) {
-  const sourceDirectory = getSourceDirectory(projectDirectory);
-  const stylePath = join(sourceDirectory, "styles", "nooeh.css");
-  const themePath = join(sourceDirectory, "nooeh-theme.ts");
-  const entryPath = join(sourceDirectory, "main.tsx");
-  const relativeStylePath = relative(projectDirectory, stylePath);
   const { path: configPath, source: configSource } = await readViteConfig(projectDirectory);
-  const entrySource = await readFile(entryPath, "utf8");
   const configuredVite = configureVite(configSource);
+  const { entryPath, stylePath } = getNooehPaths(projectDirectory);
+  const entrySource = await readFile(entryPath, "utf8");
   const styleImport = 'import "./styles/nooeh.css";';
   const themeImport = 'import { applyNooehTheme } from "./nooeh-theme";';
   const themeApply = "applyNooehTheme();";
 
-  await mkdir(dirname(stylePath), { recursive: true });
-  await writeFile(stylePath, '@import "@nooeh/ui/global.css";\n', "utf8");
-  await writeFile(
-    themePath,
-    `import { darkColorTheme, darkShadowTheme, lightColorTheme, lightShadowTheme } from "@nooeh/tokens/themes.stylex";\nimport * as stylex from "@stylexjs/stylex";\n\nexport type NooehColorMode = "light" | "dark";\n\nlet activeThemeClassName = "";\n\nexport function applyNooehTheme(mode: NooehColorMode = "light") {\n  const colorTheme = mode === "dark" ? darkColorTheme : lightColorTheme;\n  const shadowTheme = mode === "dark" ? darkShadowTheme : lightShadowTheme;\n  const nextThemeClassName = stylex.props(colorTheme, shadowTheme).className ?? "";\n  const root = document.documentElement;\n\n  root.classList.remove(...activeThemeClassName.split(" ").filter(Boolean));\n  root.classList.add(...nextThemeClassName.split(" ").filter(Boolean));\n  activeThemeClassName = nextThemeClassName;\n}\n`,
-    "utf8",
-  );
   const imports = [styleImport, themeImport].filter((line) => !entrySource.includes(line));
   const nextEntrySource = `${imports.join("\n")}\n${entrySource}`;
+  await writeNooehFiles(projectDirectory);
   await writeFile(
     entryPath,
     nextEntrySource.includes(themeApply)
@@ -97,7 +88,37 @@ async function writeViteFiles(projectDirectory: string) {
     "utf8",
   );
   await writeFile(configPath, configuredVite, "utf8");
-  console.log(`Configured Vite and created ${relativeStylePath}.`);
+  console.log(`Configured Vite and created ${relative(projectDirectory, stylePath)}.`);
+}
+
+function getNooehPaths(projectDirectory: string) {
+  const sourceDirectory = getSourceDirectory(projectDirectory);
+  return {
+    entryPath: join(sourceDirectory, "main.tsx"),
+    stylePath: join(sourceDirectory, "styles", "nooeh.css"),
+    themePath: join(sourceDirectory, "nooeh-theme.ts"),
+  };
+}
+
+async function writeNooehFiles(projectDirectory: string) {
+  const { entryPath, stylePath, themePath } = getNooehPaths(projectDirectory);
+
+  await mkdir(dirname(stylePath), { recursive: true });
+  await writeFileIfMissing(stylePath, '@import "@nooeh/ui/global.css";\n');
+  await writeFileIfMissing(
+    themePath,
+    `import { darkColorTheme, darkShadowTheme, lightColorTheme, lightShadowTheme } from "@nooeh/tokens/themes.stylex";\nimport * as stylex from "@stylexjs/stylex";\n\nexport type NooehColorMode = "light" | "dark";\n\nlet activeThemeClassName = "";\n\nexport function applyNooehTheme(mode: NooehColorMode = "light") {\n  const colorTheme = mode === "dark" ? darkColorTheme : lightColorTheme;\n  const shadowTheme = mode === "dark" ? darkShadowTheme : lightShadowTheme;\n  const nextThemeClassName = stylex.props(colorTheme, shadowTheme).className ?? "";\n  const root = document.documentElement;\n\n  root.classList.remove(...activeThemeClassName.split(" ").filter(Boolean));\n  root.classList.add(...nextThemeClassName.split(" ").filter(Boolean));\n  activeThemeClassName = nextThemeClassName;\n}\n`,
+  );
+
+  return { entryPath, stylePath, themePath };
+}
+
+async function writeFileIfMissing(path: string, source: string) {
+  try {
+    await access(path);
+  } catch {
+    await writeFile(path, source, "utf8");
+  }
 }
 
 export async function init(projectDirectory: string, options: CliOptions) {
@@ -112,16 +133,26 @@ export async function init(projectDirectory: string, options: CliOptions) {
 
   try {
     if (options.framework && options.framework !== "vite") {
-      throw new Error(
-        `Unsupported framework: ${options.framework}. Use vite or configure StyleX manually.`,
-      );
+      throw new Error(`Unsupported framework: ${options.framework}. Use vite or omit --framework.`);
     }
     const uiAlias =
       options["ui-alias"] ??
       (readline
         ? await ask("Enter the UI alias.", defaultConfig.aliases.ui, readline)
         : defaultConfig.aliases.ui);
-    if (options.framework === "vite") await writeViteFiles(projectDirectory);
+    if (!options["skip-dependencies"]) {
+      await installDependencies(projectDirectory, ["@nooeh/tokens", "@stylexjs/stylex"]);
+      await installDependencies(projectDirectory, ["@stylexjs/unplugin"], true);
+    }
+    if (options.framework === "vite") {
+      await writeViteFiles(projectDirectory);
+    } else {
+      const { stylePath, themePath } = await writeNooehFiles(projectDirectory);
+      console.log(
+        `Created ${relative(projectDirectory, stylePath)} and ${relative(projectDirectory, themePath)}.`,
+      );
+      console.log("Import the CSS and call applyNooehTheme() from your application entry point.");
+    }
     await writeConfig(projectDirectory, { aliases: { ui: uiAlias } });
   } finally {
     readline?.close();

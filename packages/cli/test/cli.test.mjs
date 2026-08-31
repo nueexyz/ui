@@ -7,6 +7,7 @@ import test from "node:test";
 import { add } from "../dist/add.js";
 import { configFileName, defaultConfig, readConfig } from "../dist/config.js";
 import { docs } from "../dist/docs.js";
+import { doctor } from "../dist/doctor.js";
 import { init } from "../dist/init.js";
 import { newComponent } from "../dist/new-component.js";
 
@@ -49,6 +50,50 @@ test("init stores a custom UI alias", async () => {
       ...defaultConfig,
       aliases: { ui: "~/design/ui" },
     });
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
+test("init creates framework-neutral theme files without changing an entry point", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+
+  try {
+    await mkdir(join(projectDirectory, "src"), { recursive: true });
+    await writeFile(join(projectDirectory, "src/main.tsx"), "export {};\n");
+    await init(projectDirectory, { defaults: true });
+
+    assert.equal(
+      await readFile(join(projectDirectory, "src/styles/nooeh.css"), "utf8"),
+      '@import "@nooeh/ui/global.css";\n',
+    );
+    assert.match(
+      await readFile(join(projectDirectory, "src/nooeh-theme.ts"), "utf8"),
+      /lightShadowTheme/,
+    );
+    assert.equal(await readFile(join(projectDirectory, "src/main.tsx"), "utf8"), "export {};\n");
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
+test("init keeps existing nooeh integration files", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+
+  try {
+    await mkdir(join(projectDirectory, "src/styles"), { recursive: true });
+    await writeFile(join(projectDirectory, "src/styles/nooeh.css"), "/* custom */\n");
+    await writeFile(join(projectDirectory, "src/nooeh-theme.ts"), "/* custom */\n");
+    await init(projectDirectory, { defaults: true });
+
+    assert.equal(
+      await readFile(join(projectDirectory, "src/styles/nooeh.css"), "utf8"),
+      "/* custom */\n",
+    );
+    assert.equal(
+      await readFile(join(projectDirectory, "src/nooeh-theme.ts"), "utf8"),
+      "/* custom */\n",
+    );
   } finally {
     await rm(projectDirectory, { recursive: true });
   }
@@ -102,6 +147,32 @@ test("init does not change a Vite project when its plugin array cannot be update
     );
     assert.equal(await readFile(join(projectDirectory, "vite.config.ts"), "utf8"), configSource);
     await assert.rejects(() => access(join(projectDirectory, "src/nooeh-theme.ts")));
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
+test("doctor verifies the compiler, CSS import, and theme application", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+
+  try {
+    await writeTsconfig(projectDirectory);
+    await writeFile(
+      join(projectDirectory, "package.json"),
+      JSON.stringify({
+        dependencies: { "@stylexjs/stylex": "1.0.0" },
+        devDependencies: { "@stylexjs/unplugin": "1.0.0" },
+      }),
+    );
+    await writeFile(
+      join(projectDirectory, "vite.config.ts"),
+      'import stylex from "@stylexjs/unplugin/vite";\nexport default { plugins: [stylex()] };\n',
+    );
+    await mkdir(join(projectDirectory, "src"), { recursive: true });
+    await writeFile(join(projectDirectory, "src/main.tsx"), "export {};\n");
+    await init(projectDirectory, { defaults: true, framework: "vite" });
+
+    assert.equal(await doctor(projectDirectory), true);
   } finally {
     await rm(projectDirectory, { recursive: true });
   }
