@@ -8,7 +8,7 @@ import { doctor } from "../dist/doctor.js";
 import { init } from "../dist/init.js";
 import { writeTsconfig } from "./helpers.ts";
 
-test("doctor verifies the compiler, CSS import, and theme application", async () => {
+test("doctor verifies local StyleX sources, the compiler, and a CSS entry point", async () => {
   const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
 
   try {
@@ -22,10 +22,10 @@ test("doctor verifies the compiler, CSS import, and theme application", async ()
     );
     await writeFile(
       join(projectDirectory, "vite.config.ts"),
-      'import stylex from "@stylexjs/unplugin/vite";\nexport default { plugins: [stylex()] };\n',
+      'import { unplugin as stylex } from "@stylexjs/unplugin";\nimport { defineConfig } from "vite";\nexport default defineConfig({ plugins: [stylex.vite()] });\n',
     );
     await mkdir(join(projectDirectory, "src"), { recursive: true });
-    await writeFile(join(projectDirectory, "src/main.tsx"), "export {};\n");
+    await writeFile(join(projectDirectory, "src/main.tsx"), 'import "./index.css";\n');
     await init(projectDirectory, { defaults: true, framework: "vite", "skip-dependencies": true });
 
     assert.equal(await doctor(projectDirectory), true);

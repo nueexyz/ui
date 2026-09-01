@@ -1,9 +1,10 @@
 import assert from "node:assert/strict";
-import { access, mkdir, mkdtemp, readFile, rm } from "node:fs/promises";
+import { access, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
 
+import { registryItems } from "@nooeh/registry";
 import { add } from "../dist/add.js";
 import { configFileName, defaultConfig, readConfig } from "../dist/config.js";
 import { init } from "../dist/init.js";
@@ -22,7 +23,7 @@ test("add creates the default config and copies a component with its foundation"
       "utf8",
     );
     assert.match(buttonSource, /export function Button/);
-    assert.match(buttonSource, /from "\.\.\/\.\.\/design\/nooeh\/tokens\.stylex"/);
+    assert.match(buttonSource, /from "@\/styles\/semantic\.stylex"/);
   } finally {
     await rm(projectDirectory, { recursive: true });
   }
@@ -36,14 +37,46 @@ test("add uses the configured local token directory", async () => {
     await init(projectDirectory, {
       defaults: true,
       "skip-dependencies": true,
-      ui: "src/design/ui",
-      tokens: "src/design-system/nooeh",
+      ui: "@/design/ui",
+      tokens: "@/design-system/nooeh",
     });
     await add(projectDirectory, "card", { skipDependencyInstall: true });
 
     assert.match(
       await readFile(join(projectDirectory, "src/design/ui/card.tsx"), "utf8"),
-      /from "\.\.\/\.\.\/design-system\/nooeh\/tokens\.stylex"/,
+      /from "@\/design-system\/nooeh\/semantic\.stylex"/,
+    );
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
+test("add resolves aliases from tsconfig paths", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+
+  try {
+    await writeFile(
+      join(projectDirectory, "tsconfig.json"),
+      JSON.stringify({
+        compilerOptions: {
+          paths: {
+            "~shared/*": ["./src/shared/*"],
+          },
+        },
+      }),
+    );
+    await init(projectDirectory, {
+      defaults: true,
+      "skip-dependencies": true,
+      styles: "~shared/styles",
+      ui: "~shared/ui",
+    });
+    await add(projectDirectory, "card", { skipDependencyInstall: true });
+
+    await access(join(projectDirectory, "src/shared/ui/card.tsx"));
+    assert.match(
+      await readFile(join(projectDirectory, "src/shared/ui/card.tsx"), "utf8"),
+      /from "~shared\/styles\/semantic\.stylex"/,
     );
   } finally {
     await rm(projectDirectory, { recursive: true });
@@ -83,6 +116,29 @@ test("add uses packaged registry content without a UI source directory", async (
       await readFile(join(projectDirectory, "src/components/ui/card.tsx"), "utf8"),
       /export function Card/,
     );
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
+test("every registry component uses the project's local StyleX tokens", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+
+  try {
+    await init(projectDirectory, { defaults: true, "skip-dependencies": true });
+
+    for (const componentName of Object.keys(registryItems)) {
+      await add(projectDirectory, componentName, { skipDependencyInstall: true });
+    }
+
+    for (const item of Object.values(registryItems)) {
+      for (const file of item.files) {
+        if (!file.endsWith(".tsx")) continue;
+
+        const source = await readFile(join(projectDirectory, "src/components/ui", file), "utf8");
+        assert.doesNotMatch(source, /@nooeh\/tokens/);
+      }
+    }
   } finally {
     await rm(projectDirectory, { recursive: true });
   }

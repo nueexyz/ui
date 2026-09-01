@@ -11,7 +11,8 @@ import {
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@nooeh/tokens/tokens.stylex";
+} from "@nooeh/tokens/semantic.stylex";
+import { toastViewportVars } from "./toast.stylex";
 
 const spin = stylex.keyframes({ to: { transform: "rotate(360deg)" } });
 
@@ -23,10 +24,17 @@ const styles = stylex.create({
     position: "fixed",
     width: "calc(100vw - 2rem)",
     zIndex: 70,
-    ":is([data-expanded]) [data-nooeh-toast-stack]": { pointerEvents: "auto" },
-    ":not([data-expanded]) [data-nooeh-toast-clear-all]": {
-      opacity: 0,
-      pointerEvents: "none",
+    [toastViewportVars.stackPointerEvents]: {
+      default: "none",
+      ":is([data-expanded])": "auto",
+    },
+    [toastViewportVars.clearAllOpacity]: {
+      default: "1",
+      ":not([data-expanded])": "0",
+    },
+    [toastViewportVars.clearAllPointerEvents]: {
+      default: "auto",
+      ":not([data-expanded])": "none",
     },
   },
   viewportTop: { top: spacingVars.space4 },
@@ -37,7 +45,7 @@ const styles = stylex.create({
   stack: {
     bottom: 0,
     left: 0,
-    pointerEvents: "none",
+    pointerEvents: toastViewportVars.stackPointerEvents,
     position: "absolute",
     right: 0,
   },
@@ -260,7 +268,8 @@ const styles = stylex.create({
     outline: "none",
     paddingBlock: spacingVars.space1,
     paddingInline: spacingVars.space2,
-    pointerEvents: "auto",
+    opacity: toastViewportVars.clearAllOpacity,
+    pointerEvents: toastViewportVars.clearAllPointerEvents,
     position: "absolute",
     right: 0,
     top: 0,
@@ -379,7 +388,6 @@ function ToastStack({ position }: { position: ToastPosition }) {
     <div
       ref={stackRef}
       style={{ height: stackHeight }}
-      data-nooeh-toast-stack=""
       {...stylex.props(styles.stack, isTop && styles.stackTop)}
     >
       {toasts.map((item) => (
@@ -406,7 +414,6 @@ function ToastStack({ position }: { position: ToastPosition }) {
         <button
           type="button"
           onClick={() => toast.close()}
-          data-nooeh-toast-clear-all=""
           {...stylex.props(styles.clearAll, isTop && styles.clearAllTop)}
         >
           Clear all

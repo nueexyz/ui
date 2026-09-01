@@ -1,8 +1,8 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
+import { dirname, isAbsolute, join, relative, resolve } from "node:path";
 import { createInterface } from "node:readline/promises";
 
-import { defaultConfig, hasConfig, readConfig, resolveConfigPath } from "./config.js";
+import { defaultConfig, hasConfig, readConfig, resolveConfigAlias } from "./config.js";
 import { installDependencies } from "./dependencies.js";
 import { init } from "./init.js";
 import { resolveComponent } from "./registry.js";
@@ -63,15 +63,8 @@ function resolveTargetPath(uiDirectory: string, filePath: string) {
   return targetPath;
 }
 
-function replaceTokenImport(source: string, targetPath: string, tokenDirectory: string) {
-  const tokenModulePath = join(tokenDirectory, "tokens.stylex.ts");
-  const relativePath = relative(dirname(targetPath), tokenModulePath)
-    .replace(/\.ts$/, "")
-    .split(sep)
-    .join("/");
-  const tokenModule = relativePath.startsWith(".") ? relativePath : `./${relativePath}`;
-
-  return source.replaceAll("@nooeh/tokens/tokens.stylex", tokenModule);
+function replaceTokenImport(source: string, stylesAlias: string) {
+  return source.replaceAll("@nooeh/tokens/semantic.stylex", `${stylesAlias}/semantic.stylex`);
 }
 
 export async function add(
@@ -91,8 +84,7 @@ export async function add(
   const config =
     options["dry-run"] && shouldInitialize ? defaultConfig : await readConfig(projectDirectory);
   const resolved = await resolveComponent(componentName);
-  const uiDirectory = resolveConfigPath(projectDirectory, config.paths.ui, "paths.ui");
-  const tokenDirectory = resolveConfigPath(projectDirectory, config.paths.tokens, "paths.tokens");
+  const uiDirectory = await resolveConfigAlias(projectDirectory, config.aliases.ui, "aliases.ui");
   let isOverwriteConfirmed = false;
 
   async function confirmOverwrite() {
@@ -112,7 +104,7 @@ export async function add(
       continue;
     }
     await writeSource(
-      replaceTokenImport(file.content, targetPath, tokenDirectory),
+      replaceTokenImport(file.content, config.aliases.styles),
       targetPath,
       confirmOverwrite,
     );

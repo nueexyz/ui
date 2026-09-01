@@ -1,7 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 
 import { colorPalette } from "./color-palette.stylex";
-import { colorVars, shadowVars } from "./tokens.stylex";
+import { colorVars, shadowVars } from "./semantic.stylex";
 
 export const lightColorTheme = stylex.createTheme(colorVars, {
   bgCanvas: colorPalette.neutral100,

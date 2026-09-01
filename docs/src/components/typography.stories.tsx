@@ -6,7 +6,7 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { spacingVars } from "@nooeh/tokens/tokens.stylex";
+import { spacingVars } from "@nooeh/tokens/semantic.stylex";
 import { Typography } from "@nooeh/ui/typography";
 
 const meta = {

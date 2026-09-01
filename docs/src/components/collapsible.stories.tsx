@@ -13,7 +13,7 @@ import {
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@nooeh/tokens/tokens.stylex";
+} from "@nooeh/tokens/semantic.stylex";
 
 const meta = {
   title: "Components",

@@ -4,7 +4,7 @@ import {
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@nooeh/tokens/tokens.stylex";
+} from "@nooeh/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
@@ -20,7 +20,8 @@ type Story = StoryObj<typeof meta>;
 
 const config = `{
   "aliases": {
-    "ui": "@/components/ui"
+    "ui": "@/components/ui",
+    "styles": "@/styles"
   }
 }`;
 
@@ -88,24 +89,28 @@ export const GettingStarted: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>1. Initialize</h2>
           <p {...stylex.props(storyStyles.description)}>Run this once from the project root.</p>
         </header>
-        <CodeBlock code="pnpm dlx @nooeh/ui init" label="Terminal" language="bash" />
+        <CodeBlock
+          code="pnpm dlx @nooeh/ui init --framework vite"
+          label="Terminal"
+          language="bash"
+        />
       </section>
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>2. Import alias</h2>
           <p {...stylex.props(storyStyles.description)}>
-            The UI import alias entered during init is saved to nooeh.json in the project root.
+            The component and local style aliases entered during init are saved to nooeh.json.
           </p>
         </header>
         <CodeBlock code={config} label="nooeh.json" language="json" />
         <dl {...stylex.props(styles.configDetail)}>
-          <dt {...stylex.props(styles.configField)}>aliases.ui</dt>
+          <dt {...stylex.props(styles.configField)}>aliases.ui / aliases.styles</dt>
           <dd {...stylex.props(styles.configDescription)}>
-            The alias used to import added UI components.
+            The aliases used to import added components and their local StyleX tokens.
           </dd>
         </dl>
         <p {...stylex.props(styles.note)}>
-          Define the actual file location in paths within tsconfig.json or jsconfig.json.
+          Define the actual file locations in tsconfig.json or jsconfig.json.
         </p>
       </section>
       <section {...stylex.props(storyStyles.section)}>
@@ -118,8 +123,8 @@ export const GettingStarted: Story = {
         <CodeBlock code={tsconfig} label="tsconfig.json" language="json" />
         <p {...stylex.props(styles.path)}>@/components/ui → src/components/ui</p>
         <p {...stylex.props(styles.note)}>
-          When changing the alias, also update paths in nooeh.json and tsconfig.json or
-          jsconfig.json. Existing files are not moved automatically.
+          When changing an alias, also update tsconfig.json or jsconfig.json. Existing files are not
+          moved automatically.
         </p>
       </section>
     </main>

@@ -6,7 +6,7 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { colorVars, sizeVars } from "@nooeh/tokens/tokens.stylex";
+import { colorVars, sizeVars } from "@nooeh/tokens/semantic.stylex";
 import { AspectRatio } from "@nooeh/ui/aspect-ratio";
 
 const meta = {

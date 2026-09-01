@@ -1,19 +1,19 @@
 import { access, readFile, writeFile } from "node:fs/promises";
-import { isAbsolute, relative, resolve } from "node:path";
+import { isAbsolute, join, relative, resolve } from "node:path";
 
 export const configFileName = "nooeh.json";
 
 export type NooehConfig = {
-  paths: {
+  aliases: {
     ui: string;
-    tokens: string;
+    styles: string;
   };
 };
 
 export const defaultConfig: NooehConfig = {
-  paths: {
-    ui: "src/components/ui",
-    tokens: "src/design/nooeh",
+  aliases: {
+    ui: "@/components/ui",
+    styles: "@/styles",
   },
 };
 
@@ -40,25 +40,26 @@ export function validateConfig(config: unknown): NooehConfig {
     paths?: { ui?: unknown; tokens?: unknown };
     tokens?: unknown;
   };
-  if (!candidate.paths && (candidate.aliases || candidate.tokens)) {
+  if (candidate.paths || candidate.tokens) {
     throw new Error(
-      "This nooeh.json uses an older format. Run `nooeh init --force` to create path-based configuration.",
+      "This nooeh.json uses an older format. Run `nooeh init --force` to create alias-based configuration.",
     );
   }
-  if (!candidate.paths || typeof candidate.paths.ui !== "string" || !candidate.paths.ui.trim()) {
-    throw new Error("Configure paths.ui.");
+  if (!candidate.aliases || typeof candidate.aliases !== "object") {
+    throw new Error("Configure aliases.");
   }
-  if (typeof candidate.paths.tokens !== "string" || !candidate.paths.tokens.trim()) {
-    throw new Error("Configure paths.tokens.");
+  const aliases = candidate.aliases as { ui?: unknown; styles?: unknown };
+  if (typeof aliases.ui !== "string" || !aliases.ui.trim()) {
+    throw new Error("Configure aliases.ui.");
   }
-  if (isAbsolute(candidate.paths.ui) || isAbsolute(candidate.paths.tokens)) {
-    throw new Error("paths must stay inside the project directory.");
+  if (typeof aliases.styles !== "string" || !aliases.styles.trim()) {
+    throw new Error("Configure aliases.styles.");
   }
 
   return {
-    paths: {
-      ui: candidate.paths.ui,
-      tokens: candidate.paths.tokens,
+    aliases: {
+      ui: aliases.ui,
+      styles: aliases.styles,
     },
   };
 }
@@ -83,8 +84,6 @@ export async function readConfig(projectDirectory: string) {
 
 export async function writeConfig(projectDirectory: string, config: NooehConfig) {
   const validatedConfig = validateConfig(config);
-  ensureRelativePath(projectDirectory, validatedConfig.paths.ui, "paths.ui");
-  ensureRelativePath(projectDirectory, validatedConfig.paths.tokens, "paths.tokens");
   const configPath = resolve(projectDirectory, configFileName);
   await writeFile(configPath, `${JSON.stringify(validatedConfig, null, 2)}\n`, "utf8");
   return configPath;
@@ -93,4 +92,66 @@ export async function writeConfig(projectDirectory: string, config: NooehConfig)
 export function resolveConfigPath(projectDirectory: string, path: string, name: string) {
   ensureRelativePath(projectDirectory, path, name);
   return resolve(projectDirectory, path);
+}
+
+type TsConfig = {
+  compilerOptions?: {
+    baseUrl?: string;
+    paths?: Record<string, string[]>;
+  };
+};
+
+async function readTsConfig(projectDirectory: string) {
+  for (const fileName of ["tsconfig.json", "jsconfig.json"]) {
+    try {
+      return JSON.parse(await readFile(resolve(projectDirectory, fileName), "utf8")) as TsConfig;
+    } catch (error) {
+      if (!isNotFoundError(error)) {
+        continue;
+      }
+    }
+  }
+
+  return undefined;
+}
+
+function resolvePathAlias(alias: string, paths: Record<string, string[]>) {
+  for (const [pattern, targets] of Object.entries(paths)) {
+    const wildcardIndex = pattern.indexOf("*");
+    if (wildcardIndex === -1) {
+      if (pattern === alias) return targets[0];
+      continue;
+    }
+
+    const prefix = pattern.slice(0, wildcardIndex);
+    const suffix = pattern.slice(wildcardIndex + 1);
+    if (!alias.startsWith(prefix) || !alias.endsWith(suffix)) continue;
+
+    const wildcard = alias.slice(prefix.length, alias.length - suffix.length);
+    return targets[0]?.replace("*", wildcard);
+  }
+
+  return undefined;
+}
+
+export async function resolveConfigAlias(projectDirectory: string, alias: string, name: string) {
+  if (alias.startsWith("@/")) {
+    return resolveConfigPath(projectDirectory, join("src", alias.slice(2)), name);
+  }
+
+  const tsConfig = await readTsConfig(projectDirectory);
+  const target = tsConfig?.compilerOptions?.paths
+    ? resolvePathAlias(alias, tsConfig.compilerOptions.paths)
+    : undefined;
+  if (!target) {
+    throw new Error(
+      `Could not resolve ${name} (${alias}). Add it to tsconfig.json or jsconfig.json compilerOptions.paths.`,
+    );
+  }
+
+  return resolveConfigPath(
+    projectDirectory,
+    join(tsConfig?.compilerOptions?.baseUrl ?? ".", target),
+    name,
+  );
 }

@@ -9,7 +9,7 @@ import {
   shadowVars,
   spacingVars,
   typographyVars,
-} from "@nooeh/tokens/tokens.stylex";
+} from "@nooeh/tokens/semantic.stylex";
 
 const styles = stylex.create({
   positioner: { zIndex: 70 },

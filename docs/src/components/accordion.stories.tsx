@@ -7,7 +7,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@nooeh/ui/accordion";
-import { colorVars, spacingVars, typographyVars } from "@nooeh/tokens/tokens.stylex";
+import { colorVars, spacingVars, typographyVars } from "@nooeh/tokens/semantic.stylex";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;

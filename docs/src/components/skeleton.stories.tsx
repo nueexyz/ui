@@ -6,7 +6,7 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { sizeVars, spacingVars } from "@nooeh/tokens/tokens.stylex";
+import { sizeVars, spacingVars } from "@nooeh/tokens/semantic.stylex";
 import { Skeleton } from "@nooeh/ui/skeleton";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;

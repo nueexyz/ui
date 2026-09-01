@@ -8,7 +8,7 @@ import {
 } from "./story-layout/StoryLayout";
 import { ScrollArea } from "@nooeh/ui/scroll-area";
 import { Separator } from "@nooeh/ui/separator";
-import { spacingVars } from "@nooeh/tokens/tokens.stylex";
+import { spacingVars } from "@nooeh/tokens/semantic.stylex";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;

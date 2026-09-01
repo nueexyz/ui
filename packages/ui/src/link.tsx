@@ -3,7 +3,7 @@ import * as stylex from "@stylexjs/stylex";
 import { forwardRef, type ComponentProps } from "react";
 
 import { Icon } from "./Icon";
-import { colorVars, motionVars, sizeVars, typographyVars } from "@nooeh/tokens/tokens.stylex";
+import { colorVars, motionVars, sizeVars, typographyVars } from "@nooeh/tokens/semantic.stylex";
 
 const styles = stylex.create({
   root: {

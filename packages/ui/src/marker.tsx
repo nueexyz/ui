@@ -3,7 +3,7 @@ import type { ComponentProps } from "react";
 
 import { getNativeStyleProps } from "./stylex-props";
 
-import { colorVars, spacingVars, typographyVars } from "@nooeh/tokens/tokens.stylex";
+import { colorVars, spacingVars, typographyVars } from "@nooeh/tokens/semantic.stylex";
 
 const styles = stylex.create({
   root: {

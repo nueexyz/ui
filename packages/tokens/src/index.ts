@@ -8,4 +8,4 @@ export {
   sizeVars,
   spacingVars,
   typographyVars,
-} from "./tokens.stylex";
+} from "./semantic.stylex";

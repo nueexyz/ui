@@ -1,41 +1,55 @@
 # nooeh
 
-An open-code React design system built with Base UI and StyleX.
+An open-code React design system for StyleX apps, built with Base UI.
 
 ## Start
 
 ```sh
-pnpm dlx @nooeh/ui init
-# Or, for a Vite app:
 pnpm dlx @nooeh/ui init --framework vite
 
 pnpm dlx @nooeh/ui add button
 ```
 
-`init` installs StyleX and creates `nooeh.json` with project-local component
-and token paths. By default, components go in `src/components/ui` and token
-source goes in `src/design/nooeh`. Use `--ui` or `--tokens` to choose other
-locations. The Vite option also adds the StyleX plugin, imports nooeh's global
-CSS, and applies the default light theme.
+`init` installs StyleX, configures the Vite compiler, and creates `nooeh.json`.
+By default, components go in `@/components/ui` and local token source goes in
+`@/styles`. Use `--ui` or `--styles` to choose other aliases.
 
-For another bundler, configure its StyleX compiler and add this to the
-application entry point:
-
-```ts
-import "./design/nooeh.css";
-import { applyNooehTheme } from "./design/nooeh/theme";
-
-applyNooehTheme();
+```txt
+src/styles/
+  color-palette.stylex.ts
+  semantic.stylex.ts
+  themes.stylex.ts
 ```
 
-Call `applyNooehTheme("dark")` when your application switches mode. It updates
-`data-theme` for your CSS and the internal StyleX theme classes for nooeh.
+Nooeh copies component, token, and theme source into your app. Configure the
+StyleX compiler for your bundler before adding components. Vite projects should
+keep a normal CSS import in their application entry point so Vite can emit
+StyleX's generated CSS.
+
+```ts
+import "./index.css";
+```
+
+Apply a local theme at the root of the subtree it should affect.
+
+```tsx
+import * as stylex from "@stylexjs/stylex";
+import { darkColorTheme, darkShadowTheme } from "@/styles/themes.stylex";
+
+<div {...stylex.props(darkColorTheme, darkShadowTheme)}>
+  <App />
+</div>;
+```
+
+To create a product theme, override Nooeh's semantic variable groups with
+`stylex.createTheme()`. Components keep using the same semantic tokens.
 
 ## What you get
 
 - Editable local StyleX tokens with light and dark themes.
 - Added component source uses local tokens that live in your project.
-- Direct `@nooeh/ui` package exports retain `@nooeh/tokens` internally.
+- Product themes can override Nooeh semantic variable groups with
+  `stylex.createTheme()`.
 - Accessible React primitives from Base UI with nooeh visual defaults.
 - Component source in your project, ready to read and change.
 
@@ -47,8 +61,8 @@ nooeh docs button
 nooeh doctor
 ```
 
-Run `nooeh doctor` after setup to check the StyleX compiler, global CSS import,
-and theme application.
+Run `nooeh doctor` after setup to check aliases, the StyleX compiler, and the
+application CSS entry point.
 
 ## Contributing
 

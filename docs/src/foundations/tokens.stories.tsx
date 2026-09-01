@@ -6,7 +6,7 @@ import {
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@nooeh/tokens/tokens.stylex";
+} from "@nooeh/tokens/semantic.stylex";
 import { Button } from "@nooeh/ui/button";
 import { Icon } from "@nooeh/ui/icon";
 import { Input } from "@nooeh/ui/input";

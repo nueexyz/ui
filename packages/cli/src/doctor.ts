@@ -1,7 +1,7 @@
 import { access, readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
-import { hasConfig, readConfig, resolveConfigPath } from "./config.js";
+import { hasConfig, readConfig, resolveConfigAlias } from "./config.js";
 
 type PackageJson = {
   dependencies?: Record<string, string>;
@@ -78,7 +78,7 @@ async function hasStylexCompiler(projectDirectory: string) {
   );
 
   return sources.some(
-    (source) => source?.includes("@stylexjs/unplugin") && source.includes("stylex("),
+    (source) => source?.includes("@stylexjs/unplugin") && source.includes("stylex.vite("),
   );
 }
 
@@ -95,48 +95,59 @@ export async function doctor(projectDirectory: string) {
 
   if (!(await hasConfig(projectDirectory))) {
     checks.push({
-      detail: "Run `nooeh init` to configure the default UI alias.",
+      detail: "Run `nooeh init` to configure UI and styles aliases.",
       name: "nooeh.json",
       status: "warn",
     });
   } else {
     const config = await readConfig(projectDirectory);
-    const uiDirectory = resolveConfigPath(projectDirectory, config.paths.ui, "paths.ui");
-    checks.push({
-      detail: `${config.paths.ui} → ${uiDirectory}`,
-      name: "UI path",
-      status: "pass",
-    });
-    const tokenDirectory = resolveConfigPath(projectDirectory, config.paths.tokens, "paths.tokens");
-    const tokenFiles = [
-      "color-palette.stylex.ts",
-      "tokens.stylex.ts",
-      "themes.stylex.ts",
-      "theme.ts",
-    ];
-    const hasTokenFiles = await Promise.all(
-      tokenFiles.map(async (fileName) => {
-        try {
-          await access(resolve(tokenDirectory, fileName));
-          return true;
-        } catch {
-          return false;
-        }
-      }),
-    );
-    checks.push(
-      hasTokenFiles.every(Boolean)
-        ? {
-            detail: `${config.paths.tokens} contains local token sources.`,
-            name: "Local tokens",
-            status: "pass",
+    try {
+      const uiDirectory = await resolveConfigAlias(
+        projectDirectory,
+        config.aliases.ui,
+        "aliases.ui",
+      );
+      const tokenDirectory = await resolveConfigAlias(
+        projectDirectory,
+        config.aliases.styles,
+        "aliases.styles",
+      );
+      checks.push({
+        detail: `${config.aliases.ui} → ${uiDirectory}`,
+        name: "UI path",
+        status: "pass",
+      });
+      const tokenFiles = ["color-palette.stylex.ts", "semantic.stylex.ts", "themes.stylex.ts"];
+      const hasTokenFiles = await Promise.all(
+        tokenFiles.map(async (fileName) => {
+          try {
+            await access(resolve(tokenDirectory, fileName));
+            return true;
+          } catch {
+            return false;
           }
-        : {
-            detail: `Create local token sources in ${config.paths.tokens} with \`nooeh init --force\`.`,
-            name: "Local tokens",
-            status: "warn",
-          },
-    );
+        }),
+      );
+      checks.push(
+        hasTokenFiles.every(Boolean)
+          ? {
+              detail: `${config.aliases.styles} contains local token sources.`,
+              name: "Local tokens",
+              status: "pass",
+            }
+          : {
+              detail: `Create local token sources in ${config.aliases.styles} with \`nooeh init --force\`.`,
+              name: "Local tokens",
+              status: "warn",
+            },
+      );
+    } catch (error) {
+      checks.push({
+        detail: error instanceof Error ? error.message : "Could not resolve nooeh aliases.",
+        name: "Aliases",
+        status: "warn",
+      });
+    }
   }
 
   checks.push(
@@ -164,30 +175,15 @@ export async function doctor(projectDirectory: string) {
         },
   );
   checks.push(
-    entrySources.some(
-      (source) => source.includes("nooeh.css") || source.includes("@nooeh/ui/global.css"),
-    )
+    entrySources.some((source) => /import\s+["'][^"']+\.css["']/.test(source))
       ? {
-          detail: "An application entry imports nooeh global CSS.",
-          name: "Global CSS",
+          detail: "An application entry imports a CSS entry point for StyleX output.",
+          name: "CSS entry point",
           status: "pass",
         }
       : {
-          detail: "Import the generated nooeh.css file from an application entry point.",
-          name: "Global CSS",
-          status: "warn",
-        },
-  );
-  checks.push(
-    entrySources.some((source) => source.includes("applyNooehTheme()"))
-      ? {
-          detail: "An application entry applies a nooeh theme.",
-          name: "Theme application",
-          status: "pass",
-        }
-      : {
-          detail: "Call applyNooehTheme() before rendering your application.",
-          name: "Theme application",
+          detail: "Import an application CSS file from an entry point so StyleX can emit CSS.",
+          name: "CSS entry point",
           status: "warn",
         },
   );

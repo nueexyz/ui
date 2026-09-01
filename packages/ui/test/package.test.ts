@@ -36,9 +36,9 @@ test("@nooeh/ui CLI initializes a project and adds a card", async () => {
     ]);
 
     const config = JSON.parse(await readFile(join(projectDirectory, "nooeh.json"), "utf8"));
-    assert.equal(config.paths.ui, "src/components/ui");
-    assert.equal(config.paths.tokens, "src/design/nooeh");
-    await access(join(projectDirectory, "src/design/nooeh/tokens.stylex.ts"));
+    assert.equal(config.aliases.ui, "@/components/ui");
+    assert.equal(config.aliases.styles, "@/styles");
+    await access(join(projectDirectory, "src/styles/semantic.stylex.ts"));
     assert.match(
       await readFile(join(projectDirectory, "src/components/ui/card.tsx"), "utf8"),
       /Card/,
@@ -48,9 +48,7 @@ test("@nooeh/ui CLI initializes a project and adds a card", async () => {
   }
 });
 
-test("published package keeps compiled UI, CSS, and Base UI primitive escape hatch", async () => {
-  await access(fileURLToPath(new URL("../dist/global.css", import.meta.url)));
-
+test("published package keeps Base UI primitive escape hatches for documentation", async () => {
   const buttonSource = await readFile(
     fileURLToPath(new URL("../dist/button.js", import.meta.url)),
     "utf8",

@@ -240,7 +240,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   toast: {
-    files: ["Icon.tsx", "toast.tsx"],
+    files: ["Icon.tsx", "toast.tsx", "toast.stylex.ts"],
     dependencies: ["@base-ui/react", "@nooeh/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },

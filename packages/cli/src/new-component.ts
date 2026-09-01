@@ -1,7 +1,7 @@
 import { access, mkdir, writeFile } from "node:fs/promises";
-import { dirname, join, relative, sep } from "node:path";
+import { join } from "node:path";
 
-import { readConfig, resolveConfigPath } from "./config.js";
+import { readConfig, resolveConfigAlias } from "./config.js";
 
 function toPascalCase(name: string) {
   return name
@@ -17,20 +17,10 @@ export async function newComponent(projectDirectory: string, name: string | unde
   }
 
   const config = await readConfig(projectDirectory);
-  const uiDirectory = resolveConfigPath(projectDirectory, config.paths.ui, "paths.ui");
+  const uiDirectory = await resolveConfigAlias(projectDirectory, config.aliases.ui, "aliases.ui");
   const componentName = toPascalCase(name);
   const componentPath = join(uiDirectory, `${name}.tsx`);
-  const tokenPath = join(
-    resolveConfigPath(projectDirectory, config.paths.tokens, "paths.tokens"),
-    "tokens.stylex.ts",
-  );
-  const relativeTokenPath = relative(dirname(componentPath), tokenPath)
-    .replace(/\.ts$/, "")
-    .split(sep)
-    .join("/");
-  const tokenImport = relativeTokenPath.startsWith(".")
-    ? relativeTokenPath
-    : `./${relativeTokenPath}`;
+  const tokenImport = `${config.aliases.styles}/semantic.stylex`;
   const files = [componentPath];
 
   for (const file of files) {
