@@ -91,7 +91,11 @@ test("init configures a standard Vite project", async () => {
 
     assert.match(
       await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
-      /stylex\.vite\(\{ useCSSLayers: true \}\)/,
+      /aliases: \{ "@\/styles\/\*": \["\/ROOT\/src\/styles\/\*"\] \}/,
+    );
+    assert.match(
+      await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
+      /unstable_moduleResolution: \{\s+type: "commonJS",\s+rootDir: new URL\("\.", import\.meta\.url\)\.pathname,/,
     );
     assert.match(
       await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),

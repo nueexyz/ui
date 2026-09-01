@@ -26,6 +26,20 @@ StyleX compiler for your bundler before adding components. Vite projects should
 keep a normal CSS import in their application entry point so Vite can emit
 StyleX's generated CSS.
 
+`init --framework vite` writes the required StyleX module resolution for the
+default `@/styles` alias. If you configure Vite yourself, include it too.
+
+```ts
+stylex.vite({
+  useCSSLayers: true,
+  aliases: { "@/styles/*": ["/ROOT/src/styles/*"] },
+  unstable_moduleResolution: {
+    type: "commonJS",
+    rootDir: new URL(".", import.meta.url).pathname,
+  },
+});
+```
+
 ```ts
 import "./index.css";
 ```
