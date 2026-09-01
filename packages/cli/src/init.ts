@@ -120,24 +120,40 @@ async function writeViteFiles(
   projectDirectory: string,
   tokenDirectory: string,
   stylesAlias: string,
+  refreshLegacyTokens: boolean,
 ) {
   const { path: configPath, source: configSource } = await readViteConfig(projectDirectory);
   const configuredVite = configureVite(configSource, stylesAlias, tokenDirectory, projectDirectory);
-  await writeNooehFiles(projectDirectory, tokenDirectory);
+  await writeNooehFiles(projectDirectory, tokenDirectory, refreshLegacyTokens);
   await writeFile(configPath, configuredVite, "utf8");
   console.log(`Configured Vite and created ${relative(projectDirectory, tokenDirectory)}.`);
 }
 
-async function writeNooehFiles(projectDirectory: string, tokenDirectory: string) {
+async function writeNooehFiles(
+  projectDirectory: string,
+  tokenDirectory: string,
+  refreshLegacyTokens = false,
+) {
   await mkdir(tokenDirectory, { recursive: true });
   for (const file of await getTokenFiles()) {
-    await writeFileIfMissing(join(tokenDirectory, file.name), file.content);
+    await writeTokenFile(
+      join(tokenDirectory, file.name),
+      file.content,
+      refreshLegacyTokens && file.name === "semantic.stylex.ts",
+    );
   }
 }
 
-async function writeFileIfMissing(path: string, source: string) {
+function isLegacySemanticSource(source: string) {
+  return source.includes('bgCanvas: "initial"') && source.includes('overlay: "initial"');
+}
+
+async function writeTokenFile(path: string, source: string, shouldRefreshLegacyToken: boolean) {
   try {
-    await access(path);
+    const currentSource = await readFile(path, "utf8");
+    if (shouldRefreshLegacyToken && isLegacySemanticSource(currentSource)) {
+      await writeFile(path, source, "utf8");
+    }
   } catch {
     await writeFile(path, source, "utf8");
   }
@@ -181,9 +197,9 @@ export async function init(projectDirectory: string, options: CliOptions) {
       }
     }
     if (options.framework === "vite") {
-      await writeViteFiles(projectDirectory, tokenDirectory, stylesAlias);
+      await writeViteFiles(projectDirectory, tokenDirectory, stylesAlias, Boolean(options.force));
     } else {
-      await writeNooehFiles(projectDirectory, tokenDirectory);
+      await writeNooehFiles(projectDirectory, tokenDirectory, Boolean(options.force));
       console.log(`Created ${relative(projectDirectory, tokenDirectory)}.`);
       console.log(
         "Configure the StyleX compiler for your bundler before importing added components.",

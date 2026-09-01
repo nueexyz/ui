@@ -54,6 +54,7 @@ test("init creates local StyleX sources without changing an entry point", async 
     await access(join(projectDirectory, "src/styles/color-palette.stylex.ts"));
     await access(join(projectDirectory, "src/styles/semantic.stylex.ts"));
     await access(join(projectDirectory, "src/styles/themes.stylex.ts"));
+    await access(join(projectDirectory, "src/styles/theme-provider.tsx"));
     assert.equal(await readFile(join(projectDirectory, "src/main.tsx"), "utf8"), "export {};\n");
   } finally {
     await rm(projectDirectory, { recursive: true });
@@ -71,6 +72,26 @@ test("init keeps existing local token files", async () => {
     assert.equal(
       await readFile(join(projectDirectory, "src/styles/semantic.stylex.ts"), "utf8"),
       "/* custom */\n",
+    );
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
+test("init --force refreshes legacy semantic defaults", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+
+  try {
+    await mkdir(join(projectDirectory, "src/styles"), { recursive: true });
+    await writeFile(
+      join(projectDirectory, "src/styles/semantic.stylex.ts"),
+      'export const colorVars = { bgCanvas: "initial" };\nexport const shadowVars = { overlay: "initial" };\n',
+    );
+    await init(projectDirectory, { defaults: true, force: true, "skip-dependencies": true });
+
+    assert.doesNotMatch(
+      await readFile(join(projectDirectory, "src/styles/semantic.stylex.ts"), "utf8"),
+      /bgCanvas: "initial"/,
     );
   } finally {
     await rm(projectDirectory, { recursive: true });
