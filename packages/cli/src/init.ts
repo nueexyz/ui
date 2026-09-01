@@ -136,19 +136,33 @@ async function writeNooehFiles(
     await writeTokenFile(
       join(tokenDirectory, file.name),
       file.content,
-      refreshLegacyTokens && file.name === "semantic.stylex.ts",
+      refreshLegacyTokens,
+      file.name,
     );
   }
 }
 
-function isLegacySemanticSource(source: string) {
-  return source.includes('bgCanvas: "initial"') && source.includes('overlay: "initial"');
+function isLegacyNooehSource(fileName: string, source: string) {
+  if (fileName === "semantic.stylex.ts") {
+    return source.includes('bgCanvas: "initial"') && source.includes('overlay: "initial"');
+  }
+
+  return (
+    fileName === "theme-provider.tsx" &&
+    source.includes("const styles = stylex.create({") &&
+    source.includes("data-theme={resolvedTheme}")
+  );
 }
 
-async function writeTokenFile(path: string, source: string, shouldRefreshLegacyToken: boolean) {
+async function writeTokenFile(
+  path: string,
+  source: string,
+  shouldRefreshLegacySources: boolean,
+  fileName: string,
+) {
   try {
     const currentSource = await readFile(path, "utf8");
-    if (shouldRefreshLegacyToken && isLegacySemanticSource(currentSource)) {
+    if (shouldRefreshLegacySources && isLegacyNooehSource(fileName, currentSource)) {
       await writeFile(path, source, "utf8");
     }
   } catch {

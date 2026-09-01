@@ -102,6 +102,31 @@ test("init --force refreshes legacy semantic defaults", async () => {
   }
 });
 
+test("init --force refreshes the generated legacy theme provider", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+
+  try {
+    await mkdir(join(projectDirectory, "src/styles"), { recursive: true });
+    await writeFile(
+      join(projectDirectory, "src/styles/theme-provider.tsx"),
+      `import * as stylex from "@stylexjs/stylex";
+const styles = stylex.create({});
+export function ThemeProvider() {
+  return <div data-theme={resolvedTheme} />;
+}
+`,
+    );
+    await init(projectDirectory, { defaults: true, force: true, "skip-dependencies": true });
+
+    assert.match(
+      await readFile(join(projectDirectory, "src/styles/theme-provider.tsx"), "utf8"),
+      /document\.documentElement/,
+    );
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
 test("init configures a standard Vite project", async () => {
   const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
 
