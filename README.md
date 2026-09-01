@@ -32,7 +32,6 @@ default `@/styles` alias. If you configure Vite yourself, include it too.
 
 ```ts
 stylex.vite({
-  useCSSLayers: true,
   aliases: { "@/styles/*": ["/ROOT/src/styles/*"] },
   unstable_moduleResolution: {
     type: "commonJS",

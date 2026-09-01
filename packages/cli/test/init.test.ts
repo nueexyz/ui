@@ -118,12 +118,56 @@ test("init configures a standard Vite project", async () => {
       await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
       /unstable_moduleResolution: \{\s+type: "commonJS",\s+rootDir: new URL\("\.", import\.meta\.url\)\.pathname,/,
     );
+    assert.doesNotMatch(
+      await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
+      /useCSSLayers/,
+    );
     assert.match(
       await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
       /alias: \{ "@": new URL\("\.\/src", import\.meta\.url\)\.pathname \}/,
     );
     assert.equal(await readFile(join(projectDirectory, "src/main.tsx"), "utf8"), "export {};\n");
     await access(join(projectDirectory, "src/styles/themes.stylex.ts"));
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
+test("init --force removes the legacy StyleX cascade layer", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+
+  try {
+    await writeFile(
+      join(projectDirectory, "vite.config.ts"),
+      `import stylex from "@stylexjs/unplugin";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  plugins: [
+    stylex.vite({
+      useCSSLayers: true,
+      aliases: { "@/styles/*": ["/ROOT/src/styles/*"] },
+      unstable_moduleResolution: {
+        type: "commonJS",
+        rootDir: new URL(".", import.meta.url).pathname,
+      },
+    }),
+  ],
+});
+`,
+    );
+    await mkdir(join(projectDirectory, "src"), { recursive: true });
+    await init(projectDirectory, {
+      defaults: true,
+      force: true,
+      framework: "vite",
+      "skip-dependencies": true,
+    });
+
+    assert.doesNotMatch(
+      await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
+      /useCSSLayers/,
+    );
   } finally {
     await rm(projectDirectory, { recursive: true });
   }

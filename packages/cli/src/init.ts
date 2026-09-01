@@ -57,7 +57,6 @@ function getStylexPlugin(stylesAlias: string, tokenDirectory: string, projectDir
   const aliasTarget = `/ROOT/${tokenPath}/*`;
 
   return `stylex.vite({
-    useCSSLayers: true,
     aliases: { ${JSON.stringify(aliasPattern)}: [${JSON.stringify(aliasTarget)}] },
     unstable_moduleResolution: {
       type: "commonJS",
@@ -80,14 +79,12 @@ function configureVite(
   const emptyStylexPluginPattern = /stylex\.vite\(\)/;
 
   if (!source.includes("stylex.vite(") && !pluginPattern.test(source)) {
-    throw new Error(
-      "Could not safely update the Vite plugins array. Add stylex.vite({ useCSSLayers: true }) manually.",
-    );
+    throw new Error("Could not safely update the Vite plugins array. Add stylex.vite() manually.");
   }
 
   let withStylex = source;
   if (source.includes("unstable_moduleResolution")) {
-    withStylex = source;
+    withStylex = source.replace(/\s*useCSSLayers:\s*true,?/, "");
   } else if (legacyStylexPluginPattern.test(source)) {
     withStylex = source.replace(legacyStylexPluginPattern, stylexPlugin);
   } else if (emptyStylexPluginPattern.test(source)) {
