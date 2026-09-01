@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build-storybook": "storybook build",
-    "storybook": "storybook dev -p 6006",
-    "typecheck": "tsc --noEmit"
+    "build-storybook": "pnpm --filter @nooeh/ui build && storybook build",
+    "storybook": "pnpm --filter @nooeh/ui build && storybook dev -p 6006",
+    "typecheck": "pnpm --filter @nooeh/ui build && tsc --noEmit"
   },
   "dependencies": {
     "@nooeh/tokens": "workspace:*",
