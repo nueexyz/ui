@@ -64,7 +64,7 @@ function resolveTargetPath(uiDirectory: string, filePath: string) {
 }
 
 function replaceTokenImport(source: string, targetPath: string, stylesDirectory: string) {
-  const tokenPath = join(stylesDirectory, "semantic.stylex");
+  const tokenPath = join(stylesDirectory, "semantic.stylex.ts");
   const importPath = relative(dirname(targetPath), tokenPath).split(sep).join("/");
   const relativeImportPath = importPath.startsWith(".") ? importPath : `./${importPath}`;
 
