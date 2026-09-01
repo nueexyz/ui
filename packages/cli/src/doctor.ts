@@ -117,7 +117,12 @@ export async function doctor(projectDirectory: string) {
         name: "UI path",
         status: "pass",
       });
-      const tokenFiles = ["color-palette.stylex.ts", "semantic.stylex.ts", "themes.stylex.ts"];
+      const tokenFiles = [
+        "color-palette.stylex.ts",
+        "semantic.stylex.ts",
+        "themes.stylex.ts",
+        "theme-provider.tsx",
+      ];
       const hasTokenFiles = await Promise.all(
         tokenFiles.map(async (fileName) => {
           try {

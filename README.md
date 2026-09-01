@@ -19,6 +19,7 @@ src/styles/
   color-palette.stylex.ts
   semantic.stylex.ts
   themes.stylex.ts
+  theme-provider.tsx
 ```
 
 Nooeh copies component, token, and theme source into your app. Configure the
@@ -44,15 +45,25 @@ stylex.vite({
 import "./index.css";
 ```
 
-Apply a local theme at the root of the subtree it should affect.
+Wrap the application once with the generated theme provider. It follows the
+system setting by default, persists a user's choice, and applies a `data-theme`
+attribute for interoperability.
 
 ```tsx
-import * as stylex from "@stylexjs/stylex";
-import { darkColorTheme, darkShadowTheme } from "@/styles/themes.stylex";
+import { ThemeProvider } from "@/styles/theme-provider";
 
-<div {...stylex.props(darkColorTheme, darkShadowTheme)}>
+<ThemeProvider>
   <App />
-</div>;
+</ThemeProvider>;
+```
+
+Use `useTheme()` in a mode toggle. Components render in light mode without a
+provider, while the provider adds dark and system-mode support.
+
+```tsx
+const { setTheme } = useTheme();
+
+<button onClick={() => setTheme("dark")}>Dark mode</button>;
 ```
 
 To create a product theme, override Nooeh's semantic variable groups with
@@ -60,7 +71,7 @@ To create a product theme, override Nooeh's semantic variable groups with
 
 ## What you get
 
-- Editable local StyleX tokens with light and dark themes.
+- Editable local StyleX tokens with light defaults and dark themes.
 - Added component source uses local tokens that live in your project.
 - Product themes can override Nooeh semantic variable groups with
   `stylex.createTheme()`.
