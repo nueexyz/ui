@@ -55,6 +55,10 @@ test("init creates local StyleX sources without changing an entry point", async 
     await access(join(projectDirectory, "src/styles/semantic.stylex.ts"));
     await access(join(projectDirectory, "src/styles/themes.stylex.ts"));
     await access(join(projectDirectory, "src/styles/theme-provider.tsx"));
+    assert.match(
+      await readFile(join(projectDirectory, "src/styles/theme-provider.tsx"), "utf8"),
+      /document\.documentElement/,
+    );
     assert.equal(await readFile(join(projectDirectory, "src/main.tsx"), "utf8"), "export {};\n");
   } finally {
     await rm(projectDirectory, { recursive: true });

@@ -177,10 +177,12 @@ const styles = stylex.create({
   },
   statusIcon: {
     alignItems: "center",
+    alignSelf: "flex-start",
     display: "inline-flex",
     flexShrink: 0,
     height: sizeVars.iconMd,
     justifyContent: "center",
+    marginTop: "0.0625rem",
     width: sizeVars.iconMd,
   },
   default: { color: colorVars.fgSecondary },

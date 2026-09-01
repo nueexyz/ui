@@ -1,7 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
-import { colorVars } from "./semantic.stylex";
 import { darkColorTheme, darkShadowTheme } from "./themes.stylex";
 
 export type Theme = "dark" | "light" | "system";
@@ -21,15 +20,7 @@ type ThemeProviderProps = {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-const styles = stylex.create({
-  root: {
-    backgroundColor: colorVars.bgCanvas,
-    color: colorVars.fgPrimary,
-    minHeight: "100dvh",
-  },
-  dark: { colorScheme: "dark" },
-  light: { colorScheme: "light" },
-});
+const darkThemeClassName = stylex.props(darkColorTheme, darkShadowTheme).className ?? "";
 
 function getSystemTheme(): ResolvedTheme {
   if (typeof window === "undefined") return "light";
@@ -64,6 +55,17 @@ export function ThemeProvider({
     return () => mediaQuery.removeEventListener("change", updateSystemTheme);
   }, [theme]);
 
+  useEffect(() => {
+    const root = document.documentElement;
+    root.dataset.theme = resolvedTheme;
+    root.style.colorScheme = resolvedTheme;
+    root.classList.remove(...darkThemeClassName.split(" "));
+
+    if (resolvedTheme === "dark") {
+      root.classList.add(...darkThemeClassName.split(" "));
+    }
+  }, [resolvedTheme]);
+
   function updateTheme(nextTheme: Theme) {
     window.localStorage.setItem(storageKey, nextTheme);
     setTheme(nextTheme);
@@ -71,17 +73,7 @@ export function ThemeProvider({
 
   return (
     <ThemeContext.Provider value={{ resolvedTheme, setTheme: updateTheme, theme }}>
-      <div
-        data-theme={resolvedTheme}
-        {...stylex.props(
-          styles.root,
-          resolvedTheme === "dark" ? styles.dark : styles.light,
-          resolvedTheme === "dark" && darkColorTheme,
-          resolvedTheme === "dark" && darkShadowTheme,
-        )}
-      >
-        {children}
-      </div>
+      {children}
     </ThemeContext.Provider>
   );
 }

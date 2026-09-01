@@ -41,6 +41,10 @@ test("@nooeh/ui CLI initializes a project and adds a card", async () => {
     await access(join(projectDirectory, "src/styles/semantic.stylex.ts"));
     await access(join(projectDirectory, "src/styles/theme-provider.tsx"));
     assert.match(
+      await readFile(join(projectDirectory, "src/styles/theme-provider.tsx"), "utf8"),
+      /document\.documentElement/,
+    );
+    assert.match(
       await readFile(join(projectDirectory, "src/components/ui/card.tsx"), "utf8"),
       /Card/,
     );
