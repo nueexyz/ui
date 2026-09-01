@@ -1,5 +1,5 @@
 import { access, mkdir, readFile, writeFile } from "node:fs/promises";
-import { join, relative, sep } from "node:path";
+import { join, relative } from "node:path";
 import { createInterface } from "node:readline/promises";
 
 import {
@@ -51,47 +51,37 @@ async function readViteConfig(projectDirectory: string) {
   throw new Error("Could not find a Vite config file.");
 }
 
-function getStylexPlugin(stylesAlias: string, tokenDirectory: string, projectDirectory: string) {
-  const tokenPath = relative(projectDirectory, tokenDirectory).split(sep).join("/");
-  const aliasPattern = `${stylesAlias}/*`;
-  const aliasTarget = `/ROOT/${tokenPath}/*`;
-
-  return `stylex.vite({
-    aliases: { ${JSON.stringify(aliasPattern)}: [${JSON.stringify(aliasTarget)}] },
-    unstable_moduleResolution: {
-      type: "commonJS",
-      rootDir: new URL(".", import.meta.url).pathname,
-    },
-  })`;
-}
-
-function configureVite(
-  source: string,
-  stylesAlias: string,
-  tokenDirectory: string,
-  projectDirectory: string,
-) {
+function configureVite(source: string) {
   const importLine = 'import stylex from "@stylexjs/unplugin";';
   const pluginPattern = /plugins:\s*\[([^\]]*)\]/s;
-  const configPattern = /defineConfig\(\{\s*/;
-  const stylexPlugin = getStylexPlugin(stylesAlias, tokenDirectory, projectDirectory);
+  const stylexPlugin = "stylex.vite()";
   const legacyStylexPluginPattern = /stylex\.vite\(\{\s*useCSSLayers:\s*true\s*\}\)/;
   const emptyStylexPluginPattern = /stylex\.vite\(\)/;
+  const nooehStylexPluginPattern =
+    /stylex\.vite\(\{\s*(?:\/\/[^\n]*\s*)?(?:useCSSLayers:\s*true,?\s*)?aliases:\s*\{[^}]*\},\s*unstable_moduleResolution:\s*\{\s*type:\s*["']commonJS["'],\s*rootDir:\s*new URL\(["']\.["'],\s*import\.meta\.url\)\.pathname,?\s*\},\s*\}\)/s;
 
   if (!source.includes("stylex.vite(") && !pluginPattern.test(source)) {
     throw new Error("Could not safely update the Vite plugins array. Add stylex.vite() manually.");
   }
 
-  let withStylex = source;
+  if (nooehStylexPluginPattern.test(source)) {
+    return source.replace(nooehStylexPluginPattern, stylexPlugin);
+  }
+
   if (source.includes("unstable_moduleResolution")) {
-    withStylex = source.replace(/\s*useCSSLayers:\s*true,?/, "");
-  } else if (legacyStylexPluginPattern.test(source)) {
+    throw new Error(
+      "Could not safely simplify the existing StyleX plugin. Remove Nooeh's aliases and unstable_moduleResolution manually, then use stylex.vite().",
+    );
+  }
+
+  let withStylex = source;
+  if (legacyStylexPluginPattern.test(source)) {
     withStylex = source.replace(legacyStylexPluginPattern, stylexPlugin);
   } else if (emptyStylexPluginPattern.test(source)) {
     withStylex = source.replace(emptyStylexPluginPattern, stylexPlugin);
   } else if (source.includes("stylex.vite(")) {
     throw new Error(
-      "Could not safely update the existing StyleX plugin. Add Nooeh's aliases and unstable_moduleResolution manually.",
+      "Could not safely update the existing StyleX plugin. Configure stylex.vite() manually.",
     );
   } else {
     withStylex = (source.includes(importLine) ? source : `${importLine}\n${source}`).replace(
@@ -102,25 +92,16 @@ function configureVite(
       },
     );
   }
-  if (withStylex.includes("alias:")) return withStylex;
-  if (!configPattern.test(withStylex)) {
-    throw new Error('Could not safely add the "@" Vite alias. Add resolve.alias["@"] manually.');
-  }
-
-  return withStylex.replace(
-    configPattern,
-    'defineConfig({\n  resolve: { alias: { "@": new URL("./src", import.meta.url).pathname } },\n  ',
-  );
+  return withStylex;
 }
 
 async function writeViteFiles(
   projectDirectory: string,
   tokenDirectory: string,
-  stylesAlias: string,
   refreshLegacyTokens: boolean,
 ) {
   const { path: configPath, source: configSource } = await readViteConfig(projectDirectory);
-  const configuredVite = configureVite(configSource, stylesAlias, tokenDirectory, projectDirectory);
+  const configuredVite = configureVite(configSource);
   await writeNooehFiles(projectDirectory, tokenDirectory, refreshLegacyTokens);
   await writeFile(configPath, configuredVite, "utf8");
   console.log(`Configured Vite and created ${relative(projectDirectory, tokenDirectory)}.`);
@@ -208,7 +189,7 @@ export async function init(projectDirectory: string, options: CliOptions) {
       }
     }
     if (options.framework === "vite") {
-      await writeViteFiles(projectDirectory, tokenDirectory, stylesAlias, Boolean(options.force));
+      await writeViteFiles(projectDirectory, tokenDirectory, Boolean(options.force));
     } else {
       await writeNooehFiles(projectDirectory, tokenDirectory, Boolean(options.force));
       console.log(`Created ${relative(projectDirectory, tokenDirectory)}.`);

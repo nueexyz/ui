@@ -12,7 +12,7 @@ pnpm dlx @nooeh/ui add button
 
 `init` installs StyleX, configures the Vite compiler, and creates `nooeh.json`.
 By default, components go in `@/components/ui` and local token source goes in
-`@/styles`. Use `--ui` or `--styles` to choose other aliases.
+`src/styles`. Use `--ui` or `--styles` to choose other destinations.
 
 ```txt
 src/styles/
@@ -27,17 +27,11 @@ StyleX compiler for your bundler before adding components. Vite projects should
 keep a normal CSS import in their application entry point so Vite can emit
 StyleX's generated CSS.
 
-`init --framework vite` writes the required StyleX module resolution for the
-default `@/styles` alias. If you configure Vite yourself, include it too.
+`init --framework vite` adds the StyleX plugin. If you configure Vite yourself,
+place it before React.
 
 ```ts
-stylex.vite({
-  aliases: { "@/styles/*": ["/ROOT/src/styles/*"] },
-  unstable_moduleResolution: {
-    type: "commonJS",
-    rootDir: new URL(".", import.meta.url).pathname,
-  },
-});
+stylex.vite();
 ```
 
 ```ts
@@ -49,7 +43,7 @@ system setting by default, persists a user's choice, and applies a `data-theme`
 attribute for interoperability.
 
 ```tsx
-import { ThemeProvider } from "@/styles/theme-provider";
+import { ThemeProvider } from "./styles/theme-provider";
 
 <ThemeProvider>
   <App />

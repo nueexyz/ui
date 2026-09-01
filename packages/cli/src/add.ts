@@ -1,5 +1,5 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, isAbsolute, join, relative, resolve } from "node:path";
+import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { createInterface } from "node:readline/promises";
 
 import { defaultConfig, hasConfig, readConfig, resolveConfigAlias } from "./config.js";
@@ -63,8 +63,12 @@ function resolveTargetPath(uiDirectory: string, filePath: string) {
   return targetPath;
 }
 
-function replaceTokenImport(source: string, stylesAlias: string) {
-  return source.replaceAll("@nooeh/tokens/semantic.stylex", `${stylesAlias}/semantic.stylex`);
+function replaceTokenImport(source: string, targetPath: string, stylesDirectory: string) {
+  const tokenPath = join(stylesDirectory, "semantic.stylex");
+  const importPath = relative(dirname(targetPath), tokenPath).split(sep).join("/");
+  const relativeImportPath = importPath.startsWith(".") ? importPath : `./${importPath}`;
+
+  return source.replaceAll("@nooeh/tokens/semantic.stylex", relativeImportPath);
 }
 
 export async function add(
@@ -85,6 +89,11 @@ export async function add(
     options["dry-run"] && shouldInitialize ? defaultConfig : await readConfig(projectDirectory);
   const resolved = await resolveComponent(componentName);
   const uiDirectory = await resolveConfigAlias(projectDirectory, config.aliases.ui, "aliases.ui");
+  const stylesDirectory = await resolveConfigAlias(
+    projectDirectory,
+    config.aliases.styles,
+    "aliases.styles",
+  );
   let isOverwriteConfirmed = false;
 
   async function confirmOverwrite() {
@@ -104,7 +113,7 @@ export async function add(
       continue;
     }
     await writeSource(
-      replaceTokenImport(file.content, config.aliases.styles),
+      replaceTokenImport(file.content, targetPath, stylesDirectory),
       targetPath,
       confirmOverwrite,
     );

@@ -141,19 +141,11 @@ test("init configures a standard Vite project", async () => {
 
     assert.match(
       await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
-      /aliases: \{ "@\/styles\/\*": \["\/ROOT\/src\/styles\/\*"\] \}/,
-    );
-    assert.match(
-      await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
-      /unstable_moduleResolution: \{\s+type: "commonJS",\s+rootDir: new URL\("\.", import\.meta\.url\)\.pathname,/,
+      /stylex\.vite\(\)/,
     );
     assert.doesNotMatch(
       await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
-      /useCSSLayers/,
-    );
-    assert.match(
-      await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
-      /alias: \{ "@": new URL\("\.\/src", import\.meta\.url\)\.pathname \}/,
+      /aliases:|unstable_moduleResolution|resolve:/,
     );
     assert.equal(await readFile(join(projectDirectory, "src/main.tsx"), "utf8"), "export {};\n");
     await access(join(projectDirectory, "src/styles/themes.stylex.ts"));
@@ -162,7 +154,7 @@ test("init configures a standard Vite project", async () => {
   }
 });
 
-test("init --force removes the legacy StyleX cascade layer", async () => {
+test("init --force simplifies the legacy Nooeh StyleX plugin", async () => {
   const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
 
   try {
@@ -195,7 +187,11 @@ export default defineConfig({
 
     assert.doesNotMatch(
       await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
-      /useCSSLayers/,
+      /useCSSLayers|aliases:|unstable_moduleResolution/,
+    );
+    assert.match(
+      await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
+      /stylex\.vite\(\)/,
     );
   } finally {
     await rm(projectDirectory, { recursive: true });
