@@ -51,5 +51,8 @@ await build({
 
 const globalCss = await readFile(join(sourceDirectory, "global.css"), "utf8");
 const resetCss = await readFile(join(sourceDirectory, "reset.css"), "utf8");
-await writeFile(join(outputDirectory, "global.css"), `@import "./stylex.css";\n\n${globalCss}`);
+await writeFile(
+  join(outputDirectory, "global.css"),
+  `@import "./reset.css";\n@import "./stylex.css";\n\n${globalCss}`,
+);
 await writeFile(join(outputDirectory, "reset.css"), resetCss);
