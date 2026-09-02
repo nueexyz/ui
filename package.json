@@ -17,6 +17,7 @@
     "lint": "pnpm oxlint .",
     "prepare": "lefthook install",
     "release:check": "pnpm check && pnpm test && pnpm build && pnpm docs:build",
+    "release:publish": "node --experimental-strip-types scripts/publish.ts",
     "storybook": "pnpm --filter @nooeh/docs storybook",
     "test": "pnpm --filter @nooeh/cli test && pnpm --filter @nooeh/ui test",
     "typecheck": "pnpm --filter @nooeh/tokens typecheck && pnpm --filter @nooeh/registry build && pnpm --filter @nooeh/cli typecheck && pnpm --filter @nooeh/ui typecheck && pnpm --filter @nooeh/docs typecheck"

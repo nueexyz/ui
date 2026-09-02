@@ -41,23 +41,6 @@ jobs:
       - run: pnpm release:check
 
       - name: Publish unpublished workspace packages
-        run: |
-          publish_if_needed() {
-            package_directory="$1"
-            package_name="$(node -p "require('./' + process.argv[1] + '/package.json').name" "$package_directory")"
-            package_version="$(node -p "require('./' + process.argv[1] + '/package.json').version" "$package_directory")"
-
-            if npm view "$package_name@$package_version" version --registry=https://registry.npmjs.org >/dev/null 2>&1; then
-              echo "$package_name@$package_version is already published."
-              return
-            fi
-
-            pnpm --dir "$package_directory" publish --access public --provenance
-          }
-
-          publish_if_needed packages/registry
-          publish_if_needed packages/tokens
-          publish_if_needed packages/cli
-          publish_if_needed packages/ui
+        run: pnpm release:publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKENS }}

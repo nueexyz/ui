@@ -1,0 +1,55 @@
+import { execFile, spawn } from "node:child_process";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+import { promisify } from "node:util";
+
+const executeFile = promisify(execFile);
+const registryUrl = "https://registry.npmjs.org";
+const packageDirectories = ["packages/registry", "packages/tokens", "packages/cli", "packages/ui"];
+
+type Package = {
+  name: string;
+  version: string;
+};
+
+function run(command: string, arguments_: readonly string[]) {
+  return new Promise<void>((resolve, reject) => {
+    const child = spawn(command, arguments_, { stdio: "inherit" });
+
+    child.on("error", reject);
+    child.on("exit", (code) => {
+      if (code === 0) resolve();
+      else reject(new Error(`${command} exited with code ${code}.`));
+    });
+  });
+}
+
+async function readPackage(directory: string): Promise<Package> {
+  const source = await readFile(join(directory, "package.json"), "utf8");
+  return JSON.parse(source) as Package;
+}
+
+async function isPublished(package_: Package) {
+  try {
+    await executeFile("npm", [
+      "view",
+      `${package_.name}@${package_.version}`,
+      "version",
+      `--registry=${registryUrl}`,
+    ]);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+for (const directory of packageDirectories) {
+  const package_ = await readPackage(directory);
+
+  if (await isPublished(package_)) {
+    console.log(`${package_.name}@${package_.version} is already published.`);
+    continue;
+  }
+
+  await run("pnpm", ["--dir", directory, "publish", "--access", "public", "--provenance"]);
+}
