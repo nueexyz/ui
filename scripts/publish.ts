@@ -5,6 +5,7 @@ import { promisify } from "node:util";
 
 const executeFile = promisify(execFile);
 const registryUrl = "https://registry.npmjs.org";
+const publishArguments = ["publish", "--access", "public"];
 const packageDirectories = ["packages/registry", "packages/tokens", "packages/cli", "packages/ui"];
 
 type Package = {
@@ -51,5 +52,10 @@ for (const directory of packageDirectories) {
     continue;
   }
 
-  await run("pnpm", ["--dir", directory, "publish", "--access", "public", "--provenance"]);
+  await run("pnpm", [
+    "--dir",
+    directory,
+    ...publishArguments,
+    ...(process.env.GITHUB_ACTIONS === "true" ? ["--provenance"] : []),
+  ]);
 }
