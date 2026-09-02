@@ -64,6 +64,7 @@ const styles = stylex.create({
     flexDirection: "column",
     gap: spacingVars.space1,
     minWidth: 0,
+    paddingInline: spacingVars.space2,
   },
   title: {
     fontSize: typographyVars.fontSizeSm,
