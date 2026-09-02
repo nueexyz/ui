@@ -141,11 +141,11 @@ test("init configures a standard Vite project", async () => {
 
     assert.match(
       await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
-      /stylex\.vite\(\)/,
+      /unstable_moduleResolution: \{ type: "commonJS" \}/,
     );
     assert.doesNotMatch(
       await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
-      /aliases:|unstable_moduleResolution|resolve:/,
+      /aliases:|resolve:/,
     );
     assert.equal(await readFile(join(projectDirectory, "src/main.tsx"), "utf8"), "export {};\n");
     await access(join(projectDirectory, "src/styles/themes.stylex.ts"));
@@ -187,11 +187,11 @@ export default defineConfig({
 
     assert.doesNotMatch(
       await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
-      /useCSSLayers|aliases:|unstable_moduleResolution/,
+      /useCSSLayers|aliases:/,
     );
     assert.match(
       await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
-      /stylex\.vite\(\)/,
+      /unstable_moduleResolution: \{ type: "commonJS" \}/,
     );
   } finally {
     await rm(projectDirectory, { recursive: true });

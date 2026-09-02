@@ -54,9 +54,11 @@ async function readViteConfig(projectDirectory: string) {
 function configureVite(source: string) {
   const importLine = 'import stylex from "@stylexjs/unplugin";';
   const pluginPattern = /plugins:\s*\[([^\]]*)\]/s;
-  const stylexPlugin = "stylex.vite()";
+  const stylexPlugin = 'stylex.vite({ unstable_moduleResolution: { type: "commonJS" } })';
   const legacyStylexPluginPattern = /stylex\.vite\(\{\s*useCSSLayers:\s*true\s*\}\)/;
   const emptyStylexPluginPattern = /stylex\.vite\(\)/;
+  const moduleResolutionPluginPattern =
+    /stylex\.vite\(\{\s*unstable_moduleResolution:\s*\{\s*type:\s*["']commonJS["']\s*\},?\s*\}\)/s;
   const nooehStylexPluginPattern =
     /stylex\.vite\(\{\s*(?:\/\/[^\n]*\s*)?(?:useCSSLayers:\s*true,?\s*)?aliases:\s*\{[^}]*\},\s*unstable_moduleResolution:\s*\{\s*type:\s*["']commonJS["'],\s*rootDir:\s*new URL\(["']\.["'],\s*import\.meta\.url\)\.pathname,?\s*\},\s*\}\)/s;
 
@@ -67,6 +69,8 @@ function configureVite(source: string) {
   if (nooehStylexPluginPattern.test(source)) {
     return source.replace(nooehStylexPluginPattern, stylexPlugin);
   }
+
+  if (moduleResolutionPluginPattern.test(source)) return source;
 
   if (source.includes("unstable_moduleResolution")) {
     throw new Error(

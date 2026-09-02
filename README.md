@@ -27,11 +27,13 @@ StyleX compiler for your bundler before adding components. Vite projects should
 keep a normal CSS import in their application entry point so Vite can emit
 StyleX's generated CSS.
 
-`init --framework vite` adds the StyleX plugin. If you configure Vite yourself,
-place it before React.
+`init --framework vite` adds StyleX's variable-module resolution. Nooeh uses
+local `defineVars()` tokens, so keep this configuration before React.
 
 ```ts
-stylex.vite();
+stylex.vite({
+  unstable_moduleResolution: { type: "commonJS" },
+});
 ```
 
 ```ts
