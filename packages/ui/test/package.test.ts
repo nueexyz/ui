@@ -1,14 +1,111 @@
 import assert from "node:assert/strict";
 import { execFile as execFileCallback } from "node:child_process";
-import { access, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { access, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import test from "node:test";
+import { build } from "vite";
 
 const execFile = promisify(execFileCallback);
 const cliPath = fileURLToPath(new URL("../dist/cli.js", import.meta.url));
+const testDirectory = dirname(fileURLToPath(import.meta.url));
+
+test("@nooeh/ui CLI builds copied components in a Vite app", async () => {
+  const projectDirectory = await mkdtemp(join(testDirectory, ".vite-app-"));
+
+  try {
+    await Promise.all([
+      writeFile(
+        join(projectDirectory, "package.json"),
+        JSON.stringify({ name: "nooeh-vite-app", private: true, type: "module" }),
+      ),
+      writeFile(
+        join(projectDirectory, "tsconfig.json"),
+        JSON.stringify({ compilerOptions: { paths: { "@/*": ["./src/*"] } } }),
+      ),
+      writeFile(
+        join(projectDirectory, "vite.config.ts"),
+        [
+          'import { defineConfig } from "vite";',
+          "",
+          "function react() {",
+          '  return { name: "react" };',
+          "}",
+          "",
+          "export default defineConfig({ plugins: [react()] });",
+          "",
+        ].join("\n"),
+      ),
+      writeFile(
+        join(projectDirectory, "index.html"),
+        '<div id="root"></div><script type="module" src="/src/main.tsx"></script>\n',
+      ),
+    ]);
+    await mkdir(join(projectDirectory, "src"));
+    await Promise.all([
+      writeFile(join(projectDirectory, "src/index.css"), "body { margin: 0; }\n"),
+      writeFile(
+        join(projectDirectory, "src/main.tsx"),
+        [
+          'import { createRoot } from "react-dom/client";',
+          'import { Button } from "./components/ui/button";',
+          'import { Toaster, toast } from "./components/ui/toast";',
+          'import { ThemeProvider } from "./styles/theme-provider";',
+          'import "./index.css";',
+          "",
+          "function App() {",
+          "  return (",
+          "    <ThemeProvider>",
+          '      <Button onClick={() => toast.add({ title: "Saved" })}>Save</Button>',
+          "      <Toaster />",
+          "    </ThemeProvider>",
+          "  );",
+          "}",
+          "",
+          'createRoot(document.getElementById("root")!).render(<App />);',
+          "",
+        ].join("\n"),
+      ),
+    ]);
+
+    await execFile(process.execPath, [
+      cliPath,
+      "init",
+      "--defaults",
+      "--framework",
+      "vite",
+      "--skip-dependencies",
+      "--cwd",
+      projectDirectory,
+    ]);
+    await execFile(process.execPath, [
+      cliPath,
+      "add",
+      "button",
+      "--skip-dependencies",
+      "--cwd",
+      projectDirectory,
+    ]);
+    await execFile(process.execPath, [
+      cliPath,
+      "add",
+      "toast",
+      "--skip-dependencies",
+      "--cwd",
+      projectDirectory,
+    ]);
+
+    const viteConfig = await readFile(join(projectDirectory, "vite.config.ts"), "utf8");
+    assert.ok(viteConfig.indexOf("plugins: [stylex.vite") < viteConfig.indexOf("react()]"));
+
+    await build({ configFile: join(projectDirectory, "vite.config.ts"), root: projectDirectory });
+    await access(join(projectDirectory, "dist/index.html"));
+  } finally {
+    await rm(projectDirectory, { recursive: true, force: true });
+  }
+});
 
 test("@nooeh/ui CLI initializes a project and adds a card", async () => {
   const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-ui-cli-"));

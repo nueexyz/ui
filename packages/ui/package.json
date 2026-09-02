@@ -92,7 +92,8 @@
     "esbuild": "0.28.2",
     "react": "catalog:2026-08-27-stable",
     "react-dom": "catalog:2026-08-27-stable",
-    "typescript": "catalog:2026-08-27-stable"
+    "typescript": "catalog:2026-08-27-stable",
+    "vite": "catalog:2026-08-27-stable"
   },
   "peerDependencies": {
     "@base-ui/react": "^1.7.0",
