@@ -52,15 +52,14 @@ test("@nooeh/ui CLI builds copied components in a Vite app", async () => {
           'import { createRoot } from "react-dom/client";',
           'import { Button } from "./components/ui/button";',
           'import { Toaster, toast } from "./components/ui/toast";',
-          'import { ThemeProvider } from "./styles/theme-provider";',
           'import "./index.css";',
           "",
           "function App() {",
           "  return (",
-          "    <ThemeProvider>",
+          "    <>",
           '      <Button onClick={() => toast.add({ title: "Saved" })}>Save</Button>',
           "      <Toaster />",
-          "    </ThemeProvider>",
+          "    </>",
           "  );",
           "}",
           "",
@@ -136,11 +135,6 @@ test("@nooeh/ui CLI initializes a project and adds a card", async () => {
     assert.equal(config.aliases.ui, "@/components/ui");
     assert.equal(config.aliases.styles, "@/styles");
     await access(join(projectDirectory, "src/styles/semantic.stylex.ts"));
-    await access(join(projectDirectory, "src/styles/theme-provider.tsx"));
-    assert.match(
-      await readFile(join(projectDirectory, "src/styles/theme-provider.tsx"), "utf8"),
-      /document\.documentElement/,
-    );
     assert.match(
       await readFile(join(projectDirectory, "src/components/ui/card.tsx"), "utf8"),
       /Card/,

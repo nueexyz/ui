@@ -51,8 +51,3 @@ for (const name of ["color-palette.stylex.ts", "semantic.stylex.ts", "themes.sty
     await readFile(join(tokenSourceDirectory, name), "utf8"),
   );
 }
-
-await writeFile(
-  join(tokenOutputDirectory, "theme-provider.tsx"),
-  await readFile("templates/theme-provider.tsx.txt", "utf8"),
-);

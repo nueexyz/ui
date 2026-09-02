@@ -127,15 +127,11 @@ async function writeNooehFiles(
   }
 }
 
-function isLegacyNooehSource(fileName: string, source: string) {
-  if (fileName === "semantic.stylex.ts") {
-    return source.includes('bgCanvas: "initial"') && source.includes('overlay: "initial"');
-  }
-
+function isLegacySemanticSource(fileName: string, source: string) {
   return (
-    fileName === "theme-provider.tsx" &&
-    source.includes("const styles = stylex.create({") &&
-    source.includes("data-theme={resolvedTheme}")
+    fileName === "semantic.stylex.ts" &&
+    source.includes('bgCanvas: "initial"') &&
+    source.includes('overlay: "initial"')
   );
 }
 
@@ -147,7 +143,7 @@ async function writeTokenFile(
 ) {
   try {
     const currentSource = await readFile(path, "utf8");
-    if (shouldRefreshLegacySources && isLegacyNooehSource(fileName, currentSource)) {
+    if (shouldRefreshLegacySources && isLegacySemanticSource(fileName, currentSource)) {
       await writeFile(path, source, "utf8");
     }
   } catch {

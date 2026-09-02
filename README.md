@@ -19,7 +19,6 @@ src/styles/
   color-palette.stylex.ts
   semantic.stylex.ts
   themes.stylex.ts
-  theme-provider.tsx
 ```
 
 Nooeh copies component, token, and theme source into your app. Configure the
@@ -40,25 +39,19 @@ stylex.vite({
 import "./index.css";
 ```
 
-Wrap the application once with the generated theme provider. It follows the
-system setting by default, persists a user's choice, and applies a `data-theme`
-attribute for interoperability.
+Nooeh does not prescribe theme state, storage, or a React provider. Your app
+can apply the generated dark theme classes wherever it owns color-mode state.
 
 ```tsx
-import { ThemeProvider } from "./styles/theme-provider";
+import * as stylex from "@stylexjs/stylex";
 
-<ThemeProvider>
-  <App />
-</ThemeProvider>;
-```
+import { darkColorTheme, darkShadowTheme } from "./styles/themes.stylex";
 
-Use `useTheme()` in a mode toggle. Components render in light mode without a
-provider, while the provider adds dark and system-mode support.
+const darkThemeClasses = stylex.props(darkColorTheme, darkShadowTheme).className?.split(" ") ?? [];
 
-```tsx
-const { setTheme } = useTheme();
-
-<button onClick={() => setTheme("dark")}>Dark mode</button>;
+for (const className of darkThemeClasses) {
+  document.documentElement.classList.toggle(className, colorMode === "dark");
+}
 ```
 
 To create a product theme, override Nooeh's semantic variable groups with
@@ -68,8 +61,8 @@ To create a product theme, override Nooeh's semantic variable groups with
 
 - Editable local StyleX tokens with light defaults and dark themes.
 - Added component source uses local tokens that live in your project.
-- Product themes can override Nooeh semantic variable groups with
-  `stylex.createTheme()`.
+- Your app owns theme state and can override Nooeh semantic variable groups
+  with `stylex.createTheme()`.
 - Accessible React primitives from Base UI with nooeh visual defaults.
 - Component source in your project, ready to read and change.
 
