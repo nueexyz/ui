@@ -43,4 +43,4 @@ jobs:
       - name: Publish unpublished workspace packages
         run: pnpm release:publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKENS }}
+          NPM_CONFIG_PROVENANCE: "false"

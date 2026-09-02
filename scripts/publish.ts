@@ -57,6 +57,6 @@ for (const directory of packageDirectories) {
     "--dir",
     directory,
     ...publishArguments,
-    ...(isGitHubActions ? ["--no-git-checks", "--provenance"] : []),
+    ...(isGitHubActions ? ["--no-git-checks"] : []),
   ]);
 }
