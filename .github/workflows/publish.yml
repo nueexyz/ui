@@ -1,0 +1,46 @@
+name: Publish
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    name: publish npm package
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.23.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Verify the tag matches the package version
+        run: |
+          tag_version="${GITHUB_REF_NAME#v}"
+          package_version="$(node -p \"require('./packages/ui/package.json').version\")"
+
+          if [ "$tag_version" != "$package_version" ]; then
+            echo "Tag v$tag_version does not match @nooeh/ui@$package_version."
+            exit 1
+          fi
+
+      - run: pnpm release:check
+
+      - name: Publish @nooeh/ui
+        run: pnpm --filter @nooeh/ui publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKENS }}
