@@ -6,6 +6,7 @@ import { promisify } from "node:util";
 const executeFile = promisify(execFile);
 const registryUrl = "https://registry.npmjs.org";
 const publishArguments = ["publish", "--access", "public"];
+const isGitHubActions = process.env.GITHUB_ACTIONS === "true";
 const packageDirectories = ["packages/registry", "packages/tokens", "packages/cli", "packages/ui"];
 
 type Package = {
@@ -56,6 +57,6 @@ for (const directory of packageDirectories) {
     "--dir",
     directory,
     ...publishArguments,
-    ...(process.env.GITHUB_ACTIONS === "true" ? ["--provenance"] : []),
+    ...(isGitHubActions ? ["--no-git-checks", "--provenance"] : []),
   ]);
 }
