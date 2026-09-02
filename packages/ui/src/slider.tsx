@@ -15,7 +15,7 @@ const styles = stylex.create({
     width: "100%",
   },
   track: {
-    backgroundColor: colorVars.bgActionPrimary,
+    backgroundColor: colorVars.bgSubtle,
     borderRadius: radiusVars.full,
     height: "0.375rem",
     overflow: "hidden",

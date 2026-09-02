@@ -238,6 +238,12 @@ const foregroundTokens = [
     "Content on emphasized backgrounds",
   ],
   [
+    "fgOnActionPrimary",
+    colorVars.fgOnActionPrimary,
+    colorVars.bgActionPrimary,
+    "Content on the primary action background",
+  ],
+  [
     "fgOnActionDestructive",
     colorVars.fgOnActionDestructive,
     colorVars.bgActionDestructive,

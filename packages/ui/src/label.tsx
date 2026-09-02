@@ -8,7 +8,7 @@ const styles = stylex.create({
   root: {
     alignItems: "center",
     color: colorVars.fgPrimary,
-    cursor: "default",
+    cursor: "pointer",
     display: "inline-flex",
     fontSize: typographyVars.fontSizeSm,
     fontWeight: typographyVars.fontWeightMedium,

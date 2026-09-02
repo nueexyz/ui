@@ -7,6 +7,7 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { Field, FieldLabel } from "@nooeh/ui/field";
+import { Label } from "@nooeh/ui/label";
 import { RadioGroup, RadioGroupItem } from "@nooeh/ui/radio-group";
 
 const meta = {
@@ -24,18 +25,18 @@ function RadioGroupExample() {
       <Field>
         <FieldLabel>Notification frequency</FieldLabel>
         <RadioGroup defaultValue="daily">
-          <label htmlFor="frequency-daily" {...stylex.props(storyStyles.option)}>
+          <div {...stylex.props(storyStyles.option)}>
             <RadioGroupItem id="frequency-daily" value="daily" />
-            Daily
-          </label>
-          <label htmlFor="frequency-weekly" {...stylex.props(storyStyles.option)}>
+            <Label htmlFor="frequency-daily">Daily</Label>
+          </div>
+          <div {...stylex.props(storyStyles.option)}>
             <RadioGroupItem id="frequency-weekly" value="weekly" />
-            Weekly
-          </label>
-          <label htmlFor="frequency-never" {...stylex.props(storyStyles.option)}>
+            <Label htmlFor="frequency-weekly">Weekly</Label>
+          </div>
+          <div {...stylex.props(storyStyles.option)}>
             <RadioGroupItem id="frequency-never" value="never" />
-            Never
-          </label>
+            <Label htmlFor="frequency-never">Never</Label>
+          </div>
         </RadioGroup>
       </Field>
     </div>
@@ -43,7 +44,7 @@ function RadioGroupExample() {
 }
 
 const radioGroupExampleCode =
-  'import { Field, FieldLabel } from "@nooeh/ui/field"\nimport { RadioGroup, RadioGroupItem } from "@nooeh/ui/radio-group"\n\n<Field>\n  <FieldLabel>Notification frequency</FieldLabel>\n  <RadioGroup defaultValue="daily">\n    <label><RadioGroupItem value="daily" />Daily</label>\n    <label><RadioGroupItem value="weekly" />Weekly</label>\n    <label><RadioGroupItem value="never" />Never</label>\n  </RadioGroup>\n</Field>';
+  'import { Field, FieldLabel } from "@nooeh/ui/field"\nimport { Label } from "@nooeh/ui/label"\nimport { RadioGroup, RadioGroupItem } from "@nooeh/ui/radio-group"\n\n<Field>\n  <FieldLabel>Notification frequency</FieldLabel>\n  <RadioGroup defaultValue="daily">\n    <div>\n      <RadioGroupItem id="frequency-daily" value="daily" />\n      <Label htmlFor="frequency-daily">Daily</Label>\n    </div>\n    <div>\n      <RadioGroupItem id="frequency-weekly" value="weekly" />\n      <Label htmlFor="frequency-weekly">Weekly</Label>\n    </div>\n  </RadioGroup>\n</Field>';
 
 export const RadioGroupStory: Story = {
   name: "Radio Group",
