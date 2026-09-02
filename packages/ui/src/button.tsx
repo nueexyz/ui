@@ -76,6 +76,9 @@ const styles = stylex.create({
     position: "relative",
     zIndex: 1,
   },
+  primaryContent: { color: colorVars.fgOnActionPrimary },
+  destructiveContent: { color: colorVars.fgOnActionDestructive },
+  disabledContent: { color: colorVars.fgDisabled },
   primary: {
     backgroundColor: colorVars.bgActionPrimary,
     borderColor: colorVars.bgActionPrimary,
@@ -158,6 +161,12 @@ export function Button({
     xstyle,
   );
   const mergedClassName = [stylexProps.className, className].filter(Boolean).join(" ");
+  const contentStylexProps = stylex.props(
+    styles.content,
+    variant === "primary" && styles.primaryContent,
+    variant === "destructive" && styles.destructiveContent,
+    isDisabled && styles.disabledContent,
+  );
 
   return (
     <ButtonPrimitive
@@ -166,7 +175,7 @@ export function Button({
       disabled={disabled}
       style={{ ...stylexProps.style, ...style }}
     >
-      <span {...stylex.props(styles.content)}>{children}</span>
+      <span {...contentStylexProps}>{children}</span>
     </ButtonPrimitive>
   );
 }
