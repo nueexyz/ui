@@ -106,9 +106,27 @@ async function writeViteFiles(
 ) {
   const { path: configPath, source: configSource } = await readViteConfig(projectDirectory);
   const configuredVite = configureVite(configSource);
+  await addResetImport(projectDirectory);
   await writeNooehFiles(projectDirectory, tokenDirectory, refreshLegacyTokens);
   await writeFile(configPath, configuredVite, "utf8");
   console.log(`Configured Vite and created ${relative(projectDirectory, tokenDirectory)}.`);
+}
+
+async function addResetImport(projectDirectory: string) {
+  const cssPath = join(projectDirectory, "src/index.css");
+  const resetImport = '@import "@nooeh/ui/reset.css";';
+
+  try {
+    const source = await readFile(cssPath, "utf8");
+    if (source.includes(resetImport)) return;
+    await writeFile(cssPath, `${resetImport}\n\n${source}`, "utf8");
+  } catch (error) {
+    if (typeof error === "object" && error !== null && "code" in error && error.code === "ENOENT") {
+      await writeFile(cssPath, `${resetImport}\n`, "utf8");
+      return;
+    }
+    throw error;
+  }
 }
 
 async function writeNooehFiles(
@@ -185,7 +203,7 @@ export async function init(projectDirectory: string, options: CliOptions) {
     if (!options["skip-dependencies"]) {
       await installDependencies(projectDirectory, ["@stylexjs/stylex"]);
       if (options.framework === "vite") {
-        await installDependencies(projectDirectory, ["@stylexjs/unplugin"], true);
+        await installDependencies(projectDirectory, ["@nooeh/ui", "@stylexjs/unplugin"], true);
       }
     }
     if (options.framework === "vite") {

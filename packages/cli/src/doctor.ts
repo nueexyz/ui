@@ -78,7 +78,8 @@ async function hasStylexCompiler(projectDirectory: string) {
   );
 
   return sources.some(
-    (source) => source?.includes("@stylexjs/unplugin") && source.includes("stylex.vite("),
+    (source) =>
+      source?.includes("@stylexjs/unplugin") && /\b(?:stylex|unplugin)\.vite\(/.test(source),
   );
 }
 

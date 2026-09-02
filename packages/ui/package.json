@@ -39,6 +39,7 @@
     "./global.css": "./dist/global.css",
     "./icon": "./dist/Icon.js",
     "./primitives": "./dist/primitives.js",
+    "./reset.css": "./dist/reset.css",
     "./input": "./dist/input.js",
     "./input-group": "./dist/input-group.js",
     "./input-otp": "./dist/input-otp.js",

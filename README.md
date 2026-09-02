@@ -10,7 +10,8 @@ pnpm dlx @nooeh/ui init --framework vite
 pnpm dlx @nooeh/ui add button
 ```
 
-`init` installs StyleX, configures the Vite compiler, and creates `nooeh.json`.
+`init` installs StyleX, configures the Vite compiler, imports Nooeh's reset CSS,
+and creates `nooeh.json`.
 By default, components go in `@/components/ui` and local token source goes in
 `src/styles`. Use `--ui` or `--styles` to choose other destinations.
 
@@ -37,6 +38,12 @@ stylex.vite({
 
 ```ts
 import "./index.css";
+```
+
+Vite projects import the shared reset before their own CSS rules:
+
+```css
+@import "@nooeh/ui/reset.css";
 ```
 
 Nooeh does not prescribe theme state, storage, or a React provider. Your app

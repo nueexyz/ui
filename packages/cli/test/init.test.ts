@@ -107,6 +107,7 @@ test("init configures a standard Vite project", async () => {
     );
     await mkdir(join(projectDirectory, "src"), { recursive: true });
     await writeFile(join(projectDirectory, "src/main.tsx"), "export {};\n");
+    await writeFile(join(projectDirectory, "src/index.css"), "body { color: black; }\n");
     await init(projectDirectory, { defaults: true, framework: "vite", "skip-dependencies": true });
 
     assert.match(
@@ -117,7 +118,10 @@ test("init configures a standard Vite project", async () => {
       await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
       /aliases:|resolve:/,
     );
-    assert.equal(await readFile(join(projectDirectory, "src/main.tsx"), "utf8"), "export {};\n");
+    assert.equal(
+      await readFile(join(projectDirectory, "src/index.css"), "utf8"),
+      '@import "@nooeh/ui/reset.css";\n\nbody { color: black; }\n',
+    );
     await access(join(projectDirectory, "src/styles/themes.stylex.ts"));
   } finally {
     await rm(projectDirectory, { recursive: true });

@@ -22,7 +22,7 @@ test("doctor verifies local StyleX sources, the compiler, and a CSS entry point"
     );
     await writeFile(
       join(projectDirectory, "vite.config.ts"),
-      'import { unplugin as stylex } from "@stylexjs/unplugin";\nimport { defineConfig } from "vite";\nexport default defineConfig({ plugins: [stylex.vite()] });\n',
+      'import { unplugin } from "@stylexjs/unplugin";\nimport { defineConfig } from "vite";\nexport default defineConfig({ plugins: [unplugin.vite()] });\n',
     );
     await mkdir(join(projectDirectory, "src"), { recursive: true });
     await writeFile(join(projectDirectory, "src/main.tsx"), 'import "./index.css";\n');

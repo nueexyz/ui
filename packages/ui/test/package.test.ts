@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { execFile as execFileCallback } from "node:child_process";
-import { access, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { access, copyFile, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -44,6 +44,18 @@ test("@nooeh/ui CLI builds copied components in a Vite app", async () => {
       ),
     ]);
     await mkdir(join(projectDirectory, "src"));
+    const resetPackageDirectory = join(projectDirectory, "node_modules/@nooeh/ui");
+    await mkdir(resetPackageDirectory, { recursive: true });
+    await Promise.all([
+      copyFile(join(testDirectory, "../dist/reset.css"), join(resetPackageDirectory, "reset.css")),
+      writeFile(
+        join(resetPackageDirectory, "package.json"),
+        JSON.stringify({
+          name: "@nooeh/ui",
+          exports: { "./reset.css": "./reset.css" },
+        }),
+      ),
+    ]);
     await Promise.all([
       writeFile(join(projectDirectory, "src/index.css"), "body { margin: 0; }\n"),
       writeFile(
@@ -98,6 +110,10 @@ test("@nooeh/ui CLI builds copied components in a Vite app", async () => {
 
     const viteConfig = await readFile(join(projectDirectory, "vite.config.ts"), "utf8");
     assert.ok(viteConfig.indexOf("plugins: [stylex.vite") < viteConfig.indexOf("react()]"));
+    assert.match(
+      await readFile(join(projectDirectory, "src/index.css"), "utf8"),
+      /@import "@nooeh\/ui\/reset\.css"/,
+    );
 
     await build({ configFile: join(projectDirectory, "vite.config.ts"), root: projectDirectory });
     await access(join(projectDirectory, "dist/index.html"));
