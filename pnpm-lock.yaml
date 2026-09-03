@@ -117,6 +117,9 @@ importers:
       '@nuee/registry':
         specifier: workspace:*
         version: link:../registry
+      jsonc-parser:
+        specifier: ^3.3.1
+        version: 3.3.1
     devDependencies:
       '@types/node':
         specifier: ^22.20.1

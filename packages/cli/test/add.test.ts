@@ -82,13 +82,15 @@ test("add resolves aliases from tsconfig paths", async () => {
   try {
     await writeFile(
       join(projectDirectory, "tsconfig.json"),
-      JSON.stringify({
-        compilerOptions: {
-          paths: {
-            "~shared/*": ["./src/shared/*"],
-          },
-        },
-      }),
+      `{
+  // TypeScript config accepts comments.
+  "compilerOptions": {
+    "paths": {
+      "~shared/*": ["./src/shared/*"],
+    },
+  },
+}
+`,
     );
     await init(projectDirectory, {
       defaults: true,

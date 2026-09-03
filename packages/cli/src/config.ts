@@ -1,5 +1,6 @@
 import { access, readFile, writeFile } from "node:fs/promises";
 import { isAbsolute, join, relative, resolve } from "node:path";
+import { parse } from "jsonc-parser";
 
 export const configFileName = "nuee.json";
 
@@ -125,7 +126,7 @@ type TsConfig = {
 async function readTsConfig(projectDirectory: string) {
   for (const fileName of ["tsconfig.json", "jsconfig.json"]) {
     try {
-      return JSON.parse(await readFile(resolve(projectDirectory, fileName), "utf8")) as TsConfig;
+      return parse(await readFile(resolve(projectDirectory, fileName), "utf8")) as TsConfig;
     } catch (error) {
       if (!isNotFoundError(error)) {
         continue;
