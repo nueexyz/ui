@@ -6,9 +6,9 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Bubble } from "@nooeh/ui/bubble";
-import { Message, MessageContent } from "@nooeh/ui/message";
-import { MessageScroller } from "@nooeh/ui/message-scroller";
+import { Bubble } from "@nuee/ui/bubble";
+import { Message, MessageContent } from "@nuee/ui/message";
+import { MessageScroller } from "@nuee/ui/message-scroller";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -56,7 +56,7 @@ function MessageScrollerExample() {
 }
 
 const messageScrollerExampleCode =
-  'import { Bubble } from "@nooeh/ui/bubble"\nimport { MessageScroller } from "@nooeh/ui/message-scroller"\n\n<MessageScroller style={{ height: "18rem" }}>\n  <Bubble>I reviewed the request.</Bubble>\n  <Bubble side="outgoing">Thanks. I’ll share it today.</Bubble>\n</MessageScroller>';
+  'import { Bubble } from "@nuee/ui/bubble"\nimport { MessageScroller } from "@nuee/ui/message-scroller"\n\n<MessageScroller style={{ height: "18rem" }}>\n  <Bubble>I reviewed the request.</Bubble>\n  <Bubble side="outgoing">Thanks. I’ll share it today.</Bubble>\n</MessageScroller>';
 
 export const MessageScrollerStory: Story = {
   name: "Message Scroller",
@@ -78,7 +78,7 @@ export const MessageScrollerStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

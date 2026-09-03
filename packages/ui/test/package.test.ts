@@ -12,14 +12,14 @@ const execFile = promisify(execFileCallback);
 const cliPath = fileURLToPath(new URL("../dist/cli.js", import.meta.url));
 const testDirectory = dirname(fileURLToPath(import.meta.url));
 
-test("@nooeh/ui CLI builds copied components in a Vite app", async () => {
+test("@nuee/ui CLI builds copied components in a Vite app", async () => {
   const projectDirectory = await mkdtemp(join(testDirectory, ".vite-app-"));
 
   try {
     await Promise.all([
       writeFile(
         join(projectDirectory, "package.json"),
-        JSON.stringify({ name: "nooeh-vite-app", private: true, type: "module" }),
+        JSON.stringify({ name: "nuee-vite-app", private: true, type: "module" }),
       ),
       writeFile(
         join(projectDirectory, "tsconfig.json"),
@@ -44,14 +44,14 @@ test("@nooeh/ui CLI builds copied components in a Vite app", async () => {
       ),
     ]);
     await mkdir(join(projectDirectory, "src"));
-    const resetPackageDirectory = join(projectDirectory, "node_modules/@nooeh/ui");
+    const resetPackageDirectory = join(projectDirectory, "node_modules/@nuee/ui");
     await mkdir(resetPackageDirectory, { recursive: true });
     await Promise.all([
       copyFile(join(testDirectory, "../dist/reset.css"), join(resetPackageDirectory, "reset.css")),
       writeFile(
         join(resetPackageDirectory, "package.json"),
         JSON.stringify({
-          name: "@nooeh/ui",
+          name: "@nuee/ui",
           exports: { "./reset.css": "./reset.css" },
         }),
       ),
@@ -127,7 +127,7 @@ test("@nooeh/ui CLI builds copied components in a Vite app", async () => {
     assert.ok(viteConfig.indexOf("plugins: [stylex.vite") < viteConfig.indexOf("react()]"));
     assert.match(
       await readFile(join(projectDirectory, "src/index.css"), "utf8"),
-      /@import "@nooeh\/ui\/reset\.css"/,
+      /@import "@nuee\/ui\/reset\.css"/,
     );
 
     await build({ configFile: join(projectDirectory, "vite.config.ts"), root: projectDirectory });
@@ -137,8 +137,8 @@ test("@nooeh/ui CLI builds copied components in a Vite app", async () => {
   }
 });
 
-test("@nooeh/ui CLI initializes a project and adds a card", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-ui-cli-"));
+test("@nuee/ui CLI initializes a project and adds a card", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-ui-cli-"));
 
   try {
     await writeFile(
@@ -162,7 +162,7 @@ test("@nooeh/ui CLI initializes a project and adds a card", async () => {
       "--skip-dependencies",
     ]);
 
-    const config = JSON.parse(await readFile(join(projectDirectory, "nooeh.json"), "utf8"));
+    const config = JSON.parse(await readFile(join(projectDirectory, "nuee.json"), "utf8"));
     assert.equal(config.aliases.ui, "@/components/ui");
     assert.equal(config.aliases.styles, "@/styles");
     await access(join(projectDirectory, "src/styles/semantic.stylex.ts"));

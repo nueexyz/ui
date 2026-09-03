@@ -11,7 +11,7 @@ import {
 } from "./config.js";
 import { installDependencies } from "./dependencies.js";
 import type { CliOptions } from "./arguments.js";
-import { getTokenFiles } from "@nooeh/registry";
+import { getTokenFiles } from "@nuee/registry";
 
 async function ask(
   question: string,
@@ -59,22 +59,22 @@ function configureVite(source: string) {
   const emptyStylexPluginPattern = /stylex\.vite\(\)/;
   const moduleResolutionPluginPattern =
     /stylex\.vite\(\{\s*unstable_moduleResolution:\s*\{\s*type:\s*["']commonJS["']\s*\},?\s*\}\)/s;
-  const nooehStylexPluginPattern =
+  const nueeStylexPluginPattern =
     /stylex\.vite\(\{\s*(?:\/\/[^\n]*\s*)?(?:useCSSLayers:\s*true,?\s*)?aliases:\s*\{[^}]*\},\s*unstable_moduleResolution:\s*\{\s*type:\s*["']commonJS["'],\s*rootDir:\s*new URL\(["']\.["'],\s*import\.meta\.url\)\.pathname,?\s*\},\s*\}\)/s;
 
   if (!source.includes("stylex.vite(") && !pluginPattern.test(source)) {
     throw new Error("Could not safely update the Vite plugins array. Add stylex.vite() manually.");
   }
 
-  if (nooehStylexPluginPattern.test(source)) {
-    return source.replace(nooehStylexPluginPattern, stylexPlugin);
+  if (nueeStylexPluginPattern.test(source)) {
+    return source.replace(nueeStylexPluginPattern, stylexPlugin);
   }
 
   if (moduleResolutionPluginPattern.test(source)) return source;
 
   if (source.includes("unstable_moduleResolution")) {
     throw new Error(
-      "Could not safely simplify the existing StyleX plugin. Remove Nooeh's aliases and unstable_moduleResolution manually, then use stylex.vite().",
+      "Could not safely simplify the existing StyleX plugin. Remove Nuee's aliases and unstable_moduleResolution manually, then use stylex.vite().",
     );
   }
 
@@ -107,14 +107,14 @@ async function writeViteFiles(
   const { path: configPath, source: configSource } = await readViteConfig(projectDirectory);
   const configuredVite = configureVite(configSource);
   await addResetImport(projectDirectory);
-  await writeNooehFiles(projectDirectory, tokenDirectory, refreshLegacyTokens);
+  await writeNueeFiles(projectDirectory, tokenDirectory, refreshLegacyTokens);
   await writeFile(configPath, configuredVite, "utf8");
   console.log(`Configured Vite and created ${relative(projectDirectory, tokenDirectory)}.`);
 }
 
 async function addResetImport(projectDirectory: string) {
   const cssPath = join(projectDirectory, "src/index.css");
-  const resetImport = '@import "@nooeh/ui/reset.css";';
+  const resetImport = '@import "@nuee/ui/reset.css";';
 
   try {
     const source = await readFile(cssPath, "utf8");
@@ -129,7 +129,7 @@ async function addResetImport(projectDirectory: string) {
   }
 }
 
-async function writeNooehFiles(
+async function writeNueeFiles(
   projectDirectory: string,
   tokenDirectory: string,
   refreshLegacyTokens = false,
@@ -171,7 +171,7 @@ async function writeTokenFile(
 
 export async function init(projectDirectory: string, options: CliOptions) {
   if ((await hasConfig(projectDirectory)) && !options.force) {
-    throw new Error("nooeh.json already exists. Use --force to create it again.");
+    throw new Error("nuee.json already exists. Use --force to create it again.");
   }
 
   const isInteractive = process.stdin.isTTY && process.stdout.isTTY && !options.defaults;
@@ -203,13 +203,13 @@ export async function init(projectDirectory: string, options: CliOptions) {
     if (!options["skip-dependencies"]) {
       await installDependencies(projectDirectory, ["@stylexjs/stylex"]);
       if (options.framework === "vite") {
-        await installDependencies(projectDirectory, ["@nooeh/ui", "@stylexjs/unplugin"], true);
+        await installDependencies(projectDirectory, ["@nuee/ui", "@stylexjs/unplugin"], true);
       }
     }
     if (options.framework === "vite") {
       await writeViteFiles(projectDirectory, tokenDirectory, Boolean(options.force));
     } else {
-      await writeNooehFiles(projectDirectory, tokenDirectory, Boolean(options.force));
+      await writeNueeFiles(projectDirectory, tokenDirectory, Boolean(options.force));
       console.log(`Created ${relative(projectDirectory, tokenDirectory)}.`);
       console.log(
         "Configure the StyleX compiler for your bundler before importing added components.",

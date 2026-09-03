@@ -1,13 +1,13 @@
 {
-  "name": "@nooeh/cli",
-  "version": "0.2.8",
+  "name": "@nuee/cli",
+  "version": "0.3.0",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/nooeh/ui.git"
+    "url": "https://github.com/nueexyz/ui.git"
   },
   "bin": {
-    "nooeh": "./dist/cli.js"
+    "nuee": "./dist/cli.js"
   },
   "files": [
     "dist"
@@ -23,13 +23,13 @@
     "access": "public"
   },
   "scripts": {
-    "build": "pnpm --filter @nooeh/registry build && tsc -p tsconfig.build.json",
+    "build": "pnpm --filter @nuee/registry build && tsc -p tsconfig.build.json",
     "prepack": "pnpm build",
     "test": "pnpm build && node --experimental-strip-types --test test/*.test.ts",
     "typecheck": "tsc --noEmit && pnpm build && tsc -p tsconfig.test.json"
   },
   "dependencies": {
-    "@nooeh/registry": "workspace:*"
+    "@nuee/registry": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.20.1",

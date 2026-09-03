@@ -6,8 +6,8 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@nooeh/ui/accordion";
-import { colorVars, spacingVars, typographyVars } from "@nooeh/tokens/semantic.stylex";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@nuee/ui/accordion";
+import { colorVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -90,7 +90,7 @@ function AccordionExample() {
 }
 
 const accordionExampleCode =
-  'import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@nooeh/ui/accordion"\n\n<Accordion defaultValue={["item-1"]}>\n  <AccordionItem value="item-1">\n    <AccordionTrigger>Account settings</AccordionTrigger>\n    <AccordionContent>Update your profile and notification settings.</AccordionContent>\n  </AccordionItem>\n</Accordion>';
+  'import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@nuee/ui/accordion"\n\n<Accordion defaultValue={["item-1"]}>\n  <AccordionItem value="item-1">\n    <AccordionTrigger>Account settings</AccordionTrigger>\n    <AccordionContent>Update your profile and notification settings.</AccordionContent>\n  </AccordionItem>\n</Accordion>';
 
 export const AccordionStory: Story = {
   name: "Accordion",
@@ -112,7 +112,7 @@ export const AccordionStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

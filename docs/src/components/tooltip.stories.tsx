@@ -6,9 +6,9 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Button } from "@nooeh/ui/button";
-import { Icon } from "@nooeh/ui/icon";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@nooeh/ui/tooltip";
+import { Button } from "@nuee/ui/button";
+import { Icon } from "@nuee/ui/icon";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@nuee/ui/tooltip";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -53,7 +53,7 @@ function TooltipExample() {
 }
 
 const tooltipExampleCode =
-  'import { Tooltip, TooltipContent, TooltipTrigger } from "@nooeh/ui/tooltip"\n\n<Tooltip>\n  <TooltipTrigger aria-label="Help">?</TooltipTrigger>\n  <TooltipContent>View additional information.</TooltipContent>\n</Tooltip>';
+  'import { Tooltip, TooltipContent, TooltipTrigger } from "@nuee/ui/tooltip"\n\n<Tooltip>\n  <TooltipTrigger aria-label="Help">?</TooltipTrigger>\n  <TooltipContent>View additional information.</TooltipContent>\n</Tooltip>';
 
 export const TooltipStory: Story = {
   name: "Tooltip",
@@ -75,7 +75,7 @@ export const TooltipStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

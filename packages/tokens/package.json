@@ -1,10 +1,10 @@
 {
-  "name": "@nooeh/tokens",
-  "version": "0.1.2",
+  "name": "@nuee/tokens",
+  "version": "0.3.0",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/nooeh/ui.git"
+    "url": "https://github.com/nueexyz/ui.git"
   },
   "type": "module",
   "exports": {

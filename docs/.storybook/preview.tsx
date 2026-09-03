@@ -3,9 +3,9 @@ import {
   darkShadowTheme,
   lightColorTheme,
   lightShadowTheme,
-} from "@nooeh/tokens/themes.stylex";
-import { colorVars, typographyVars } from "@nooeh/tokens/tokens.stylex";
-import "@nooeh/ui/global.css";
+} from "@nuee/tokens/themes.stylex";
+import { colorVars, typographyVars } from "@nuee/tokens/tokens.stylex";
+import "@nuee/ui/global.css";
 import * as stylex from "@stylexjs/stylex";
 import type { Preview } from "@storybook/react-vite";
 import { type ReactNode, useLayoutEffect } from "react";
@@ -100,9 +100,18 @@ function MotionPreferenceScope({
   preference: MotionPreference;
 }) {
   useLayoutEffect(() => {
-    setMotionPreference(preference);
+    const applyMotionPreference = () => setMotionPreference(preference);
+    const styleSheetObserver = new MutationObserver(applyMotionPreference);
 
-    return () => setMotionPreference("system");
+    applyMotionPreference();
+    styleSheetObserver.observe(document.head, { childList: true, subtree: true });
+    document.head.addEventListener("load", applyMotionPreference, true);
+
+    return () => {
+      styleSheetObserver.disconnect();
+      document.head.removeEventListener("load", applyMotionPreference, true);
+      setMotionPreference("system");
+    };
   }, [preference]);
 
   return children;

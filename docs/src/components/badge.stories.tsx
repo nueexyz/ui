@@ -6,7 +6,7 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Badge } from "@nooeh/ui/badge";
+import { Badge } from "@nuee/ui/badge";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -26,7 +26,7 @@ function BadgeExample() {
   );
 }
 
-const badgeExampleCode = 'import { Badge } from "@nooeh/ui/badge"\n\n<Badge>In progress</Badge>';
+const badgeExampleCode = 'import { Badge } from "@nuee/ui/badge"\n\n<Badge>In progress</Badge>';
 
 export const BadgeStory: Story = {
   name: "Badge",
@@ -57,7 +57,7 @@ export const BadgeStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

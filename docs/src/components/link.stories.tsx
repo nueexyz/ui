@@ -1,5 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
-import { Link } from "@nooeh/ui/link";
+import { Link } from "@nuee/ui/link";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   CodeBlock,
@@ -36,7 +36,7 @@ function LinkExample() {
   );
 }
 
-const linkExampleCode = 'import { Link } from "@nooeh/ui/link"';
+const linkExampleCode = 'import { Link } from "@nuee/ui/link"';
 
 export const LinkStory: Story = {
   name: "Link",
@@ -58,7 +58,7 @@ export const LinkStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

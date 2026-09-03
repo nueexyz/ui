@@ -11,7 +11,7 @@ import {
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@nooeh/tokens/semantic.stylex";
+} from "@nuee/tokens/semantic.stylex";
 import { toastViewportVars } from "./toast.stylex";
 
 const spin = stylex.keyframes({ to: { transform: "rotate(360deg)" } });
@@ -356,7 +356,7 @@ function ToastStack({ position }: { position: ToastPosition }) {
 
     function updateHeight() {
       const rootList = Array.from(
-        measuredStack.querySelectorAll<HTMLElement>("[data-nooeh-toast-root]:not([data-limited])"),
+        measuredStack.querySelectorAll<HTMLElement>("[data-nuee-toast-root]:not([data-limited])"),
       );
       const toastGap =
         Number.parseFloat(getComputedStyle(document.documentElement).fontSize) * 0.75;
@@ -376,7 +376,7 @@ function ToastStack({ position }: { position: ToastPosition }) {
     updateHeight();
 
     const resizeObserver = new ResizeObserver(updateHeight);
-    const rootList = measuredStack.querySelectorAll<HTMLElement>("[data-nooeh-toast-root]");
+    const rootList = measuredStack.querySelectorAll<HTMLElement>("[data-nuee-toast-root]");
     rootList.forEach((root) => resizeObserver.observe(root));
     window.addEventListener("resize", updateHeight);
 
@@ -396,7 +396,7 @@ function ToastStack({ position }: { position: ToastPosition }) {
         <ToastPrimitive.Root
           key={item.id}
           toast={item}
-          data-nooeh-toast-root=""
+          data-nuee-toast-root=""
           {...stylex.props(styles.root, isTop && styles.rootTop)}
         >
           <ToastPrimitive.Content {...stylex.props(styles.content)}>

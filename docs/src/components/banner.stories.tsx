@@ -6,9 +6,9 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Banner } from "@nooeh/ui/banner";
-import { Icon } from "@nooeh/ui/icon";
-import { Link } from "@nooeh/ui/link";
+import { Banner } from "@nuee/ui/banner";
+import { Icon } from "@nuee/ui/icon";
+import { Link } from "@nuee/ui/link";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -76,7 +76,7 @@ function BannerExample() {
 }
 
 const bannerExampleCode =
-  'import { Banner } from "@nooeh/ui/banner"\nimport { Icon } from "@nooeh/ui/icon"\nimport { Link } from "@nooeh/ui/link"';
+  'import { Banner } from "@nuee/ui/banner"\nimport { Icon } from "@nuee/ui/icon"\nimport { Link } from "@nuee/ui/link"';
 
 export const BannerStory: Story = {
   name: "Banner",
@@ -124,7 +124,7 @@ export const BannerStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

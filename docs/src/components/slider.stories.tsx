@@ -6,8 +6,8 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Field, FieldDescription, FieldLabel } from "@nooeh/ui/field";
-import { Slider } from "@nooeh/ui/slider";
+import { Field, FieldDescription, FieldLabel } from "@nuee/ui/field";
+import { Slider } from "@nuee/ui/slider";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -37,7 +37,7 @@ function SliderExample() {
 }
 
 const sliderExampleCode =
-  'import { Slider } from "@nooeh/ui/slider"\n\n<Slider aria-label="Volume" defaultValue={40} />';
+  'import { Slider } from "@nuee/ui/slider"\n\n<Slider aria-label="Volume" defaultValue={40} />';
 
 export const SliderStory: Story = {
   name: "Slider",
@@ -71,7 +71,7 @@ export const SliderStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

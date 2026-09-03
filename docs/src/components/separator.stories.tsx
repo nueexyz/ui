@@ -6,8 +6,8 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { sizeVars, spacingVars } from "@nooeh/tokens/semantic.stylex";
-import { Separator } from "@nooeh/ui/separator";
+import { sizeVars, spacingVars } from "@nuee/tokens/semantic.stylex";
+import { Separator } from "@nuee/ui/separator";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -39,7 +39,7 @@ function SeparatorExample() {
 }
 
 const separatorExampleCode =
-  'import { Separator } from "@nooeh/ui/separator"\n\n<>\n  <span>Account information</span>\n  <Separator />\n  <div>Profile <Separator orientation="vertical" /> Security</div>\n</>';
+  'import { Separator } from "@nuee/ui/separator"\n\n<>\n  <span>Account information</span>\n  <Separator />\n  <div>Profile <Separator orientation="vertical" /> Security</div>\n</>';
 
 export const SeparatorStory: Story = {
   name: "Separator",
@@ -61,7 +61,7 @@ export const SeparatorStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

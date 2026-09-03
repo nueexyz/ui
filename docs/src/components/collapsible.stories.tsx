@@ -6,14 +6,14 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@nooeh/ui/collapsible";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@nuee/ui/collapsible";
 import {
   colorVars,
   radiusVars,
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@nooeh/tokens/semantic.stylex";
+} from "@nuee/tokens/semantic.stylex";
 
 const meta = {
   title: "Components",
@@ -82,7 +82,7 @@ function CollapsibleExample() {
 }
 
 const collapsibleExampleCode =
-  'import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@nooeh/ui/collapsible"\n\n<Collapsible>\n  <div>\n    <strong>Order #4189</strong>\n    <CollapsibleTrigger aria-label="Show order details" />\n  </div>\n  <p>Status: Delivered</p>\n  <CollapsibleContent>\n    <p>Shipping address: 18 Seongsui-ro, Seongdong-gu, Seoul</p>\n    <p>Items: 2 studio headphones</p>\n  </CollapsibleContent>\n</Collapsible>';
+  'import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@nuee/ui/collapsible"\n\n<Collapsible>\n  <div>\n    <strong>Order #4189</strong>\n    <CollapsibleTrigger aria-label="Show order details" />\n  </div>\n  <p>Status: Delivered</p>\n  <CollapsibleContent>\n    <p>Shipping address: 18 Seongsui-ro, Seongdong-gu, Seoul</p>\n    <p>Items: 2 studio headphones</p>\n  </CollapsibleContent>\n</Collapsible>';
 
 export const CollapsibleStory: Story = {
   name: "Collapsible",
@@ -104,7 +104,7 @@ export const CollapsibleStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

@@ -1,16 +1,16 @@
 {
-  "name": "@nooeh/docs",
+  "name": "@nuee/docs",
   "version": "0.0.1",
   "private": true,
   "type": "module",
   "scripts": {
-    "build-storybook": "pnpm --filter @nooeh/ui build && storybook build",
-    "storybook": "pnpm --filter @nooeh/ui build && storybook dev -p 6006",
-    "typecheck": "pnpm --filter @nooeh/ui build && tsc --noEmit"
+    "build-storybook": "pnpm --filter @nuee/ui build && storybook build",
+    "storybook": "pnpm --filter @nuee/ui build && storybook dev -p 6006",
+    "typecheck": "pnpm --filter @nuee/ui build && tsc --noEmit"
   },
   "dependencies": {
-    "@nooeh/tokens": "workspace:*",
-    "@nooeh/ui": "workspace:*",
+    "@nuee/tokens": "workspace:*",
+    "@nuee/ui": "workspace:*",
     "@stylexjs/stylex": "catalog:2026-08-27-stable",
     "react": "catalog:2026-08-27-stable",
     "react-dom": "catalog:2026-08-27-stable"

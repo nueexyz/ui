@@ -1,12 +1,12 @@
-import { Icon, iconRegistry } from "@nooeh/ui/icon";
-import type { IconName } from "@nooeh/ui/icon";
+import { Icon, iconRegistry } from "@nuee/ui/icon";
+import type { IconName } from "@nuee/ui/icon";
 import {
   colorVars,
   radiusVars,
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@nooeh/tokens/semantic.stylex";
+} from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 

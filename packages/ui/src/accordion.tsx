@@ -9,7 +9,7 @@ import {
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@nooeh/tokens/semantic.stylex";
+} from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
   root: { minWidth: 0, width: "100%" },

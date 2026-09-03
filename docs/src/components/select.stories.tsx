@@ -6,7 +6,7 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Field, FieldDescription, FieldLabel } from "@nooeh/ui/field";
+import { Field, FieldDescription, FieldLabel } from "@nuee/ui/field";
 import {
   Select,
   SelectContent,
@@ -16,7 +16,7 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "@nooeh/ui/select";
+} from "@nuee/ui/select";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -56,7 +56,7 @@ function SelectExample() {
 }
 
 const selectExampleCode =
-  'import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@nooeh/ui/select"\n\n<Select defaultValue="design">\n  <SelectTrigger aria-label="Select team">\n    <SelectValue />\n  </SelectTrigger>\n  <SelectContent>\n    <SelectItem value="design">Design</SelectItem>\n    <SelectItem value="development">Development</SelectItem>\n  </SelectContent>\n</Select>';
+  'import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@nuee/ui/select"\n\n<Select defaultValue="design">\n  <SelectTrigger aria-label="Select team">\n    <SelectValue />\n  </SelectTrigger>\n  <SelectContent>\n    <SelectItem value="design">Design</SelectItem>\n    <SelectItem value="development">Development</SelectItem>\n  </SelectContent>\n</Select>';
 
 export const SelectStory: Story = {
   name: "Select",
@@ -76,7 +76,7 @@ export const SelectStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

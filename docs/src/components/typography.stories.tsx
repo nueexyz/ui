@@ -6,8 +6,8 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { spacingVars } from "@nooeh/tokens/semantic.stylex";
-import { Typography } from "@nooeh/ui/typography";
+import { spacingVars } from "@nuee/tokens/semantic.stylex";
+import { Typography } from "@nuee/ui/typography";
 
 const meta = {
   title: "Components",
@@ -37,7 +37,7 @@ function TypographyExample() {
 }
 
 const typographyExampleCode =
-  'import { Typography } from "@nooeh/ui/typography"\n\n<Typography variant="display">Primary product heading</Typography>';
+  'import { Typography } from "@nuee/ui/typography"\n\n<Typography variant="display">Primary product heading</Typography>';
 
 export const TypographyStory: Story = {
   name: "Typography",
@@ -68,7 +68,7 @@ export const TypographyStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

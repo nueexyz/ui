@@ -6,9 +6,9 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { ScrollArea } from "@nooeh/ui/scroll-area";
-import { Separator } from "@nooeh/ui/separator";
-import { spacingVars } from "@nooeh/tokens/semantic.stylex";
+import { ScrollArea } from "@nuee/ui/scroll-area";
+import { Separator } from "@nuee/ui/separator";
+import { spacingVars } from "@nuee/tokens/semantic.stylex";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -60,7 +60,7 @@ function ScrollAreaExample() {
 }
 
 const scrollAreaExampleCode =
-  'import { ScrollArea } from "@nooeh/ui/scroll-area"\nimport { Separator } from "@nooeh/ui/separator"\n\nconst activities = [\n  "Completed the deployment checklist.",\n  "Sent a design review request.",\n  "Updated the sign-in screen.",\n]\n\n<ScrollArea style={{ height: "14rem", width: "20rem" }}>\n  {activities.map((activity, index) => (\n    <div key={activity}>\n      <div style={{ paddingBlock: "0.75rem" }}>{activity}</div>\n      {index < activities.length - 1 ? <Separator /> : null}\n    </div>\n  ))}\n</ScrollArea>';
+  'import { ScrollArea } from "@nuee/ui/scroll-area"\nimport { Separator } from "@nuee/ui/separator"\n\nconst activities = [\n  "Completed the deployment checklist.",\n  "Sent a design review request.",\n  "Updated the sign-in screen.",\n]\n\n<ScrollArea style={{ height: "14rem", width: "20rem" }}>\n  {activities.map((activity, index) => (\n    <div key={activity}>\n      <div style={{ paddingBlock: "0.75rem" }}>{activity}</div>\n      {index < activities.length - 1 ? <Separator /> : null}\n    </div>\n  ))}\n</ScrollArea>';
 
 export const ScrollAreaStory: Story = {
   name: "Scroll Area",
@@ -82,7 +82,7 @@ export const ScrollAreaStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

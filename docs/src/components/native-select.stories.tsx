@@ -6,8 +6,8 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Field, FieldLabel } from "@nooeh/ui/field";
-import { NativeSelect, NativeSelectOption } from "@nooeh/ui/native-select";
+import { Field, FieldLabel } from "@nuee/ui/field";
+import { NativeSelect, NativeSelectOption } from "@nuee/ui/native-select";
 
 const meta = {
   title: "Components",
@@ -34,7 +34,7 @@ function NativeSelectExample() {
 }
 
 const nativeSelectExampleCode =
-  'import { Field, FieldLabel } from "@nooeh/ui/field"\nimport { NativeSelect, NativeSelectOption } from "@nooeh/ui/native-select"\n\n<Field>\n  <FieldLabel>Language</FieldLabel>\n  <NativeSelect defaultValue="ko">\n    <NativeSelectOption value="ko">Korean</NativeSelectOption>\n    <NativeSelectOption value="en">English</NativeSelectOption>\n    <NativeSelectOption value="ja">Japanese</NativeSelectOption>\n  </NativeSelect>\n</Field>';
+  'import { Field, FieldLabel } from "@nuee/ui/field"\nimport { NativeSelect, NativeSelectOption } from "@nuee/ui/native-select"\n\n<Field>\n  <FieldLabel>Language</FieldLabel>\n  <NativeSelect defaultValue="ko">\n    <NativeSelectOption value="ko">Korean</NativeSelectOption>\n    <NativeSelectOption value="en">English</NativeSelectOption>\n    <NativeSelectOption value="ja">Japanese</NativeSelectOption>\n  </NativeSelect>\n</Field>';
 
 export const NativeSelectStory: Story = {
   name: "Native Select",
@@ -88,7 +88,7 @@ export const NativeSelectStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

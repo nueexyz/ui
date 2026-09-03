@@ -4,14 +4,14 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
 
-import { registryItems } from "@nooeh/registry";
+import { registryItems } from "@nuee/registry";
 import { add } from "../dist/add.js";
 import { configFileName, defaultConfig, readConfig } from "../dist/config.js";
 import { init } from "../dist/init.js";
 import { writeTsconfig } from "./helpers.ts";
 
 test("add creates the default config and copies a component with its foundation", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
     await add(projectDirectory, "button", { defaults: true, skipDependencyInstall: true });
@@ -30,7 +30,7 @@ test("add creates the default config and copies a component with its foundation"
 });
 
 test("add uses the configured local token directory", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
     await mkdir(join(projectDirectory, "src"), { recursive: true });
@@ -38,13 +38,13 @@ test("add uses the configured local token directory", async () => {
       defaults: true,
       "skip-dependencies": true,
       ui: "@/design/ui",
-      tokens: "@/design-system/nooeh",
+      tokens: "@/design-system/nuee",
     });
     await add(projectDirectory, "card", { skipDependencyInstall: true });
 
     assert.match(
       await readFile(join(projectDirectory, "src/design/ui/card.tsx"), "utf8"),
-      /from "\.\.\/\.\.\/design-system\/nooeh\/semantic\.stylex"/,
+      /from "\.\.\/\.\.\/design-system\/nuee\/semantic\.stylex"/,
     );
   } finally {
     await rm(projectDirectory, { recursive: true });
@@ -52,7 +52,7 @@ test("add uses the configured local token directory", async () => {
 });
 
 test("add omits reduced-motion rules when accessibility config disables them", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
     await init(projectDirectory, { defaults: true, "skip-dependencies": true });
@@ -77,7 +77,7 @@ test("add omits reduced-motion rules when accessibility config disables them", a
 });
 
 test("add resolves aliases from tsconfig paths", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
     await writeFile(
@@ -109,7 +109,7 @@ test("add resolves aliases from tsconfig paths", async () => {
 });
 
 test("add resolves component and icon dependencies", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);
@@ -130,7 +130,7 @@ test("add resolves component and icon dependencies", async () => {
 });
 
 test("add uses packaged registry content without a UI source directory", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);
@@ -147,7 +147,7 @@ test("add uses packaged registry content without a UI source directory", async (
 });
 
 test("every registry component uses the project's local StyleX tokens", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
     await init(projectDirectory, { defaults: true, "skip-dependencies": true });
@@ -161,7 +161,7 @@ test("every registry component uses the project's local StyleX tokens", async ()
         if (!file.endsWith(".tsx")) continue;
 
         const source = await readFile(join(projectDirectory, "src/components/ui", file), "utf8");
-        assert.doesNotMatch(source, /@nooeh\/tokens/);
+        assert.doesNotMatch(source, /@nuee\/tokens/);
       }
     }
   } finally {
@@ -170,7 +170,7 @@ test("every registry component uses the project's local StyleX tokens", async ()
 });
 
 test("add installs renamed and new components", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);
@@ -196,7 +196,7 @@ test("add installs renamed and new components", async () => {
 });
 
 test("add dry-run does not write files", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);
@@ -209,7 +209,7 @@ test("add dry-run does not write files", async () => {
 });
 
 test("add installs a component from a registry URL", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
   const item = {
     dependencies: [],
     files: [{ path: "notice.ts", content: "export const notice = true;\n" }],
@@ -237,7 +237,7 @@ test("add installs a component from a registry URL", async () => {
 });
 
 test("add rejects a registry file path that escapes the UI directory", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
   const item = {
     dependencies: [],
     files: [{ path: "../outside.ts", content: "export const outside = true;\n" }],

@@ -6,7 +6,7 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Kbd, KbdGroup } from "@nooeh/ui/kbd";
+import { Kbd, KbdGroup } from "@nuee/ui/kbd";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -30,7 +30,7 @@ function KbdExample() {
 }
 
 const kbdExampleCode =
-  'import { Kbd, KbdGroup } from "@nooeh/ui/kbd"\n\n<KbdGroup>\n  <Kbd>⌘</Kbd>\n  <Kbd>K</Kbd>\n</KbdGroup>';
+  'import { Kbd, KbdGroup } from "@nuee/ui/kbd"\n\n<KbdGroup>\n  <Kbd>⌘</Kbd>\n  <Kbd>K</Kbd>\n</KbdGroup>';
 
 export const KbdStory: Story = {
   name: "Kbd",
@@ -52,7 +52,7 @@ export const KbdStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

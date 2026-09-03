@@ -6,7 +6,7 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Switch } from "@nooeh/ui/switch";
+import { Switch } from "@nuee/ui/switch";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -30,7 +30,7 @@ function SwitchExample() {
 }
 
 const switchExampleCode =
-  'import { Switch } from "@nooeh/ui/switch"\n\n<>\n  <Switch defaultChecked id="activity-visibility" />\n  <Switch disabled id="admin-only" />\n</>';
+  'import { Switch } from "@nuee/ui/switch"\n\n<>\n  <Switch defaultChecked id="activity-visibility" />\n  <Switch disabled id="admin-only" />\n</>';
 
 export const SwitchStory: Story = {
   name: "Switch",
@@ -77,7 +77,7 @@ export const SwitchStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

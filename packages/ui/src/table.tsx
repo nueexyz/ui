@@ -3,7 +3,7 @@ import type { ComponentProps } from "react";
 
 import { getNativeStyleProps } from "./stylex-props";
 
-import { colorVars, motionVars, spacingVars, typographyVars } from "@nooeh/tokens/semantic.stylex";
+import { colorVars, motionVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
   container: { overflowX: "auto", position: "relative", width: "100%" },

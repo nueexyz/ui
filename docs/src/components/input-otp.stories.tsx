@@ -6,7 +6,7 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@nooeh/ui/input-otp";
+import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@nuee/ui/input-otp";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -43,7 +43,7 @@ function InputOTPExample() {
 }
 
 const inputOTPExampleCode =
-  'import { InputOTP, InputOTPGroup, InputOTPSlot } from "@nooeh/ui/input-otp"\n\n<InputOTP aria-label="6-digit verification code" length={6}>\n  <InputOTPGroup>\n    {Array.from({ length: 6 }, (_, index) => <InputOTPSlot key={index} />)}\n  </InputOTPGroup>\n</InputOTP>';
+  'import { InputOTP, InputOTPGroup, InputOTPSlot } from "@nuee/ui/input-otp"\n\n<InputOTP aria-label="6-digit verification code" length={6}>\n  <InputOTPGroup>\n    {Array.from({ length: 6 }, (_, index) => <InputOTPSlot key={index} />)}\n  </InputOTPGroup>\n</InputOTP>';
 
 export const InputOTPStory: Story = {
   name: "Input OTP",
@@ -65,7 +65,7 @@ export const InputOTPStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

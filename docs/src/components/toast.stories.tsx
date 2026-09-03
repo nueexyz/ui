@@ -1,6 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
-import { Button } from "@nooeh/ui/button";
-import { toast, Toaster } from "@nooeh/ui/toast";
+import { Button } from "@nuee/ui/button";
+import { toast, Toaster } from "@nuee/ui/toast";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   CodeBlock,
@@ -149,7 +149,7 @@ function ToastExample({
 }
 
 const toastExampleCode =
-  'import { Button } from "@nooeh/ui/button"\nimport { toast, Toaster } from "@nooeh/ui/toast"\n\n<>\n  <Button onClick={() => toast.add({ title: "Saved." })}>Save</Button>\n  <Toaster position="bottom-right" />\n</>';
+  'import { Button } from "@nuee/ui/button"\nimport { toast, Toaster } from "@nuee/ui/toast"\n\n<>\n  <Button onClick={() => toast.add({ title: "Saved." })}>Save</Button>\n  <Toaster position="bottom-right" />\n</>';
 
 export const ToastStory: Story = {
   name: "Toast",
@@ -171,7 +171,7 @@ export const ToastStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

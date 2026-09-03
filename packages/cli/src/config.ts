@@ -1,9 +1,9 @@
 import { access, readFile, writeFile } from "node:fs/promises";
 import { isAbsolute, join, relative, resolve } from "node:path";
 
-export const configFileName = "nooeh.json";
+export const configFileName = "nuee.json";
 
-export type NooehConfig = {
+export type NueeConfig = {
   accessibility: {
     respectReducedMotion: boolean;
   };
@@ -13,7 +13,7 @@ export type NooehConfig = {
   };
 };
 
-export const defaultConfig: NooehConfig = {
+export const defaultConfig: NueeConfig = {
   accessibility: {
     respectReducedMotion: true,
   },
@@ -40,7 +40,7 @@ function ensureRelativePath(projectDirectory: string, path: string, name: string
   }
 }
 
-export function validateConfig(config: unknown): NooehConfig {
+export function validateConfig(config: unknown): NueeConfig {
   const candidate = config as {
     accessibility?: { respectReducedMotion?: unknown };
     aliases?: unknown;
@@ -49,7 +49,7 @@ export function validateConfig(config: unknown): NooehConfig {
   };
   if (candidate.paths || candidate.tokens) {
     throw new Error(
-      "This nooeh.json uses an older format. Run `nooeh init --force` to create alias-based configuration.",
+      "This nuee.json uses an older format. Run `nuee init --force` to create alias-based configuration.",
     );
   }
   if (!candidate.aliases || typeof candidate.aliases !== "object") {
@@ -97,13 +97,13 @@ export async function readConfig(projectDirectory: string) {
     return validateConfig(config);
   } catch (error) {
     if (isNotFoundError(error)) {
-      throw new Error("nooeh.json was not found. Run `nooeh init` first.");
+      throw new Error("nuee.json was not found. Run `nuee init` first.");
     }
     throw error;
   }
 }
 
-export async function writeConfig(projectDirectory: string, config: NooehConfig) {
+export async function writeConfig(projectDirectory: string, config: NueeConfig) {
   const validatedConfig = validateConfig(config);
   const configPath = resolve(projectDirectory, configFileName);
   await writeFile(configPath, `${JSON.stringify(validatedConfig, null, 2)}\n`, "utf8");

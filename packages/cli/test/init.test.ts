@@ -8,7 +8,7 @@ import { configFileName, defaultConfig, readConfig } from "../dist/config.js";
 import { init } from "../dist/init.js";
 
 test("init stores a custom UI path", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
     await init(projectDirectory, {
@@ -26,17 +26,17 @@ test("init stores a custom UI path", async () => {
 });
 
 test("readConfig explains how to replace an older configuration", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
     await writeFile(
       join(projectDirectory, configFileName),
-      JSON.stringify({ paths: { ui: "src/components/ui", tokens: "src/styles/nooeh" } }),
+      JSON.stringify({ paths: { ui: "src/components/ui", tokens: "src/styles/nuee" } }),
     );
 
     await assert.rejects(
       () => readConfig(projectDirectory),
-      /uses an older format\. Run `nooeh init --force`/,
+      /uses an older format\. Run `nuee init --force`/,
     );
   } finally {
     await rm(projectDirectory, { recursive: true });
@@ -44,7 +44,7 @@ test("readConfig explains how to replace an older configuration", async () => {
 });
 
 test("init creates local StyleX sources without changing an entry point", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
     await mkdir(join(projectDirectory, "src"), { recursive: true });
@@ -61,7 +61,7 @@ test("init creates local StyleX sources without changing an entry point", async 
 });
 
 test("init keeps existing local token files", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
     await mkdir(join(projectDirectory, "src/styles"), { recursive: true });
@@ -78,7 +78,7 @@ test("init keeps existing local token files", async () => {
 });
 
 test("init --force refreshes legacy semantic defaults", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
     await mkdir(join(projectDirectory, "src/styles"), { recursive: true });
@@ -98,7 +98,7 @@ test("init --force refreshes legacy semantic defaults", async () => {
 });
 
 test("init configures a standard Vite project", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
     await writeFile(
@@ -120,7 +120,7 @@ test("init configures a standard Vite project", async () => {
     );
     assert.equal(
       await readFile(join(projectDirectory, "src/index.css"), "utf8"),
-      '@import "@nooeh/ui/reset.css";\n\nbody { color: black; }\n',
+      '@import "@nuee/ui/reset.css";\n\nbody { color: black; }\n',
     );
     await access(join(projectDirectory, "src/styles/themes.stylex.ts"));
   } finally {
@@ -128,8 +128,8 @@ test("init configures a standard Vite project", async () => {
   }
 });
 
-test("init --force simplifies the legacy Nooeh StyleX plugin", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+test("init --force simplifies the legacy Nuee StyleX plugin", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
     await writeFile(
@@ -173,7 +173,7 @@ export default defineConfig({
 });
 
 test("init does not change a Vite project when its plugin array cannot be updated safely", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
     const configSource = "export default defineConfig({});\n";
@@ -193,26 +193,26 @@ test("init does not change a Vite project when its plugin array cannot be update
 });
 
 test("init writes tokens to a configured project-local directory", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
     await mkdir(join(projectDirectory, "src"), { recursive: true });
     await init(projectDirectory, {
       defaults: true,
       "skip-dependencies": true,
-      tokens: "@/design-system/nooeh",
+      tokens: "@/design-system/nuee",
     });
 
     const config = await readConfig(projectDirectory);
-    assert.equal(config.aliases.styles, "@/design-system/nooeh");
-    await access(join(projectDirectory, "src/design-system/nooeh/semantic.stylex.ts"));
+    assert.equal(config.aliases.styles, "@/design-system/nuee");
+    await access(join(projectDirectory, "src/design-system/nuee/semantic.stylex.ts"));
   } finally {
     await rm(projectDirectory, { recursive: true });
   }
 });
 
 test("init rejects a path outside the project", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
     await assert.rejects(

@@ -6,8 +6,8 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { spacingVars } from "@nooeh/tokens/semantic.stylex";
-import { Button } from "@nooeh/ui/button";
+import { spacingVars } from "@nuee/tokens/semantic.stylex";
+import { Button } from "@nuee/ui/button";
 import {
   Empty,
   EmptyContent,
@@ -15,8 +15,8 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@nooeh/ui/empty";
-import { Icon } from "@nooeh/ui/icon";
+} from "@nuee/ui/empty";
+import { Icon } from "@nuee/ui/icon";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -48,7 +48,7 @@ function EmptyExample() {
 }
 
 const emptyExampleCode =
-  'import { Button } from "@nooeh/ui/button"\nimport { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@nooeh/ui/empty"\nimport { Icon } from "@nooeh/ui/icon"\n\n<Empty>\n  <EmptyHeader>\n    <EmptyMedia><Icon aria-hidden="true" name="folder" /></EmptyMedia>\n    <EmptyTitle>No saved projects</EmptyTitle>\n    <EmptyDescription>Save projects you visit often to open them here quickly.</EmptyDescription>\n  </EmptyHeader>\n  <EmptyContent><Button>Save project</Button></EmptyContent>\n</Empty>';
+  'import { Button } from "@nuee/ui/button"\nimport { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@nuee/ui/empty"\nimport { Icon } from "@nuee/ui/icon"\n\n<Empty>\n  <EmptyHeader>\n    <EmptyMedia><Icon aria-hidden="true" name="folder" /></EmptyMedia>\n    <EmptyTitle>No saved projects</EmptyTitle>\n    <EmptyDescription>Save projects you visit often to open them here quickly.</EmptyDescription>\n  </EmptyHeader>\n  <EmptyContent><Button>Save project</Button></EmptyContent>\n</Empty>';
 
 export const EmptyStory: Story = {
   name: "Empty",
@@ -70,7 +70,7 @@ export const EmptyStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

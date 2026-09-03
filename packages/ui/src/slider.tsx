@@ -2,7 +2,7 @@ import { Slider as SliderPrimitive } from "@base-ui/react/slider";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { colorVars, opacityVars, radiusVars, sizeVars } from "@nooeh/tokens/semantic.stylex";
+import { colorVars, opacityVars, radiusVars, sizeVars } from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
   root: { opacity: { default: 1, ":disabled": opacityVars.disabled }, width: "100%" },

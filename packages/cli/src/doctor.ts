@@ -96,8 +96,8 @@ export async function doctor(projectDirectory: string) {
 
   if (!(await hasConfig(projectDirectory))) {
     checks.push({
-      detail: "Run `nooeh init` to configure UI and styles aliases.",
-      name: "nooeh.json",
+      detail: "Run `nuee init` to configure UI and styles aliases.",
+      name: "nuee.json",
       status: "warn",
     });
   } else {
@@ -137,14 +137,14 @@ export async function doctor(projectDirectory: string) {
               status: "pass",
             }
           : {
-              detail: `Create local token sources in ${config.aliases.styles} with \`nooeh init --force\`.`,
+              detail: `Create local token sources in ${config.aliases.styles} with \`nuee init --force\`.`,
               name: "Local tokens",
               status: "warn",
             },
       );
     } catch (error) {
       checks.push({
-        detail: error instanceof Error ? error.message : "Could not resolve nooeh aliases.",
+        detail: error instanceof Error ? error.message : "Could not resolve nuee aliases.",
         name: "Aliases",
         status: "warn",
       });
@@ -156,7 +156,7 @@ export async function doctor(projectDirectory: string) {
       ? { detail: "@stylexjs/stylex is installed.", name: "StyleX runtime", status: "pass" }
       : {
           detail:
-            "It is installed automatically by the first `nooeh add`. Use --skip-dependencies to skip installation.",
+            "It is installed automatically by the first `nuee add`. Use --skip-dependencies to skip installation.",
           name: "StyleX runtime",
           status: "warn",
         },
@@ -170,7 +170,7 @@ export async function doctor(projectDirectory: string) {
         }
       : {
           detail:
-            "Configure the StyleX compiler for your bundler. Vite users can run `nooeh init --framework vite`.",
+            "Configure the StyleX compiler for your bundler. Vite users can run `nuee init --framework vite`.",
           name: "StyleX compiler",
           status: "warn",
         },

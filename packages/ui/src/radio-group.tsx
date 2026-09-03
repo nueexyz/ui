@@ -9,7 +9,7 @@ import {
   radiusVars,
   sizeVars,
   spacingVars,
-} from "@nooeh/tokens/semantic.stylex";
+} from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
   group: { display: "flex", flexDirection: "column", gap: spacingVars.space3 },

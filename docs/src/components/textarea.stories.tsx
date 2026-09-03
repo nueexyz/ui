@@ -6,7 +6,7 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Textarea } from "@nooeh/ui/textarea";
+import { Textarea } from "@nuee/ui/textarea";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -38,7 +38,7 @@ function TextareaExample() {
 }
 
 const textareaExampleCode =
-  'import { Textarea } from "@nooeh/ui/textarea"\n\n<>\n  <Textarea aria-label="Note" placeholder="Write down the decisions from the meeting." />\n  <Textarea aria-label="Read-only note" disabled defaultValue="This note has been reviewed." />\n</>';
+  'import { Textarea } from "@nuee/ui/textarea"\n\n<>\n  <Textarea aria-label="Note" placeholder="Write down the decisions from the meeting." />\n  <Textarea aria-label="Read-only note" disabled defaultValue="This note has been reviewed." />\n</>';
 
 export const TextareaStory: Story = {
   name: "Textarea",
@@ -60,7 +60,7 @@ export const TextareaStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

@@ -6,8 +6,8 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { colorVars, sizeVars } from "@nooeh/tokens/semantic.stylex";
-import { AspectRatio } from "@nooeh/ui/aspect-ratio";
+import { colorVars, sizeVars } from "@nuee/tokens/semantic.stylex";
+import { AspectRatio } from "@nuee/ui/aspect-ratio";
 
 const meta = {
   title: "Components",
@@ -40,7 +40,7 @@ function AspectRatioExample() {
 }
 
 const aspectRatioExampleCode =
-  'import { AspectRatio } from "@nooeh/ui/aspect-ratio"\n\n<AspectRatio ratio={16 / 9}>Media preview</AspectRatio>';
+  'import { AspectRatio } from "@nuee/ui/aspect-ratio"\n\n<AspectRatio ratio={16 / 9}>Media preview</AspectRatio>';
 
 export const AspectRatioStory: Story = {
   name: "Aspect Ratio",
@@ -62,7 +62,7 @@ export const AspectRatioStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

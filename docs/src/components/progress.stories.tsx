@@ -6,7 +6,7 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Progress } from "@nooeh/ui/progress";
+import { Progress } from "@nuee/ui/progress";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -24,7 +24,7 @@ function ProgressExample() {
 }
 
 const progressExampleCode =
-  'import { Progress } from "@nooeh/ui/progress"\n\n<>\n  <Progress aria-label="File upload progress" value={64} />\n  <Progress aria-label="In progress" value={null} />\n</>';
+  'import { Progress } from "@nuee/ui/progress"\n\n<>\n  <Progress aria-label="File upload progress" value={64} />\n  <Progress aria-label="In progress" value={null} />\n</>';
 
 export const ProgressStory: Story = {
   name: "Progress",
@@ -46,7 +46,7 @@ export const ProgressStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

@@ -11,7 +11,7 @@ import {
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@nooeh/tokens/semantic.stylex";
+} from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
   root: { alignItems: "center", display: "inline-flex", width: "fit-content" },

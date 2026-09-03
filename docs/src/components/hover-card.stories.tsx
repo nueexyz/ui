@@ -6,15 +6,15 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Avatar, AvatarFallback } from "@nooeh/ui/avatar";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@nooeh/ui/hover-card";
+import { Avatar, AvatarFallback } from "@nuee/ui/avatar";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@nuee/ui/hover-card";
 import {
   ContentRow,
   ContentRowContent,
   ContentRowDescription,
   ContentRowMedia,
   ContentRowTitle,
-} from "@nooeh/ui/content-row";
+} from "@nuee/ui/content-row";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -33,7 +33,7 @@ function HoverCardExample() {
       </header>
       <div {...stylex.props(storyStyles.preview)}>
         <HoverCard>
-          <HoverCardTrigger href="#">@nooeh</HoverCardTrigger>
+          <HoverCardTrigger href="#">@nuee</HoverCardTrigger>
           <HoverCardContent align="start">
             <ContentRow size="sm">
               <ContentRowMedia variant="avatar">
@@ -42,7 +42,7 @@ function HoverCardExample() {
                 </Avatar>
               </ContentRowMedia>
               <ContentRowContent>
-                <ContentRowTitle>Nooeh</ContentRowTitle>
+                <ContentRowTitle>Nuee</ContentRowTitle>
                 <ContentRowDescription>
                   A calm, consistent design system for product experiences
                 </ContentRowDescription>
@@ -56,7 +56,7 @@ function HoverCardExample() {
 }
 
 const hoverCardExampleCode =
-  'import { Avatar, AvatarFallback } from "@nooeh/ui/avatar"\nimport { ContentRow, ContentRowContent, ContentRowDescription, ContentRowMedia, ContentRowTitle } from "@nooeh/ui/content-row"\nimport { HoverCard, HoverCardContent, HoverCardTrigger } from "@nooeh/ui/hover-card"\n\n<HoverCard>\n  <HoverCardTrigger href="#">@nooeh</HoverCardTrigger>\n  <HoverCardContent align="start">\n    <ContentRow size="sm">\n      <ContentRowMedia variant="avatar"><Avatar><AvatarFallback>CA</AvatarFallback></Avatar></ContentRowMedia>\n      <ContentRowContent>\n        <ContentRowTitle>Nooeh</ContentRowTitle>\n        <ContentRowDescription>A calm, consistent design system for product experiences</ContentRowDescription>\n      </ContentRowContent>\n    </ContentRow>\n  </HoverCardContent>\n</HoverCard>';
+  'import { Avatar, AvatarFallback } from "@nuee/ui/avatar"\nimport { ContentRow, ContentRowContent, ContentRowDescription, ContentRowMedia, ContentRowTitle } from "@nuee/ui/content-row"\nimport { HoverCard, HoverCardContent, HoverCardTrigger } from "@nuee/ui/hover-card"\n\n<HoverCard>\n  <HoverCardTrigger href="#">@nuee</HoverCardTrigger>\n  <HoverCardContent align="start">\n    <ContentRow size="sm">\n      <ContentRowMedia variant="avatar"><Avatar><AvatarFallback>CA</AvatarFallback></Avatar></ContentRowMedia>\n      <ContentRowContent>\n        <ContentRowTitle>Nuee</ContentRowTitle>\n        <ContentRowDescription>A calm, consistent design system for product experiences</ContentRowDescription>\n      </ContentRowContent>\n    </ContentRow>\n  </HoverCardContent>\n</HoverCard>';
 
 export const HoverCardStory: Story = {
   name: "Hover Card",
@@ -78,7 +78,7 @@ export const HoverCardStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

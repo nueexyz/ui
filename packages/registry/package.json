@@ -1,10 +1,10 @@
 {
-  "name": "@nooeh/registry",
-  "version": "0.1.3",
+  "name": "@nuee/registry",
+  "version": "0.3.0",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/nooeh/ui.git"
+    "url": "https://github.com/nueexyz/ui.git"
   },
   "files": [
     "dist"

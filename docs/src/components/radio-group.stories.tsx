@@ -6,9 +6,9 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Field, FieldLabel } from "@nooeh/ui/field";
-import { Label } from "@nooeh/ui/label";
-import { RadioGroup, RadioGroupItem } from "@nooeh/ui/radio-group";
+import { Field, FieldLabel } from "@nuee/ui/field";
+import { Label } from "@nuee/ui/label";
+import { RadioGroup, RadioGroupItem } from "@nuee/ui/radio-group";
 
 const meta = {
   title: "Components",
@@ -44,7 +44,7 @@ function RadioGroupExample() {
 }
 
 const radioGroupExampleCode =
-  'import { Field, FieldLabel } from "@nooeh/ui/field"\nimport { Label } from "@nooeh/ui/label"\nimport { RadioGroup, RadioGroupItem } from "@nooeh/ui/radio-group"\n\n<Field>\n  <FieldLabel>Notification frequency</FieldLabel>\n  <RadioGroup defaultValue="daily">\n    <Label>\n      <RadioGroupItem value="daily" />\n      Daily\n    </Label>\n    <Label>\n      <RadioGroupItem value="weekly" />\n      Weekly\n    </Label>\n  </RadioGroup>\n</Field>';
+  'import { Field, FieldLabel } from "@nuee/ui/field"\nimport { Label } from "@nuee/ui/label"\nimport { RadioGroup, RadioGroupItem } from "@nuee/ui/radio-group"\n\n<Field>\n  <FieldLabel>Notification frequency</FieldLabel>\n  <RadioGroup defaultValue="daily">\n    <Label>\n      <RadioGroupItem value="daily" />\n      Daily\n    </Label>\n    <Label>\n      <RadioGroupItem value="weekly" />\n      Weekly\n    </Label>\n  </RadioGroup>\n</Field>';
 
 export const RadioGroupStory: Story = {
   name: "Radio Group",
@@ -88,7 +88,7 @@ export const RadioGroupStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

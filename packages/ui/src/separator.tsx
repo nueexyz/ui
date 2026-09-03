@@ -2,7 +2,7 @@ import { Separator as SeparatorPrimitive } from "@base-ui/react/separator";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { colorVars, sizeVars } from "@nooeh/tokens/semantic.stylex";
+import { colorVars, sizeVars } from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
   root: { backgroundColor: colorVars.strokeDefault, flexShrink: 0 },

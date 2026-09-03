@@ -3,7 +3,7 @@ import { type ComponentProps, type ReactNode, useEffect, useRef, useState } from
 
 import { Button } from "./button";
 import { Icon } from "./Icon";
-import { colorVars, motionVars, radiusVars, spacingVars } from "@nooeh/tokens/semantic.stylex";
+import { colorVars, motionVars, radiusVars, spacingVars } from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
   root: { minHeight: 0, overflow: "hidden", position: "relative" },

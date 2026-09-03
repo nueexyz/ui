@@ -6,7 +6,7 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Button } from "@nooeh/ui/button";
+import { Button } from "@nuee/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -16,7 +16,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@nooeh/ui/dialog";
+} from "@nuee/ui/dialog";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -47,7 +47,7 @@ function DialogExample() {
 }
 
 const dialogExampleCode =
-  'import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@nooeh/ui/dialog"\n\n<Dialog>\n  <DialogTrigger>Open profile</DialogTrigger>\n  <DialogContent>\n    <DialogTitle>Profile</DialogTitle>\n  </DialogContent>\n</Dialog>';
+  'import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@nuee/ui/dialog"\n\n<Dialog>\n  <DialogTrigger>Open profile</DialogTrigger>\n  <DialogContent>\n    <DialogTitle>Profile</DialogTitle>\n  </DialogContent>\n</Dialog>';
 
 export const DialogStory: Story = {
   name: "Dialog",
@@ -69,7 +69,7 @@ export const DialogStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

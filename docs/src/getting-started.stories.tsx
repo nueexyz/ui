@@ -4,7 +4,7 @@ import {
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@nooeh/tokens/semantic.stylex";
+} from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
@@ -93,7 +93,7 @@ export const GettingStarted: Story = {
           <p {...stylex.props(storyStyles.description)}>Run this once from the project root.</p>
         </header>
         <CodeBlock
-          code="pnpm dlx @nooeh/ui init --framework vite"
+          code="pnpm dlx @nuee/ui init --framework vite"
           label="Terminal"
           language="bash"
         />
@@ -102,10 +102,10 @@ export const GettingStarted: Story = {
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>2. Import alias</h2>
           <p {...stylex.props(storyStyles.description)}>
-            The component and local style aliases entered during init are saved to nooeh.json.
+            The component and local style aliases entered during init are saved to nuee.json.
           </p>
         </header>
-        <CodeBlock code={config} label="nooeh.json" language="json" />
+        <CodeBlock code={config} label="nuee.json" language="json" />
         <dl {...stylex.props(styles.configDetail)}>
           <dt {...stylex.props(styles.configField)}>aliases.ui / aliases.styles</dt>
           <dd {...stylex.props(styles.configDescription)}>

@@ -25,16 +25,16 @@ export async function run(arguments_ = process.argv.slice(2)) {
     } else if (command === "new") {
       await newComponent(projectDirectory, positionals[0]);
     } else {
-      console.log(`Nooeh CLI
+      console.log(`Nuee CLI
 
 Usage:
-  nooeh init [--ui <path>] [--tokens <path>]
-  nooeh init --framework vite
-  nooeh add <component> [--skip-dependencies] [--dry-run]
-  nooeh doctor
-  nooeh list
-  nooeh docs [component]
-  nooeh new <kebab-case-name>`);
+  nuee init [--ui <path>] [--tokens <path>]
+  nuee init --framework vite
+  nuee add <component> [--skip-dependencies] [--dry-run]
+  nuee doctor
+  nuee list
+  nuee docs [component]
+  nuee new <kebab-case-name>`);
     }
 
     return true;

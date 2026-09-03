@@ -6,7 +6,7 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Button } from "@nooeh/ui/button";
+import { Button } from "@nuee/ui/button";
 import {
   Card,
   CardContent,
@@ -14,8 +14,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@nooeh/ui/card";
-import { Input } from "@nooeh/ui/input";
+} from "@nuee/ui/card";
+import { Input } from "@nuee/ui/input";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -88,7 +88,7 @@ function CardExample() {
 }
 
 const cardExampleCode =
-  'import { Card, CardContent, CardHeader, CardTitle } from "@nooeh/ui/card"\n\n<Card>\n  <CardHeader>\n    <CardTitle>Project</CardTitle>\n  </CardHeader>\n  <CardContent>Enter the project details.</CardContent>\n</Card>';
+  'import { Card, CardContent, CardHeader, CardTitle } from "@nuee/ui/card"\n\n<Card>\n  <CardHeader>\n    <CardTitle>Project</CardTitle>\n  </CardHeader>\n  <CardContent>Enter the project details.</CardContent>\n</Card>';
 
 export const CardStory: Story = {
   name: "Card",
@@ -110,7 +110,7 @@ export const CardStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

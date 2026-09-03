@@ -1,11 +1,11 @@
-import { colorPaletteGroups } from "@nooeh/tokens/color-palette";
+import { colorPaletteGroups } from "@nuee/tokens/color-palette";
 import {
   colorVars,
   radiusVars,
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@nooeh/tokens/semantic.stylex";
+} from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useLayoutEffect, useRef, useState } from "react";

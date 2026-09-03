@@ -68,7 +68,7 @@ function replaceTokenImport(source: string, targetPath: string, stylesDirectory:
   const importPath = relative(dirname(targetPath), tokenPath).split(sep).join("/");
   const relativeImportPath = importPath.startsWith(".") ? importPath : `./${importPath}`;
 
-  return source.replaceAll("@nooeh/tokens/semantic.stylex", relativeImportPath);
+  return source.replaceAll("@nuee/tokens/semantic.stylex", relativeImportPath);
 }
 
 function removeReducedMotionStyles(source: string) {

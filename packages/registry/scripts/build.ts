@@ -36,7 +36,7 @@ for (const [name, item] of Object.entries(registryItems)) {
         name,
         primaryExport,
         ...item,
-        dependencies: item.dependencies.filter((dependency) => dependency !== "@nooeh/tokens"),
+        dependencies: item.dependencies.filter((dependency) => dependency !== "@nuee/tokens"),
         files,
       },
       null,

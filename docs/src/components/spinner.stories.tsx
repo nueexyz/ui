@@ -6,7 +6,7 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Spinner } from "@nooeh/ui/spinner";
+import { Spinner } from "@nuee/ui/spinner";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -23,7 +23,7 @@ function SpinnerExample() {
 }
 
 const spinnerExampleCode =
-  'import { Spinner } from "@nooeh/ui/spinner"\n\n<Spinner label="Saving" />';
+  'import { Spinner } from "@nuee/ui/spinner"\n\n<Spinner label="Saving" />';
 
 export const SpinnerStory: Story = {
   name: "Spinner",
@@ -45,7 +45,7 @@ export const SpinnerStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

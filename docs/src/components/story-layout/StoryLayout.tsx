@@ -4,10 +4,10 @@ import {
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@nooeh/tokens/semantic.stylex";
+} from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
-import { Button } from "@nooeh/ui/button";
-import { Icon } from "@nooeh/ui/icon";
+import { Button } from "@nuee/ui/button";
+import { Icon } from "@nuee/ui/icon";
 import { type ReactNode, useEffect, useState } from "react";
 
 import { useStoryColorMode } from "./story-source-context";

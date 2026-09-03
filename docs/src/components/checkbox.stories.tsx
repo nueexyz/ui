@@ -6,8 +6,8 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Checkbox } from "@nooeh/ui/checkbox";
-import { colorVars } from "@nooeh/tokens/semantic.stylex";
+import { Checkbox } from "@nuee/ui/checkbox";
+import { colorVars } from "@nuee/tokens/semantic.stylex";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -42,7 +42,7 @@ function CheckboxExample() {
 }
 
 const checkboxExampleCode =
-  'import { Checkbox } from "@nooeh/ui/checkbox"\n\n<Checkbox aria-label="Agree to terms" />';
+  'import { Checkbox } from "@nuee/ui/checkbox"\n\n<Checkbox aria-label="Agree to terms" />';
 
 export const CheckboxStory: Story = {
   name: "Checkbox",
@@ -86,7 +86,7 @@ export const CheckboxStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

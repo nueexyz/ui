@@ -6,8 +6,8 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { sizeVars, spacingVars } from "@nooeh/tokens/semantic.stylex";
-import { Skeleton } from "@nooeh/ui/skeleton";
+import { sizeVars, spacingVars } from "@nuee/tokens/semantic.stylex";
+import { Skeleton } from "@nuee/ui/skeleton";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -39,7 +39,7 @@ function SkeletonExample() {
 }
 
 const skeletonExampleCode =
-  'import { Skeleton } from "@nooeh/ui/skeleton"\n\n<div>\n  <Skeleton style={{ height: "1.5rem", width: "45%" }} />\n  <Skeleton style={{ height: "2.5rem", width: "100%" }} />\n</div>';
+  'import { Skeleton } from "@nuee/ui/skeleton"\n\n<div>\n  <Skeleton style={{ height: "1.5rem", width: "45%" }} />\n  <Skeleton style={{ height: "2.5rem", width: "100%" }} />\n</div>';
 
 export const SkeletonStory: Story = {
   name: "Skeleton",
@@ -61,7 +61,7 @@ export const SkeletonStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

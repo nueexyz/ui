@@ -6,10 +6,10 @@ import {
   sizeVars,
   spacingVars,
   typographyVars,
-} from "@nooeh/tokens/semantic.stylex";
-import { Button } from "@nooeh/ui/button";
-import { Icon } from "@nooeh/ui/icon";
-import { Input } from "@nooeh/ui/input";
+} from "@nuee/tokens/semantic.stylex";
+import { Button } from "@nuee/ui/button";
+import { Icon } from "@nuee/ui/icon";
+import { Input } from "@nuee/ui/input";
 import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useLayoutEffect, useRef, useState } from "react";
@@ -289,7 +289,7 @@ export const Typography: Story = {
         value={typographyVars.fontFamily}
       >
         <span {...stylex.props(styles.fontFamilySample(typographyVars.fontFamily))}>
-          Nooeh Aa Bb
+          Nuee Aa Bb
         </span>
       </TokenRow>
       {fontSizeTokens.map(([name, value, usage]) => (
@@ -303,7 +303,7 @@ export const Typography: Story = {
               ),
             )}
           >
-            Nooeh Aa Bb
+            Nuee Aa Bb
           </span>
         </TokenRow>
       ))}
@@ -327,7 +327,7 @@ export const Typography: Story = {
               styles.typeSample(typographyVars.fontSizeSm, value, typographyVars.lineHeightNormal),
             )}
           >
-            Nooeh Aa Bb
+            Nuee Aa Bb
           </span>
         </TokenRow>
       ))}

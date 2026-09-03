@@ -6,7 +6,7 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Button } from "@nooeh/ui/button";
+import { Button } from "@nuee/ui/button";
 import {
   Drawer,
   DrawerClose,
@@ -16,7 +16,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@nooeh/ui/drawer";
+} from "@nuee/ui/drawer";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -47,7 +47,7 @@ function DrawerExample({ swipeDirection = "down" }: { swipeDirection?: DrawerDir
 }
 
 const drawerExampleCode =
-  'import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from "@nooeh/ui/drawer"\n\n<Drawer showSwipeHandle swipeDirection="down">\n  <DrawerTrigger>Open drawer</DrawerTrigger>\n  <DrawerContent>\n    <DrawerTitle>Move to folder</DrawerTitle>\n  </DrawerContent>\n</Drawer>';
+  'import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from "@nuee/ui/drawer"\n\n<Drawer showSwipeHandle swipeDirection="down">\n  <DrawerTrigger>Open drawer</DrawerTrigger>\n  <DrawerContent>\n    <DrawerTitle>Move to folder</DrawerTitle>\n  </DrawerContent>\n</Drawer>';
 
 const directionCode =
   '<Drawer swipeDirection="up">...</Drawer>\n<Drawer swipeDirection="left">...</Drawer>\n<Drawer swipeDirection="right">...</Drawer>';
@@ -145,7 +145,7 @@ export const DrawerStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

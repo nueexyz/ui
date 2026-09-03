@@ -6,8 +6,8 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Input } from "@nooeh/ui/input";
-import { Label } from "@nooeh/ui/label";
+import { Input } from "@nuee/ui/input";
+import { Label } from "@nuee/ui/label";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -27,7 +27,7 @@ function LabelExample() {
 }
 
 const labelExampleCode =
-  'import { Input } from "@nooeh/ui/input"\nimport { Label } from "@nooeh/ui/label"\n\n<div>\n  <Label htmlFor="display-name">Display name</Label>\n  <Input id="display-name" placeholder="Jordan Lee" />\n</div>';
+  'import { Input } from "@nuee/ui/input"\nimport { Label } from "@nuee/ui/label"\n\n<div>\n  <Label htmlFor="display-name">Display name</Label>\n  <Input id="display-name" placeholder="Jordan Lee" />\n</div>';
 
 export const LabelStory: Story = {
   name: "Label",
@@ -49,7 +49,7 @@ export const LabelStory: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock
-          code={`pnpm dlx @nooeh/ui add ${registryName}`}
+          code={`pnpm dlx @nuee/ui add ${registryName}`}
           label="Terminal"
           language="bash"
         />

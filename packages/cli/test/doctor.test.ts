@@ -9,7 +9,7 @@ import { init } from "../dist/init.js";
 import { writeTsconfig } from "./helpers.ts";
 
 test("doctor verifies local StyleX sources, the compiler, and a CSS entry point", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);
