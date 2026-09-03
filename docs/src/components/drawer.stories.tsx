@@ -47,6 +47,15 @@ function DrawerExample() {
 const drawerExampleCode =
   'import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from "@nooeh/ui/drawer"\n\n<Drawer showSwipeHandle swipeDirection="down">\n  <DrawerTrigger>Open drawer</DrawerTrigger>\n  <DrawerContent>\n    <DrawerTitle>Move to folder</DrawerTitle>\n  </DrawerContent>\n</Drawer>';
 
+const directionCode =
+  '<Drawer swipeDirection="down">...</Drawer>\n<Drawer swipeDirection="up">...</Drawer>\n<Drawer swipeDirection="left">...</Drawer>\n<Drawer swipeDirection="right">...</Drawer>';
+
+const snapPointsCode =
+  "<Drawer showSwipeHandle snapPoints={[0.25, 0.5, 1]}>\n  <DrawerContent>...</DrawerContent>\n</Drawer>";
+
+const nonModalCode =
+  "<Drawer modal={false} disablePointerDismissal>\n  <DrawerContent>...</DrawerContent>\n</Drawer>";
+
 export const DrawerStory: Story = {
   name: "Drawer",
   render: () => (
@@ -62,6 +71,49 @@ export const DrawerStory: Story = {
       </ComponentExample>
 
       <ComponentCode usage={drawerExampleCode} />
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Position</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            <code>swipeDirection</code> controls the edge the Drawer opens from. The default{" "}
+            <code>down</code> value opens it from the bottom; <code>up</code>, <code>left</code>,
+            and <code>right</code> select the other edges.
+          </p>
+        </header>
+        <CodeBlock code={directionCode} label="TSX" language="tsx" />
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Swipe and snap points</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Set <code>showSwipeHandle</code> to expose a drag affordance. <code>snapPoints</code>{" "}
+            accepts viewport fractions, pixel values, or <code>rem</code> values and applies to
+            vertical Drawers only.
+          </p>
+        </header>
+        <CodeBlock code={snapPointsCode} label="TSX" language="tsx" />
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Modal behavior</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Drawers are modal by default. Use <code>modal={"{false}"}</code> when the page must
+            remain interactive, and combine it with <code>disablePointerDismissal</code> when
+            outside presses should not close the panel.
+          </p>
+        </header>
+        <CodeBlock code={nonModalCode} label="TSX" language="tsx" />
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Responsive layouts</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            A Drawer is not a Dialog mode. For a responsive flow, render Drawer on narrow viewports
+            and Dialog on wider viewports while sharing the form content and open state in the
+            application.
+          </p>
+        </header>
+      </section>
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
