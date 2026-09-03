@@ -110,10 +110,14 @@ export async function add(
 
   const shouldInitialize = !(await hasConfig(projectDirectory));
   if (shouldInitialize && !options["dry-run"]) {
-    await init(projectDirectory, {
-      ...options,
-      "skip-dependencies": options.skipDependencyInstall || options["skip-dependencies"],
-    });
+    await init(
+      projectDirectory,
+      {
+        ...options,
+        "skip-dependencies": options.skipDependencyInstall || options["skip-dependencies"],
+      },
+      false,
+    );
   }
   const config =
     options["dry-run"] && shouldInitialize ? defaultConfig : await readConfig(projectDirectory);
@@ -171,7 +175,5 @@ export async function add(
     return;
   }
 
-  console.log(`Added ${componentName}.`);
-  console.log(`Export: ${primaryExport}`);
-  console.log(`Location: ${relative(projectDirectory, join(uiDirectory, `${componentName}.tsx`))}`);
+  console.log(`✔ Added ${primaryExport}.`);
 }

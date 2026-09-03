@@ -2,6 +2,8 @@
 
 Released on 2026-09-03.
 
+- `init` and `add` now finish with one concise confirmation line, making their
+  output easier to scan in terminals and automation logs.
 - Packages, CLI commands, generated configuration, and local token imports now
   use the Nuee name and the `@nuee/*` npm scope. Install with
   `pnpm dlx @nuee/ui`; only projects that directly import `@nooeh/*` packages

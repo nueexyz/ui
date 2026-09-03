@@ -1,14 +1,8 @@
 import { access, mkdir, readFile, writeFile } from "node:fs/promises";
-import { join, relative } from "node:path";
+import { join } from "node:path";
 import { createInterface } from "node:readline/promises";
 
-import {
-  configFileName,
-  defaultConfig,
-  hasConfig,
-  resolveConfigAlias,
-  writeConfig,
-} from "./config.js";
+import { defaultConfig, hasConfig, resolveConfigAlias, writeConfig } from "./config.js";
 import { installDependencies } from "./dependencies.js";
 import type { CliOptions } from "./arguments.js";
 import { getTokenFiles } from "@nuee/registry";
@@ -109,7 +103,6 @@ async function writeViteFiles(
   await addResetImport(projectDirectory);
   await writeNueeFiles(projectDirectory, tokenDirectory, refreshLegacyTokens);
   await writeFile(configPath, configuredVite, "utf8");
-  console.log(`Configured Vite and created ${relative(projectDirectory, tokenDirectory)}.`);
 }
 
 async function addResetImport(projectDirectory: string) {
@@ -169,7 +162,7 @@ async function writeTokenFile(
   }
 }
 
-export async function init(projectDirectory: string, options: CliOptions) {
+export async function init(projectDirectory: string, options: CliOptions, shouldLog = true) {
   if ((await hasConfig(projectDirectory)) && !options.force) {
     throw new Error("nuee.json already exists. Use --force to create it again.");
   }
@@ -210,10 +203,6 @@ export async function init(projectDirectory: string, options: CliOptions) {
       await writeViteFiles(projectDirectory, tokenDirectory, Boolean(options.force));
     } else {
       await writeNueeFiles(projectDirectory, tokenDirectory, Boolean(options.force));
-      console.log(`Created ${relative(projectDirectory, tokenDirectory)}.`);
-      console.log(
-        "Configure the StyleX compiler for your bundler before importing added components.",
-      );
     }
     await writeConfig(projectDirectory, {
       accessibility: defaultConfig.accessibility,
@@ -223,5 +212,5 @@ export async function init(projectDirectory: string, options: CliOptions) {
     readline?.close();
   }
 
-  console.log(`Created configuration: ${configFileName}`);
+  if (shouldLog) console.log("✔ Initialized Nuee.");
 }
