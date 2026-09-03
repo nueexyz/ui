@@ -4,6 +4,8 @@ Released on 2026-09-03.
 
 - `init` and `add` now finish with one concise confirmation line, making their
   output easier to scan in terminals and automation logs.
+- Dependency installation during `add` now stays quiet after confirmation,
+  keeping package-manager progress and runtime warnings out of normal output.
 - `add` now accepts multiple component names in one command, so related UI
   components can be installed together.
 - Checkbox controls now meet the minimum pointer target size. Banners only

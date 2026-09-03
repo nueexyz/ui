@@ -26,7 +26,7 @@ export function installDependencies(
         );
 
   return new Promise<void>((resolvePromise, reject) => {
-    const child = spawn(packageManager, arguments_, { cwd: projectDirectory, stdio: "inherit" });
+    const child = spawn(packageManager, arguments_, { cwd: projectDirectory, stdio: "ignore" });
     child.on("error", reject);
     child.on("exit", (code) => {
       if (code === 0) resolvePromise();
