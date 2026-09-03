@@ -15,7 +15,7 @@ export async function run(arguments_ = process.argv.slice(2)) {
     if (command === "init") {
       await init(projectDirectory, options as CliOptions);
     } else if (command === "add") {
-      await add(projectDirectory, positionals[0], options);
+      await add(projectDirectory, positionals, options);
     } else if (command === "doctor") {
       await doctor(projectDirectory);
     } else if (command === "docs") {
@@ -30,7 +30,7 @@ export async function run(arguments_ = process.argv.slice(2)) {
 Usage:
   nuee init [--ui <path>] [--tokens <path>]
   nuee init --framework vite
-  nuee add <component> [--skip-dependencies] [--dry-run]
+  nuee add <component...> [--skip-dependencies] [--dry-run]
   nuee doctor
   nuee list
   nuee docs [component]

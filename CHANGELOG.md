@@ -4,6 +4,10 @@ Released on 2026-09-03.
 
 - `init` and `add` now finish with one concise confirmation line, making their
   output easier to scan in terminals and automation logs.
+- `add` now accepts multiple component names in one command, so related UI
+  components can be installed together.
+- Checkbox controls now meet the minimum pointer target size. Banners only
+  announce content when the new `announce` prop opts in to a live region.
 - Packages, CLI commands, generated configuration, and local token imports now
   use the Nuee name and the `@nuee/*` npm scope. Install with
   `pnpm dlx @nuee/ui`; only projects that directly import `@nooeh/*` packages

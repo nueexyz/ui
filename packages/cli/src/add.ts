@@ -103,10 +103,15 @@ function removeReducedMotionStyles(source: string) {
 
 export async function add(
   projectDirectory: string,
-  componentName: string,
+  componentNames: string | readonly string[],
   options: AddOptions = {},
 ) {
-  if (!componentName) throw new Error("Enter a component name to add.");
+  const componentNameList = [
+    ...new Set(typeof componentNames === "string" ? [componentNames] : componentNames),
+  ];
+  if (componentNameList.length === 0 || componentNameList.some((componentName) => !componentName)) {
+    throw new Error("Enter at least one component name to add.");
+  }
 
   const shouldInitialize = !(await hasConfig(projectDirectory));
   if (shouldInitialize && !options["dry-run"]) {
@@ -121,7 +126,7 @@ export async function add(
   }
   const config =
     options["dry-run"] && shouldInitialize ? defaultConfig : await readConfig(projectDirectory);
-  const resolved = await resolveComponent(componentName);
+  const resolvedList = await Promise.all(componentNameList.map(resolveComponent));
   const uiDirectory = await resolveConfigAlias(projectDirectory, config.aliases.ui, "aliases.ui");
   const stylesDirectory = await resolveConfigAlias(
     projectDirectory,
@@ -140,40 +145,44 @@ export async function add(
     return isOverwriteConfirmed;
   }
 
-  for (const file of resolved.files) {
-    const targetPath = resolveTargetPath(uiDirectory, file.path);
-    if (options["dry-run"]) {
-      console.log(`Will add: ${targetPath}`);
-      continue;
+  for (const resolved of resolvedList) {
+    for (const file of resolved.files) {
+      const targetPath = resolveTargetPath(uiDirectory, file.path);
+      if (options["dry-run"]) continue;
+
+      await writeSource(
+        config.accessibility.respectReducedMotion
+          ? replaceTokenImport(file.content, targetPath, stylesDirectory)
+          : removeReducedMotionStyles(
+              replaceTokenImport(file.content, targetPath, stylesDirectory),
+            ),
+        targetPath,
+        confirmOverwrite,
+      );
     }
-    await writeSource(
-      config.accessibility.respectReducedMotion
-        ? replaceTokenImport(file.content, targetPath, stylesDirectory)
-        : removeReducedMotionStyles(replaceTokenImport(file.content, targetPath, stylesDirectory)),
-      targetPath,
-      confirmOverwrite,
-    );
   }
 
+  const externalDependencySet = new Set<string>();
+  for (const resolved of resolvedList) {
+    for (const dependency of resolved.externalDependencies) externalDependencySet.add(dependency);
+  }
+  const externalDependencies = [...externalDependencySet];
   const shouldInstallDependencies =
-    resolved.externalDependencies.length > 0 &&
+    externalDependencies.length > 0 &&
     !options.skipDependencyInstall &&
     !options["skip-dependencies"] &&
     !options["dry-run"] &&
-    (await askYesNo(
-      `Install external dependencies (${resolved.externalDependencies.join(", ")})?`,
-      true,
-    ));
+    (await askYesNo(`Install external dependencies (${externalDependencies.join(", ")})?`, true));
 
   if (shouldInstallDependencies) {
-    await installDependencies(projectDirectory, resolved.externalDependencies);
+    await installDependencies(projectDirectory, externalDependencies);
   }
 
-  const primaryExport = resolved.primaryExport;
+  const primaryExportList = resolvedList.map((resolved) => resolved.primaryExport);
   if (options["dry-run"]) {
-    console.log(`Will add ${componentName}.`);
+    console.log(`✔ Would add ${primaryExportList.join(", ")}.`);
     return;
   }
 
-  console.log(`✔ Added ${primaryExport}.`);
+  console.log(`✔ Added ${primaryExportList.join(", ")}.`);
 }

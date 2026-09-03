@@ -29,6 +29,22 @@ test("add creates the default config and copies a component with its foundation"
   }
 });
 
+test("add installs multiple components with one command", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+
+  try {
+    await add(projectDirectory, ["button", "toast"], {
+      defaults: true,
+      skipDependencyInstall: true,
+    });
+
+    await access(join(projectDirectory, "src/components/ui/button.tsx"));
+    await access(join(projectDirectory, "src/components/ui/toast.tsx"));
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
 test("add uses the configured local token directory", async () => {
   const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
