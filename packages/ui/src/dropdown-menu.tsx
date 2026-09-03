@@ -284,10 +284,12 @@ export function DropdownMenuLabel({
   return (
     <MenuPrimitive.GroupLabel
       {...props}
-      className={[sx.className, typeof className === "string" ? className : undefined]
-        .filter(Boolean)
-        .join(" ")}
-      style={{ ...sx.style, ...(typeof style === "function" ? undefined : style) }}
+      className={(state) =>
+        [sx.className, typeof className === "function" ? className(state) : className]
+          .filter(Boolean)
+          .join(" ")
+      }
+      style={(state) => ({ ...sx.style, ...(typeof style === "function" ? style(state) : style) })}
     />
   );
 }

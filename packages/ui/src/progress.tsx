@@ -29,10 +29,15 @@ export function Progress({ className, style, xstyle, ...props }: ProgressProps) 
   return (
     <ProgressPrimitive.Root
       {...props}
-      className={[stylexProps.className, typeof className === "string" ? className : undefined]
-        .filter(Boolean)
-        .join(" ")}
-      style={{ ...stylexProps.style, ...(typeof style === "object" ? style : undefined) }}
+      className={(state) =>
+        [stylexProps.className, typeof className === "function" ? className(state) : className]
+          .filter(Boolean)
+          .join(" ")
+      }
+      style={(state) => ({
+        ...stylexProps.style,
+        ...(typeof style === "function" ? style(state) : style),
+      })}
     >
       <ProgressPrimitive.Indicator {...stylex.props(styles.indicator)} />
     </ProgressPrimitive.Root>

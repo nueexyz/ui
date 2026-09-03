@@ -67,10 +67,15 @@ export function Slider({
       {...props}
       defaultValue={defaultValue}
       value={value}
-      className={[stylexProps.className, typeof className === "string" ? className : undefined]
-        .filter(Boolean)
-        .join(" ")}
-      style={{ ...stylexProps.style, ...(typeof style === "object" ? style : undefined) }}
+      className={(state) =>
+        [stylexProps.className, typeof className === "function" ? className(state) : className]
+          .filter(Boolean)
+          .join(" ")
+      }
+      style={(state) => ({
+        ...stylexProps.style,
+        ...(typeof style === "function" ? style(state) : style),
+      })}
     >
       <SliderPrimitive.Control {...stylex.props(styles.control)}>
         <SliderPrimitive.Track {...stylex.props(styles.track)}>
