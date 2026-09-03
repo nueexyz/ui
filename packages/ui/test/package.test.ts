@@ -1,6 +1,15 @@
 import assert from "node:assert/strict";
 import { execFile as execFileCallback } from "node:child_process";
-import { access, copyFile, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import {
+  access,
+  copyFile,
+  mkdir,
+  mkdtemp,
+  readFile,
+  readdir,
+  rm,
+  writeFile,
+} from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -12,7 +21,7 @@ const execFile = promisify(execFileCallback);
 const cliPath = fileURLToPath(new URL("../dist/cli.js", import.meta.url));
 const testDirectory = dirname(fileURLToPath(import.meta.url));
 
-test("@nuee/ui CLI builds copied components in a Vite app", async () => {
+test("@nuee/ui CLI builds every added component in a Vite app", async () => {
   const projectDirectory = await mkdtemp(join(testDirectory, ".vite-app-"));
 
   try {
@@ -68,38 +77,7 @@ test("@nuee/ui CLI builds copied components in a Vite app", async () => {
     ]);
     await Promise.all([
       writeFile(join(projectDirectory, "src/index.css"), "body { margin: 0; }\n"),
-      writeFile(
-        join(projectDirectory, "src/main.tsx"),
-        [
-          'import { createRoot } from "react-dom/client";',
-          'import { Button } from "./components/ui/button";',
-          'import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from "./components/ui/drawer";',
-          'import { Message, MessageContent } from "./components/ui/message";',
-          'import { Toaster, toast } from "./components/ui/toast";',
-          'import "./index.css";',
-          "",
-          "function App() {",
-          "  return (",
-          "    <>",
-          '      <Button onClick={() => toast.add({ title: "Saved" })}>Save</Button>',
-          "      <Drawer>",
-          '        <DrawerTrigger render={<Button variant="secondary">Open drawer</Button>} />',
-          "        <DrawerContent>",
-          "          <DrawerTitle>Move to folder</DrawerTitle>",
-          "        </DrawerContent>",
-          "      </Drawer>",
-          "      <Message>",
-          "        <MessageContent>Saved message</MessageContent>",
-          "      </Message>",
-          "      <Toaster />",
-          "    </>",
-          "  );",
-          "}",
-          "",
-          'createRoot(document.getElementById("root")!).render(<App />);',
-          "",
-        ].join("\n"),
-      ),
+      writeFile(join(projectDirectory, "src/main.tsx"), 'import "./index.css";\n'),
     ]);
 
     await execFile(process.execPath, [
@@ -112,38 +90,28 @@ test("@nuee/ui CLI builds copied components in a Vite app", async () => {
       "--cwd",
       projectDirectory,
     ]);
+    const { stdout } = await execFile(process.execPath, [cliPath, "list"]);
+    const componentNames = stdout.trim().split("\n");
     await execFile(process.execPath, [
       cliPath,
       "add",
-      "button",
+      ...componentNames,
       "--skip-dependencies",
       "--cwd",
       projectDirectory,
     ]);
-    await execFile(process.execPath, [
-      cliPath,
-      "add",
-      "drawer",
-      "--skip-dependencies",
-      "--cwd",
-      projectDirectory,
-    ]);
-    await execFile(process.execPath, [
-      cliPath,
-      "add",
-      "message",
-      "--skip-dependencies",
-      "--cwd",
-      projectDirectory,
-    ]);
-    await execFile(process.execPath, [
-      cliPath,
-      "add",
-      "toast",
-      "--skip-dependencies",
-      "--cwd",
-      projectDirectory,
-    ]);
+
+    const componentFileNames = await readdir(join(projectDirectory, "src/components/ui"));
+    await writeFile(
+      join(projectDirectory, "src/main.tsx"),
+      [
+        'import "./index.css";',
+        ...componentFileNames
+          .filter((fileName) => fileName.endsWith(".tsx"))
+          .map((fileName) => `import "./components/ui/${fileName.replace(/\.tsx$/, "")}";`),
+        "",
+      ].join("\n"),
+    );
 
     const viteConfig = await readFile(join(projectDirectory, "vite.config.ts"), "utf8");
     assert.ok(viteConfig.indexOf("stylex.vite") < viteConfig.indexOf("    react(),"));
