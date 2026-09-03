@@ -1,3 +1,11 @@
+## Version v0.4.1
+
+Released on 2026-09-03.
+
+- `nuee init --framework vite` no longer adds `@nuee/ui` to your project.
+  The reset stylesheet is generated locally, so component imports continue to
+  resolve through your configured UI alias.
+
 ## Version v0.4.0
 
 Released on 2026-09-03.
