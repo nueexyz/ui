@@ -67,12 +67,15 @@ const styles = stylex.create({
 
 export type BannerVariant = "error" | "info" | "neutral" | "warning";
 export type BannerSize = "md" | "sm";
+export type BannerAnnounce = "assertive" | "polite";
 
 type StyleProps = { xstyle?: stylex.StyleXStyles };
 
 export type BannerProps = ComponentProps<"div"> &
   StyleProps & {
     action?: ReactNode;
+    /** Announces a Banner that is added or updated after the initial page render. */
+    announce?: BannerAnnounce;
     description?: ReactNode;
     icon?: ReactNode;
     size?: BannerSize;
@@ -82,6 +85,7 @@ export type BannerProps = ComponentProps<"div"> &
 
 export function Banner({
   action,
+  announce,
   children,
   className,
   description,
@@ -94,6 +98,13 @@ export function Banner({
   xstyle,
   ...props
 }: BannerProps) {
+  let liveRole: "alert" | "status" | undefined;
+  if (announce === "assertive") {
+    liveRole = "alert";
+  } else if (announce === "polite") {
+    liveRole = "status";
+  }
+
   const stylexProps = stylex.props(
     styles.root,
     styles[size],
@@ -107,7 +118,7 @@ export function Banner({
   return (
     <div
       {...props}
-      role={role ?? (variant === "error" || variant === "warning" ? "alert" : "status")}
+      role={role ?? liveRole}
       className={[stylexProps.className, className].filter(Boolean).join(" ")}
       style={{ ...stylexProps.style, ...style }}
     >
