@@ -84,6 +84,11 @@ export const registryItems = {
     dependencies: ["@base-ui/react", "@nooeh/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
+  drawer: {
+    files: ["drawer.tsx", "stylex-props.ts"],
+    dependencies: ["@base-ui/react", "@nooeh/tokens", "@stylexjs/stylex"],
+    registryDependencies: [],
+  },
   "dropdown-menu": {
     files: ["Icon.tsx", "dropdown-menu.tsx"],
     dependencies: ["@base-ui/react", "@nooeh/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],

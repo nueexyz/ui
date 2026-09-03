@@ -28,6 +28,7 @@
     "./breadcrumb": "./dist/breadcrumb.js",
     "./card": "./dist/card.js",
     "./dialog": "./dist/dialog.js",
+    "./drawer": "./dist/drawer.js",
     "./checkbox": "./dist/checkbox.js",
     "./collapsible": "./dist/collapsible.js",
     "./combobox": "./dist/combobox.js",

@@ -43,6 +43,20 @@ export {
   DialogTitle,
   DialogTrigger,
 } from "./dialog";
+export {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerPortal,
+  DrawerSwipeHandle,
+  DrawerTitle,
+  DrawerTrigger,
+} from "./drawer";
+export type { DrawerProps } from "./drawer";
 export { Checkbox } from "./checkbox";
 export type { CheckboxProps } from "./checkbox";
 export { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./collapsible";
