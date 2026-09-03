@@ -1,15 +1,6 @@
 import assert from "node:assert/strict";
 import { execFile as execFileCallback } from "node:child_process";
-import {
-  access,
-  copyFile,
-  mkdir,
-  mkdtemp,
-  readFile,
-  readdir,
-  rm,
-  writeFile,
-} from "node:fs/promises";
+import { access, mkdir, mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -63,18 +54,6 @@ test("@nuee/ui CLI builds every added component in a Vite app", async () => {
       ),
     ]);
     await mkdir(join(projectDirectory, "src"));
-    const resetPackageDirectory = join(projectDirectory, "node_modules/@nuee/ui");
-    await mkdir(resetPackageDirectory, { recursive: true });
-    await Promise.all([
-      copyFile(join(testDirectory, "../dist/reset.css"), join(resetPackageDirectory, "reset.css")),
-      writeFile(
-        join(resetPackageDirectory, "package.json"),
-        JSON.stringify({
-          name: "@nuee/ui",
-          exports: { "./reset.css": "./reset.css" },
-        }),
-      ),
-    ]);
     await Promise.all([
       writeFile(join(projectDirectory, "src/index.css"), "body { margin: 0; }\n"),
       writeFile(join(projectDirectory, "src/main.tsx"), 'import "./index.css";\n'),
@@ -90,6 +69,9 @@ test("@nuee/ui CLI builds every added component in a Vite app", async () => {
       "--cwd",
       projectDirectory,
     ]);
+    const packageJson = JSON.parse(await readFile(join(projectDirectory, "package.json"), "utf8"));
+    assert.equal(packageJson.dependencies?.["@nuee/ui"], undefined);
+    assert.equal(packageJson.devDependencies?.["@nuee/ui"], undefined);
     const { stdout } = await execFile(process.execPath, [cliPath, "list"]);
     const componentNames = stdout.trim().split("\n");
     await execFile(process.execPath, [
@@ -117,9 +99,79 @@ test("@nuee/ui CLI builds every added component in a Vite app", async () => {
     assert.ok(viteConfig.indexOf("stylex.vite") < viteConfig.indexOf("    react(),"));
     assert.match(
       await readFile(join(projectDirectory, "src/index.css"), "utf8"),
-      /@import "@nuee\/ui\/reset\.css"/,
+      /@import "\.\/styles\/reset\.css"/,
     );
 
+    await build({ configFile: join(projectDirectory, "vite.config.ts"), root: projectDirectory });
+    await access(join(projectDirectory, "dist/index.html"));
+  } finally {
+    await rm(projectDirectory, { recursive: true, force: true });
+  }
+});
+
+test("@nuee/ui CLI keeps the UI package out of a generated Vite app", async () => {
+  const projectDirectory = await mkdtemp(join(testDirectory, ".vite-app-"));
+
+  try {
+    await Promise.all([
+      writeFile(
+        join(projectDirectory, "package.json"),
+        JSON.stringify({ name: "nuee-vite-app", private: true, type: "module" }),
+      ),
+      writeFile(
+        join(projectDirectory, "tsconfig.json"),
+        JSON.stringify({ compilerOptions: { paths: { "@/*": ["./src/*"] } } }),
+      ),
+      writeFile(
+        join(projectDirectory, "vite.config.ts"),
+        [
+          'import { defineConfig } from "vite";',
+          'import stylex from "@stylexjs/unplugin";',
+          "",
+          "export default defineConfig({",
+          '  resolve: { alias: { "@": new URL("./src", import.meta.url).pathname } },',
+          '  plugins: [stylex.vite({ aliases: { "@/styles/*": [new URL("./src/styles/*", import.meta.url).pathname] } })],',
+          "});",
+          "",
+        ].join("\n"),
+      ),
+      writeFile(
+        join(projectDirectory, "index.html"),
+        '<div id="root"></div><script type="module" src="/src/main.tsx"></script>\n',
+      ),
+    ]);
+    await mkdir(join(projectDirectory, "src"));
+    await Promise.all([
+      writeFile(join(projectDirectory, "src/index.css"), "body { margin: 0; }\n"),
+      writeFile(
+        join(projectDirectory, "src/main.tsx"),
+        'import "./index.css";\nimport { Message } from "@/components/ui/message";\nvoid Message;\n',
+      ),
+    ]);
+
+    await execFile(process.execPath, [
+      cliPath,
+      "init",
+      "--defaults",
+      "--framework",
+      "vite",
+      "--skip-dependencies",
+      "--cwd",
+      projectDirectory,
+    ]);
+    await execFile(process.execPath, [
+      cliPath,
+      "add",
+      "message",
+      "--skip-dependencies",
+      "--cwd",
+      projectDirectory,
+    ]);
+
+    const packageJson = JSON.parse(await readFile(join(projectDirectory, "package.json"), "utf8"));
+    assert.equal(packageJson.dependencies?.["@nuee/ui"], undefined);
+    assert.equal(packageJson.devDependencies?.["@nuee/ui"], undefined);
+    await access(join(projectDirectory, "src/components/ui/message.tsx"));
     await build({ configFile: join(projectDirectory, "vite.config.ts"), root: projectDirectory });
     await access(join(projectDirectory, "dist/index.html"));
   } finally {

@@ -20,6 +20,11 @@ export type TokenFile = {
   name: string;
 };
 
+export type FoundationFile = {
+  content: string;
+  name: string;
+};
+
 function isRegistryItem(value: unknown): value is RegistryItem {
   if (typeof value !== "object" || value === null) return false;
 
@@ -64,6 +69,16 @@ export async function getTokenFiles(): Promise<TokenFile[]> {
       name,
     })),
   );
+}
+
+export async function getFoundationFiles(): Promise<FoundationFile[]> {
+  const tokenFiles = await getTokenFiles();
+  const resetFile = {
+    content: await readFile(new URL("./styles/reset.css", import.meta.url), "utf8"),
+    name: "reset.css",
+  };
+
+  return [...tokenFiles, resetFile];
 }
 
 export const dependencyVersions = {

@@ -120,8 +120,9 @@ test("init configures a standard Vite project", async () => {
     );
     assert.equal(
       await readFile(join(projectDirectory, "src/index.css"), "utf8"),
-      '@import "@nuee/ui/reset.css";\n\nbody { color: black; }\n',
+      '@import "./styles/reset.css";\n\nbody { color: black; }\n',
     );
+    await access(join(projectDirectory, "src/styles/reset.css"));
     await access(join(projectDirectory, "src/styles/themes.stylex.ts"));
   } finally {
     await rm(projectDirectory, { recursive: true });

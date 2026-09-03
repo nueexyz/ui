@@ -1,11 +1,11 @@
 import { access, mkdir, readFile, writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { dirname, join, relative, sep } from "node:path";
 import { createInterface } from "node:readline/promises";
 
 import { defaultConfig, hasConfig, resolveConfigAlias, writeConfig } from "./config.js";
 import { installDependencies } from "./dependencies.js";
 import type { CliOptions } from "./arguments.js";
-import { getTokenFiles } from "@nuee/registry";
+import { getFoundationFiles } from "@nuee/registry";
 
 async function ask(
   question: string,
@@ -72,14 +72,19 @@ async function writeViteFiles(
 ) {
   const { path: configPath, source: configSource } = await readViteConfig(projectDirectory);
   const configuredVite = configureVite(configSource);
-  await addResetImport(projectDirectory);
   await writeNueeFiles(projectDirectory, tokenDirectory, refreshLegacyTokens);
+  await addResetImport(projectDirectory, tokenDirectory);
   await writeFile(configPath, configuredVite, "utf8");
 }
 
-async function addResetImport(projectDirectory: string) {
+function getRelativeImportPath(from: string, to: string) {
+  const path = relative(dirname(from), to).split(sep).join("/");
+  return path.startsWith(".") ? path : `./${path}`;
+}
+
+async function addResetImport(projectDirectory: string, tokenDirectory: string) {
   const cssPath = join(projectDirectory, "src/index.css");
-  const resetImport = '@import "@nuee/ui/reset.css";';
+  const resetImport = `@import "${getRelativeImportPath(cssPath, join(tokenDirectory, "reset.css"))}";`;
 
   try {
     const source = await readFile(cssPath, "utf8");
@@ -100,7 +105,7 @@ async function writeNueeFiles(
   refreshLegacyTokens = false,
 ) {
   await mkdir(tokenDirectory, { recursive: true });
-  for (const file of await getTokenFiles()) {
+  for (const file of await getFoundationFiles()) {
     await writeTokenFile(
       join(tokenDirectory, file.name),
       file.content,
@@ -168,7 +173,7 @@ export async function init(projectDirectory: string, options: CliOptions, should
     if (!options["skip-dependencies"]) {
       await installDependencies(projectDirectory, ["@stylexjs/stylex"]);
       if (options.framework === "vite") {
-        await installDependencies(projectDirectory, ["@nuee/ui", "@stylexjs/unplugin"], true);
+        await installDependencies(projectDirectory, ["@stylexjs/unplugin"], true);
       }
     }
     if (options.framework === "vite") {

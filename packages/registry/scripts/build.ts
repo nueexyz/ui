@@ -7,11 +7,14 @@ const outputDirectory = "dist/items";
 const uiSourceDirectory = "../ui/src";
 const tokenSourceDirectory = "../tokens/src";
 const tokenOutputDirectory = "dist/tokens";
+const styleOutputDirectory = "dist/styles";
 
 await rm(outputDirectory, { force: true, recursive: true });
 await mkdir(outputDirectory, { recursive: true });
 await rm(tokenOutputDirectory, { force: true, recursive: true });
 await mkdir(tokenOutputDirectory, { recursive: true });
+await rm(styleOutputDirectory, { force: true, recursive: true });
+await mkdir(styleOutputDirectory, { recursive: true });
 
 for (const [name, item] of Object.entries(registryItems)) {
   const files = await Promise.all(
@@ -51,3 +54,8 @@ for (const name of ["color-palette.stylex.ts", "semantic.stylex.ts", "themes.sty
     await readFile(join(tokenSourceDirectory, name), "utf8"),
   );
 }
+
+await writeFile(
+  join(styleOutputDirectory, "reset.css"),
+  await readFile(join(uiSourceDirectory, "reset.css"), "utf8"),
+);
