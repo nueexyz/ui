@@ -8,6 +8,9 @@ Released on 2026-09-03.
   keeping package-manager progress and runtime warnings out of normal output.
 - Components that share StyleX helpers now install those helpers too, preventing
   Vite import-resolution errors after `add`.
+- Added components now preserve the UI and styles aliases from `nuee.json` in
+  their imports. Configure those aliases in your project; Nuee does not change
+  your bundler alias settings.
 - `add` now accepts multiple component names in one command, so related UI
   components can be installed together.
 - Checkbox controls now meet the minimum pointer target size. Banners only

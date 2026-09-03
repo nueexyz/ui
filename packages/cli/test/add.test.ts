@@ -23,7 +23,7 @@ test("add creates the default config and copies a component with its foundation"
       "utf8",
     );
     assert.match(buttonSource, /export function Button/);
-    assert.match(buttonSource, /from "\.\.\/\.\.\/styles\/semantic\.stylex"/);
+    assert.match(buttonSource, /from "@\/styles\/semantic\.stylex"/);
   } finally {
     await rm(projectDirectory, { recursive: true });
   }
@@ -60,7 +60,7 @@ test("add uses the configured local token directory", async () => {
 
     assert.match(
       await readFile(join(projectDirectory, "src/design/ui/card.tsx"), "utf8"),
-      /from "\.\.\/\.\.\/design-system\/nuee\/semantic\.stylex"/,
+      /from "@\/design-system\/nuee\/semantic\.stylex"/,
     );
   } finally {
     await rm(projectDirectory, { recursive: true });
@@ -119,7 +119,7 @@ test("add resolves aliases from tsconfig paths", async () => {
     await access(join(projectDirectory, "src/shared/ui/card.tsx"));
     assert.match(
       await readFile(join(projectDirectory, "src/shared/ui/card.tsx"), "utf8"),
-      /from "\.\.\/styles\/semantic\.stylex"/,
+      /from "~shared\/styles\/semantic\.stylex"/,
     );
   } finally {
     await rm(projectDirectory, { recursive: true });

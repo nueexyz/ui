@@ -49,48 +49,20 @@ function configureVite(source: string) {
   const importLine = 'import stylex from "@stylexjs/unplugin";';
   const pluginPattern = /plugins:\s*\[([^\]]*)\]/s;
   const stylexPlugin = 'stylex.vite({ unstable_moduleResolution: { type: "commonJS" } })';
-  const legacyStylexPluginPattern = /stylex\.vite\(\{\s*useCSSLayers:\s*true\s*\}\)/;
-  const emptyStylexPluginPattern = /stylex\.vite\(\)/;
-  const moduleResolutionPluginPattern =
-    /stylex\.vite\(\{\s*unstable_moduleResolution:\s*\{\s*type:\s*["']commonJS["']\s*\},?\s*\}\)/s;
-  const nueeStylexPluginPattern =
-    /stylex\.vite\(\{\s*(?:\/\/[^\n]*\s*)?(?:useCSSLayers:\s*true,?\s*)?aliases:\s*\{[^}]*\},\s*unstable_moduleResolution:\s*\{\s*type:\s*["']commonJS["'],\s*rootDir:\s*new URL\(["']\.["'],\s*import\.meta\.url\)\.pathname,?\s*\},\s*\}\)/s;
 
   if (!source.includes("stylex.vite(") && !pluginPattern.test(source)) {
     throw new Error("Could not safely update the Vite plugins array. Add stylex.vite() manually.");
   }
 
-  if (nueeStylexPluginPattern.test(source)) {
-    return source.replace(nueeStylexPluginPattern, stylexPlugin);
-  }
+  if (source.includes("stylex.vite(")) return source;
 
-  if (moduleResolutionPluginPattern.test(source)) return source;
-
-  if (source.includes("unstable_moduleResolution")) {
-    throw new Error(
-      "Could not safely simplify the existing StyleX plugin. Remove Nuee's aliases and unstable_moduleResolution manually, then use stylex.vite().",
-    );
-  }
-
-  let withStylex = source;
-  if (legacyStylexPluginPattern.test(source)) {
-    withStylex = source.replace(legacyStylexPluginPattern, stylexPlugin);
-  } else if (emptyStylexPluginPattern.test(source)) {
-    withStylex = source.replace(emptyStylexPluginPattern, stylexPlugin);
-  } else if (source.includes("stylex.vite(")) {
-    throw new Error(
-      "Could not safely update the existing StyleX plugin. Configure stylex.vite() manually.",
-    );
-  } else {
-    withStylex = (source.includes(importLine) ? source : `${importLine}\n${source}`).replace(
-      pluginPattern,
-      (_, plugins: string) => {
-        const prefix = plugins.trim() ? `${stylexPlugin}, ${plugins}` : stylexPlugin;
-        return `plugins: [${prefix}]`;
-      },
-    );
-  }
-  return withStylex;
+  return (source.includes(importLine) ? source : `${importLine}\n${source}`).replace(
+    pluginPattern,
+    (_, plugins: string) => {
+      const prefix = plugins.trim() ? `${stylexPlugin}, ${plugins}` : stylexPlugin;
+      return `plugins: [${prefix}]`;
+    },
+  );
 }
 
 async function writeViteFiles(

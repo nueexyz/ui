@@ -29,12 +29,22 @@ test("@nuee/ui CLI builds copied components in a Vite app", async () => {
         join(projectDirectory, "vite.config.ts"),
         [
           'import { defineConfig } from "vite";',
+          'import stylex from "@stylexjs/unplugin";',
           "",
           "function react() {",
           '  return { name: "react" };',
           "}",
           "",
-          "export default defineConfig({ plugins: [react()] });",
+          "export default defineConfig({",
+          '  resolve: { alias: { "@": new URL("./src", import.meta.url).pathname } },',
+          "  plugins: [",
+          "    stylex.vite({",
+          '      aliases: { "@/styles/*": [new URL("./src/styles/*", import.meta.url).pathname] },',
+          '      unstable_moduleResolution: { type: "commonJS" },',
+          "    }),",
+          "    react(),",
+          "  ],",
+          "});",
           "",
         ].join("\n"),
       ),
@@ -136,7 +146,7 @@ test("@nuee/ui CLI builds copied components in a Vite app", async () => {
     ]);
 
     const viteConfig = await readFile(join(projectDirectory, "vite.config.ts"), "utf8");
-    assert.ok(viteConfig.indexOf("plugins: [stylex.vite") < viteConfig.indexOf("react()]"));
+    assert.ok(viteConfig.indexOf("stylex.vite") < viteConfig.indexOf("    react(),"));
     assert.match(
       await readFile(join(projectDirectory, "src/index.css"), "utf8"),
       /@import "@nuee\/ui\/reset\.css"/,

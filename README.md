@@ -13,7 +13,29 @@ pnpm dlx @nuee/ui add button
 `init` installs StyleX, configures the Vite compiler, imports Nuee's reset CSS,
 and creates `nuee.json`.
 By default, components go in `@/components/ui` and local token source goes in
-`src/styles`. Use `--ui` or `--styles` to choose other destinations.
+`@/styles`. Use `--ui` or `--styles` to choose other import aliases. Nuee keeps
+those aliases in `nuee.json` and uses them in every added component.
+
+Configure the aliases in your TypeScript and bundler setup before adding
+components. Nuee does not change your alias configuration. For example, a Vite
+project using the defaults can configure both Vite and StyleX:
+
+```ts
+import { defineConfig } from "vite";
+import stylex from "@stylexjs/unplugin";
+
+export default defineConfig({
+  resolve: {
+    alias: { "@": new URL("./src", import.meta.url).pathname },
+  },
+  plugins: [
+    stylex.vite({
+      aliases: { "@/styles/*": [new URL("./src/styles/*", import.meta.url).pathname] },
+      unstable_moduleResolution: { type: "commonJS" },
+    }),
+  ],
+});
+```
 
 ```txt
 src/styles/
@@ -27,8 +49,9 @@ StyleX compiler for your bundler before adding components. Vite projects should
 keep a normal CSS import in their application entry point so Vite can emit
 StyleX's generated CSS.
 
-`init --framework vite` adds StyleX's variable-module resolution. Nuee uses
-local `defineVars()` tokens, so keep this configuration before React.
+When a project has no StyleX plugin yet, `init --framework vite` adds StyleX's
+variable-module resolution. It preserves existing StyleX and alias settings.
+Nuee uses local `defineVars()` tokens, so keep this configuration before React.
 
 ```ts
 stylex.vite({
@@ -67,7 +90,7 @@ To create a product theme, override Nuee's semantic variable groups with
 ## What you get
 
 - Editable local StyleX tokens with light defaults and dark themes.
-- Added component source uses local tokens that live in your project.
+- Added component source imports local tokens through your configured alias.
 - Your app owns theme state and can override Nuee semantic variable groups
   with `stylex.createTheme()`.
 - Accessible React primitives from Base UI with nuee visual defaults.

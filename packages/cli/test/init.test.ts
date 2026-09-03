@@ -128,7 +128,7 @@ test("init configures a standard Vite project", async () => {
   }
 });
 
-test("init --force simplifies the legacy Nuee StyleX plugin", async () => {
+test("init keeps an existing StyleX configuration", async () => {
   const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
@@ -159,13 +159,13 @@ export default defineConfig({
       "skip-dependencies": true,
     });
 
-    assert.doesNotMatch(
+    assert.match(
       await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
       /useCSSLayers|aliases:/,
     );
     assert.match(
       await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
-      /unstable_moduleResolution: \{ type: "commonJS" \}/,
+      /rootDir: new URL\(".", import.meta.url\)\.pathname/,
     );
   } finally {
     await rm(projectDirectory, { recursive: true });

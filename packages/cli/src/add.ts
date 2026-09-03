@@ -1,5 +1,5 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
+import { dirname, isAbsolute, relative, resolve } from "node:path";
 import { createInterface } from "node:readline/promises";
 
 import { defaultConfig, hasConfig, readConfig, resolveConfigAlias } from "./config.js";
@@ -63,12 +63,8 @@ function resolveTargetPath(uiDirectory: string, filePath: string) {
   return targetPath;
 }
 
-function replaceTokenImport(source: string, targetPath: string, stylesDirectory: string) {
-  const tokenPath = join(stylesDirectory, "semantic.stylex");
-  const importPath = relative(dirname(targetPath), tokenPath).split(sep).join("/");
-  const relativeImportPath = importPath.startsWith(".") ? importPath : `./${importPath}`;
-
-  return source.replaceAll("@nuee/tokens/semantic.stylex", relativeImportPath);
+function replaceTokenImport(source: string, stylesAlias: string) {
+  return source.replaceAll("@nuee/tokens/semantic.stylex", `${stylesAlias}/semantic.stylex`);
 }
 
 function removeReducedMotionStyles(source: string) {
@@ -128,11 +124,6 @@ export async function add(
     options["dry-run"] && shouldInitialize ? defaultConfig : await readConfig(projectDirectory);
   const resolvedList = await Promise.all(componentNameList.map(resolveComponent));
   const uiDirectory = await resolveConfigAlias(projectDirectory, config.aliases.ui, "aliases.ui");
-  const stylesDirectory = await resolveConfigAlias(
-    projectDirectory,
-    config.aliases.styles,
-    "aliases.styles",
-  );
   let isOverwriteConfirmed = false;
 
   async function confirmOverwrite() {
@@ -152,10 +143,8 @@ export async function add(
 
       await writeSource(
         config.accessibility.respectReducedMotion
-          ? replaceTokenImport(file.content, targetPath, stylesDirectory)
-          : removeReducedMotionStyles(
-              replaceTokenImport(file.content, targetPath, stylesDirectory),
-            ),
+          ? replaceTokenImport(file.content, config.aliases.styles)
+          : removeReducedMotionStyles(replaceTokenImport(file.content, config.aliases.styles)),
         targetPath,
         confirmOverwrite,
       );
