@@ -48,38 +48,32 @@ export type HoverCardContentProps = ComponentProps<typeof PreviewCard.Popup> & {
 
 export function HoverCardContent({
   align = "center",
-  className,
   side = "bottom",
   sideOffset = 6,
-  style,
   xstyle,
   ...props
 }: HoverCardContentProps) {
-  const base = stylex.props(styles.popup, xstyle);
   return (
     <PreviewCard.Portal>
       <PreviewCard.Positioner align={align} side={side} sideOffset={sideOffset}>
         <PreviewCard.Popup
           {...props}
-          className={(state) => {
-            const motion = stylex.props(
+          className={(state) =>
+            stylex.props(
+              styles.popup,
+              xstyle,
               state.transitionStatus === "starting" && styles.transitioning,
               state.transitionStatus === "ending" && styles.transitioning,
-            );
-            const custom = typeof className === "function" ? className(state) : className;
-            return [base.className, motion.className, custom].filter(Boolean).join(" ");
-          }}
-          style={(state) => {
-            const motion = stylex.props(
+            ).className
+          }
+          style={(state) =>
+            stylex.props(
+              styles.popup,
+              xstyle,
               state.transitionStatus === "starting" && styles.transitioning,
               state.transitionStatus === "ending" && styles.transitioning,
-            );
-            return {
-              ...base.style,
-              ...motion.style,
-              ...(typeof style === "function" ? style(state) : style),
-            };
-          }}
+            ).style
+          }
         />
       </PreviewCard.Positioner>
     </PreviewCard.Portal>

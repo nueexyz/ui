@@ -96,29 +96,14 @@ type AddonAlignment = "block-end" | "block-start" | "inline-end" | "inline-start
 
 export type InputGroupProps = ComponentProps<"div"> & StyleProps & { invalid?: boolean };
 
-export function InputGroup({
-  className,
-  invalid = false,
-  style,
-  xstyle,
-  ...props
-}: InputGroupProps) {
+export function InputGroup({ invalid = false, xstyle, ...props }: InputGroupProps) {
   const stylexProps = stylex.props(styles.root, invalid && styles.invalid, xstyle);
-  return (
-    <div
-      {...props}
-      data-invalid={invalid || undefined}
-      className={[stylexProps.className, className].filter(Boolean).join(" ")}
-      style={{ ...stylexProps.style, ...style }}
-    />
-  );
+  return <div {...props} data-invalid={invalid || undefined} {...stylexProps} />;
 }
 
 export function InputGroupAddon({
   align = "inline-start",
-  className,
   onClick,
-  style,
   xstyle,
   ...props
 }: ComponentProps<"div"> & StyleProps & { align?: AddonAlignment }) {
@@ -130,14 +115,7 @@ export function InputGroupAddon({
   };
 
   return (
-    <div
-      {...props}
-      role="presentation"
-      data-align={align}
-      onClick={handleClick}
-      className={[stylexProps.className, className].filter(Boolean).join(" ")}
-      style={{ ...stylexProps.style, ...style }}
-    />
+    <div {...props} role="presentation" data-align={align} onClick={handleClick} {...stylexProps} />
   );
 }
 
@@ -158,18 +136,7 @@ export function InputGroupButton({
   return <Button {...props} size={size} variant={variant} xstyle={[styles.button, xstyle]} />;
 }
 
-export function InputGroupText({
-  className,
-  style,
-  xstyle,
-  ...props
-}: ComponentProps<"span"> & StyleProps) {
+export function InputGroupText({ xstyle, ...props }: ComponentProps<"span"> & StyleProps) {
   const stylexProps = stylex.props(styles.text, xstyle);
-  return (
-    <span
-      {...props}
-      className={[stylexProps.className, className].filter(Boolean).join(" ")}
-      style={{ ...stylexProps.style, ...style }}
-    />
-  );
+  return <span {...props} {...stylexProps} />;
 }

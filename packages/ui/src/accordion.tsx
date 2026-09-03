@@ -94,54 +94,30 @@ const styles = stylex.create({
   },
 });
 
-export function Accordion({
-  className,
-  style,
-  ...props
-}: ComponentProps<typeof AccordionPrimitive.Root>) {
+export function Accordion({ ...props }: ComponentProps<typeof AccordionPrimitive.Root>) {
   const stylexProps = stylex.props(styles.root);
   return (
     <AccordionPrimitive.Root
       {...props}
-      className={(state) =>
-        [stylexProps.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({
-        ...stylexProps.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
+      className={() => stylexProps.className}
+      style={() => stylexProps.style}
     />
   );
 }
 
-export function AccordionItem({
-  className,
-  style,
-  ...props
-}: ComponentProps<typeof AccordionPrimitive.Item>) {
+export function AccordionItem({ ...props }: ComponentProps<typeof AccordionPrimitive.Item>) {
   const stylexProps = stylex.props(styles.item);
   return (
     <AccordionPrimitive.Item
       {...props}
-      className={(state) =>
-        [stylexProps.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({
-        ...stylexProps.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
+      className={() => stylexProps.className}
+      style={() => stylexProps.style}
     />
   );
 }
 
 export function AccordionTrigger({
   children,
-  className,
-  style,
   ...props
 }: ComponentProps<typeof AccordionPrimitive.Trigger>) {
   return (
@@ -153,19 +129,14 @@ export function AccordionTrigger({
             styles.trigger,
             state.disabled && styles.triggerDisabled,
           );
-          return [
-            stylexProps.className,
-            typeof className === "function" ? className(state) : className,
-          ]
-            .filter(Boolean)
-            .join(" ");
+          return stylexProps.className;
         }}
         style={(state) => {
           const stylexProps = stylex.props(
             styles.trigger,
             state.disabled && styles.triggerDisabled,
           );
-          return { ...stylexProps.style, ...(typeof style === "function" ? style(state) : style) };
+          return stylexProps.style;
         }}
       >
         {children}
@@ -184,8 +155,6 @@ export function AccordionTrigger({
 
 export function AccordionContent({
   children,
-  className,
-  style,
   ...props
 }: ComponentProps<typeof AccordionPrimitive.Panel>) {
   return (
@@ -197,12 +166,7 @@ export function AccordionContent({
           state.transitionStatus === "starting" && styles.panelTransitioning,
           state.transitionStatus === "ending" && styles.panelTransitioning,
         );
-        return [
-          stylexProps.className,
-          typeof className === "function" ? className(state) : className,
-        ]
-          .filter(Boolean)
-          .join(" ");
+        return stylexProps.className;
       }}
       style={(state) => {
         const stylexProps = stylex.props(
@@ -210,7 +174,7 @@ export function AccordionContent({
           state.transitionStatus === "starting" && styles.panelTransitioning,
           state.transitionStatus === "ending" && styles.panelTransitioning,
         );
-        return { ...stylexProps.style, ...(typeof style === "function" ? style(state) : style) };
+        return stylexProps.style;
       }}
     >
       <div {...stylex.props(styles.panelContent)}>{children}</div>

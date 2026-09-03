@@ -1,8 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { getNativeStyleProps } from "./stylex-props";
-
 import { colorVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
@@ -48,35 +46,23 @@ export type MarkerProps = ComponentProps<"div"> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function Marker({ className, style, variant = "default", xstyle, ...props }: MarkerProps) {
+export function Marker({ variant = "default", xstyle, ...props }: MarkerProps) {
   return (
     <div
       {...props}
-      {...getNativeStyleProps(
-        stylex.props(
-          styles.root,
-          variant === "default" ? styles.variantDefault : styles[variant],
-          xstyle,
-        ),
-        className,
-        style,
+      {...stylex.props(
+        styles.root,
+        variant === "default" ? styles.variantDefault : styles[variant],
+        xstyle,
       )}
     />
   );
 }
 
-export function MarkerIcon({ className, style, ...props }: ComponentProps<"span">) {
-  return (
-    <span
-      aria-hidden="true"
-      {...props}
-      {...getNativeStyleProps(stylex.props(styles.icon), className, style)}
-    />
-  );
+export function MarkerIcon({ ...props }: ComponentProps<"span">) {
+  return <span aria-hidden="true" {...props} {...stylex.props(styles.icon)} />;
 }
 
-export function MarkerContent({ className, style, ...props }: ComponentProps<"span">) {
-  return (
-    <span {...props} {...getNativeStyleProps(stylex.props(styles.content), className, style)} />
-  );
+export function MarkerContent({ ...props }: ComponentProps<"span">) {
+  return <span {...props} {...stylex.props(styles.content)} />;
 }

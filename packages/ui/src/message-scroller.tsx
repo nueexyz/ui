@@ -41,10 +41,8 @@ export type MessageScrollerProps = ComponentProps<"div"> & {
 
 export function MessageScroller({
   children,
-  className,
   followOutput = true,
   scrollLabel = "Scroll to latest message",
-  style,
   xstyle,
   ...props
 }: MessageScrollerProps) {
@@ -58,11 +56,7 @@ export function MessageScroller({
 
   const resolved = stylex.props(styles.root, xstyle);
   return (
-    <div
-      {...props}
-      className={[resolved.className, className].filter(Boolean).join(" ")}
-      style={{ ...resolved.style, ...style }}
-    >
+    <div {...props} {...resolved}>
       <div
         ref={viewportRef}
         {...stylex.props(styles.viewport)}

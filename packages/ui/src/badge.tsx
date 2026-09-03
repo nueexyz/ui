@@ -60,13 +60,7 @@ export type BadgeProps = ComponentProps<"span"> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function Badge({ className, style, variant = "primary", xstyle, ...props }: BadgeProps) {
+export function Badge({ variant = "primary", xstyle, ...props }: BadgeProps) {
   const stylexProps = stylex.props(styles.root, styles[variant], xstyle);
-  return (
-    <span
-      {...props}
-      className={[stylexProps.className, className].filter(Boolean).join(" ")}
-      style={{ ...stylexProps.style, ...style }}
-    />
-  );
+  return <span {...props} {...stylexProps} />;
 }

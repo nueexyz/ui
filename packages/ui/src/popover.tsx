@@ -2,8 +2,6 @@ import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { getNativeStyleProps } from "./stylex-props";
-
 import {
   colorVars,
   motionVars,
@@ -69,10 +67,8 @@ type PopoverContentProps = ComponentProps<typeof PopoverPrimitive.Popup> &
 
 export function PopoverContent({
   align = "start",
-  className,
   side = "bottom",
   sideOffset = 6,
-  style,
   xstyle,
   ...props
 }: PopoverContentProps) {
@@ -94,12 +90,7 @@ export function PopoverContent({
               state.transitionStatus === "ending" && styles.popupEnding,
               xstyle,
             );
-            return [
-              stylexProps.className,
-              typeof className === "function" ? className(state) : className,
-            ]
-              .filter(Boolean)
-              .join(" ");
+            return stylexProps.className;
           }}
           style={(state) => {
             const stylexProps = stylex.props(
@@ -109,10 +100,7 @@ export function PopoverContent({
               state.transitionStatus === "ending" && styles.popupEnding,
               xstyle,
             );
-            return {
-              ...stylexProps.style,
-              ...(typeof style === "function" ? style(state) : style),
-            };
+            return stylexProps.style;
           }}
         />
       </PopoverPrimitive.Positioner>
@@ -120,18 +108,16 @@ export function PopoverContent({
   );
 }
 
-export function PopoverHeader({ className, style, ...props }: ComponentProps<"div">) {
-  return <div {...props} {...getNativeStyleProps(stylex.props(styles.header), className, style)} />;
+export function PopoverHeader({ ...props }: ComponentProps<"div">) {
+  return <div {...props} {...stylex.props(styles.header)} />;
 }
-export function PopoverTitle({ children, className, style, ...props }: ComponentProps<"h2">) {
+export function PopoverTitle({ children, ...props }: ComponentProps<"h2">) {
   return (
-    <h2 {...props} {...getNativeStyleProps(stylex.props(styles.title), className, style)}>
+    <h2 {...props} {...stylex.props(styles.title)}>
       {children}
     </h2>
   );
 }
-export function PopoverDescription({ className, style, ...props }: ComponentProps<"p">) {
-  return (
-    <p {...props} {...getNativeStyleProps(stylex.props(styles.description), className, style)} />
-  );
+export function PopoverDescription({ ...props }: ComponentProps<"p">) {
+  return <p {...props} {...stylex.props(styles.description)} />;
 }

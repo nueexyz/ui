@@ -1,8 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { getNativeStyleProps } from "./stylex-props";
-
 import { colorVars, motionVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
@@ -67,51 +65,42 @@ export type TableProps = ComponentProps<"table"> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function Table({ className, containerClassName, style, xstyle, ...props }: TableProps) {
+export function Table({ containerClassName, xstyle, ...props }: TableProps) {
   return (
     <div
       className={[stylex.props(styles.container).className, containerClassName]
         .filter(Boolean)
         .join(" ")}
     >
-      <table
-        {...props}
-        {...getNativeStyleProps(stylex.props(styles.table, xstyle), className, style)}
-      />
+      <table {...props} {...stylex.props(styles.table, xstyle)} />
     </div>
   );
 }
 
-export function TableHeader({ className, style, ...props }: ComponentProps<"thead">) {
-  return (
-    <thead {...props} {...getNativeStyleProps(stylex.props(styles.header), className, style)} />
-  );
+export function TableHeader({ ...props }: ComponentProps<"thead">) {
+  return <thead {...props} {...stylex.props(styles.header)} />;
 }
 
-export function TableBody({ className, style, ...props }: ComponentProps<"tbody">) {
-  return <tbody {...props} {...getNativeStyleProps(stylex.props(styles.body), className, style)} />;
+export function TableBody({ ...props }: ComponentProps<"tbody">) {
+  return <tbody {...props} {...stylex.props(styles.body)} />;
 }
 
-export function TableFooter({ className, style, ...props }: ComponentProps<"tfoot">) {
-  return (
-    <tfoot {...props} {...getNativeStyleProps(stylex.props(styles.footer), className, style)} />
-  );
+export function TableFooter({ ...props }: ComponentProps<"tfoot">) {
+  return <tfoot {...props} {...stylex.props(styles.footer)} />;
 }
 
-export function TableRow({ className, style, ...props }: ComponentProps<"tr">) {
-  return <tr {...props} {...getNativeStyleProps(stylex.props(styles.row), className, style)} />;
+export function TableRow({ ...props }: ComponentProps<"tr">) {
+  return <tr {...props} {...stylex.props(styles.row)} />;
 }
 
-export function TableHead({ className, style, ...props }: ComponentProps<"th">) {
-  return <th {...props} {...getNativeStyleProps(stylex.props(styles.head), className, style)} />;
+export function TableHead({ ...props }: ComponentProps<"th">) {
+  return <th {...props} {...stylex.props(styles.head)} />;
 }
 
-export function TableCell({ className, style, ...props }: ComponentProps<"td">) {
-  return <td {...props} {...getNativeStyleProps(stylex.props(styles.cell), className, style)} />;
+export function TableCell({ ...props }: ComponentProps<"td">) {
+  return <td {...props} {...stylex.props(styles.cell)} />;
 }
 
-export function TableCaption({ className, style, ...props }: ComponentProps<"caption">) {
-  return (
-    <caption {...props} {...getNativeStyleProps(stylex.props(styles.caption), className, style)} />
-  );
+export function TableCaption({ ...props }: ComponentProps<"caption">) {
+  return <caption {...props} {...stylex.props(styles.caption)} />;
 }

@@ -140,10 +140,8 @@ export type ButtonProps = ComponentProps<typeof ButtonPrimitive> & {
 
 export function Button({
   children,
-  className,
   disabled,
   size = "md",
-  style,
   variant = "primary",
   xstyle,
   ...props
@@ -160,7 +158,6 @@ export function Button({
     isDisabled && styles.disabledInteraction,
     xstyle,
   );
-  const mergedClassName = [stylexProps.className, className].filter(Boolean).join(" ");
   const contentStylexProps = stylex.props(
     styles.content,
     variant === "primary" && styles.primaryContent,
@@ -169,12 +166,7 @@ export function Button({
   );
 
   return (
-    <ButtonPrimitive
-      {...props}
-      className={mergedClassName}
-      disabled={disabled}
-      style={{ ...stylexProps.style, ...style }}
-    >
+    <ButtonPrimitive {...props} disabled={disabled} {...stylexProps}>
       <span {...contentStylexProps}>{children}</span>
     </ButtonPrimitive>
   );

@@ -48,19 +48,13 @@ export type RadioGroupProps = ComponentProps<typeof RadioGroupPrimitive> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function RadioGroup({ className, style, xstyle, ...props }: RadioGroupProps) {
+export function RadioGroup({ xstyle, ...props }: RadioGroupProps) {
   const stylexProps = stylex.props(styles.group, xstyle);
   return (
     <RadioGroupPrimitive
       {...props}
-      className={(state) => {
-        const customClassName = typeof className === "function" ? className(state) : className;
-        return [stylexProps.className, customClassName].filter(Boolean).join(" ");
-      }}
-      style={(state) => ({
-        ...stylexProps.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
+      className={() => stylexProps.className}
+      style={() => stylexProps.style}
     />
   );
 }
@@ -69,18 +63,17 @@ export type RadioGroupItemProps = ComponentProps<typeof RadioPrimitive.Root> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function RadioGroupItem({ className, style, xstyle, ...props }: RadioGroupItemProps) {
+export function RadioGroupItem({ xstyle, ...props }: RadioGroupItemProps) {
   return (
     <RadioPrimitive.Root
       {...props}
       className={(state) => {
         const stylexProps = stylex.props(styles.item, state.checked && styles.checked, xstyle);
-        const customClassName = typeof className === "function" ? className(state) : className;
-        return [stylexProps.className, customClassName].filter(Boolean).join(" ");
+        return stylexProps.className;
       }}
       style={(state) => {
         const stylexProps = stylex.props(styles.item, state.checked && styles.checked, xstyle);
-        return { ...stylexProps.style, ...(typeof style === "function" ? style(state) : style) };
+        return stylexProps.style;
       }}
     >
       <RadioPrimitive.Indicator {...stylex.props(styles.indicator)}>

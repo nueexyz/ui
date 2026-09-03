@@ -140,47 +140,33 @@ export type TabsProps = ComponentProps<typeof TabsPrimitive.Root> & {
 
 const TabsVariantContext = createContext<TabsVariant>("segmented");
 
-export function Tabs({ className, style, variant = "segmented", ...props }: TabsProps) {
+export function Tabs({ variant = "segmented", ...props }: TabsProps) {
   const stylexProps = stylex.props(styles.root);
 
   return (
     <TabsVariantContext.Provider value={variant}>
       <TabsPrimitive.Root
         {...props}
-        className={(state) =>
-          [stylexProps.className, typeof className === "function" ? className(state) : className]
-            .filter(Boolean)
-            .join(" ")
-        }
-        style={(state) => ({
-          ...stylexProps.style,
-          ...(typeof style === "function" ? style(state) : style),
-        })}
+        className={() => stylexProps.className}
+        style={() => stylexProps.style}
       />
     </TabsVariantContext.Provider>
   );
 }
 
-export function TabsList({
-  children,
-  className,
-  style,
-  ...props
-}: ComponentProps<typeof TabsPrimitive.List>) {
+export function TabsList({ children, ...props }: ComponentProps<typeof TabsPrimitive.List>) {
   const variant = useContext(TabsVariantContext);
 
   return (
     <TabsPrimitive.List
       {...props}
-      className={(state) => {
+      className={() => {
         const sx = stylex.props(styles.list, styles[`${variant}List`]);
-        return [sx.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ");
+        return sx.className;
       }}
-      style={(state) => {
+      style={() => {
         const sx = stylex.props(styles.list, styles[`${variant}List`]);
-        return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+        return sx.style;
       }}
     >
       {children}
@@ -189,11 +175,7 @@ export function TabsList({
   );
 }
 
-export function TabsTrigger({
-  className,
-  style,
-  ...props
-}: ComponentProps<typeof TabsPrimitive.Tab>) {
+export function TabsTrigger({ ...props }: ComponentProps<typeof TabsPrimitive.Tab>) {
   const variant = useContext(TabsVariantContext);
 
   return (
@@ -206,9 +188,7 @@ export function TabsTrigger({
           state.active && styles.triggerActive,
           state.disabled && styles.triggerDisabled,
         );
-        return [sx.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ");
+        return sx.className;
       }}
       style={(state) => {
         const sx = stylex.props(
@@ -217,17 +197,13 @@ export function TabsTrigger({
           state.active && styles.triggerActive,
           state.disabled && styles.triggerDisabled,
         );
-        return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+        return sx.style;
       }}
     />
   );
 }
 
-export function TabsContent({
-  className,
-  style,
-  ...props
-}: ComponentProps<typeof TabsPrimitive.Panel>) {
+export function TabsContent({ ...props }: ComponentProps<typeof TabsPrimitive.Panel>) {
   return (
     <TabsPrimitive.Panel
       {...props}
@@ -237,9 +213,7 @@ export function TabsContent({
           state.transitionStatus === "starting" && styles.panelTransitioning,
           state.transitionStatus === "ending" && styles.panelTransitioning,
         );
-        return [sx.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ");
+        return sx.className;
       }}
       style={(state) => {
         const sx = stylex.props(
@@ -247,7 +221,7 @@ export function TabsContent({
           state.transitionStatus === "starting" && styles.panelTransitioning,
           state.transitionStatus === "ending" && styles.panelTransitioning,
         );
-        return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+        return sx.style;
       }}
     />
   );

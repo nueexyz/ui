@@ -79,32 +79,19 @@ const styles = stylex.create({
   },
 });
 
-export function Collapsible({
-  className,
-  style,
-  ...props
-}: ComponentProps<typeof CollapsiblePrimitive.Root>) {
+export function Collapsible({ ...props }: ComponentProps<typeof CollapsiblePrimitive.Root>) {
   const stylexProps = stylex.props(styles.root);
   return (
     <CollapsiblePrimitive.Root
       {...props}
-      className={(state) =>
-        [stylexProps.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({
-        ...stylexProps.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
+      className={() => stylexProps.className}
+      style={() => stylexProps.style}
     />
   );
 }
 
 export function CollapsibleTrigger({
   children,
-  className,
-  style,
   ...props
 }: ComponentProps<typeof CollapsiblePrimitive.Trigger>) {
   return (
@@ -112,13 +99,11 @@ export function CollapsibleTrigger({
       {...props}
       className={(state) => {
         const sx = stylex.props(styles.trigger, state.disabled && styles.triggerDisabled);
-        return [sx.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ");
+        return sx.className;
       }}
       style={(state) => {
         const sx = stylex.props(styles.trigger, state.disabled && styles.triggerDisabled);
-        return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+        return sx.style;
       }}
     >
       {children}
@@ -131,8 +116,6 @@ export function CollapsibleTrigger({
 
 export function CollapsibleContent({
   children,
-  className,
-  style,
   ...props
 }: ComponentProps<typeof CollapsiblePrimitive.Panel>) {
   return (
@@ -144,9 +127,7 @@ export function CollapsibleContent({
           state.transitionStatus === "starting" && styles.panelTransitioning,
           state.transitionStatus === "ending" && styles.panelTransitioning,
         );
-        return [sx.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ");
+        return sx.className;
       }}
       style={(state) => {
         const sx = stylex.props(
@@ -154,7 +135,7 @@ export function CollapsibleContent({
           state.transitionStatus === "starting" && styles.panelTransitioning,
           state.transitionStatus === "ending" && styles.panelTransitioning,
         );
-        return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+        return sx.style;
       }}
     >
       <div {...stylex.props(styles.panelContent)}>{children}</div>

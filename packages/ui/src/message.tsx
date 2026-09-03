@@ -1,8 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { getNativeStyleProps } from "./stylex-props";
-
 import { colorVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
@@ -23,30 +21,20 @@ export type MessageProps = ComponentProps<"article"> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function Message({ className, side = "incoming", style, xstyle, ...props }: MessageProps) {
+export function Message({ side = "incoming", xstyle, ...props }: MessageProps) {
   return (
-    <article
-      {...props}
-      data-side={side}
-      {...getNativeStyleProps(stylex.props(styles.root, styles[side], xstyle), className, style)}
-    />
+    <article {...props} data-side={side} {...stylex.props(styles.root, styles[side], xstyle)} />
   );
 }
 
-export function MessageHeader({ className, style, ...props }: ComponentProps<"header">) {
-  return (
-    <header {...props} {...getNativeStyleProps(stylex.props(styles.header), className, style)} />
-  );
+export function MessageHeader({ ...props }: ComponentProps<"header">) {
+  return <header {...props} {...stylex.props(styles.header)} />;
 }
 
-export function MessageContent({ className, style, ...props }: ComponentProps<"div">) {
-  return (
-    <div {...props} {...getNativeStyleProps(stylex.props(styles.content), className, style)} />
-  );
+export function MessageContent({ ...props }: ComponentProps<"div">) {
+  return <div {...props} {...stylex.props(styles.content)} />;
 }
 
-export function MessageFooter({ className, style, ...props }: ComponentProps<"footer">) {
-  return (
-    <footer {...props} {...getNativeStyleProps(stylex.props(styles.footer), className, style)} />
-  );
+export function MessageFooter({ ...props }: ComponentProps<"footer">) {
+  return <footer {...props} {...stylex.props(styles.footer)} />;
 }

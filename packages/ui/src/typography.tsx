@@ -1,5 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
-import { createElement, type CSSProperties, type HTMLAttributes } from "react";
+import { createElement, type HTMLAttributes } from "react";
 
 import { colorVars, radiusVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 
@@ -68,20 +68,10 @@ export type TypographyProps = HTMLAttributes<HTMLElement> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function Typography({
-  as,
-  className,
-  style,
-  variant = "body",
-  xstyle,
-  ...props
-}: TypographyProps) {
+export function Typography({ as, variant = "body", xstyle, ...props }: TypographyProps) {
   const element = as ?? defaultElementMap[variant];
-  const stylexProps = stylex.props(styles.root, styles[variant], xstyle);
-
   return createElement(element, {
     ...props,
-    className: [stylexProps.className, className].filter(Boolean).join(" "),
-    style: { ...stylexProps.style, ...style } as CSSProperties,
+    ...stylex.props(styles.root, styles[variant], xstyle),
   });
 }

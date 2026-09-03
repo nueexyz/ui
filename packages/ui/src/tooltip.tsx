@@ -52,10 +52,8 @@ type TooltipContentProps = ComponentProps<typeof TooltipPrimitive.Popup> &
 
 export function TooltipContent({
   align = "center",
-  className,
   side = "top",
   sideOffset = 6,
-  style,
   xstyle,
   ...props
 }: TooltipContentProps) {
@@ -77,12 +75,7 @@ export function TooltipContent({
               state.transitionStatus === "ending" && styles.popupEnding,
               xstyle,
             );
-            return [
-              stylexProps.className,
-              typeof className === "function" ? className(state) : className,
-            ]
-              .filter(Boolean)
-              .join(" ");
+            return stylexProps.className;
           }}
           style={(state) => {
             const stylexProps = stylex.props(
@@ -92,10 +85,7 @@ export function TooltipContent({
               state.transitionStatus === "ending" && styles.popupEnding,
               xstyle,
             );
-            return {
-              ...stylexProps.style,
-              ...(typeof style === "function" ? style(state) : style),
-            };
+            return stylexProps.style;
           }}
         >
           {props.children}

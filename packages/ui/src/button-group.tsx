@@ -86,11 +86,9 @@ export type ButtonGroupProps = ComponentProps<"div"> &
   StyleProps & { orientation?: "horizontal" | "vertical" };
 
 export function ButtonGroup({
-  className,
   children,
   orientation = "horizontal",
   role,
-  style,
   xstyle,
   ...props
 }: ButtonGroupProps) {
@@ -120,32 +118,15 @@ export function ButtonGroup({
   });
 
   return (
-    <div
-      {...props}
-      data-orientation={orientation}
-      role={role ?? "group"}
-      className={[stylexProps.className, className].filter(Boolean).join(" ")}
-      style={{ ...stylexProps.style, ...style }}
-    >
+    <div {...props} data-orientation={orientation} role={role ?? "group"} {...stylexProps}>
       {content}
     </div>
   );
 }
 
-export function ButtonGroupText({
-  className,
-  style,
-  xstyle,
-  ...props
-}: ComponentProps<"span"> & StyleProps) {
+export function ButtonGroupText({ xstyle, ...props }: ComponentProps<"span"> & StyleProps) {
   const stylexProps = stylex.props(styles.text, xstyle);
-  return (
-    <span
-      {...props}
-      className={[stylexProps.className, className].filter(Boolean).join(" ")}
-      style={{ ...stylexProps.style, ...style }}
-    />
-  );
+  return <span {...props} {...stylexProps} />;
 }
 
 export function ButtonGroupSeparator({

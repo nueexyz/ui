@@ -100,9 +100,7 @@ export type ToggleGroupProps = ComponentProps<typeof ToggleGroupPrimitive> & {
 
 export function ToggleGroup({
   children,
-  className,
   size = "md",
-  style,
   variant = "default",
   xstyle,
   ...props
@@ -111,14 +109,8 @@ export function ToggleGroup({
   return (
     <ToggleGroupPrimitive
       {...props}
-      className={(state) => {
-        const customClassName = typeof className === "function" ? className(state) : className;
-        return [stylexProps.className, customClassName].filter(Boolean).join(" ");
-      }}
-      style={(state) => ({
-        ...stylexProps.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
+      className={() => stylexProps.className}
+      style={() => stylexProps.style}
     >
       <ToggleGroupContext value={{ size, variant }}>{children}</ToggleGroupContext>
     </ToggleGroupPrimitive>
@@ -131,14 +123,7 @@ export type ToggleGroupItemProps = ComponentProps<typeof TogglePrimitive> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function ToggleGroupItem({
-  className,
-  size,
-  style,
-  variant,
-  xstyle,
-  ...props
-}: ToggleGroupItemProps) {
+export function ToggleGroupItem({ size, variant, xstyle, ...props }: ToggleGroupItemProps) {
   const context = useContext(ToggleGroupContext);
   const finalSize = size ?? context.size;
   const finalVariant = variant ?? context.variant;
@@ -155,8 +140,7 @@ export function ToggleGroupItem({
           finalVariant === "outline" && styles.outlineItem,
           xstyle,
         );
-        const customClassName = typeof className === "function" ? className(state) : className;
-        return [stylexProps.className, customClassName].filter(Boolean).join(" ");
+        return stylexProps.className;
       }}
       style={(state) => {
         const stylexProps = stylex.props(
@@ -167,7 +151,7 @@ export function ToggleGroupItem({
           state.disabled && styles.itemDisabled,
           xstyle,
         );
-        return { ...stylexProps.style, ...(typeof style === "function" ? style(state) : style) };
+        return stylexProps.style;
       }}
     />
   );

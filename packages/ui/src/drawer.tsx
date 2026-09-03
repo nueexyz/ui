@@ -3,7 +3,6 @@ import * as stylex from "@stylexjs/stylex";
 import { createContext, useContext } from "react";
 import type { ComponentProps } from "react";
 
-import { getNativeStyleProps } from "./stylex-props";
 import {
   colorVars,
   motionVars,
@@ -238,26 +237,18 @@ type DrawerOverlayProps = ComponentProps<typeof DrawerPrimitive.Backdrop> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function DrawerOverlay({ className, style, xstyle, ...props }: DrawerOverlayProps) {
+export function DrawerOverlay({ xstyle, ...props }: DrawerOverlayProps) {
   return (
     <DrawerPrimitive.Backdrop
       {...props}
       data-slot="drawer-overlay"
-      className={(state) => {
+      className={() => {
         const stylexProps = stylex.props(styles.overlay, xstyle);
-        return [
-          stylexProps.className,
-          typeof className === "function" ? className(state) : className,
-        ]
-          .filter(Boolean)
-          .join(" ");
+        return stylexProps.className;
       }}
-      style={(state) => {
+      style={() => {
         const stylexProps = stylex.props(styles.overlay, xstyle);
-        return {
-          ...stylexProps.style,
-          ...(typeof style === "function" ? style(state) : style),
-        };
+        return stylexProps.style;
       }}
     />
   );
@@ -265,7 +256,7 @@ export function DrawerOverlay({ className, style, xstyle, ...props }: DrawerOver
 
 type DrawerSwipeHandleProps = ComponentProps<"div"> & { xstyle?: stylex.StyleXStyles };
 
-export function DrawerSwipeHandle({ className, style, xstyle, ...props }: DrawerSwipeHandleProps) {
+export function DrawerSwipeHandle({ xstyle, ...props }: DrawerSwipeHandleProps) {
   const { swipeDirection } = useContext(DrawerContext);
   const isHorizontal = swipeDirection === "left" || swipeDirection === "right";
   return (
@@ -273,17 +264,13 @@ export function DrawerSwipeHandle({ className, style, xstyle, ...props }: Drawer
       aria-hidden="true"
       data-slot="drawer-swipe-handle"
       {...props}
-      {...getNativeStyleProps(
-        stylex.props(
-          styles.swipeHandle,
-          isHorizontal && styles.horizontalSwipeHandle,
-          swipeDirection === "up" && styles.upSwipeHandle,
-          swipeDirection === "left" && styles.leftSwipeHandle,
-          swipeDirection === "right" && styles.rightSwipeHandle,
-          xstyle,
-        ),
-        className,
-        style,
+      {...stylex.props(
+        styles.swipeHandle,
+        isHorizontal && styles.horizontalSwipeHandle,
+        swipeDirection === "up" && styles.upSwipeHandle,
+        swipeDirection === "left" && styles.leftSwipeHandle,
+        swipeDirection === "right" && styles.rightSwipeHandle,
+        xstyle,
       )}
     />
   );
@@ -310,13 +297,7 @@ function getDrawerPopupStylexProps(
   return stylex.props(styles.popup, styles.verticalPopup, styles.downPopup, xstyle);
 }
 
-export function DrawerContent({
-  children,
-  className,
-  style,
-  xstyle,
-  ...props
-}: DrawerContentProps) {
+export function DrawerContent({ children, xstyle, ...props }: DrawerContentProps) {
   const { overlay, showSwipeHandle, swipeDirection } = useContext(DrawerContext);
 
   return (
@@ -328,21 +309,13 @@ export function DrawerContent({
         <DrawerPrimitive.Popup
           {...props}
           data-slot="drawer-popup"
-          className={(state) => {
+          className={() => {
             const stylexProps = getDrawerPopupStylexProps(swipeDirection, xstyle);
-            return [
-              stylexProps.className,
-              typeof className === "function" ? className(state) : className,
-            ]
-              .filter(Boolean)
-              .join(" ");
+            return stylexProps.className;
           }}
-          style={(state) => {
+          style={() => {
             const stylexProps = getDrawerPopupStylexProps(swipeDirection, xstyle);
-            return {
-              ...stylexProps.style,
-              ...(typeof style === "function" ? style(state) : style),
-            };
+            return stylexProps.style;
           }}
         >
           {showSwipeHandle ? <DrawerSwipeHandle /> : null}
@@ -356,22 +329,13 @@ export function DrawerContent({
 }
 
 export function DrawerHeader({
-  className,
-  style,
   xstyle,
   ...props
 }: ComponentProps<"div"> & { xstyle?: stylex.StyleXStyles }) {
-  return (
-    <div
-      {...props}
-      {...getNativeStyleProps(stylex.props(styles.header, xstyle), className, style)}
-    />
-  );
+  return <div {...props} {...stylex.props(styles.header, xstyle)} />;
 }
 
 export function DrawerFooter({
-  className,
-  style,
   xstyle,
   ...props
 }: ComponentProps<"div"> & { xstyle?: stylex.StyleXStyles }) {
@@ -379,57 +343,30 @@ export function DrawerFooter({
   const isSideDrawer = swipeDirection === "left" || swipeDirection === "right";
 
   return (
-    <div
-      {...props}
-      {...getNativeStyleProps(
-        stylex.props(styles.footer, isSideDrawer && styles.sideFooter, xstyle),
-        className,
-        style,
-      )}
-    />
+    <div {...props} {...stylex.props(styles.footer, isSideDrawer && styles.sideFooter, xstyle)} />
   );
 }
 
-export function DrawerTitle({
-  className,
-  style,
-  ...props
-}: ComponentProps<typeof DrawerPrimitive.Title>) {
+export function DrawerTitle({ ...props }: ComponentProps<typeof DrawerPrimitive.Title>) {
   const stylexProps = stylex.props(styles.title);
   return (
     <DrawerPrimitive.Title
       {...props}
-      className={(state) =>
-        [stylexProps.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({
-        ...stylexProps.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
+      className={() => stylexProps.className}
+      style={() => stylexProps.style}
     />
   );
 }
 
 export function DrawerDescription({
-  className,
-  style,
   ...props
 }: ComponentProps<typeof DrawerPrimitive.Description>) {
   const stylexProps = stylex.props(styles.description);
   return (
     <DrawerPrimitive.Description
       {...props}
-      className={(state) =>
-        [stylexProps.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({
-        ...stylexProps.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
+      className={() => stylexProps.className}
+      style={() => stylexProps.style}
     />
   );
 }

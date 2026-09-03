@@ -1,8 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { getNativeStyleProps } from "./stylex-props";
-
 import {
   colorVars,
   radiusVars,
@@ -68,79 +66,30 @@ const styles = stylex.create({
 
 type StyleProps = { xstyle?: stylex.StyleXStyles };
 
-export function Empty({ className, style, xstyle, ...props }: ComponentProps<"div"> & StyleProps) {
-  return (
-    <div {...props} {...getNativeStyleProps(stylex.props(styles.root, xstyle), className, style)} />
-  );
+export function Empty({ xstyle, ...props }: ComponentProps<"div"> & StyleProps) {
+  return <div {...props} {...stylex.props(styles.root, xstyle)} />;
 }
 
-export function EmptyHeader({
-  className,
-  style,
-  xstyle,
-  ...props
-}: ComponentProps<"div"> & StyleProps) {
-  return (
-    <div
-      {...props}
-      {...getNativeStyleProps(stylex.props(styles.header, xstyle), className, style)}
-    />
-  );
+export function EmptyHeader({ xstyle, ...props }: ComponentProps<"div"> & StyleProps) {
+  return <div {...props} {...stylex.props(styles.header, xstyle)} />;
 }
 
-export function EmptyMedia({
-  className,
-  style,
-  xstyle,
-  ...props
-}: ComponentProps<"div"> & StyleProps) {
-  return (
-    <div
-      {...props}
-      aria-hidden="true"
-      {...getNativeStyleProps(stylex.props(styles.media, xstyle), className, style)}
-    />
-  );
+export function EmptyMedia({ xstyle, ...props }: ComponentProps<"div"> & StyleProps) {
+  return <div {...props} aria-hidden="true" {...stylex.props(styles.media, xstyle)} />;
 }
 
-export function EmptyTitle({
-  children,
-  className,
-  style,
-  xstyle,
-  ...props
-}: ComponentProps<"h3"> & StyleProps) {
+export function EmptyTitle({ children, xstyle, ...props }: ComponentProps<"h3"> & StyleProps) {
   return (
-    <h3 {...props} {...getNativeStyleProps(stylex.props(styles.title, xstyle), className, style)}>
+    <h3 {...props} {...stylex.props(styles.title, xstyle)}>
       {children}
     </h3>
   );
 }
 
-export function EmptyDescription({
-  className,
-  style,
-  xstyle,
-  ...props
-}: ComponentProps<"p"> & StyleProps) {
-  return (
-    <p
-      {...props}
-      {...getNativeStyleProps(stylex.props(styles.description, xstyle), className, style)}
-    />
-  );
+export function EmptyDescription({ xstyle, ...props }: ComponentProps<"p"> & StyleProps) {
+  return <p {...props} {...stylex.props(styles.description, xstyle)} />;
 }
 
-export function EmptyContent({
-  className,
-  style,
-  xstyle,
-  ...props
-}: ComponentProps<"div"> & StyleProps) {
-  return (
-    <div
-      {...props}
-      {...getNativeStyleProps(stylex.props(styles.content, xstyle), className, style)}
-    />
-  );
+export function EmptyContent({ xstyle, ...props }: ComponentProps<"div"> & StyleProps) {
+  return <div {...props} {...stylex.props(styles.content, xstyle)} />;
 }

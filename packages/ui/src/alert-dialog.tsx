@@ -3,7 +3,6 @@ import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, ReactNode } from "react";
 
 import { Button } from "./button";
-import { getNativeStyleProps } from "./stylex-props";
 import {
   colorVars,
   motionVars,
@@ -104,13 +103,7 @@ type AlertDialogContentProps = ComponentProps<typeof AlertDialogPrimitive.Popup>
   xstyle?: stylex.StyleXStyles;
 };
 
-export function AlertDialogContent({
-  children,
-  className,
-  style,
-  xstyle,
-  ...props
-}: AlertDialogContentProps) {
+export function AlertDialogContent({ children, xstyle, ...props }: AlertDialogContentProps) {
   const stylexProps = stylex.props(styles.popup, xstyle);
 
   return (
@@ -119,20 +112,8 @@ export function AlertDialogContent({
       <AlertDialogPrimitive.Viewport {...stylex.props(styles.viewport)}>
         <AlertDialogPrimitive.Popup
           {...props}
-          className={(state) => {
-            return [
-              stylexProps.className,
-              typeof className === "function" ? className(state) : className,
-            ]
-              .filter(Boolean)
-              .join(" ");
-          }}
-          style={(state) => {
-            return {
-              ...stylexProps.style,
-              ...(typeof style === "function" ? style(state) : style),
-            };
-          }}
+          className={() => stylexProps.className}
+          style={() => stylexProps.style}
         >
           {children}
         </AlertDialogPrimitive.Popup>
@@ -142,73 +123,39 @@ export function AlertDialogContent({
 }
 
 export function AlertDialogHeader({
-  className,
-  style,
   xstyle,
   ...props
 }: ComponentProps<"div"> & { xstyle?: stylex.StyleXStyles }) {
-  return (
-    <div
-      {...props}
-      {...getNativeStyleProps(stylex.props(styles.header, xstyle), className, style)}
-    />
-  );
+  return <div {...props} {...stylex.props(styles.header, xstyle)} />;
 }
 
 export function AlertDialogFooter({
-  className,
-  style,
   xstyle,
   ...props
 }: ComponentProps<"div"> & { xstyle?: stylex.StyleXStyles }) {
-  return (
-    <div
-      {...props}
-      {...getNativeStyleProps(stylex.props(styles.footer, xstyle), className, style)}
-    />
-  );
+  return <div {...props} {...stylex.props(styles.footer, xstyle)} />;
 }
 
-export function AlertDialogTitle({
-  className,
-  style,
-  ...props
-}: ComponentProps<typeof AlertDialogPrimitive.Title>) {
+export function AlertDialogTitle({ ...props }: ComponentProps<typeof AlertDialogPrimitive.Title>) {
   const stylexProps = stylex.props(styles.title);
   return (
     <AlertDialogPrimitive.Title
       {...props}
-      className={(state) =>
-        [stylexProps.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({
-        ...stylexProps.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
+      className={() => stylexProps.className}
+      style={() => stylexProps.style}
     />
   );
 }
 
 export function AlertDialogDescription({
-  className,
-  style,
   ...props
 }: ComponentProps<typeof AlertDialogPrimitive.Description>) {
   const stylexProps = stylex.props(styles.description);
   return (
     <AlertDialogPrimitive.Description
       {...props}
-      className={(state) =>
-        [stylexProps.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({
-        ...stylexProps.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
+      className={() => stylexProps.className}
+      style={() => stylexProps.style}
     />
   );
 }

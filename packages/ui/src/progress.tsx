@@ -24,20 +24,13 @@ export type ProgressProps = ComponentProps<typeof ProgressPrimitive.Root> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function Progress({ className, style, xstyle, ...props }: ProgressProps) {
+export function Progress({ xstyle, ...props }: ProgressProps) {
   const stylexProps = stylex.props(styles.root, xstyle);
   return (
     <ProgressPrimitive.Root
       {...props}
-      className={(state) =>
-        [stylexProps.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({
-        ...stylexProps.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
+      className={() => stylexProps.className}
+      style={() => stylexProps.style}
     >
       <ProgressPrimitive.Indicator {...stylex.props(styles.indicator)} />
     </ProgressPrimitive.Root>

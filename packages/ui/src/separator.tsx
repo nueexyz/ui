@@ -16,10 +16,8 @@ export type SeparatorProps = ComponentProps<typeof SeparatorPrimitive> & {
 };
 
 export function Separator({
-  className,
   decorative = true,
   orientation = "horizontal",
-  style,
   xstyle,
   ...props
 }: SeparatorProps) {
@@ -30,8 +28,7 @@ export function Separator({
       aria-hidden={decorative || undefined}
       orientation={orientation}
       role={decorative ? "presentation" : undefined}
-      className={[stylexProps.className, className].filter(Boolean).join(" ")}
-      style={{ ...stylexProps.style, ...style }}
+      {...stylexProps}
     />
   );
 }

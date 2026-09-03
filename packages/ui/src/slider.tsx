@@ -50,15 +50,7 @@ export type SliderProps = ComponentProps<typeof SliderPrimitive.Root> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function Slider({
-  className,
-  defaultValue,
-  getAriaLabel,
-  style,
-  value,
-  xstyle,
-  ...props
-}: SliderProps) {
+export function Slider({ defaultValue, getAriaLabel, value, xstyle, ...props }: SliderProps) {
   const currentValue = value ?? defaultValue;
   const thumbCount = Array.isArray(currentValue) ? currentValue.length : 1;
   const stylexProps = stylex.props(styles.root, xstyle);
@@ -67,15 +59,8 @@ export function Slider({
       {...props}
       defaultValue={defaultValue}
       value={value}
-      className={(state) =>
-        [stylexProps.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({
-        ...stylexProps.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
+      className={() => stylexProps.className}
+      style={() => stylexProps.style}
     >
       <SliderPrimitive.Control {...stylex.props(styles.control)}>
         <SliderPrimitive.Track {...stylex.props(styles.track)}>

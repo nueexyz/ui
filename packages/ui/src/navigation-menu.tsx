@@ -162,8 +162,6 @@ export function NavigationMenuItem(props: ComponentProps<typeof NavigationMenuPr
 }
 
 export function NavigationMenuContent({
-  className,
-  style,
   ...props
 }: ComponentProps<typeof NavigationMenuPrimitive.Content>) {
   return (
@@ -185,9 +183,7 @@ export function NavigationMenuContent({
             state.activationDirection === "right" &&
             styles.contentEndingToLeft,
         );
-        return [sx.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ");
+        return sx.className;
       }}
       style={(state) => {
         const sx = stylex.props(
@@ -205,7 +201,7 @@ export function NavigationMenuContent({
             state.activationDirection === "right" &&
             styles.contentEndingToLeft,
         );
-        return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+        return sx.style;
       }}
     />
   );
@@ -213,8 +209,6 @@ export function NavigationMenuContent({
 
 export function NavigationMenuTrigger({
   children,
-  className,
-  style,
   ...props
 }: ComponentProps<typeof NavigationMenuPrimitive.Trigger>) {
   return (
@@ -222,13 +216,11 @@ export function NavigationMenuTrigger({
       {...props}
       className={(state) => {
         const sx = stylex.props(styles.trigger, state.open && styles.triggerOpen);
-        return [sx.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ");
+        return sx.className;
       }}
       style={(state) => {
         const sx = stylex.props(styles.trigger, state.open && styles.triggerOpen);
-        return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+        return sx.style;
       }}
     >
       {children}
@@ -245,20 +237,14 @@ export function NavigationMenuTrigger({
 }
 
 export function NavigationMenuLink({
-  className,
-  style,
   ...props
 }: ComponentProps<typeof NavigationMenuPrimitive.Link>) {
   const sx = stylex.props(styles.link);
   return (
     <NavigationMenuPrimitive.Link
       {...props}
-      className={(state) =>
-        [sx.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({ ...sx.style, ...(typeof style === "function" ? style(state) : style) })}
+      className={() => sx.className}
+      style={() => sx.style}
     />
   );
 }
@@ -268,10 +254,8 @@ type NavigationMenuViewportProps = ComponentProps<typeof NavigationMenuPrimitive
 
 export function NavigationMenuViewport({
   align = "start",
-  className,
   side = "bottom",
   sideOffset = 8,
-  style,
   ...props
 }: NavigationMenuViewportProps) {
   return (
@@ -290,9 +274,7 @@ export function NavigationMenuViewport({
               state.transitionStatus === "starting" && styles.popupTransitioning,
               state.transitionStatus === "ending" && styles.popupTransitioning,
             );
-            return [sx.className, typeof className === "function" ? className(state) : className]
-              .filter(Boolean)
-              .join(" ");
+            return sx.className;
           }}
           style={(state) => {
             const sx = stylex.props(
@@ -300,7 +282,7 @@ export function NavigationMenuViewport({
               state.transitionStatus === "starting" && styles.popupTransitioning,
               state.transitionStatus === "ending" && styles.popupTransitioning,
             );
-            return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+            return sx.style;
           }}
         >
           <NavigationMenuPrimitive.Viewport {...stylex.props(styles.viewport)} />

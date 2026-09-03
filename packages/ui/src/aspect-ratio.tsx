@@ -15,13 +15,7 @@ export type AspectRatioProps = ComponentProps<"div"> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function AspectRatio({ className, ratio = 1, style, xstyle, ...props }: AspectRatioProps) {
+export function AspectRatio({ ratio = 1, xstyle, ...props }: AspectRatioProps) {
   const stylexProps = stylex.props(styles.root(ratio), xstyle);
-  return (
-    <div
-      {...props}
-      className={[stylexProps.className, className].filter(Boolean).join(" ")}
-      style={{ ...stylexProps.style, ...style }}
-    />
-  );
+  return <div {...props} {...stylexProps} />;
 }

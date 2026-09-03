@@ -50,7 +50,7 @@ export type SwitchProps = ComponentProps<typeof SwitchPrimitive.Root> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function Switch({ className, size = "md", style, xstyle, ...props }: SwitchProps) {
+export function Switch({ size = "md", xstyle, ...props }: SwitchProps) {
   return (
     <SwitchPrimitive.Root
       {...props}
@@ -62,8 +62,7 @@ export function Switch({ className, size = "md", style, xstyle, ...props }: Swit
           state.disabled && styles.disabled,
           xstyle,
         );
-        const customClassName = typeof className === "function" ? className(state) : className;
-        return [stylexProps.className, customClassName].filter(Boolean).join(" ");
+        return stylexProps.className;
       }}
       style={(state) => {
         const stylexProps = stylex.props(
@@ -73,8 +72,7 @@ export function Switch({ className, size = "md", style, xstyle, ...props }: Swit
           state.disabled && styles.disabled,
           xstyle,
         );
-        const customStyle = typeof style === "function" ? style(state) : style;
-        return { ...stylexProps.style, ...customStyle };
+        return stylexProps.style;
       }}
     >
       <SwitchPrimitive.Thumb

@@ -37,26 +37,13 @@ export type ScrollAreaProps = ComponentProps<typeof ScrollAreaPrimitive.Root> & 
 
 export function ScrollArea({
   children,
-  className,
   scrollbars = "vertical",
-  style,
   xstyle,
   ...props
 }: ScrollAreaProps) {
   const root = stylex.props(styles.root, xstyle);
   return (
-    <ScrollAreaPrimitive.Root
-      {...props}
-      className={(state) =>
-        [root.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({
-        ...root.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
-    >
+    <ScrollAreaPrimitive.Root {...props} className={() => root.className} style={() => root.style}>
       <ScrollAreaPrimitive.Viewport {...stylex.props(styles.viewport)}>
         <ScrollAreaPrimitive.Content {...stylex.props(styles.content)}>
           {children}
@@ -74,25 +61,16 @@ export function ScrollArea({
 }
 
 export function ScrollBar({
-  className,
   orientation = "vertical",
-  style,
   ...props
 }: ComponentProps<typeof ScrollAreaPrimitive.Scrollbar>) {
   const resolved = stylex.props(styles.scrollbar, styles[orientation]);
   return (
     <ScrollAreaPrimitive.Scrollbar
       {...props}
-      className={(state) =>
-        [resolved.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ")
-      }
+      className={() => resolved.className}
       orientation={orientation}
-      style={(state) => ({
-        ...resolved.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
+      style={() => resolved.style}
     >
       <ScrollAreaPrimitive.Thumb {...stylex.props(styles.thumb)} />
     </ScrollAreaPrimitive.Scrollbar>

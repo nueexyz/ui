@@ -59,22 +59,11 @@ export type NativeSelectProps = Omit<ComponentProps<"select">, "size"> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function NativeSelect({
-  className,
-  children,
-  size = "md",
-  style,
-  xstyle,
-  ...props
-}: NativeSelectProps) {
+export function NativeSelect({ children, size = "md", xstyle, ...props }: NativeSelectProps) {
   const stylexProps = stylex.props(styles.select, styles[size], xstyle);
   return (
     <span {...stylex.props(styles.root)}>
-      <select
-        {...props}
-        className={[stylexProps.className, className].filter(Boolean).join(" ")}
-        style={{ ...stylexProps.style, ...style }}
-      >
+      <select {...props} {...stylexProps}>
         {children}
       </select>
       <Icon aria-hidden="true" name="chevronDown" {...stylex.props(styles.icon)} />

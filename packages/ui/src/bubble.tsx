@@ -38,26 +38,12 @@ export type BubbleProps = ComponentProps<"div"> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function Bubble({
-  className,
-  side = "incoming",
-  style,
-  variant = "default",
-  xstyle,
-  ...props
-}: BubbleProps) {
+export function Bubble({ side = "incoming", variant = "default", xstyle, ...props }: BubbleProps) {
   const resolved = stylex.props(
     styles.root,
     styles[side],
     variant === "default" ? styles.variantDefault : styles[variant],
     xstyle,
   );
-  return (
-    <div
-      {...props}
-      className={[resolved.className, className].filter(Boolean).join(" ")}
-      data-side={side}
-      style={{ ...resolved.style, ...style }}
-    />
-  );
+  return <div {...props} {...resolved} data-side={side} />;
 }

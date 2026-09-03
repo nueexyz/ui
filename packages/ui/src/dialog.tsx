@@ -3,7 +3,6 @@ import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, ReactNode } from "react";
 
 import { Icon } from "./Icon";
-import { getNativeStyleProps } from "./stylex-props";
 import {
   colorVars,
   motionVars,
@@ -140,10 +139,8 @@ type DialogContentProps = ComponentProps<typeof DialogPrimitive.Popup> & {
 
 export function DialogContent({
   children,
-  className,
   closeLabel = "Close",
   showCloseButton = true,
-  style,
   xstyle,
   ...props
 }: DialogContentProps) {
@@ -154,16 +151,8 @@ export function DialogContent({
       <DialogPrimitive.Viewport {...stylex.props(styles.viewport)}>
         <DialogPrimitive.Popup
           {...props}
-          className={(state) => {
-            const customClassName = typeof className === "function" ? className(state) : className;
-            return [stylexProps.className, customClassName].filter(Boolean).join(" ");
-          }}
-          style={(state) => {
-            return {
-              ...stylexProps.style,
-              ...(typeof style === "function" ? style(state) : style),
-            };
-          }}
+          className={() => stylexProps.className}
+          style={() => stylexProps.style}
         >
           {children}
           {showCloseButton ? (
@@ -178,73 +167,39 @@ export function DialogContent({
 }
 
 export function DialogHeader({
-  className,
-  style,
   xstyle,
   ...props
 }: ComponentProps<"div"> & { xstyle?: stylex.StyleXStyles }) {
-  return (
-    <div
-      {...props}
-      {...getNativeStyleProps(stylex.props(styles.header, xstyle), className, style)}
-    />
-  );
+  return <div {...props} {...stylex.props(styles.header, xstyle)} />;
 }
 
 export function DialogFooter({
-  className,
-  style,
   xstyle,
   ...props
 }: ComponentProps<"div"> & { xstyle?: stylex.StyleXStyles }) {
-  return (
-    <div
-      {...props}
-      {...getNativeStyleProps(stylex.props(styles.footer, xstyle), className, style)}
-    />
-  );
+  return <div {...props} {...stylex.props(styles.footer, xstyle)} />;
 }
 
-export function DialogTitle({
-  className,
-  style,
-  ...props
-}: ComponentProps<typeof DialogPrimitive.Title>) {
+export function DialogTitle({ ...props }: ComponentProps<typeof DialogPrimitive.Title>) {
   const stylexProps = stylex.props(styles.title);
   return (
     <DialogPrimitive.Title
       {...props}
-      className={(state) =>
-        [stylexProps.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({
-        ...stylexProps.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
+      className={() => stylexProps.className}
+      style={() => stylexProps.style}
     />
   );
 }
 
 export function DialogDescription({
-  className,
-  style,
   ...props
 }: ComponentProps<typeof DialogPrimitive.Description>) {
   const stylexProps = stylex.props(styles.description);
   return (
     <DialogPrimitive.Description
       {...props}
-      className={(state) =>
-        [stylexProps.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({
-        ...stylexProps.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
+      className={() => stylexProps.className}
+      style={() => stylexProps.style}
     />
   );
 }

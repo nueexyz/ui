@@ -2,8 +2,6 @@ import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { getNativeStyleProps } from "./stylex-props";
-
 import {
   colorVars,
   radiusVars,
@@ -83,85 +81,48 @@ export type AvatarProps = ComponentProps<typeof AvatarPrimitive.Root> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function Avatar({ className, size = "md", style, xstyle, ...props }: AvatarProps) {
+export function Avatar({ size = "md", xstyle, ...props }: AvatarProps) {
   const stylexProps = stylex.props(styles.root, styles[size], xstyle);
   return (
     <AvatarPrimitive.Root
       {...props}
-      className={(state) =>
-        [stylexProps.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({
-        ...stylexProps.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
+      className={() => stylexProps.className}
+      style={() => stylexProps.style}
     />
   );
 }
 
-export function AvatarImage({
-  className,
-  style,
-  ...props
-}: ComponentProps<typeof AvatarPrimitive.Image>) {
+export function AvatarImage({ ...props }: ComponentProps<typeof AvatarPrimitive.Image>) {
   const stylexProps = stylex.props(styles.image);
   return (
     <AvatarPrimitive.Image
       {...props}
-      className={(state) =>
-        [stylexProps.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({
-        ...stylexProps.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
+      className={() => stylexProps.className}
+      style={() => stylexProps.style}
     />
   );
 }
 
-export function AvatarFallback({
-  className,
-  style,
-  ...props
-}: ComponentProps<typeof AvatarPrimitive.Fallback>) {
+export function AvatarFallback({ ...props }: ComponentProps<typeof AvatarPrimitive.Fallback>) {
   const stylexProps = stylex.props(styles.fallback);
   return (
     <AvatarPrimitive.Fallback
       {...props}
-      className={(state) =>
-        [stylexProps.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({
-        ...stylexProps.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
+      className={() => stylexProps.className}
+      style={() => stylexProps.style}
     />
   );
 }
 
-export function AvatarBadge({ className, style, ...props }: ComponentProps<"span">) {
-  return <span {...props} {...getNativeStyleProps(stylex.props(styles.badge), className, style)} />;
+export function AvatarBadge({ ...props }: ComponentProps<"span">) {
+  return <span {...props} {...stylex.props(styles.badge)} />;
 }
 
-export function AvatarGroup({ className, style, ...props }: ComponentProps<"div">) {
+export function AvatarGroup({ ...props }: ComponentProps<"div">) {
   const stylexProps = stylex.props(styles.group);
-  return (
-    <div
-      {...props}
-      className={[stylexProps.className, className].filter(Boolean).join(" ")}
-      style={{ ...stylexProps.style, ...style }}
-    />
-  );
+  return <div {...props} {...stylexProps} />;
 }
 
-export function AvatarGroupCount({ className, style, ...props }: ComponentProps<"span">) {
-  return (
-    <span {...props} {...getNativeStyleProps(stylex.props(styles.groupCount), className, style)} />
-  );
+export function AvatarGroupCount({ ...props }: ComponentProps<"span">) {
+  return <span {...props} {...stylex.props(styles.groupCount)} />;
 }

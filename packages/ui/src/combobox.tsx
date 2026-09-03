@@ -154,11 +154,7 @@ export const Combobox = ComboboxPrimitive.Root;
 export const ComboboxCollection = ComboboxPrimitive.Collection;
 export const ComboboxGroup = ComboboxPrimitive.Group;
 
-export function ComboboxInput({
-  className,
-  style,
-  ...props
-}: ComponentProps<typeof ComboboxPrimitive.Input>) {
+export function ComboboxInput({ ...props }: ComponentProps<typeof ComboboxPrimitive.Input>) {
   return (
     <ComboboxPrimitive.InputGroup {...stylex.props(styles.inputGroup)}>
       <Icon aria-hidden="true" name="search" {...stylex.props(styles.searchIcon)} />
@@ -166,13 +162,11 @@ export function ComboboxInput({
         {...props}
         className={(state) => {
           const sx = stylex.props(styles.input, state.disabled && styles.inputDisabled);
-          return [sx.className, typeof className === "function" ? className(state) : className]
-            .filter(Boolean)
-            .join(" ");
+          return sx.className;
         }}
         style={(state) => {
           const sx = stylex.props(styles.input, state.disabled && styles.inputDisabled);
-          return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+          return sx.style;
         }}
       />
       <ComboboxPrimitive.Trigger
@@ -198,10 +192,8 @@ type ComboboxContentProps = ComponentProps<typeof ComboboxPrimitive.Popup> &
 export function ComboboxContent({
   align = "start",
   children,
-  className,
   side = "bottom",
   sideOffset = 4,
-  style,
   ...props
 }: ComboboxContentProps) {
   return (
@@ -221,9 +213,7 @@ export function ComboboxContent({
               state.transitionStatus === "ending" && styles.popupTransitioning,
               state.transitionStatus === "ending" && styles.popupEnding,
             );
-            return [sx.className, typeof className === "function" ? className(state) : className]
-              .filter(Boolean)
-              .join(" ");
+            return sx.className;
           }}
           style={(state) => {
             const sx = stylex.props(
@@ -232,7 +222,7 @@ export function ComboboxContent({
               state.transitionStatus === "ending" && styles.popupTransitioning,
               state.transitionStatus === "ending" && styles.popupEnding,
             );
-            return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+            return sx.style;
           }}
         >
           <ComboboxPrimitive.List {...stylex.props(styles.list)}>{children}</ComboboxPrimitive.List>
@@ -244,8 +234,6 @@ export function ComboboxContent({
 
 export function ComboboxItem({
   children,
-  className,
-  style,
   ...props
 }: ComponentProps<typeof ComboboxPrimitive.Item>) {
   return (
@@ -257,9 +245,7 @@ export function ComboboxItem({
           state.highlighted && styles.itemHighlighted,
           state.disabled && styles.itemDisabled,
         );
-        return [sx.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ");
+        return sx.className;
       }}
       style={(state) => {
         const sx = stylex.props(
@@ -267,7 +253,7 @@ export function ComboboxItem({
           state.highlighted && styles.itemHighlighted,
           state.disabled && styles.itemDisabled,
         );
-        return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+        return sx.style;
       }}
     >
       <ComboboxPrimitive.ItemIndicator {...stylex.props(styles.indicator)}>

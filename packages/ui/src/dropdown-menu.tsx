@@ -114,10 +114,8 @@ type DropdownMenuContentProps = ComponentProps<typeof MenuPrimitive.Popup> &
 export function DropdownMenuContent({
   align = "start",
   alignOffset,
-  className,
   side = "bottom",
   sideOffset = 4,
-  style,
   ...props
 }: DropdownMenuContentProps) {
   return (
@@ -138,9 +136,7 @@ export function DropdownMenuContent({
               state.transitionStatus === "ending" && styles.popupTransitioning,
               state.transitionStatus === "ending" && styles.popupEnding,
             );
-            return [sx.className, typeof className === "function" ? className(state) : className]
-              .filter(Boolean)
-              .join(" ");
+            return sx.className;
           }}
           style={(state) => {
             const sx = stylex.props(
@@ -149,7 +145,7 @@ export function DropdownMenuContent({
               state.transitionStatus === "ending" && styles.popupTransitioning,
               state.transitionStatus === "ending" && styles.popupEnding,
             );
-            return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+            return sx.style;
           }}
         />
       </MenuPrimitive.Positioner>
@@ -163,10 +159,8 @@ type DropdownMenuItemProps = ComponentProps<typeof MenuPrimitive.Item> & {
 };
 
 export function DropdownMenuItem({
-  className,
   destructive = false,
   inset = false,
-  style,
   ...props
 }: DropdownMenuItemProps) {
   return (
@@ -180,9 +174,7 @@ export function DropdownMenuItem({
           inset && styles.inset,
           destructive && styles.destructive,
         );
-        return [sx.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ");
+        return sx.className;
       }}
       style={(state) => {
         const sx = stylex.props(
@@ -192,7 +184,7 @@ export function DropdownMenuItem({
           inset && styles.inset,
           destructive && styles.destructive,
         );
-        return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+        return sx.style;
       }}
     />
   );
@@ -200,8 +192,6 @@ export function DropdownMenuItem({
 
 export function DropdownMenuCheckboxItem({
   children,
-  className,
-  style,
   ...props
 }: ComponentProps<typeof MenuPrimitive.CheckboxItem>) {
   return (
@@ -214,9 +204,7 @@ export function DropdownMenuCheckboxItem({
           state.highlighted && styles.itemHighlighted,
           state.disabled && styles.itemDisabled,
         );
-        return [sx.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ");
+        return sx.className;
       }}
       style={(state) => {
         const sx = stylex.props(
@@ -225,7 +213,7 @@ export function DropdownMenuCheckboxItem({
           state.highlighted && styles.itemHighlighted,
           state.disabled && styles.itemDisabled,
         );
-        return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+        return sx.style;
       }}
     >
       <MenuPrimitive.CheckboxItemIndicator {...stylex.props(styles.indicator)}>
@@ -238,8 +226,6 @@ export function DropdownMenuCheckboxItem({
 
 export function DropdownMenuRadioItem({
   children,
-  className,
-  style,
   ...props
 }: ComponentProps<typeof MenuPrimitive.RadioItem>) {
   return (
@@ -252,9 +238,7 @@ export function DropdownMenuRadioItem({
           state.highlighted && styles.itemHighlighted,
           state.disabled && styles.itemDisabled,
         );
-        return [sx.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ");
+        return sx.className;
       }}
       style={(state) => {
         const sx = stylex.props(
@@ -263,7 +247,7 @@ export function DropdownMenuRadioItem({
           state.highlighted && styles.itemHighlighted,
           state.disabled && styles.itemDisabled,
         );
-        return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+        return sx.style;
       }}
     >
       <MenuPrimitive.RadioItemIndicator {...stylex.props(styles.indicator)}>
@@ -275,22 +259,12 @@ export function DropdownMenuRadioItem({
 }
 
 export function DropdownMenuLabel({
-  className,
   inset = false,
-  style,
   ...props
 }: ComponentProps<typeof MenuPrimitive.GroupLabel> & { inset?: boolean }) {
   const sx = stylex.props(styles.label, inset && styles.inset);
   return (
-    <MenuPrimitive.GroupLabel
-      {...props}
-      className={(state) =>
-        [sx.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({ ...sx.style, ...(typeof style === "function" ? style(state) : style) })}
-    />
+    <MenuPrimitive.GroupLabel {...props} className={() => sx.className} style={() => sx.style} />
   );
 }
 
@@ -311,9 +285,7 @@ export function DropdownMenuShortcut({
 
 export function DropdownMenuSubTrigger({
   children,
-  className,
   inset = false,
-  style,
   ...props
 }: ComponentProps<typeof MenuPrimitive.SubmenuTrigger> & { inset?: boolean }) {
   return (
@@ -326,9 +298,7 @@ export function DropdownMenuSubTrigger({
           state.disabled && styles.itemDisabled,
           inset && styles.inset,
         );
-        return [sx.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ");
+        return sx.className;
       }}
       style={(state) => {
         const sx = stylex.props(
@@ -337,7 +307,7 @@ export function DropdownMenuSubTrigger({
           state.disabled && styles.itemDisabled,
           inset && styles.inset,
         );
-        return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+        return sx.style;
       }}
     >
       {children}

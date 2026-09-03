@@ -135,8 +135,6 @@ export const SelectGroup = SelectPrimitive.Group;
 
 export function SelectTrigger({
   children,
-  className,
-  style,
   ...props
 }: ComponentProps<typeof SelectPrimitive.Trigger>) {
   return (
@@ -144,13 +142,11 @@ export function SelectTrigger({
       {...props}
       className={(state) => {
         const sx = stylex.props(styles.trigger, state.disabled && styles.triggerDisabled);
-        return [sx.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ");
+        return sx.className;
       }}
       style={(state) => {
         const sx = stylex.props(styles.trigger, state.disabled && styles.triggerDisabled);
-        return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+        return sx.style;
       }}
     >
       {children}
@@ -171,10 +167,8 @@ export function SelectContent({
   align = "start",
   alignItemWithTrigger = false,
   children,
-  className,
   side = "bottom",
   sideOffset = 4,
-  style,
   ...props
 }: SelectContentProps) {
   return (
@@ -195,9 +189,7 @@ export function SelectContent({
               state.transitionStatus === "ending" && styles.popupTransitioning,
               state.transitionStatus === "ending" && styles.popupEnding,
             );
-            return [sx.className, typeof className === "function" ? className(state) : className]
-              .filter(Boolean)
-              .join(" ");
+            return sx.className;
           }}
           style={(state) => {
             const sx = stylex.props(
@@ -206,7 +198,7 @@ export function SelectContent({
               state.transitionStatus === "ending" && styles.popupTransitioning,
               state.transitionStatus === "ending" && styles.popupEnding,
             );
-            return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+            return sx.style;
           }}
         >
           <SelectPrimitive.List {...stylex.props(styles.list)}>{children}</SelectPrimitive.List>
@@ -216,12 +208,7 @@ export function SelectContent({
   );
 }
 
-export function SelectItem({
-  children,
-  className,
-  style,
-  ...props
-}: ComponentProps<typeof SelectPrimitive.Item>) {
+export function SelectItem({ children, ...props }: ComponentProps<typeof SelectPrimitive.Item>) {
   return (
     <SelectPrimitive.Item
       {...props}
@@ -231,9 +218,7 @@ export function SelectItem({
           state.highlighted && styles.itemHighlighted,
           state.disabled && styles.itemDisabled,
         );
-        return [sx.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ");
+        return sx.className;
       }}
       style={(state) => {
         const sx = stylex.props(
@@ -241,7 +226,7 @@ export function SelectItem({
           state.highlighted && styles.itemHighlighted,
           state.disabled && styles.itemDisabled,
         );
-        return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+        return sx.style;
       }}
     >
       <SelectPrimitive.ItemIndicator {...stylex.props(styles.indicator)}>

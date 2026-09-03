@@ -20,13 +20,7 @@ const styles = stylex.create({
 
 export type LabelProps = ComponentProps<"label"> & { xstyle?: stylex.StyleXStyles };
 
-export function Label({ className, style, xstyle, ...props }: LabelProps) {
+export function Label({ xstyle, ...props }: LabelProps) {
   const stylexProps = stylex.props(styles.root, xstyle);
-  return (
-    <label
-      {...props}
-      className={[stylexProps.className, className].filter(Boolean).join(" ")}
-      style={{ ...stylexProps.style, ...style }}
-    />
-  );
+  return <label {...props} {...stylexProps} />;
 }

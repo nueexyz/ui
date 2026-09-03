@@ -53,7 +53,7 @@ export type CheckboxProps = ComponentProps<typeof CheckboxPrimitive.Root> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function Checkbox({ className, style, xstyle, ...props }: CheckboxProps) {
+export function Checkbox({ xstyle, ...props }: CheckboxProps) {
   return (
     <CheckboxPrimitive.Root
       {...props}
@@ -64,8 +64,7 @@ export function Checkbox({ className, style, xstyle, ...props }: CheckboxProps) 
           state.checked && styles.checked,
           state.disabled && styles.disabled,
         );
-        const customClassName = typeof className === "function" ? className(state) : className;
-        return [stylexProps.className, customClassName].filter(Boolean).join(" ");
+        return stylexProps.className;
       }}
       style={(state) => {
         const stylexProps = stylex.props(
@@ -74,8 +73,7 @@ export function Checkbox({ className, style, xstyle, ...props }: CheckboxProps) 
           state.checked && styles.checked,
           state.disabled && styles.disabled,
         );
-        const customStyle = typeof style === "function" ? style(state) : style;
-        return { ...stylexProps.style, ...customStyle };
+        return stylexProps.style;
       }}
     >
       <CheckboxPrimitive.Indicator {...stylex.props(styles.indicator)}>

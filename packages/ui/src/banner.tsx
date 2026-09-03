@@ -87,12 +87,10 @@ export function Banner({
   action,
   announce,
   children,
-  className,
   description,
   icon,
   role,
   size = "md",
-  style,
   title,
   variant = "info",
   xstyle,
@@ -116,12 +114,7 @@ export function Banner({
   );
 
   return (
-    <div
-      {...props}
-      role={role ?? liveRole}
-      className={[stylexProps.className, className].filter(Boolean).join(" ")}
-      style={{ ...stylexProps.style, ...style }}
-    >
+    <div {...props} role={role ?? liveRole} {...stylexProps}>
       {icon ? (
         <span {...stylex.props(styles.icon, size === "sm" && styles.iconAlignedCenter)}>
           {icon}
@@ -137,34 +130,12 @@ export function Banner({
   );
 }
 
-export function BannerTitle({
-  className,
-  style,
-  xstyle,
-  ...props
-}: ComponentProps<"div"> & StyleProps) {
+export function BannerTitle({ xstyle, ...props }: ComponentProps<"div"> & StyleProps) {
   const stylexProps = stylex.props(styles.title, xstyle);
-  return (
-    <div
-      {...props}
-      className={[stylexProps.className, className].filter(Boolean).join(" ")}
-      style={{ ...stylexProps.style, ...style }}
-    />
-  );
+  return <div {...props} {...stylexProps} />;
 }
 
-export function BannerDescription({
-  className,
-  style,
-  xstyle,
-  ...props
-}: ComponentProps<"div"> & StyleProps) {
+export function BannerDescription({ xstyle, ...props }: ComponentProps<"div"> & StyleProps) {
   const stylexProps = stylex.props(styles.description, xstyle);
-  return (
-    <div
-      {...props}
-      className={[stylexProps.className, className].filter(Boolean).join(" ")}
-      style={{ ...stylexProps.style, ...style }}
-    />
-  );
+  return <div {...props} {...stylexProps} />;
 }

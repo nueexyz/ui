@@ -73,14 +73,7 @@ export type ToggleProps = ComponentProps<typeof TogglePrimitive> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function Toggle({
-  className,
-  size = "md",
-  style,
-  variant = "default",
-  xstyle,
-  ...props
-}: ToggleProps) {
+export function Toggle({ size = "md", variant = "default", xstyle, ...props }: ToggleProps) {
   return (
     <TogglePrimitive
       {...props}
@@ -93,8 +86,7 @@ export function Toggle({
           state.disabled && styles.disabled,
           xstyle,
         );
-        const customClassName = typeof className === "function" ? className(state) : className;
-        return [stylexProps.className, customClassName].filter(Boolean).join(" ");
+        return stylexProps.className;
       }}
       style={(state) => {
         const stylexProps = stylex.props(
@@ -105,7 +97,7 @@ export function Toggle({
           state.disabled && styles.disabled,
           xstyle,
         );
-        return { ...stylexProps.style, ...(typeof style === "function" ? style(state) : style) };
+        return stylexProps.style;
       }}
     />
   );

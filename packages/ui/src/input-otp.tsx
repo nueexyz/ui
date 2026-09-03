@@ -2,8 +2,6 @@ import { OTPField } from "@base-ui/react/otp-field";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { getNativeStyleProps } from "./stylex-props";
-
 import {
   colorVars,
   motionVars,
@@ -57,57 +55,27 @@ export type InputOTPProps = ComponentProps<typeof OTPField.Root> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function InputOTP({ className, style, xstyle, ...props }: InputOTPProps) {
+export function InputOTP({ xstyle, ...props }: InputOTPProps) {
   const resolved = stylex.props(styles.root, xstyle);
   return (
-    <OTPField.Root
-      {...props}
-      className={(state) =>
-        [resolved.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({
-        ...resolved.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
-    />
+    <OTPField.Root {...props} className={() => resolved.className} style={() => resolved.style} />
   );
 }
 
-export function InputOTPGroup({ className, style, ...props }: ComponentProps<"div">) {
-  return <div {...props} {...getNativeStyleProps(stylex.props(styles.group), className, style)} />;
+export function InputOTPGroup({ ...props }: ComponentProps<"div">) {
+  return <div {...props} {...stylex.props(styles.group)} />;
 }
 
-export function InputOTPSlot({
-  className,
-  style,
-  ...props
-}: ComponentProps<typeof OTPField.Input>) {
+export function InputOTPSlot({ ...props }: ComponentProps<typeof OTPField.Input>) {
   const resolved = stylex.props(styles.slot);
   return (
-    <OTPField.Input
-      {...props}
-      className={(state) =>
-        [resolved.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ")
-      }
-      style={(state) => ({
-        ...resolved.style,
-        ...(typeof style === "function" ? style(state) : style),
-      })}
-    />
+    <OTPField.Input {...props} className={() => resolved.className} style={() => resolved.style} />
   );
 }
 
-export function InputOTPSeparator({ className, style, ...props }: ComponentProps<"span">) {
+export function InputOTPSeparator({ ...props }: ComponentProps<"span">) {
   return (
-    <span
-      aria-hidden="true"
-      {...props}
-      {...getNativeStyleProps(stylex.props(styles.separator), className, style)}
-    >
+    <span aria-hidden="true" {...props} {...stylex.props(styles.separator)}>
       {props.children ?? "–"}
     </span>
   );

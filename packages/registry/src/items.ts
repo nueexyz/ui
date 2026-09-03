@@ -5,7 +5,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   "alert-dialog": {
-    files: ["alert-dialog.tsx", "stylex-props.ts"],
+    files: ["alert-dialog.tsx"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: ["button"],
   },
@@ -15,12 +15,12 @@ export const registryItems = {
     registryDependencies: [],
   },
   attachment: {
-    files: ["attachment.tsx", "stylex-props.ts"],
+    files: ["attachment.tsx"],
     dependencies: ["@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: ["button"],
   },
   avatar: {
-    files: ["avatar.tsx", "stylex-props.ts"],
+    files: ["avatar.tsx"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -35,7 +35,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   breadcrumb: {
-    files: ["Icon.tsx", "breadcrumb.tsx", "stylex-props.ts"],
+    files: ["Icon.tsx", "breadcrumb.tsx"],
     dependencies: ["@nuee/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -80,12 +80,12 @@ export const registryItems = {
     registryDependencies: ["dropdown-menu"],
   },
   dialog: {
-    files: ["Icon.tsx", "dialog.tsx", "stylex-props.ts"],
+    files: ["Icon.tsx", "dialog.tsx"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
   drawer: {
-    files: ["drawer.tsx", "stylex-props.ts"],
+    files: ["drawer.tsx"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -95,12 +95,12 @@ export const registryItems = {
     registryDependencies: [],
   },
   empty: {
-    files: ["empty.tsx", "stylex-props.ts"],
+    files: ["empty.tsx"],
     dependencies: ["@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
   field: {
-    files: ["field.tsx", "stylex-props.ts"],
+    files: ["field.tsx"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -120,12 +120,12 @@ export const registryItems = {
     registryDependencies: ["button", "input", "textarea"],
   },
   "input-otp": {
-    files: ["input-otp.tsx", "stylex-props.ts"],
+    files: ["input-otp.tsx"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
   "content-row": {
-    files: ["content-row.tsx", "stylex-props.ts"],
+    files: ["content-row.tsx"],
     dependencies: ["@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -145,7 +145,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   marker: {
-    files: ["marker.tsx", "stylex-props.ts"],
+    files: ["marker.tsx"],
     dependencies: ["@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -155,7 +155,7 @@ export const registryItems = {
     registryDependencies: ["dropdown-menu"],
   },
   message: {
-    files: ["message.tsx", "stylex-props.ts"],
+    files: ["message.tsx"],
     dependencies: ["@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -175,12 +175,12 @@ export const registryItems = {
     registryDependencies: [],
   },
   pagination: {
-    files: ["Icon.tsx", "pagination.tsx", "stylex-props.ts"],
+    files: ["Icon.tsx", "pagination.tsx"],
     dependencies: ["@nuee/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
   popover: {
-    files: ["popover.tsx", "stylex-props.ts"],
+    files: ["popover.tsx"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -230,7 +230,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   table: {
-    files: ["table.tsx", "stylex-props.ts"],
+    files: ["table.tsx"],
     dependencies: ["@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },

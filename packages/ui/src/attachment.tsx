@@ -1,8 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { getNativeStyleProps } from "./stylex-props";
-
 import { Button, type ButtonProps } from "./button";
 import {
   colorVars,
@@ -124,11 +122,9 @@ export type AttachmentProps = Omit<ComponentProps<"div">, "title"> & {
 };
 
 export function Attachment({
-  className,
   orientation = "horizontal",
   size = "default",
   state = "done",
-  style,
   xstyle,
   ...props
 }: AttachmentProps) {
@@ -137,16 +133,12 @@ export function Attachment({
       {...props}
       data-orientation={orientation}
       data-state={state}
-      {...getNativeStyleProps(
-        stylex.props(
-          styles.root,
-          styles[orientation],
-          size === "default" ? styles.sizeDefault : styles[size],
-          state === "error" && styles.error,
-          xstyle,
-        ),
-        className,
-        style,
+      {...stylex.props(
+        styles.root,
+        styles[orientation],
+        size === "default" ? styles.sizeDefault : styles[size],
+        state === "error" && styles.error,
+        xstyle,
       )}
     />
   );
@@ -156,44 +148,24 @@ export type AttachmentMediaProps = ComponentProps<"div"> & {
   variant?: "icon" | "image";
 };
 
-export function AttachmentMedia({
-  className,
-  style,
-  variant = "icon",
-  ...props
-}: AttachmentMediaProps) {
-  return (
-    <div
-      {...props}
-      {...getNativeStyleProps(
-        stylex.props(styles.media, styles[`media${variant}`]),
-        className,
-        style,
-      )}
-    />
-  );
+export function AttachmentMedia({ variant = "icon", ...props }: AttachmentMediaProps) {
+  return <div {...props} {...stylex.props(styles.media, styles[`media${variant}`])} />;
 }
 
-export function AttachmentContent({ className, style, ...props }: ComponentProps<"div">) {
-  return (
-    <div {...props} {...getNativeStyleProps(stylex.props(styles.content), className, style)} />
-  );
+export function AttachmentContent({ ...props }: ComponentProps<"div">) {
+  return <div {...props} {...stylex.props(styles.content)} />;
 }
 
-export function AttachmentTitle({ className, style, ...props }: ComponentProps<"div">) {
-  return <div {...props} {...getNativeStyleProps(stylex.props(styles.title), className, style)} />;
+export function AttachmentTitle({ ...props }: ComponentProps<"div">) {
+  return <div {...props} {...stylex.props(styles.title)} />;
 }
 
-export function AttachmentDescription({ className, style, ...props }: ComponentProps<"p">) {
-  return (
-    <p {...props} {...getNativeStyleProps(stylex.props(styles.description), className, style)} />
-  );
+export function AttachmentDescription({ ...props }: ComponentProps<"p">) {
+  return <p {...props} {...stylex.props(styles.description)} />;
 }
 
-export function AttachmentActions({ className, style, ...props }: ComponentProps<"div">) {
-  return (
-    <div {...props} {...getNativeStyleProps(stylex.props(styles.actions), className, style)} />
-  );
+export function AttachmentActions({ ...props }: ComponentProps<"div">) {
+  return <div {...props} {...stylex.props(styles.actions)} />;
 }
 
 export type AttachmentActionProps = Omit<ButtonProps, "size" | "variant">;
@@ -202,21 +174,10 @@ export function AttachmentAction({ xstyle, ...props }: AttachmentActionProps) {
   return <Button {...props} size="sm" variant="ghost" xstyle={[styles.action, xstyle]} />;
 }
 
-export function AttachmentTrigger({
-  className,
-  style,
-  type = "button",
-  ...props
-}: ComponentProps<"button">) {
-  return (
-    <button
-      {...props}
-      type={type}
-      {...getNativeStyleProps(stylex.props(styles.trigger), className, style)}
-    />
-  );
+export function AttachmentTrigger({ type = "button", ...props }: ComponentProps<"button">) {
+  return <button {...props} type={type} {...stylex.props(styles.trigger)} />;
 }
 
-export function AttachmentGroup({ className, style, ...props }: ComponentProps<"div">) {
-  return <div {...props} {...getNativeStyleProps(stylex.props(styles.group), className, style)} />;
+export function AttachmentGroup({ ...props }: ComponentProps<"div">) {
+  return <div {...props} {...stylex.props(styles.group)} />;
 }

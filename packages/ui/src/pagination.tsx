@@ -1,8 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { getNativeStyleProps } from "./stylex-props";
-
 import { Icon } from "./Icon";
 import {
   colorVars,
@@ -71,22 +69,16 @@ const styles = stylex.create({
   },
 });
 
-export function Pagination({ className, style, ...props }: ComponentProps<"nav">) {
-  return (
-    <nav
-      aria-label="Pagination"
-      {...props}
-      {...getNativeStyleProps(stylex.props(styles.root), className, style)}
-    />
-  );
+export function Pagination({ ...props }: ComponentProps<"nav">) {
+  return <nav aria-label="Pagination" {...props} {...stylex.props(styles.root)} />;
 }
 
-export function PaginationContent({ className, style, ...props }: ComponentProps<"ul">) {
-  return <ul {...props} {...getNativeStyleProps(stylex.props(styles.content), className, style)} />;
+export function PaginationContent({ ...props }: ComponentProps<"ul">) {
+  return <ul {...props} {...stylex.props(styles.content)} />;
 }
 
-export function PaginationItem({ className, style, ...props }: ComponentProps<"li">) {
-  return <li {...props} {...getNativeStyleProps(stylex.props(styles.item), className, style)} />;
+export function PaginationItem({ ...props }: ComponentProps<"li">) {
+  return <li {...props} {...stylex.props(styles.item)} />;
 }
 
 export type PaginationLinkProps = ComponentProps<"a"> & {
@@ -96,21 +88,15 @@ export type PaginationLinkProps = ComponentProps<"a"> & {
 
 export function PaginationLink({
   children,
-  className,
   isActive = false,
   size = "icon",
-  style,
   ...props
 }: PaginationLinkProps) {
   return (
     <a
       aria-current={isActive ? "page" : undefined}
       {...props}
-      {...getNativeStyleProps(
-        stylex.props(styles.link, styles[size], isActive && styles.active),
-        className,
-        style,
-      )}
+      {...stylex.props(styles.link, styles[size], isActive && styles.active)}
     >
       {children}
     </a>
@@ -135,13 +121,9 @@ export function PaginationNext({ children, ...props }: PaginationLinkProps) {
   );
 }
 
-export function PaginationEllipsis({ className, style, ...props }: ComponentProps<"span">) {
+export function PaginationEllipsis({ ...props }: ComponentProps<"span">) {
   return (
-    <span
-      aria-hidden="true"
-      {...props}
-      {...getNativeStyleProps(stylex.props(styles.ellipsis), className, style)}
-    >
+    <span aria-hidden="true" {...props} {...stylex.props(styles.ellipsis)}>
       …
     </span>
   );

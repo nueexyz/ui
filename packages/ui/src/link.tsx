@@ -52,7 +52,7 @@ export type LinkProps = useRender.ComponentProps<"a"> & {
 };
 
 const LinkBase = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
-  { className, render, style, variant = "inline", xstyle, ...props },
+  { render, variant = "inline", xstyle, ...props },
   ref,
 ) {
   const stylexProps = stylex.props(styles.root, styles[variant], xstyle);
@@ -61,8 +61,7 @@ const LinkBase = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
     defaultTagName: "a",
     props: {
       ...props,
-      className: [stylexProps.className, className].filter(Boolean).join(" "),
-      style: { ...stylexProps.style, ...style },
+      ...stylexProps,
     },
     ref,
     render,

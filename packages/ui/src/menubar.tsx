@@ -75,11 +75,7 @@ export function Menubar(props: ComponentProps<typeof MenubarPrimitive>) {
 
 export const MenubarMenu = MenuPrimitive.Root;
 
-export function MenubarTrigger({
-  className,
-  style,
-  ...props
-}: ComponentProps<typeof MenuPrimitive.Trigger>) {
+export function MenubarTrigger({ ...props }: ComponentProps<typeof MenuPrimitive.Trigger>) {
   return (
     <MenuPrimitive.Trigger
       {...props}
@@ -89,9 +85,7 @@ export function MenubarTrigger({
           state.open && styles.triggerOpen,
           state.disabled && styles.triggerDisabled,
         );
-        return [sx.className, typeof className === "function" ? className(state) : className]
-          .filter(Boolean)
-          .join(" ");
+        return sx.className;
       }}
       style={(state) => {
         const sx = stylex.props(
@@ -99,7 +93,7 @@ export function MenubarTrigger({
           state.open && styles.triggerOpen,
           state.disabled && styles.triggerDisabled,
         );
-        return { ...sx.style, ...(typeof style === "function" ? style(state) : style) };
+        return sx.style;
       }}
     />
   );

@@ -61,76 +61,42 @@ type ElementProps = ComponentProps<"div"> & StyleProps;
 type HeadingProps = ComponentProps<"h3"> & StyleProps;
 type ParagraphProps = ComponentProps<"p"> & StyleProps;
 
-export function Card({ className, style, xstyle, ...props }: ElementProps) {
+export function Card({ xstyle, ...props }: ElementProps) {
   const stylexProps = stylex.props(styles.card, xstyle);
 
-  return (
-    <div
-      {...props}
-      className={[stylexProps.className, className].filter(Boolean).join(" ")}
-      style={{ ...stylexProps.style, ...style }}
-    />
-  );
+  return <div {...props} {...stylexProps} />;
 }
 
-export function CardHeader({ className, style, xstyle, ...props }: ElementProps) {
+export function CardHeader({ xstyle, ...props }: ElementProps) {
   const stylexProps = stylex.props(styles.header, xstyle);
 
-  return (
-    <div
-      {...props}
-      className={[stylexProps.className, className].filter(Boolean).join(" ")}
-      style={{ ...stylexProps.style, ...style }}
-    />
-  );
+  return <div {...props} {...stylexProps} />;
 }
 
-export function CardTitle({ children, className, style, xstyle, ...props }: HeadingProps) {
+export function CardTitle({ children, xstyle, ...props }: HeadingProps) {
   const stylexProps = stylex.props(styles.title, xstyle);
 
   return (
-    <h3
-      {...props}
-      className={[stylexProps.className, className].filter(Boolean).join(" ")}
-      style={{ ...stylexProps.style, ...style }}
-    >
+    <h3 {...props} {...stylexProps}>
       {children}
     </h3>
   );
 }
 
-export function CardDescription({ className, style, xstyle, ...props }: ParagraphProps) {
+export function CardDescription({ xstyle, ...props }: ParagraphProps) {
   const stylexProps = stylex.props(styles.description, xstyle);
 
-  return (
-    <p
-      {...props}
-      className={[stylexProps.className, className].filter(Boolean).join(" ")}
-      style={{ ...stylexProps.style, ...style }}
-    />
-  );
+  return <p {...props} {...stylexProps} />;
 }
 
-export function CardContent({ className, style, xstyle, ...props }: ElementProps) {
+export function CardContent({ xstyle, ...props }: ElementProps) {
   const stylexProps = stylex.props(styles.content, xstyle);
 
-  return (
-    <div
-      {...props}
-      className={[stylexProps.className, className].filter(Boolean).join(" ")}
-      style={{ ...stylexProps.style, ...style }}
-    />
-  );
+  return <div {...props} {...stylexProps} />;
 }
 
-export function CardFooter({ className, style, xstyle, ...props }: ElementProps) {
+export function CardFooter({ xstyle, ...props }: ElementProps) {
   const stylexProps = stylex.props(styles.footer, xstyle);
 
-  return (
-    <div
-      {...props}
-      className={[stylexProps.className, className].filter(Boolean).join(" ")}
-      style={{ ...stylexProps.style, ...style }}
-    />
-  );
+  return <div {...props} {...stylexProps} />;
 }

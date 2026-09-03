@@ -2,8 +2,6 @@ import { Field as FieldPrimitive } from "@base-ui/react/field";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { getNativeStyleProps } from "./stylex-props";
-
 import { colorVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
@@ -64,153 +62,55 @@ const styles = stylex.create({
 type StyleProps = { xstyle?: stylex.StyleXStyles };
 type FieldOrientation = "horizontal" | "vertical";
 
-function mergeClassName<State>(
-  generatedClassName: string | undefined,
-  className: string | ((state: State) => string | undefined) | undefined,
-) {
-  if (typeof className === "function") {
-    return (state: State) => [generatedClassName, className(state)].filter(Boolean).join(" ");
-  }
-
-  return [generatedClassName, className].filter(Boolean).join(" ");
-}
-
 export type FieldProps = ComponentProps<typeof FieldPrimitive.Root> &
   StyleProps & { orientation?: FieldOrientation };
 
-export function Field({
-  className,
-  orientation = "vertical",
-  style,
-  xstyle,
-  ...props
-}: FieldProps) {
+export function Field({ orientation = "vertical", xstyle, ...props }: FieldProps) {
   const stylexProps = stylex.props(styles.root, styles[orientation], xstyle);
 
-  return (
-    <FieldPrimitive.Root
-      {...props}
-      data-orientation={orientation}
-      className={mergeClassName(stylexProps.className, className)}
-      style={{ ...stylexProps.style, ...style }}
-    />
-  );
+  return <FieldPrimitive.Root {...props} data-orientation={orientation} {...stylexProps} />;
 }
 
 export function FieldLabel({
-  className,
-  style,
   xstyle,
   ...props
 }: ComponentProps<typeof FieldPrimitive.Label> & StyleProps) {
   const stylexProps = stylex.props(styles.label, xstyle);
-  return (
-    <FieldPrimitive.Label
-      {...props}
-      className={mergeClassName(stylexProps.className, className)}
-      style={{ ...stylexProps.style, ...style }}
-    />
-  );
+  return <FieldPrimitive.Label {...props} {...stylexProps} />;
 }
 
 export function FieldDescription({
-  className,
-  style,
   xstyle,
   ...props
 }: ComponentProps<typeof FieldPrimitive.Description> & StyleProps) {
   const stylexProps = stylex.props(styles.description, xstyle);
-  return (
-    <FieldPrimitive.Description
-      {...props}
-      className={mergeClassName(stylexProps.className, className)}
-      style={{ ...stylexProps.style, ...style }}
-    />
-  );
+  return <FieldPrimitive.Description {...props} {...stylexProps} />;
 }
 
 export function FieldError({
-  className,
-  style,
   xstyle,
   ...props
 }: ComponentProps<typeof FieldPrimitive.Error> & StyleProps) {
   const stylexProps = stylex.props(styles.error, xstyle);
-  return (
-    <FieldPrimitive.Error
-      {...props}
-      className={mergeClassName(stylexProps.className, className)}
-      style={{ ...stylexProps.style, ...style }}
-    />
-  );
+  return <FieldPrimitive.Error {...props} {...stylexProps} />;
 }
 
-export function FieldSet({
-  className,
-  style,
-  xstyle,
-  ...props
-}: ComponentProps<"fieldset"> & StyleProps) {
-  return (
-    <fieldset
-      {...props}
-      {...getNativeStyleProps(stylex.props(styles.set, xstyle), className, style)}
-    />
-  );
+export function FieldSet({ xstyle, ...props }: ComponentProps<"fieldset"> & StyleProps) {
+  return <fieldset {...props} {...stylex.props(styles.set, xstyle)} />;
 }
 
-export function FieldLegend({
-  className,
-  style,
-  xstyle,
-  ...props
-}: ComponentProps<"legend"> & StyleProps) {
-  return (
-    <legend
-      {...props}
-      {...getNativeStyleProps(stylex.props(styles.legend, xstyle), className, style)}
-    />
-  );
+export function FieldLegend({ xstyle, ...props }: ComponentProps<"legend"> & StyleProps) {
+  return <legend {...props} {...stylex.props(styles.legend, xstyle)} />;
 }
 
-export function FieldGroup({
-  className,
-  style,
-  xstyle,
-  ...props
-}: ComponentProps<"div"> & StyleProps) {
-  return (
-    <div
-      {...props}
-      {...getNativeStyleProps(stylex.props(styles.group, xstyle), className, style)}
-    />
-  );
+export function FieldGroup({ xstyle, ...props }: ComponentProps<"div"> & StyleProps) {
+  return <div {...props} {...stylex.props(styles.group, xstyle)} />;
 }
 
-export function FieldContent({
-  className,
-  style,
-  xstyle,
-  ...props
-}: ComponentProps<"div"> & StyleProps) {
-  return (
-    <div
-      {...props}
-      {...getNativeStyleProps(stylex.props(styles.content, xstyle), className, style)}
-    />
-  );
+export function FieldContent({ xstyle, ...props }: ComponentProps<"div"> & StyleProps) {
+  return <div {...props} {...stylex.props(styles.content, xstyle)} />;
 }
 
-export function FieldTitle({
-  className,
-  style,
-  xstyle,
-  ...props
-}: ComponentProps<"div"> & StyleProps) {
-  return (
-    <div
-      {...props}
-      {...getNativeStyleProps(stylex.props(styles.title, xstyle), className, style)}
-    />
-  );
+export function FieldTitle({ xstyle, ...props }: ComponentProps<"div"> & StyleProps) {
+  return <div {...props} {...stylex.props(styles.title, xstyle)} />;
 }
