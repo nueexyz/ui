@@ -38,9 +38,7 @@ jobs:
             exit 1
           fi
 
-      - run: pnpm release:check
-
-      - name: Publish unpublished workspace packages
-        run: pnpm release:publish
+      - name: Verify and publish unpublished workspace packages
+        run: pnpm release
         env:
           NPM_CONFIG_PROVENANCE: "false"
