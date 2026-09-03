@@ -4,6 +4,9 @@ import { isAbsolute, join, relative, resolve } from "node:path";
 export const configFileName = "nooeh.json";
 
 export type NooehConfig = {
+  accessibility: {
+    respectReducedMotion: boolean;
+  };
   aliases: {
     ui: string;
     styles: string;
@@ -11,6 +14,9 @@ export type NooehConfig = {
 };
 
 export const defaultConfig: NooehConfig = {
+  accessibility: {
+    respectReducedMotion: true,
+  },
   aliases: {
     ui: "@/components/ui",
     styles: "@/styles",
@@ -36,6 +42,7 @@ function ensureRelativePath(projectDirectory: string, path: string, name: string
 
 export function validateConfig(config: unknown): NooehConfig {
   const candidate = config as {
+    accessibility?: { respectReducedMotion?: unknown };
     aliases?: unknown;
     paths?: { ui?: unknown; tokens?: unknown };
     tokens?: unknown;
@@ -55,8 +62,22 @@ export function validateConfig(config: unknown): NooehConfig {
   if (typeof aliases.styles !== "string" || !aliases.styles.trim()) {
     throw new Error("Configure aliases.styles.");
   }
+  if (
+    candidate.accessibility !== undefined &&
+    (typeof candidate.accessibility !== "object" ||
+      typeof candidate.accessibility.respectReducedMotion !== "boolean")
+  ) {
+    throw new Error("Configure accessibility.respectReducedMotion as a boolean.");
+  }
+  const respectReducedMotion =
+    typeof candidate.accessibility?.respectReducedMotion === "boolean"
+      ? candidate.accessibility.respectReducedMotion
+      : true;
 
   return {
+    accessibility: {
+      respectReducedMotion,
+    },
     aliases: {
       ui: aliases.ui,
       styles: aliases.styles,

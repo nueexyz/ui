@@ -71,6 +71,36 @@ function replaceTokenImport(source: string, targetPath: string, stylesDirectory:
   return source.replaceAll("@nooeh/tokens/semantic.stylex", relativeImportPath);
 }
 
+function removeReducedMotionStyles(source: string) {
+  const mediaQuery = '"@media (prefers-reduced-motion: reduce)":';
+  let transformedSource = source;
+  let mediaQueryIndex = transformedSource.indexOf(mediaQuery);
+
+  while (mediaQueryIndex !== -1) {
+    const propertyStart = transformedSource.lastIndexOf("\n", mediaQueryIndex) + 1;
+    const openingBraceIndex = transformedSource.indexOf("{", mediaQueryIndex + mediaQuery.length);
+    let depth = 0;
+    let propertyEnd = openingBraceIndex;
+
+    for (let index = openingBraceIndex; index < transformedSource.length; index += 1) {
+      if (transformedSource[index] === "{") depth += 1;
+      if (transformedSource[index] === "}") depth -= 1;
+      if (depth !== 0) continue;
+
+      propertyEnd = index + 1;
+      if (transformedSource[propertyEnd] === ",") propertyEnd += 1;
+      if (transformedSource[propertyEnd] === "\n") propertyEnd += 1;
+      break;
+    }
+
+    transformedSource =
+      transformedSource.slice(0, propertyStart) + transformedSource.slice(propertyEnd);
+    mediaQueryIndex = transformedSource.indexOf(mediaQuery);
+  }
+
+  return transformedSource;
+}
+
 export async function add(
   projectDirectory: string,
   componentName: string,
@@ -113,7 +143,9 @@ export async function add(
       continue;
     }
     await writeSource(
-      replaceTokenImport(file.content, targetPath, stylesDirectory),
+      config.accessibility.respectReducedMotion
+        ? replaceTokenImport(file.content, targetPath, stylesDirectory)
+        : removeReducedMotionStyles(replaceTokenImport(file.content, targetPath, stylesDirectory)),
       targetPath,
       confirmOverwrite,
     );

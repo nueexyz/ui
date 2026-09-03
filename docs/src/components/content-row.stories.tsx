@@ -87,6 +87,36 @@ export const ContentRowStory: Story = {
       <ComponentCode usage={contentRowExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Variants</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Choose a surface that fits the row’s grouping and emphasis in its parent layout.
+          </p>
+        </header>
+        <div
+          {...stylex.props(storyStyles.preview, [storyStyles.column, storyStyles.componentWidth])}
+        >
+          <ContentRow>Default row</ContentRow>
+          <ContentRow variant="muted">Muted row</ContentRow>
+          <ContentRow variant="outline">Outlined row</ContentRow>
+        </div>
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Sizes</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Choose a row density that matches the amount of information in the list.
+          </p>
+        </header>
+        <div
+          {...stylex.props(storyStyles.preview, [storyStyles.column, storyStyles.componentWidth])}
+        >
+          <ContentRow size="xs">Extra small row</ContentRow>
+          <ContentRow size="sm">Small row</ContentRow>
+          <ContentRow>Default row</ContentRow>
+        </div>
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock

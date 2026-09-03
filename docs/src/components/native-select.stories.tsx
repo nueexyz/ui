@@ -53,6 +53,38 @@ export const NativeSelectStory: Story = {
       <ComponentCode usage={nativeSelectExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Sizes</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Match the control height to the density of the surrounding form.
+          </p>
+        </header>
+        <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
+          <NativeSelect size="sm" defaultValue="ko">
+            <NativeSelectOption value="ko">Small select</NativeSelectOption>
+          </NativeSelect>
+          <NativeSelect defaultValue="ko">
+            <NativeSelectOption value="ko">Default select</NativeSelectOption>
+          </NativeSelect>
+        </div>
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>States</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Keep unavailable choices visibly distinct from interactive controls.
+          </p>
+        </header>
+        <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
+          <NativeSelect defaultValue="ko">
+            <NativeSelectOption value="ko">Available select</NativeSelectOption>
+          </NativeSelect>
+          <NativeSelect defaultValue="ko" disabled>
+            <NativeSelectOption value="ko">Unavailable select</NativeSelectOption>
+          </NativeSelect>
+        </div>
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock

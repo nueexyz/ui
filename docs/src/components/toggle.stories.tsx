@@ -41,6 +41,44 @@ export const ToggleStory: Story = {
       <ComponentCode usage={toggleExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Variants</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Use an outline when the toggle should have less emphasis than the default treatment.
+          </p>
+        </header>
+        <div {...stylex.props(storyStyles.preview)}>
+          <Toggle>Default</Toggle>
+          <Toggle variant="outline">Outline</Toggle>
+        </div>
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Sizes</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Choose a size that matches the density of the editing controls around it.
+          </p>
+        </header>
+        <div {...stylex.props(storyStyles.preview)}>
+          <Toggle size="sm">Small</Toggle>
+          <Toggle size="md">Default</Toggle>
+          <Toggle size="lg">Large</Toggle>
+        </div>
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>States</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Show selected and unavailable modes clearly before a person takes action.
+          </p>
+        </header>
+        <div {...stylex.props(storyStyles.preview)}>
+          <Toggle>Off</Toggle>
+          <Toggle defaultPressed>On</Toggle>
+          <Toggle disabled>Unavailable</Toggle>
+        </div>
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock

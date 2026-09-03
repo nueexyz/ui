@@ -56,7 +56,7 @@ export {
   DrawerTitle,
   DrawerTrigger,
 } from "./drawer";
-export type { DrawerProps } from "./drawer";
+export type { DrawerOverlayMode, DrawerProps, DrawerSwipeDirection } from "./drawer";
 export { Checkbox } from "./checkbox";
 export type { CheckboxProps } from "./checkbox";
 export { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./collapsible";

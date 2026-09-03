@@ -65,6 +65,33 @@ export const TabsStory: Story = {
       <ComponentCode usage={tabsExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Variants</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Use segmented tabs for enclosed choices and underline tabs for navigation within a page.
+          </p>
+        </header>
+        <TabsExample />
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>States</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Keep the current tab and unavailable destinations clearly distinguishable.
+          </p>
+        </header>
+        <Tabs defaultValue="account" variant="segmented">
+          <TabsList aria-label="Account settings">
+            <TabsTrigger value="account">Account</TabsTrigger>
+            <TabsTrigger disabled value="billing">
+              Billing
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="account">Account settings</TabsContent>
+          <TabsContent value="billing">Billing settings</TabsContent>
+        </Tabs>
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock

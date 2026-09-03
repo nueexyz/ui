@@ -66,7 +66,7 @@ export const ButtonStory: Story = {
       </section>
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>Variants</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Emphasized backgrounds</h2>
           <p {...stylex.props(storyStyles.description)}>
             Preserve action hierarchy and contrast on an emphasized background.
           </p>

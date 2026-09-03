@@ -24,12 +24,12 @@ const styles = stylex.create({
     transitionProperty: "opacity",
     transitionTimingFunction: motionVars.easingEnter,
     zIndex: 50,
-    "@media (prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" },
-  },
-  backdropTransitioning: { opacity: 0 },
-  backdropEnding: {
-    transitionDuration: motionVars.durationNormal,
-    transitionTimingFunction: motionVars.easingExit,
+    ":is([data-starting-style])": { opacity: 0 },
+    ":is([data-ending-style])": {
+      opacity: 0,
+      transitionDuration: motionVars.durationNormal,
+      transitionTimingFunction: motionVars.easingExit,
+    },
   },
   viewport: {
     alignItems: "center",
@@ -56,20 +56,22 @@ const styles = stylex.create({
     overflow: "auto",
     padding: spacingVars.space6,
     position: "relative",
-    transform: "translateY(0) scale(1)",
     transitionDuration: motionVars.durationSlow,
     transitionProperty: "opacity, transform",
     transitionTimingFunction: motionVars.easingEnter,
     width: "100%",
-    "@media (prefers-reduced-motion: reduce)": {
-      transform: "none",
-      transitionDuration: "0.01ms",
+    ":is([data-starting-style], [data-ending-style])": {
+      opacity: 0,
+      transform: "scale(0.95)",
     },
-  },
-  popupTransitioning: { opacity: 0, transform: "translateY(0.5rem) scale(0.98)" },
-  popupEnding: {
-    transitionDuration: motionVars.durationNormal,
-    transitionTimingFunction: motionVars.easingExit,
+    ":is([data-ending-style])": {
+      transitionDuration: motionVars.durationNormal,
+      transitionTimingFunction: motionVars.easingExit,
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      transitionDuration: motionVars.durationNormal,
+      ":is([data-starting-style], [data-ending-style])": { transform: "scale(0.99)" },
+    },
   },
   header: { display: "flex", flexDirection: "column", gap: spacingVars.space2 },
   footer: {
@@ -113,50 +115,21 @@ export function AlertDialogContent({
 
   return (
     <AlertDialogPrimitive.Portal>
-      <AlertDialogPrimitive.Backdrop
-        className={(state) =>
-          stylex.props(
-            styles.backdrop,
-            state.transitionStatus === "starting" && styles.backdropTransitioning,
-            state.transitionStatus === "ending" && styles.backdropTransitioning,
-            state.transitionStatus === "ending" && styles.backdropEnding,
-          ).className ?? ""
-        }
-        style={(state) =>
-          stylex.props(
-            styles.backdrop,
-            state.transitionStatus === "starting" && styles.backdropTransitioning,
-            state.transitionStatus === "ending" && styles.backdropTransitioning,
-            state.transitionStatus === "ending" && styles.backdropEnding,
-          ).style
-        }
-      />
+      <AlertDialogPrimitive.Backdrop {...stylex.props(styles.backdrop)} />
       <AlertDialogPrimitive.Viewport {...stylex.props(styles.viewport)}>
         <AlertDialogPrimitive.Popup
           {...props}
           className={(state) => {
-            const motionStylexProps = stylex.props(
-              state.transitionStatus === "starting" && styles.popupTransitioning,
-              state.transitionStatus === "ending" && styles.popupTransitioning,
-              state.transitionStatus === "ending" && styles.popupEnding,
-            );
             return [
               stylexProps.className,
-              motionStylexProps.className,
               typeof className === "function" ? className(state) : className,
             ]
               .filter(Boolean)
               .join(" ");
           }}
           style={(state) => {
-            const motionStylexProps = stylex.props(
-              state.transitionStatus === "starting" && styles.popupTransitioning,
-              state.transitionStatus === "ending" && styles.popupTransitioning,
-              state.transitionStatus === "ending" && styles.popupEnding,
-            );
             return {
               ...stylexProps.style,
-              ...motionStylexProps.style,
               ...(typeof style === "function" ? style(state) : style),
             };
           }}

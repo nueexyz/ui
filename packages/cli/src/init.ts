@@ -215,7 +215,10 @@ export async function init(projectDirectory: string, options: CliOptions) {
         "Configure the StyleX compiler for your bundler before importing added components.",
       );
     }
-    await writeConfig(projectDirectory, { aliases: { ui: uiAlias, styles: stylesAlias } });
+    await writeConfig(projectDirectory, {
+      accessibility: defaultConfig.accessibility,
+      aliases: { ui: uiAlias, styles: stylesAlias },
+    });
   } finally {
     readline?.close();
   }

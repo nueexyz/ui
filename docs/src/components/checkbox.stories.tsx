@@ -61,6 +61,28 @@ export const CheckboxStory: Story = {
       <ComponentCode usage={checkboxExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>States</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Keep selected and unavailable options distinguishable before submission.
+          </p>
+        </header>
+        <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
+          <label htmlFor="not-selected" {...stylex.props(storyStyles.option)}>
+            <Checkbox id="not-selected" />
+            Not selected
+          </label>
+          <label htmlFor="selected" {...stylex.props(storyStyles.option)}>
+            <Checkbox defaultChecked id="selected" />
+            Selected
+          </label>
+          <label htmlFor="unavailable" {...stylex.props(storyStyles.option, styles.disabledOption)}>
+            <Checkbox disabled id="unavailable" />
+            Unavailable
+          </label>
+        </div>
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock

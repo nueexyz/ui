@@ -81,6 +81,36 @@ export const PaginationStory: Story = {
       <ComponentCode usage={paginationExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Sizes</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Use icon links for compact page controls and default links when page numbers need text.
+          </p>
+        </header>
+        <div {...stylex.props(storyStyles.preview)}>
+          <PaginationLink href="#" size="icon" aria-label="Previous page">
+            1
+          </PaginationLink>
+          <PaginationLink href="#" size="default">
+            Page 1
+          </PaginationLink>
+        </div>
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>States</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Mark the current page so people can identify their location at a glance.
+          </p>
+        </header>
+        <div {...stylex.props(storyStyles.preview)}>
+          <PaginationLink href="#">1</PaginationLink>
+          <PaginationLink href="#" isActive>
+            2
+          </PaginationLink>
+        </div>
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock

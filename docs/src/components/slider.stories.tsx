@@ -56,6 +56,18 @@ export const SliderStory: Story = {
       <ComponentCode usage={sliderExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>States</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Keep an unavailable value distinct from an adjustable one.
+          </p>
+        </header>
+        <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
+          <Slider aria-label="Adjustable volume" defaultValue={[60]} />
+          <Slider aria-label="Unavailable volume" defaultValue={[60]} disabled />
+        </div>
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock

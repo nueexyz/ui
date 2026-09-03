@@ -63,6 +63,28 @@ export const RadioGroupStory: Story = {
       <ComponentCode usage={radioGroupExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>States</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Clearly show the selected option and any choice that is not currently available.
+          </p>
+        </header>
+        <RadioGroup defaultValue="daily">
+          <Label {...stylex.props(storyStyles.option)}>
+            <RadioGroupItem value="daily" />
+            Selected
+          </Label>
+          <Label {...stylex.props(storyStyles.option)}>
+            <RadioGroupItem value="weekly" />
+            Available
+          </Label>
+          <Label {...stylex.props(storyStyles.option)}>
+            <RadioGroupItem disabled value="never" />
+            Unavailable
+          </Label>
+        </RadioGroup>
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock

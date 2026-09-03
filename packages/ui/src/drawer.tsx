@@ -24,13 +24,14 @@ const styles = stylex.create({
     transitionProperty: "opacity",
     transitionTimingFunction: motionVars.easingEnter,
     zIndex: 50,
-    "@media (prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" },
+    ":is([data-starting-style])": { opacity: 0 },
+    ":is([data-ending-style])": {
+      opacity: 0,
+      transitionDuration: motionVars.durationNormal,
+      transitionTimingFunction: motionVars.easingExit,
+    },
   },
-  overlayTransitioning: { opacity: 0 },
-  overlayEnding: {
-    transitionDuration: motionVars.durationNormal,
-    transitionTimingFunction: motionVars.easingExit,
-  },
+  overlayTransparent: { backdropFilter: "none", backgroundColor: "transparent" },
   viewport: { inset: 0, position: "fixed", zIndex: 51 },
   popup: {
     backgroundColor: colorVars.bgRaised,
@@ -48,7 +49,12 @@ const styles = stylex.create({
     transitionDuration: motionVars.durationSlow,
     transitionProperty: "opacity, transform",
     transitionTimingFunction: motionVars.easingEnter,
-    "@media (prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" },
+    willChange: "transform",
+    ":is([data-ending-style])": {
+      transitionDuration: motionVars.durationNormal,
+      transitionTimingFunction: motionVars.easingExit,
+    },
+    "@media (prefers-reduced-motion: reduce)": { transitionDuration: motionVars.durationNormal },
   },
   verticalPopup: {
     left: 0,
@@ -60,14 +66,34 @@ const styles = stylex.create({
   downPopup: {
     borderRadius: "1rem 1rem 0 0",
     bottom: 0,
+    minHeight: "50dvh",
     transform:
       "translate3d(var(--drawer-swipe-movement-x, 0px), calc(var(--drawer-snap-point-offset, 0px) + var(--drawer-swipe-movement-y, 0px)), 0)",
+    ":is([data-starting-style], [data-ending-style])": {
+      opacity: 0,
+      transform: "translate3d(0, 100%, 0)",
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      ":is([data-starting-style], [data-ending-style])": {
+        transform: "translate3d(0, 24%, 0)",
+      },
+    },
   },
   upPopup: {
     borderRadius: "0 0 1rem 1rem",
+    minHeight: "50dvh",
     top: 0,
     transform:
       "translate3d(var(--drawer-swipe-movement-x, 0px), calc(var(--drawer-snap-point-offset, 0px) + var(--drawer-swipe-movement-y, 0px)), 0)",
+    ":is([data-starting-style], [data-ending-style])": {
+      opacity: 0,
+      transform: "translate3d(0, -100%, 0)",
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      ":is([data-starting-style], [data-ending-style])": {
+        transform: "translate3d(0, -24%, 0)",
+      },
+    },
   },
   horizontalPopup: {
     bottom: 0,
@@ -80,20 +106,30 @@ const styles = stylex.create({
     left: 0,
     transform:
       "translate3d(var(--drawer-swipe-movement-x, 0px), var(--drawer-swipe-movement-y, 0px), 0)",
+    ":is([data-starting-style], [data-ending-style])": {
+      opacity: 0,
+      transform: "translate3d(-100%, 0, 0)",
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      ":is([data-starting-style], [data-ending-style])": {
+        transform: "translate3d(-24%, 0, 0)",
+      },
+    },
   },
   rightPopup: {
     borderRadius: "1rem 0 0 1rem",
     right: 0,
     transform:
       "translate3d(var(--drawer-swipe-movement-x, 0px), var(--drawer-swipe-movement-y, 0px), 0)",
-  },
-  downTransitioning: { opacity: 0, transform: "translate3d(0, 100%, 0)" },
-  upTransitioning: { opacity: 0, transform: "translate3d(0, -100%, 0)" },
-  leftTransitioning: { opacity: 0, transform: "translate3d(-100%, 0, 0)" },
-  rightTransitioning: { opacity: 0, transform: "translate3d(100%, 0, 0)" },
-  popupEnding: {
-    transitionDuration: motionVars.durationNormal,
-    transitionTimingFunction: motionVars.easingExit,
+    ":is([data-starting-style], [data-ending-style])": {
+      opacity: 0,
+      transform: "translate3d(100%, 0, 0)",
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      ":is([data-starting-style], [data-ending-style])": {
+        transform: "translate3d(24%, 0, 0)",
+      },
+    },
   },
   content: { display: "flex", flex: 1, flexDirection: "column", minHeight: 0 },
   swipeHandle: {
@@ -105,7 +141,24 @@ const styles = stylex.create({
     marginBlock: spacingVars.space2,
     width: "2.5rem",
   },
-  horizontalSwipeHandle: { height: "2.5rem", marginInline: spacingVars.space2, width: "0.25rem" },
+  horizontalSwipeHandle: {
+    height: "2.5rem",
+    marginBlock: 0,
+    position: "absolute",
+    top: "50%",
+    transform: "translateY(-50%)",
+    width: "0.25rem",
+  },
+  upSwipeHandle: {
+    bottom: spacingVars.space2,
+    left: 0,
+    marginBlock: 0,
+    marginInline: "auto",
+    position: "absolute",
+    right: 0,
+  },
+  leftSwipeHandle: { right: spacingVars.space2 },
+  rightSwipeHandle: { left: spacingVars.space2 },
   header: {
     display: "flex",
     flexDirection: "column",
@@ -119,10 +172,13 @@ const styles = stylex.create({
     display: "flex",
     flexWrap: "wrap",
     gap: spacingVars.space2,
-    justifyContent: "flex-end",
+    justifyContent: "flex-start",
     paddingBlock: spacingVars.space6,
     paddingBlockStart: spacingVars.space2,
     paddingInline: spacingVars.space6,
+  },
+  sideFooter: {
+    "@media (max-width: 40rem)": { justifyContent: "center" },
   },
   title: {
     color: colorVars.fgPrimary,
@@ -140,26 +196,35 @@ const styles = stylex.create({
 });
 
 type DrawerContextValue = {
+  overlay: DrawerOverlayMode;
   showSwipeHandle: boolean;
-  swipeDirection: NonNullable<ComponentProps<typeof DrawerPrimitive.Root>["swipeDirection"]>;
+  swipeDirection: DrawerSwipeDirection;
 };
 
+export type DrawerOverlayMode = "visible" | "transparent" | "none";
+export type DrawerSwipeDirection = "down" | "up" | "left" | "right";
+
 const DrawerContext = createContext<DrawerContextValue>({
+  overlay: "visible",
   showSwipeHandle: false,
   swipeDirection: "down",
 });
 
-export type DrawerProps = ComponentProps<typeof DrawerPrimitive.Root> & {
+export type DrawerProps = Omit<ComponentProps<typeof DrawerPrimitive.Root>, "swipeDirection"> & {
+  /** Controls the backdrop behind the Drawer. */
+  overlay?: DrawerOverlayMode;
   showSwipeHandle?: boolean;
+  swipeDirection?: DrawerSwipeDirection;
 };
 
 export function Drawer({
+  overlay = "visible",
   showSwipeHandle = false,
   swipeDirection = "down",
   ...props
 }: DrawerProps) {
   return (
-    <DrawerContext.Provider value={{ showSwipeHandle, swipeDirection }}>
+    <DrawerContext.Provider value={{ overlay, showSwipeHandle, swipeDirection }}>
       <DrawerPrimitive.Root {...props} swipeDirection={swipeDirection} />
     </DrawerContext.Provider>
   );
@@ -179,13 +244,7 @@ export function DrawerOverlay({ className, style, xstyle, ...props }: DrawerOver
       {...props}
       data-slot="drawer-overlay"
       className={(state) => {
-        const stylexProps = stylex.props(
-          styles.overlay,
-          state.transitionStatus === "starting" && styles.overlayTransitioning,
-          state.transitionStatus === "ending" && styles.overlayTransitioning,
-          state.transitionStatus === "ending" && styles.overlayEnding,
-          xstyle,
-        );
+        const stylexProps = stylex.props(styles.overlay, xstyle);
         return [
           stylexProps.className,
           typeof className === "function" ? className(state) : className,
@@ -194,13 +253,7 @@ export function DrawerOverlay({ className, style, xstyle, ...props }: DrawerOver
           .join(" ");
       }}
       style={(state) => {
-        const stylexProps = stylex.props(
-          styles.overlay,
-          state.transitionStatus === "starting" && styles.overlayTransitioning,
-          state.transitionStatus === "ending" && styles.overlayTransitioning,
-          state.transitionStatus === "ending" && styles.overlayEnding,
-          xstyle,
-        );
+        const stylexProps = stylex.props(styles.overlay, xstyle);
         return {
           ...stylexProps.style,
           ...(typeof style === "function" ? style(state) : style),
@@ -221,7 +274,14 @@ export function DrawerSwipeHandle({ className, style, xstyle, ...props }: Drawer
       data-slot="drawer-swipe-handle"
       {...props}
       {...getNativeStyleProps(
-        stylex.props(styles.swipeHandle, isHorizontal && styles.horizontalSwipeHandle, xstyle),
+        stylex.props(
+          styles.swipeHandle,
+          isHorizontal && styles.horizontalSwipeHandle,
+          swipeDirection === "up" && styles.upSwipeHandle,
+          swipeDirection === "left" && styles.leftSwipeHandle,
+          swipeDirection === "right" && styles.rightSwipeHandle,
+          xstyle,
+        ),
         className,
         style,
       )}
@@ -233,54 +293,21 @@ type DrawerContentProps = ComponentProps<typeof DrawerPrimitive.Popup> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-type DrawerPopupState = Parameters<
-  Exclude<ComponentProps<typeof DrawerPrimitive.Popup>["className"], string | undefined>
->[0];
-
-function getDrawerPopupStylexProps(state: DrawerPopupState, xstyle?: stylex.StyleXStyles) {
-  if (state.swipeDirection === "up") {
-    return stylex.props(
-      styles.popup,
-      styles.verticalPopup,
-      styles.upPopup,
-      state.transitionStatus === "starting" && styles.upTransitioning,
-      state.transitionStatus === "ending" && styles.upTransitioning,
-      state.transitionStatus === "ending" && styles.popupEnding,
-      xstyle,
-    );
+function getDrawerPopupStylexProps(
+  swipeDirection: DrawerSwipeDirection,
+  xstyle?: stylex.StyleXStyles,
+) {
+  if (swipeDirection === "right") {
+    return stylex.props(styles.popup, styles.horizontalPopup, styles.rightPopup, xstyle);
   }
-  if (state.swipeDirection === "right") {
-    return stylex.props(
-      styles.popup,
-      styles.horizontalPopup,
-      styles.rightPopup,
-      state.transitionStatus === "starting" && styles.rightTransitioning,
-      state.transitionStatus === "ending" && styles.rightTransitioning,
-      state.transitionStatus === "ending" && styles.popupEnding,
-      xstyle,
-    );
+  if (swipeDirection === "left") {
+    return stylex.props(styles.popup, styles.horizontalPopup, styles.leftPopup, xstyle);
   }
-  if (state.swipeDirection === "left") {
-    return stylex.props(
-      styles.popup,
-      styles.horizontalPopup,
-      styles.leftPopup,
-      state.transitionStatus === "starting" && styles.leftTransitioning,
-      state.transitionStatus === "ending" && styles.leftTransitioning,
-      state.transitionStatus === "ending" && styles.popupEnding,
-      xstyle,
-    );
+  if (swipeDirection === "up") {
+    return stylex.props(styles.popup, styles.verticalPopup, styles.upPopup, xstyle);
   }
 
-  return stylex.props(
-    styles.popup,
-    styles.verticalPopup,
-    styles.downPopup,
-    state.transitionStatus === "starting" && styles.downTransitioning,
-    state.transitionStatus === "ending" && styles.downTransitioning,
-    state.transitionStatus === "ending" && styles.popupEnding,
-    xstyle,
-  );
+  return stylex.props(styles.popup, styles.verticalPopup, styles.downPopup, xstyle);
 }
 
 export function DrawerContent({
@@ -290,17 +317,19 @@ export function DrawerContent({
   xstyle,
   ...props
 }: DrawerContentProps) {
-  const { showSwipeHandle } = useContext(DrawerContext);
+  const { overlay, showSwipeHandle, swipeDirection } = useContext(DrawerContext);
 
   return (
     <DrawerPortal>
-      <DrawerOverlay />
+      {overlay === "none" ? null : (
+        <DrawerOverlay xstyle={overlay === "transparent" ? styles.overlayTransparent : undefined} />
+      )}
       <DrawerPrimitive.Viewport {...stylex.props(styles.viewport)}>
         <DrawerPrimitive.Popup
           {...props}
           data-slot="drawer-popup"
           className={(state) => {
-            const stylexProps = getDrawerPopupStylexProps(state, xstyle);
+            const stylexProps = getDrawerPopupStylexProps(swipeDirection, xstyle);
             return [
               stylexProps.className,
               typeof className === "function" ? className(state) : className,
@@ -309,7 +338,7 @@ export function DrawerContent({
               .join(" ");
           }}
           style={(state) => {
-            const stylexProps = getDrawerPopupStylexProps(state, xstyle);
+            const stylexProps = getDrawerPopupStylexProps(swipeDirection, xstyle);
             return {
               ...stylexProps.style,
               ...(typeof style === "function" ? style(state) : style),
@@ -346,10 +375,17 @@ export function DrawerFooter({
   xstyle,
   ...props
 }: ComponentProps<"div"> & { xstyle?: stylex.StyleXStyles }) {
+  const { swipeDirection } = useContext(DrawerContext);
+  const isSideDrawer = swipeDirection === "left" || swipeDirection === "right";
+
   return (
     <div
       {...props}
-      {...getNativeStyleProps(stylex.props(styles.footer, xstyle), className, style)}
+      {...getNativeStyleProps(
+        stylex.props(styles.footer, isSideDrawer && styles.sideFooter, xstyle),
+        className,
+        style,
+      )}
     />
   );
 }

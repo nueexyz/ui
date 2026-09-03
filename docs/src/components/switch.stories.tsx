@@ -49,6 +49,31 @@ export const SwitchStory: Story = {
       <ComponentCode usage={switchExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Sizes</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Choose a control size that matches nearby form controls.
+          </p>
+        </header>
+        <div {...stylex.props(storyStyles.preview)}>
+          <Switch aria-label="Small switch" size="sm" />
+          <Switch aria-label="Default switch" size="md" />
+        </div>
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>States</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Make checked and unavailable settings clearly distinguishable.
+          </p>
+        </header>
+        <div {...stylex.props(storyStyles.preview)}>
+          <Switch aria-label="Off" />
+          <Switch aria-label="On" defaultChecked />
+          <Switch aria-label="Unavailable" disabled />
+        </div>
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock

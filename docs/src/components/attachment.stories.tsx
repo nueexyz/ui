@@ -103,6 +103,21 @@ export const AttachmentStory: Story = {
       <ComponentCode usage={attachmentExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Sizes</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Choose a density that keeps the file list scannable without overwhelming nearby content.
+          </p>
+        </header>
+        <div
+          {...stylex.props(storyStyles.preview, [storyStyles.column, storyStyles.componentWidth])}
+        >
+          <Attachment size="xs">Extra small attachment</Attachment>
+          <Attachment size="sm">Small attachment</Attachment>
+          <Attachment>Default attachment</Attachment>
+        </div>
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock

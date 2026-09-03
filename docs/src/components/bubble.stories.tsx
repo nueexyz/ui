@@ -53,6 +53,18 @@ export const BubbleStory: Story = {
       <ComponentCode usage={bubbleExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Variants</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Use an outline when the message should be visually quieter than a filled bubble.
+          </p>
+        </header>
+        <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
+          <Bubble>Filled message</Bubble>
+          <Bubble variant="outline">Outlined message</Bubble>
+        </div>
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock

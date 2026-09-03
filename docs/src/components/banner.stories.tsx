@@ -95,6 +95,32 @@ export const BannerStory: Story = {
       <ComponentCode usage={bannerExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Variants</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Choose a treatment that communicates the message’s urgency and intent.
+          </p>
+        </header>
+        <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
+          <Banner description="An update is ready." title="Information" />
+          <Banner description="Review this before continuing." title="Warning" variant="warning" />
+          <Banner description="Your changes could not be saved." title="Error" variant="error" />
+          <Banner description="No action is required." title="Neutral" variant="neutral" />
+        </div>
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Sizes</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Use the compact size when a page needs to preserve vertical space.
+          </p>
+        </header>
+        <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
+          <Banner description="A standard page-level message." title="Default" />
+          <Banner description="A compact inline message." size="sm" title="Compact" />
+        </div>
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Install</h2>
         </header>
         <CodeBlock

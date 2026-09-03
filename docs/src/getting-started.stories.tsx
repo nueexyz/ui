@@ -19,6 +19,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const config = `{
+  "accessibility": {
+    "respectReducedMotion": true
+  },
   "aliases": {
     "ui": "@/components/ui",
     "styles": "@/styles"
@@ -107,6 +110,11 @@ export const GettingStarted: Story = {
           <dt {...stylex.props(styles.configField)}>aliases.ui / aliases.styles</dt>
           <dd {...stylex.props(styles.configDescription)}>
             The aliases used to import added components and their local StyleX tokens.
+          </dd>
+          <dt {...stylex.props(styles.configField)}>accessibility.respectReducedMotion</dt>
+          <dd {...stylex.props(styles.configDescription)}>
+            Keeps reduced-motion media queries in copied components. Set it to false before adding
+            components to always keep their motion.
           </dd>
         </dl>
         <p {...stylex.props(styles.note)}>

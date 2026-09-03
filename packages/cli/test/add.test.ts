@@ -51,6 +51,31 @@ test("add uses the configured local token directory", async () => {
   }
 });
 
+test("add omits reduced-motion rules when accessibility config disables them", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
+
+  try {
+    await init(projectDirectory, { defaults: true, "skip-dependencies": true });
+    await writeFile(
+      join(projectDirectory, configFileName),
+      JSON.stringify({
+        ...defaultConfig,
+        accessibility: { respectReducedMotion: false },
+      }),
+    );
+    await add(projectDirectory, "dialog", { skipDependencyInstall: true });
+
+    const dialogSource = await readFile(
+      join(projectDirectory, "src/components/ui/dialog.tsx"),
+      "utf8",
+    );
+    assert.doesNotMatch(dialogSource, /prefers-reduced-motion/);
+    assert.match(dialogSource, /transform: "scale\(0\.95\)"/);
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
 test("add resolves aliases from tsconfig paths", async () => {
   const projectDirectory = await mkdtemp(join(tmpdir(), "nooeh-cli-"));
 
