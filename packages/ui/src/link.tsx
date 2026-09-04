@@ -1,8 +1,8 @@
 import { useRender } from "@base-ui/react/use-render";
+import { ArrowSquareOutIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import { forwardRef, type ComponentProps } from "react";
 
-import { Icon } from "./Icon";
 import { colorVars, motionVars, sizeVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
@@ -68,8 +68,8 @@ const LinkBase = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
   });
 });
 
-function ExternalIcon(props: Omit<ComponentProps<typeof Icon>, "name">) {
-  return <Icon aria-hidden="true" name="externalLink" size="1em" {...props} />;
+function ExternalIcon(props: ComponentProps<typeof ArrowSquareOutIcon>) {
+  return <ArrowSquareOutIcon aria-hidden="true" size="1em" {...props} />;
 }
 
 export const Link = Object.assign(LinkBase, { ExternalIcon });

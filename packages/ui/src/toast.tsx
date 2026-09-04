@@ -1,8 +1,8 @@
 import { Toast as ToastPrimitive } from "@base-ui/react/toast";
 import * as stylex from "@stylexjs/stylex";
+import { CheckCircleIcon, InfoIcon, WarningIcon, XCircleIcon, XIcon } from "@phosphor-icons/react";
 import { useLayoutEffect, useRef, useState, type ComponentProps } from "react";
 
-import { Icon, type IconName } from "./Icon";
 import {
   colorVars,
   motionVars,
@@ -28,13 +28,17 @@ const styles = stylex.create({
       default: "none",
       ":is([data-expanded])": "auto",
     },
-    [toastViewportVars.clearAllOpacity]: {
-      default: "1",
-      ":not([data-expanded])": "0",
+    [toastViewportVars.clearActionOffset]: {
+      default: "0px",
+      ":is([data-expanded])": "2.25rem",
     },
-    [toastViewportVars.clearAllPointerEvents]: {
-      default: "auto",
-      ":not([data-expanded])": "none",
+    [toastViewportVars.clearActionOpacity]: {
+      default: "0",
+      ":is([data-expanded])": "1",
+    },
+    [toastViewportVars.clearActionPointerEvents]: {
+      default: "none",
+      ":is([data-expanded])": "auto",
     },
   },
   viewportTop: { top: spacingVars.space4 },
@@ -177,20 +181,13 @@ const styles = stylex.create({
   },
   statusIcon: {
     alignItems: "center",
-    alignSelf: "flex-start",
     display: "inline-flex",
     flexShrink: 0,
     height: sizeVars.iconMd,
     justifyContent: "center",
-    marginTop: "0.0625rem",
     width: sizeVars.iconMd,
   },
-  default: { color: colorVars.fgSecondary },
-  success: { color: colorVars.fgFeedbackSuccess },
-  info: { color: colorVars.fgFeedbackInfo },
-  warning: { color: colorVars.fgFeedbackWarning },
-  error: { color: colorVars.fgFeedbackError },
-  loading: { color: colorVars.fgSecondary },
+  statusIconWithDescription: { alignSelf: "flex-start", marginTop: "0.0625rem" },
   loadingIcon: {
     animationDuration: "700ms",
     animationIterationCount: "infinite",
@@ -198,7 +195,6 @@ const styles = stylex.create({
     animationTimingFunction: "linear",
     borderColor: colorVars.strokeDefault,
     borderRadius: radiusVars.full,
-    borderRightColor: colorVars.fgPrimary,
     borderStyle: "solid",
     borderWidth: sizeVars.focusRing,
     flexShrink: 0,
@@ -207,6 +203,7 @@ const styles = stylex.create({
     "@media (prefers-reduced-motion: reduce)": { animationDuration: "1.5s" },
   },
   action: {
+    alignItems: "center",
     appearance: "none",
     backgroundColor: colorVars.bgSurface,
     borderColor: colorVars.strokeDefault,
@@ -215,11 +212,13 @@ const styles = stylex.create({
     borderWidth: sizeVars.stroke,
     color: colorVars.fgPrimary,
     cursor: "pointer",
+    display: "inline-flex",
     flexShrink: 0,
     fontFamily: typographyVars.fontFamilyBody,
     fontSize: typographyVars.fontSizeXs,
     fontWeight: typographyVars.fontWeightMedium,
     height: "1.75rem",
+    justifyContent: "center",
     outline: "none",
     paddingInline: spacingVars.space3,
     ":hover": { backgroundColor: colorVars.interactionHover },
@@ -230,6 +229,7 @@ const styles = stylex.create({
       outlineWidth: sizeVars.focusRing,
     },
   },
+  actionWithDescription: { alignSelf: "flex-start", marginTop: "0.0625rem" },
   close: {
     alignItems: "center",
     appearance: "none",
@@ -254,6 +254,7 @@ const styles = stylex.create({
       outlineWidth: sizeVars.focusRing,
     },
   },
+  closeWithDescription: { alignSelf: "flex-start", marginTop: "0.0625rem" },
   clearAll: {
     appearance: "none",
     backgroundColor: colorVars.bgSubtle,
@@ -264,14 +265,14 @@ const styles = stylex.create({
     color: colorVars.fgSecondary,
     cursor: "pointer",
     fontFamily: typographyVars.fontFamilyBody,
-    fontSize: typographyVars.fontSizeXs,
+    fontSize: "0.625rem",
     fontWeight: typographyVars.fontWeightMedium,
     height: "1.75rem",
     outline: "none",
     paddingBlock: spacingVars.space1,
     paddingInline: spacingVars.space2,
-    opacity: toastViewportVars.clearAllOpacity,
-    pointerEvents: toastViewportVars.clearAllPointerEvents,
+    opacity: toastViewportVars.clearActionOpacity,
+    pointerEvents: toastViewportVars.clearActionPointerEvents,
     position: "absolute",
     right: 0,
     top: 0,
@@ -286,8 +287,6 @@ const styles = stylex.create({
   },
   clearAllTop: { bottom: 0, top: "auto" },
 });
-
-type ToastType = "default" | "success" | "info" | "warning" | "error" | "loading";
 
 export type ToastPosition =
   | "bottom-center"
@@ -307,14 +306,14 @@ export type ToasterProps = Omit<
 
 export const toast = ToastPrimitive.createToastManager();
 
-const toastIcons: Partial<Record<ToastType, IconName>> = {
-  success: "success",
-  info: "info",
-  warning: "warning",
-  error: "error",
+const toastIcons = {
+  success: CheckCircleIcon,
+  info: InfoIcon,
+  warning: WarningIcon,
+  error: XCircleIcon,
 };
 
-function ToastStatusIcon({ type }: { type?: string }) {
+function ToastStatusIcon({ hasDescription, type }: { hasDescription: boolean; type?: string }) {
   if (!type || type === "default") {
     return null;
   }
@@ -323,14 +322,17 @@ function ToastStatusIcon({ type }: { type?: string }) {
     return <span aria-hidden="true" {...stylex.props(styles.loadingIcon)} />;
   }
 
-  const iconName = toastIcons[type as ToastType];
-  if (!iconName) {
+  const IconComponent = toastIcons[type as keyof typeof toastIcons];
+  if (!IconComponent) {
     return null;
   }
 
   return (
-    <span aria-hidden="true" {...stylex.props(styles.statusIcon, styles[type as ToastType])}>
-      <Icon name={iconName} />
+    <span
+      aria-hidden="true"
+      {...stylex.props(styles.statusIcon, hasDescription && styles.statusIconWithDescription)}
+    >
+      <IconComponent />
     </span>
   );
 }
@@ -342,7 +344,7 @@ function ToastStack({ position }: { position: ToastPosition }) {
   const isTop = position.startsWith("top");
   const hasClearAction = toasts.length > 1;
   const stackHeight = hasClearAction
-    ? `calc(${height}px + 1.75rem + ${spacingVars.space2})`
+    ? `calc(${height}px + ${toastViewportVars.clearActionOffset})`
     : height;
 
   useLayoutEffect(() => {
@@ -400,14 +402,27 @@ function ToastStack({ position }: { position: ToastPosition }) {
           {...stylex.props(styles.root, isTop && styles.rootTop)}
         >
           <ToastPrimitive.Content {...stylex.props(styles.content)}>
-            <ToastStatusIcon type={item.type} />
+            <ToastStatusIcon hasDescription={Boolean(item.description)} type={item.type} />
             <div {...stylex.props(styles.message)}>
               <ToastPrimitive.Title {...stylex.props(styles.title)} />
               <ToastPrimitive.Description {...stylex.props(styles.description)} />
             </div>
-            {item.actionProps ? <ToastPrimitive.Action {...stylex.props(styles.action)} /> : null}
-            <ToastPrimitive.Close aria-label="Close toast" {...stylex.props(styles.close)}>
-              <Icon aria-hidden="true" name="close" />
+            {item.actionProps ? (
+              <ToastPrimitive.Action
+                {...stylex.props(
+                  styles.action,
+                  Boolean(item.description) && styles.actionWithDescription,
+                )}
+              />
+            ) : null}
+            <ToastPrimitive.Close
+              aria-label="Close toast"
+              {...stylex.props(
+                styles.close,
+                Boolean(item.description) && styles.closeWithDescription,
+              )}
+            >
+              <XIcon aria-hidden="true" />
             </ToastPrimitive.Close>
           </ToastPrimitive.Content>
         </ToastPrimitive.Root>

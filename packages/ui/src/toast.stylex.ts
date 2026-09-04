@@ -1,7 +1,8 @@
 import * as stylex from "@stylexjs/stylex";
 
 export const toastViewportVars = stylex.defineVars({
-  clearAllOpacity: "1",
-  clearAllPointerEvents: "auto",
+  clearActionOffset: "0px",
+  clearActionOpacity: "0",
+  clearActionPointerEvents: "none",
   stackPointerEvents: "none",
 });

@@ -2,6 +2,12 @@
 
 Released on 2026-09-04.
 
+- Added Calendar, Date Picker, and Carousel components. Install only the
+  packages you need with `nuee add calendar`, `date-picker`, or `carousel`.
+- Redesigned dark mode around charcoal surfaces, clearer elevation, and paired
+  foreground colors so components remain readable when the theme changes.
+- Removed the incomplete Message Scroller component from the registry. Compose
+  conversation lists with Message Group until a complete scroller returns.
 - Added separate body and heading typeface tokens. Set
   `typographyVars.fontFamilyBody` and `typographyVars.fontFamilyHeading` in
   your theme when your product uses distinct reading and display typefaces.

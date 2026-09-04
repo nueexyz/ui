@@ -33,6 +33,23 @@ export type { ButtonGroupProps } from "./button-group";
 export { Bubble } from "./bubble";
 export type { BubbleAlign, BubbleProps, BubbleVariant } from "./bubble";
 export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./card";
+export { Calendar } from "./calendar";
+export type { CalendarProps } from "./calendar";
+export {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "./carousel";
+export type {
+  CarouselApi,
+  CarouselContentProps,
+  CarouselItemProps,
+  CarouselProps,
+} from "./carousel";
+export { DatePicker } from "./date-picker";
+export type { DatePickerProps } from "./date-picker";
 export {
   Dialog,
   DialogClose,
@@ -150,8 +167,6 @@ export {
   MessageHeader,
 } from "./message";
 export type { MessageAlign, MessageProps } from "./message";
-export { MessageScroller } from "./message-scroller";
-export type { MessageScrollerProps } from "./message-scroller";
 export {
   Menubar,
   MenubarCheckboxItem,
@@ -237,7 +252,7 @@ export {
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
 export type { TabsProps, TabsVariant } from "./tabs";
 export { Banner, BannerDescription, BannerTitle } from "./banner";
-export type { BannerProps, BannerSize, BannerVariant } from "./banner";
+export type { BannerProps, BannerSize } from "./banner";
 export {
   AlertDialog,
   AlertDialogAction,
@@ -281,7 +296,5 @@ export {
   EmptyMedia,
   EmptyTitle,
 } from "./empty";
-export { Typography } from "./typography";
-export type { TypographyProps } from "./typography";
 export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
 export { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";

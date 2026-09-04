@@ -1,4 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
+import { DownloadSimpleIcon, FileIcon, PaperclipIcon, XIcon } from "@phosphor-icons/react";
 import {
   Attachment,
   AttachmentAction,
@@ -8,7 +9,6 @@ import {
   AttachmentMedia,
   AttachmentTitle,
 } from "@nuee/ui/attachment";
-import { Icon } from "@nuee/ui/icon";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   CodeBlock,
@@ -24,6 +24,8 @@ type Story = StoryObj<typeof meta>;
 
 const registryName = "attachment";
 
+const styles = stylex.create({ image: { height: "100%", objectFit: "cover", width: "100%" } });
+
 function AttachmentExample() {
   return (
     <section {...stylex.props(storyStyles.section)}>
@@ -37,7 +39,7 @@ function AttachmentExample() {
         <AttachmentGroup>
           <Attachment size="sm">
             <AttachmentMedia>
-              <Icon name="paperclip" />
+              <PaperclipIcon />
             </AttachmentMedia>
             <AttachmentContent>
               <AttachmentTitle>meeting-notes.txt</AttachmentTitle>
@@ -46,11 +48,24 @@ function AttachmentExample() {
           </Attachment>
           <Attachment size="sm">
             <AttachmentMedia>
-              <Icon name="paperclip" />
+              <PaperclipIcon />
             </AttachmentMedia>
             <AttachmentContent>
               <AttachmentTitle>wireframes.fig</AttachmentTitle>
               <AttachmentDescription>8.1 MB</AttachmentDescription>
+            </AttachmentContent>
+          </Attachment>
+          <Attachment size="sm">
+            <AttachmentMedia variant="image">
+              <img
+                alt="Blue and purple abstract artwork"
+                src="https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&w=192&q=80"
+                {...stylex.props(styles.image)}
+              />
+            </AttachmentMedia>
+            <AttachmentContent>
+              <AttachmentTitle>cover-art.png</AttachmentTitle>
+              <AttachmentDescription>1.2 MB</AttachmentDescription>
             </AttachmentContent>
           </Attachment>
         </AttachmentGroup>
@@ -60,13 +75,13 @@ function AttachmentExample() {
 }
 
 const attachmentExampleCode =
-  'import {\n  Attachment,\n  AttachmentContent,\n  AttachmentDescription,\n  AttachmentMedia,\n  AttachmentTitle,\n} from "@nuee/ui/attachment"\nimport { Icon } from "@nuee/ui/icon"\n\n<Attachment>\n  <AttachmentMedia>\n    <Icon name="paperclip" />\n  </AttachmentMedia>\n  <AttachmentContent>\n    <AttachmentTitle>meeting-notes.txt</AttachmentTitle>\n    <AttachmentDescription>18 KB</AttachmentDescription>\n  </AttachmentContent>\n</Attachment>';
+  'import { PaperclipIcon } from "@phosphor-icons/react"\nimport {\n  Attachment,\n  AttachmentContent,\n  AttachmentDescription,\n  AttachmentMedia,\n  AttachmentTitle,\n} from "@nuee/ui/attachment"\n\n<Attachment>\n  <AttachmentMedia>\n    <PaperclipIcon />\n  </AttachmentMedia>\n  <AttachmentContent>\n    <AttachmentTitle>meeting-notes.txt</AttachmentTitle>\n    <AttachmentDescription>18 KB</AttachmentDescription>\n  </AttachmentContent>\n</Attachment>';
 
 function FileAttachment({ error = false }: { error?: boolean }) {
   return (
     <Attachment state={error ? "error" : "done"}>
       <AttachmentMedia>
-        <Icon name="file" />
+        <FileIcon />
       </AttachmentMedia>
       <AttachmentContent>
         <AttachmentTitle>project-proposal.pdf</AttachmentTitle>
@@ -76,10 +91,10 @@ function FileAttachment({ error = false }: { error?: boolean }) {
       </AttachmentContent>
       <AttachmentActions>
         <AttachmentAction aria-label="Download file">
-          <Icon name="download" />
+          <DownloadSimpleIcon />
         </AttachmentAction>
         <AttachmentAction aria-label="Remove attachment">
-          <Icon name="close" />
+          <XIcon />
         </AttachmentAction>
       </AttachmentActions>
     </Attachment>

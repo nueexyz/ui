@@ -1,8 +1,8 @@
 import { NavigationMenu as NavigationMenuPrimitive } from "@base-ui/react/navigation-menu";
+import { CaretDownIcon, CaretUpIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { Icon } from "./Icon";
 import {
   colorVars,
   motionVars,
@@ -226,10 +226,10 @@ export function NavigationMenuTrigger({
       {children}
       <NavigationMenuPrimitive.Icon {...stylex.props(styles.icon)}>
         <span {...stylex.props(styles.iconClosed)}>
-          <Icon aria-hidden="true" name="chevronDown" />
+          <CaretDownIcon aria-hidden="true" />
         </span>
         <span {...stylex.props(styles.iconOpen)}>
-          <Icon aria-hidden="true" name="chevronUp" />
+          <CaretUpIcon aria-hidden="true" />
         </span>
       </NavigationMenuPrimitive.Icon>
     </NavigationMenuPrimitive.Trigger>

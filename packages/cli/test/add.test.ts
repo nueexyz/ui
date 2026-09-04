@@ -126,27 +126,6 @@ test("add resolves aliases from tsconfig paths", async () => {
   }
 });
 
-test("add resolves component and icon dependencies", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
-
-  try {
-    await writeTsconfig(projectDirectory);
-    await init(projectDirectory, { defaults: true, "skip-dependencies": true });
-    await add(projectDirectory, "message-scroller", { skipDependencyInstall: true });
-
-    assert.match(
-      await readFile(join(projectDirectory, "src/components/ui/button.tsx"), "utf8"),
-      /export function Button/,
-    );
-    assert.match(
-      await readFile(join(projectDirectory, "src/components/ui/Icon.tsx"), "utf8"),
-      /iconRegistry/,
-    );
-  } finally {
-    await rm(projectDirectory, { recursive: true });
-  }
-});
-
 test("add installs the components used by a field", async () => {
   const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 

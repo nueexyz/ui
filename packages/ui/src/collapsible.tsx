@@ -1,8 +1,8 @@
 import { Collapsible as CollapsiblePrimitive } from "@base-ui/react/collapsible";
+import { ArrowsDownUpIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { Icon } from "./Icon";
 import {
   colorVars,
   motionVars,
@@ -108,7 +108,7 @@ export function CollapsibleTrigger({
     >
       {children}
       <span aria-hidden="true" {...stylex.props(styles.icon)}>
-        <Icon name="caretUpDown" />
+        <ArrowsDownUpIcon />
       </span>
     </CollapsiblePrimitive.Trigger>
   );

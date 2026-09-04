@@ -1,8 +1,8 @@
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
+import { CaretRightIcon, CheckIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, ReactNode } from "react";
 
-import { Icon } from "./Icon";
 import {
   colorVars,
   motionVars,
@@ -217,7 +217,7 @@ export function DropdownMenuCheckboxItem({
       }}
     >
       <MenuPrimitive.CheckboxItemIndicator {...stylex.props(styles.indicator)}>
-        <Icon aria-hidden="true" name="check" />
+        <CheckIcon aria-hidden="true" />
       </MenuPrimitive.CheckboxItemIndicator>
       {children}
     </MenuPrimitive.CheckboxItem>
@@ -311,7 +311,7 @@ export function DropdownMenuSubTrigger({
       }}
     >
       {children}
-      <Icon aria-hidden="true" name="chevronRight" {...stylex.props(styles.subIcon)} />
+      <CaretRightIcon aria-hidden="true" {...stylex.props(styles.subIcon)} />
     </MenuPrimitive.SubmenuTrigger>
   );
 }

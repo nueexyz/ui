@@ -1,8 +1,8 @@
 import { Combobox as ComboboxPrimitive } from "@base-ui/react/combobox";
+import { CaretDownIcon, CheckIcon, MagnifyingGlassIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, ReactNode } from "react";
 
-import { Icon } from "./Icon";
 import {
   colorVars,
   motionVars,
@@ -157,7 +157,7 @@ export const ComboboxGroup = ComboboxPrimitive.Group;
 export function ComboboxInput({ ...props }: ComponentProps<typeof ComboboxPrimitive.Input>) {
   return (
     <ComboboxPrimitive.InputGroup {...stylex.props(styles.inputGroup)}>
-      <Icon aria-hidden="true" name="search" {...stylex.props(styles.searchIcon)} />
+      <MagnifyingGlassIcon aria-hidden="true" {...stylex.props(styles.searchIcon)} />
       <ComboboxPrimitive.Input
         {...props}
         className={(state) => {
@@ -178,7 +178,7 @@ export function ComboboxInput({ ...props }: ComponentProps<typeof ComboboxPrimit
           stylex.props(styles.trigger, state.disabled && styles.triggerDisabled).style
         }
       >
-        <Icon aria-hidden="true" name="chevronDown" />
+        <CaretDownIcon aria-hidden="true" />
       </ComboboxPrimitive.Trigger>
     </ComboboxPrimitive.InputGroup>
   );
@@ -257,7 +257,7 @@ export function ComboboxItem({
       }}
     >
       <ComboboxPrimitive.ItemIndicator {...stylex.props(styles.indicator)}>
-        <Icon aria-hidden="true" name="check" />
+        <CheckIcon aria-hidden="true" />
       </ComboboxPrimitive.ItemIndicator>
       {children}
     </ComboboxPrimitive.Item>

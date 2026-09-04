@@ -1,7 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
+import { CaretRightIcon } from "@phosphor-icons/react";
 import type { ComponentProps, ReactNode } from "react";
 
-import { Icon } from "./Icon";
 import {
   colorVars,
   radiusVars,
@@ -80,7 +80,7 @@ export function BreadcrumbSeparator({
 }: ComponentProps<"li"> & { children?: ReactNode }) {
   return (
     <li aria-hidden="true" role="presentation" {...props} {...stylex.props(styles.separator)}>
-      {children ?? <Icon name="chevronRight" />}
+      {children ?? <CaretRightIcon />}
     </li>
   );
 }

@@ -1,8 +1,8 @@
 import { Select as SelectPrimitive } from "@base-ui/react/select";
+import { CaretDownIcon, CheckIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, ReactNode } from "react";
 
-import { Icon } from "./Icon";
 import {
   colorVars,
   motionVars,
@@ -151,7 +151,7 @@ export function SelectTrigger({
     >
       {children}
       <SelectPrimitive.Icon {...stylex.props(styles.triggerIcon)}>
-        <Icon aria-hidden="true" name="chevronDown" />
+        <CaretDownIcon aria-hidden="true" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   );
@@ -230,7 +230,7 @@ export function SelectItem({ children, ...props }: ComponentProps<typeof SelectP
       }}
     >
       <SelectPrimitive.ItemIndicator {...stylex.props(styles.indicator)}>
-        <Icon aria-hidden="true" name="check" />
+        <CheckIcon aria-hidden="true" />
       </SelectPrimitive.ItemIndicator>
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
     </SelectPrimitive.Item>

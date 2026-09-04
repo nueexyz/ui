@@ -1,8 +1,8 @@
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
+import { XIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, ReactNode } from "react";
 
-import { Icon } from "./Icon";
 import {
   colorVars,
   motionVars,
@@ -157,7 +157,7 @@ export function DialogContent({
           {children}
           {showCloseButton ? (
             <DialogPrimitive.Close aria-label={closeLabel} {...stylex.props(styles.close)}>
-              <Icon aria-hidden="true" name="close" />
+              <XIcon aria-hidden="true" />
             </DialogPrimitive.Close>
           ) : null}
         </DialogPrimitive.Popup>

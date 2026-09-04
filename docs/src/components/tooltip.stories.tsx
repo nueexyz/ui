@@ -7,7 +7,6 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { Button } from "@nuee/ui/button";
-import { Icon } from "@nuee/ui/icon";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@nuee/ui/tooltip";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
@@ -39,7 +38,6 @@ function TooltipExample() {
                 render={
                   <Button size="sm" variant="secondary">
                     {label}
-                    <Icon aria-hidden="true" name="info" />
                   </Button>
                 }
               />

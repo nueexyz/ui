@@ -26,7 +26,10 @@
     "./button-group": "./dist/button-group.js",
     "./bubble": "./dist/bubble.js",
     "./breadcrumb": "./dist/breadcrumb.js",
+    "./calendar": "./dist/calendar.js",
     "./card": "./dist/card.js",
+    "./carousel": "./dist/carousel.js",
+    "./date-picker": "./dist/date-picker.js",
     "./dialog": "./dist/dialog.js",
     "./drawer": "./dist/drawer.js",
     "./checkbox": "./dist/checkbox.js",
@@ -51,7 +54,6 @@
     "./menubar": "./dist/menubar.js",
     "./marker": "./dist/marker.js",
     "./message": "./dist/message.js",
-    "./message-scroller": "./dist/message-scroller.js",
     "./native-select": "./dist/native-select.js",
     "./navigation-menu": "./dist/navigation-menu.js",
     "./popover": "./dist/popover.js",
@@ -71,7 +73,6 @@
     "./toast": "./dist/toast.js",
     "./toggle": "./dist/toggle.js",
     "./toggle-group": "./dist/toggle-group.js",
-    "./typography": "./dist/typography.js",
     "./tooltip": "./dist/tooltip.js"
   },
   "publishConfig": {
@@ -89,12 +90,14 @@
   },
   "devDependencies": {
     "@base-ui/react": "catalog:2026-08-27-stable",
+    "@daypicker/react": "^10.0.1",
     "@phosphor-icons/react": "catalog:2026-08-27-stable",
     "@stylexjs/stylex": "catalog:2026-08-27-stable",
     "@stylexjs/unplugin": "catalog:2026-08-27-stable",
     "@types/node": "^22.20.1",
     "@types/react": "catalog:2026-08-27-stable",
     "babel-plugin-react-compiler": "catalog:2026-08-27-stable",
+    "embla-carousel-react": "^8.6.0",
     "esbuild": "0.28.2",
     "react": "catalog:2026-08-27-stable",
     "react-dom": "catalog:2026-08-27-stable",
@@ -103,8 +106,10 @@
   },
   "peerDependencies": {
     "@base-ui/react": "^1.7.0",
+    "@daypicker/react": "^10.0.1",
     "@phosphor-icons/react": "^2.1.10",
     "@stylexjs/stylex": "^0.19.0",
+    "embla-carousel-react": "^8.6.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   }

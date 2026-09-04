@@ -1,6 +1,6 @@
 export const registryItems = {
   accordion: {
-    files: ["Icon.tsx", "accordion.tsx"],
+    files: ["accordion.tsx"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -35,7 +35,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   breadcrumb: {
-    files: ["Icon.tsx", "breadcrumb.tsx"],
+    files: ["breadcrumb.tsx"],
     dependencies: ["@nuee/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -59,18 +59,33 @@ export const registryItems = {
     dependencies: ["@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
+  calendar: {
+    files: ["calendar.tsx"],
+    dependencies: ["@daypicker/react", "@nuee/tokens", "@stylexjs/stylex"],
+    registryDependencies: [],
+  },
+  carousel: {
+    files: ["carousel.tsx"],
+    dependencies: [
+      "@nuee/tokens",
+      "@phosphor-icons/react",
+      "@stylexjs/stylex",
+      "embla-carousel-react",
+    ],
+    registryDependencies: ["button"],
+  },
   checkbox: {
-    files: ["Icon.tsx", "checkbox.tsx"],
+    files: ["checkbox.tsx"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
   collapsible: {
-    files: ["Icon.tsx", "collapsible.tsx"],
+    files: ["collapsible.tsx"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
   combobox: {
-    files: ["Icon.tsx", "combobox.tsx"],
+    files: ["combobox.tsx"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -80,9 +95,14 @@ export const registryItems = {
     registryDependencies: ["dropdown-menu"],
   },
   dialog: {
-    files: ["Icon.tsx", "dialog.tsx"],
+    files: ["dialog.tsx"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
+  },
+  "date-picker": {
+    files: ["date-picker.tsx"],
+    dependencies: ["@base-ui/react", "@nuee/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
+    registryDependencies: ["calendar", "popover"],
   },
   drawer: {
     files: ["drawer.tsx"],
@@ -90,7 +110,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   "dropdown-menu": {
-    files: ["Icon.tsx", "dropdown-menu.tsx"],
+    files: ["dropdown-menu.tsx"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -140,7 +160,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   link: {
-    files: ["Icon.tsx", "link.tsx"],
+    files: ["link.tsx"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -159,23 +179,18 @@ export const registryItems = {
     dependencies: ["@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: ["avatar", "bubble"],
   },
-  "message-scroller": {
-    files: ["Icon.tsx", "message-scroller.tsx"],
-    dependencies: ["@nuee/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
-    registryDependencies: ["button"],
-  },
   "native-select": {
-    files: ["Icon.tsx", "native-select.tsx"],
+    files: ["native-select.tsx"],
     dependencies: ["@nuee/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
   "navigation-menu": {
-    files: ["Icon.tsx", "navigation-menu.tsx"],
+    files: ["navigation-menu.tsx"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
   pagination: {
-    files: ["Icon.tsx", "pagination.tsx"],
+    files: ["pagination.tsx"],
     dependencies: ["@nuee/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -200,7 +215,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   select: {
-    files: ["Icon.tsx", "select.tsx"],
+    files: ["select.tsx"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -245,7 +260,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   toast: {
-    files: ["Icon.tsx", "toast.tsx", "toast.stylex.ts"],
+    files: ["toast.tsx", "toast.stylex.ts"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -262,11 +277,6 @@ export const registryItems = {
   tooltip: {
     files: ["tooltip.tsx"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@stylexjs/stylex"],
-    registryDependencies: [],
-  },
-  typography: {
-    files: ["typography.tsx"],
-    dependencies: ["@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
 };

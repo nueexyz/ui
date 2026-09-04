@@ -1,8 +1,8 @@
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
+import { CaretDownIcon, CaretUpIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { Icon } from "./Icon";
 import {
   colorVars,
   motionVars,
@@ -142,10 +142,10 @@ export function AccordionTrigger({
         {children}
         <span aria-hidden="true" {...stylex.props(styles.icon)}>
           <span {...stylex.props(styles.iconClosed)}>
-            <Icon name="chevronDown" />
+            <CaretDownIcon />
           </span>
           <span {...stylex.props(styles.iconOpen)}>
-            <Icon name="chevronUp" />
+            <CaretUpIcon />
           </span>
         </span>
       </AccordionPrimitive.Trigger>

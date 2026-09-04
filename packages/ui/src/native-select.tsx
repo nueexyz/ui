@@ -1,7 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
+import { CaretDownIcon } from "@phosphor-icons/react";
 import type { ComponentProps } from "react";
 
-import { Icon } from "./Icon";
 import {
   colorVars,
   radiusVars,
@@ -66,7 +66,7 @@ export function NativeSelect({ children, size = "md", xstyle, ...props }: Native
       <select {...props} {...stylexProps}>
         {children}
       </select>
-      <Icon aria-hidden="true" name="chevronDown" {...stylex.props(styles.icon)} />
+      <CaretDownIcon aria-hidden="true" {...stylex.props(styles.icon)} />
     </span>
   );
 }

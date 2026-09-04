@@ -1,7 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
+import { CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
 import type { ComponentProps } from "react";
 
-import { Icon } from "./Icon";
 import {
   colorVars,
   motionVars,
@@ -106,7 +106,7 @@ export function PaginationLink({
 export function PaginationPrevious({ children, ...props }: PaginationLinkProps) {
   return (
     <PaginationLink aria-label="Previous page" size="default" {...props}>
-      <Icon aria-hidden="true" name="chevronLeft" />
+      <CaretLeftIcon aria-hidden="true" />
       {children ?? "Previous"}
     </PaginationLink>
   );
@@ -116,7 +116,7 @@ export function PaginationNext({ children, ...props }: PaginationLinkProps) {
   return (
     <PaginationLink aria-label="Next page" size="default" {...props}>
       {children ?? "Next"}
-      <Icon aria-hidden="true" name="chevronRight" />
+      <CaretRightIcon aria-hidden="true" />
     </PaginationLink>
   );
 }
