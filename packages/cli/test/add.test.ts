@@ -5,7 +5,7 @@ import { join } from "node:path";
 import test from "node:test";
 
 import { registryItems } from "@nuee/registry";
-import { add } from "../dist/add.js";
+import { add, getMissingDependencies } from "../dist/add.js";
 import { configFileName, defaultConfig, readConfig } from "../dist/config.js";
 import { init } from "../dist/init.js";
 import { writeTsconfig } from "./helpers.ts";
@@ -142,6 +142,61 @@ test("add resolves component and icon dependencies", async () => {
       await readFile(join(projectDirectory, "src/components/ui/Icon.tsx"), "utf8"),
       /iconRegistry/,
     );
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
+test("add installs the components used by a field", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+
+  try {
+    await init(projectDirectory, { defaults: true, "skip-dependencies": true });
+    await add(projectDirectory, "field", { skipDependencyInstall: true });
+
+    await access(join(projectDirectory, "src/components/ui/checkbox.tsx"));
+    await access(join(projectDirectory, "src/components/ui/field.tsx"));
+    await access(join(projectDirectory, "src/components/ui/input.tsx"));
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
+test("add skips dependencies already declared in package.json", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+
+  try {
+    await writeFile(
+      join(projectDirectory, "package.json"),
+      JSON.stringify({ dependencies: { "@base-ui/react": "^1.7.0" } }),
+    );
+
+    assert.deepEqual(
+      await getMissingDependencies(projectDirectory, [
+        "@base-ui/react@^1.7.0",
+        "@stylexjs/stylex@^0.19.0",
+      ]),
+      ["@stylexjs/stylex@^0.19.0"],
+    );
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
+test("add checks every overwrite before writing component dependencies", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+
+  try {
+    await init(projectDirectory, { defaults: true, "skip-dependencies": true });
+    await mkdir(join(projectDirectory, "src/components/ui"), { recursive: true });
+    await writeFile(join(projectDirectory, "src/components/ui/field.tsx"), "// Customized Field\n");
+
+    await assert.rejects(
+      () => add(projectDirectory, "field", { skipDependencyInstall: true }),
+      /Component installation canceled/,
+    );
+    await assert.rejects(() => access(join(projectDirectory, "src/components/ui/checkbox.tsx")));
+    await assert.rejects(() => access(join(projectDirectory, "src/components/ui/input.tsx")));
   } finally {
     await rm(projectDirectory, { recursive: true });
   }

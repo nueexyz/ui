@@ -1,5 +1,5 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, isAbsolute, relative, resolve } from "node:path";
+import { basename, dirname, isAbsolute, relative, resolve } from "node:path";
 import { createInterface } from "node:readline/promises";
 
 import { defaultConfig, hasConfig, readConfig, resolveConfigAlias } from "./config.js";
@@ -33,15 +33,10 @@ async function askYesNo(question: string, defaultValue: boolean) {
   }
 }
 
-async function writeSource(
-  source: string,
-  targetPath: string,
-  confirmOverwrite: () => Promise<boolean>,
-) {
+async function writeSource(source: string, targetPath: string) {
   try {
     const currentSource = await readFile(targetPath, "utf8");
     if (currentSource === source) return "unchanged";
-    if (!(await confirmOverwrite())) throw new Error("Component installation canceled.");
   } catch (error) {
     if (!isNotFoundError(error)) throw error;
   }
@@ -97,6 +92,36 @@ function removeReducedMotionStyles(source: string) {
   return transformedSource;
 }
 
+function getPackageName(dependency: string) {
+  const versionStart = dependency.lastIndexOf("@");
+  return versionStart > 0 ? dependency.slice(0, versionStart) : dependency;
+}
+
+export async function getMissingDependencies(
+  projectDirectory: string,
+  dependencies: readonly string[],
+) {
+  try {
+    const packageJson = JSON.parse(
+      await readFile(resolve(projectDirectory, "package.json"), "utf8"),
+    ) as {
+      dependencies?: Record<string, string>;
+      devDependencies?: Record<string, string>;
+    };
+    const installedDependencies = new Set([
+      ...Object.keys(packageJson.dependencies ?? {}),
+      ...Object.keys(packageJson.devDependencies ?? {}),
+    ]);
+
+    return dependencies.filter(
+      (dependency) => !installedDependencies.has(getPackageName(dependency)),
+    );
+  } catch (error) {
+    if (isNotFoundError(error)) return dependencies;
+    throw error;
+  }
+}
+
 export async function add(
   projectDirectory: string,
   componentNames: string | readonly string[],
@@ -124,44 +149,53 @@ export async function add(
     options["dry-run"] && shouldInitialize ? defaultConfig : await readConfig(projectDirectory);
   const resolvedList = await Promise.all(componentNameList.map(resolveComponent));
   const uiDirectory = await resolveConfigAlias(projectDirectory, config.aliases.ui, "aliases.ui");
-  let isOverwriteConfirmed = false;
+  const sources = resolvedList.flatMap((resolved) =>
+    resolved.files.map((file) => ({
+      source: config.accessibility.respectReducedMotion
+        ? replaceTokenImport(file.content, config.aliases.styles)
+        : removeReducedMotionStyles(replaceTokenImport(file.content, config.aliases.styles)),
+      targetPath: resolveTargetPath(uiDirectory, file.path),
+    })),
+  );
+  const overwriteFileNames: string[] = [];
 
-  async function confirmOverwrite() {
-    if (isOverwriteConfirmed) return true;
+  if (!options["dry-run"]) {
+    for (const { source, targetPath } of sources) {
+      try {
+        if ((await readFile(targetPath, "utf8")) !== source)
+          overwriteFileNames.push(basename(targetPath));
+      } catch (error) {
+        if (!isNotFoundError(error)) throw error;
+      }
+    }
 
-    isOverwriteConfirmed = await askYesNo(
-      "Files with the same names already exist. Overwrite all?",
-      false,
-    );
-    return isOverwriteConfirmed;
+    if (overwriteFileNames.length > 0) {
+      const fileLabel = overwriteFileNames.join(", ");
+      const shouldOverwrite = await askYesNo(
+        `Overwrite ${overwriteFileNames.length} existing file${overwriteFileNames.length === 1 ? "" : "s"} (${fileLabel})?`,
+        false,
+      );
+      if (!shouldOverwrite) throw new Error("Component installation canceled.");
+    }
   }
 
-  for (const resolved of resolvedList) {
-    for (const file of resolved.files) {
-      const targetPath = resolveTargetPath(uiDirectory, file.path);
-      if (options["dry-run"]) continue;
-
-      await writeSource(
-        config.accessibility.respectReducedMotion
-          ? replaceTokenImport(file.content, config.aliases.styles)
-          : removeReducedMotionStyles(replaceTokenImport(file.content, config.aliases.styles)),
-        targetPath,
-        confirmOverwrite,
-      );
-    }
+  for (const { source, targetPath } of sources) {
+    if (options["dry-run"]) continue;
+    await writeSource(source, targetPath);
   }
 
   const externalDependencySet = new Set<string>();
   for (const resolved of resolvedList) {
     for (const dependency of resolved.externalDependencies) externalDependencySet.add(dependency);
   }
-  const externalDependencies = [...externalDependencySet];
+  const externalDependencies = await getMissingDependencies(projectDirectory, [
+    ...externalDependencySet,
+  ]);
   const shouldInstallDependencies =
     externalDependencies.length > 0 &&
     !options.skipDependencyInstall &&
     !options["skip-dependencies"] &&
-    !options["dry-run"] &&
-    (await askYesNo(`Install external dependencies (${externalDependencies.join(", ")})?`, true));
+    !options["dry-run"];
 
   if (shouldInstallDependencies) {
     await installDependencies(projectDirectory, externalDependencies);

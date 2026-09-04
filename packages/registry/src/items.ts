@@ -102,7 +102,7 @@ export const registryItems = {
   field: {
     files: ["field.tsx"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@stylexjs/stylex"],
-    registryDependencies: [],
+    registryDependencies: ["checkbox", "input"],
   },
   "hover-card": {
     files: ["hover-card.tsx"],
@@ -157,7 +157,7 @@ export const registryItems = {
   message: {
     files: ["message.tsx"],
     dependencies: ["@nuee/tokens", "@stylexjs/stylex"],
-    registryDependencies: [],
+    registryDependencies: ["avatar", "bubble"],
   },
   "message-scroller": {
     files: ["Icon.tsx", "message-scroller.tsx"],
