@@ -6,13 +6,11 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Avatar, AvatarFallback } from "@nuee/ui/avatar";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@nuee/ui/hover-card";
 import {
   ContentRow,
   ContentRowContent,
   ContentRowDescription,
-  ContentRowMedia,
   ContentRowTitle,
 } from "@nuee/ui/content-row";
 
@@ -36,11 +34,6 @@ function HoverCardExample() {
           <HoverCardTrigger href="#">@nuee</HoverCardTrigger>
           <HoverCardContent align="start">
             <ContentRow size="sm">
-              <ContentRowMedia variant="avatar">
-                <Avatar>
-                  <AvatarFallback>CA</AvatarFallback>
-                </Avatar>
-              </ContentRowMedia>
               <ContentRowContent>
                 <ContentRowTitle>Nuee</ContentRowTitle>
                 <ContentRowDescription>

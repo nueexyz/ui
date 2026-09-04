@@ -5,6 +5,18 @@ Released on 2026-09-04.
 - Added separate body and heading typeface tokens. Set
   `typographyVars.fontFamilyBody` and `typographyVars.fontFamilyHeading` in
   your theme when your product uses distinct reading and display typefaces.
+- `nuee add` now installs a component's documented building blocks together,
+  so `nuee add field` also includes Checkbox and Input.
+- `nuee add` skips external packages already declared in your project and
+  installs missing packages without an unnecessary confirmation prompt.
+- When an installed component would change, `nuee add` now shows the affected
+  files and asks once before overwriting them.
+- Bubble now separates visual variants from alignment. Use `variant="primary"`
+  for sent messages and `align="end"` to position a bubble at the end.
+- Message now uses the same alignment vocabulary and provides Group and Avatar
+  slots for composing message lists without implicit layout behaviour.
+- Attachment content now keeps equal visual space on both sides of its media
+  and text.
 
 ## Version v0.4.1
 

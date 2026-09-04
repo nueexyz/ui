@@ -6,8 +6,9 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
+import { Avatar, AvatarFallback } from "@nuee/ui/avatar";
 import { Bubble } from "@nuee/ui/bubble";
-import { Message, MessageContent, MessageFooter, MessageHeader } from "@nuee/ui/message";
+import { Message, MessageAvatar, MessageContent, MessageFooter } from "@nuee/ui/message";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -26,19 +27,23 @@ function MessageExample() {
       </header>
       <div {...stylex.props(storyStyles.preview, [storyStyles.column, storyStyles.componentWidth])}>
         <Message>
-          <MessageHeader>Minyeong</MessageHeader>
+          <MessageAvatar>
+            <Avatar size="lg">
+              <AvatarFallback>MY</AvatarFallback>
+            </Avatar>
+          </MessageAvatar>
           <MessageContent>
-            <Bubble>Please review the updated tokens.</Bubble>
+            <Bubble>How can I help you today?</Bubble>
+            <MessageFooter>2:18 PM</MessageFooter>
           </MessageContent>
-          <MessageFooter>2:18 PM</MessageFooter>
         </Message>
-        <Message side="outgoing">
+        <Message align="end">
           <MessageContent>
-            <Bubble side="outgoing" variant="outline">
+            <Bubble align="end" variant="primary">
               Got it. I’ll apply them right away.
             </Bubble>
+            <MessageFooter>2:20 PM · Read</MessageFooter>
           </MessageContent>
-          <MessageFooter>2:20 PM · Read</MessageFooter>
         </Message>
       </div>
     </section>
@@ -46,7 +51,7 @@ function MessageExample() {
 }
 
 const messageExampleCode =
-  'import { Bubble } from "@nuee/ui/bubble"\nimport { Message, MessageContent, MessageFooter, MessageHeader } from "@nuee/ui/message"\n\n<Message side="incoming">\n  <MessageHeader>Minyeong</MessageHeader>\n  <MessageContent><Bubble>I started reviewing the documentation.</Bubble></MessageContent>\n  <MessageFooter>2:18 PM</MessageFooter>\n</Message>';
+  'import { Avatar, AvatarFallback } from "@nuee/ui/avatar"\nimport { Bubble } from "@nuee/ui/bubble"\nimport { Message, MessageAvatar, MessageContent, MessageFooter } from "@nuee/ui/message"\n\n<Message>\n  <MessageAvatar>\n    <Avatar size="lg">\n      <AvatarFallback>MY</AvatarFallback>\n    </Avatar>\n  </MessageAvatar>\n  <MessageContent>\n    <Bubble>How can I help you today?</Bubble>\n    <MessageFooter>2:18 PM</MessageFooter>\n  </MessageContent>\n</Message>';
 
 export const MessageStory: Story = {
   name: "Message",

@@ -25,7 +25,7 @@ function BubbleExample() {
       </header>
       <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
         <Bubble>Could you review today’s meeting materials?</Bubble>
-        <Bubble side="outgoing" variant="outline">
+        <Bubble align="end" variant="outline">
           Yes, I’ll leave feedback before 3 PM.
         </Bubble>
       </div>
