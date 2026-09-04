@@ -62,41 +62,29 @@ type HeadingProps = ComponentProps<"h3"> & StyleProps;
 type ParagraphProps = ComponentProps<"p"> & StyleProps;
 
 export function Card({ xstyle, ...props }: ElementProps) {
-  const stylexProps = stylex.props(styles.card, xstyle);
-
-  return <div {...props} {...stylexProps} />;
+  return <div {...props} {...stylex.props(styles.card, xstyle)} />;
 }
 
 export function CardHeader({ xstyle, ...props }: ElementProps) {
-  const stylexProps = stylex.props(styles.header, xstyle);
-
-  return <div {...props} {...stylexProps} />;
+  return <div {...props} {...stylex.props(styles.header, xstyle)} />;
 }
 
 export function CardTitle({ children, xstyle, ...props }: HeadingProps) {
-  const stylexProps = stylex.props(styles.title, xstyle);
-
   return (
-    <h3 {...props} {...stylexProps}>
+    <h3 {...props} {...stylex.props(styles.title, xstyle)}>
       {children}
     </h3>
   );
 }
 
 export function CardDescription({ xstyle, ...props }: ParagraphProps) {
-  const stylexProps = stylex.props(styles.description, xstyle);
-
-  return <p {...props} {...stylexProps} />;
+  return <p {...props} {...stylex.props(styles.description, xstyle)} />;
 }
 
 export function CardContent({ xstyle, ...props }: ElementProps) {
-  const stylexProps = stylex.props(styles.content, xstyle);
-
-  return <div {...props} {...stylexProps} />;
+  return <div {...props} {...stylex.props(styles.content, xstyle)} />;
 }
 
 export function CardFooter({ xstyle, ...props }: ElementProps) {
-  const stylexProps = stylex.props(styles.footer, xstyle);
-
-  return <div {...props} {...stylexProps} />;
+  return <div {...props} {...stylex.props(styles.footer, xstyle)} />;
 }

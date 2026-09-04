@@ -20,6 +20,5 @@ const styles = stylex.create({
 export type SkeletonProps = ComponentProps<"div"> & { xstyle?: stylex.StyleXStyles };
 
 export function Skeleton({ xstyle, ...props }: SkeletonProps) {
-  const stylexProps = stylex.props(styles.root, xstyle);
-  return <div {...props} aria-hidden="true" {...stylexProps} />;
+  return <div {...props} aria-hidden="true" {...stylex.props(styles.root, xstyle)} />;
 }

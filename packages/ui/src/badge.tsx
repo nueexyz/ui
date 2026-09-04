@@ -61,6 +61,5 @@ export type BadgeProps = ComponentProps<"span"> & {
 };
 
 export function Badge({ variant = "primary", xstyle, ...props }: BadgeProps) {
-  const stylexProps = stylex.props(styles.root, styles[variant], xstyle);
-  return <span {...props} {...stylexProps} />;
+  return <span {...props} {...stylex.props(styles.root, styles[variant], xstyle)} />;
 }

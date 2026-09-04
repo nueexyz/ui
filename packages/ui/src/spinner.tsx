@@ -29,6 +29,5 @@ export type SpinnerProps = ComponentProps<"output"> & {
 };
 
 export function Spinner({ label = "Loading", xstyle, ...props }: SpinnerProps) {
-  const stylexProps = stylex.props(styles.root, xstyle);
-  return <output {...props} aria-label={label} {...stylexProps} />;
+  return <output {...props} aria-label={label} {...stylex.props(styles.root, xstyle)} />;
 }

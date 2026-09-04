@@ -64,6 +64,11 @@ export type InputProps = ComponentProps<typeof InputPrimitive> & {
 
 export function Input({ "aria-invalid": ariaInvalid, xstyle, ...props }: InputProps) {
   const isInvalid = ariaInvalid === true || ariaInvalid === "true";
-  const stylexProps = stylex.props(styles.root, isInvalid && styles.invalid, xstyle);
-  return <InputPrimitive {...props} aria-invalid={ariaInvalid} {...stylexProps} />;
+  return (
+    <InputPrimitive
+      {...props}
+      aria-invalid={ariaInvalid}
+      {...stylex.props(styles.root, isInvalid && styles.invalid, xstyle)}
+    />
+  );
 }

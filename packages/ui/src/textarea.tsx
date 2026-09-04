@@ -56,7 +56,11 @@ export type TextareaProps = ComponentProps<"textarea"> & {
 
 export function Textarea({ "aria-invalid": ariaInvalid, xstyle, ...props }: TextareaProps) {
   const isInvalid = ariaInvalid === true || ariaInvalid === "true";
-  const stylexProps = stylex.props(styles.root, isInvalid && styles.invalid, xstyle);
-
-  return <textarea {...props} aria-invalid={ariaInvalid} {...stylexProps} />;
+  return (
+    <textarea
+      {...props}
+      aria-invalid={ariaInvalid}
+      {...stylex.props(styles.root, isInvalid && styles.invalid, xstyle)}
+    />
+  );
 }
