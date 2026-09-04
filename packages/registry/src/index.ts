@@ -83,6 +83,8 @@ export async function getFoundationFiles(): Promise<FoundationFile[]> {
 
 export const dependencyVersions = {
   "@base-ui/react": "^1.7.0",
+  "@daypicker/react": "^10.0.1",
   "@phosphor-icons/react": "^2.1.10",
   "@stylexjs/stylex": "^0.19.0",
+  "embla-carousel-react": "^8.6.0",
 };

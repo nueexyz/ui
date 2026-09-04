@@ -8,6 +8,7 @@ import { registryItems } from "@nuee/registry";
 import { add, getMissingDependencies } from "../dist/add.js";
 import { configFileName, defaultConfig, readConfig } from "../dist/config.js";
 import { init } from "../dist/init.js";
+import { resolveComponent } from "../dist/registry.js";
 import { writeTsconfig } from "./helpers.ts";
 
 test("add creates the default config and copies a component with its foundation", async () => {
@@ -160,6 +161,14 @@ test("add skips dependencies already declared in package.json", async () => {
   } finally {
     await rm(projectDirectory, { recursive: true });
   }
+});
+
+test("add uses the supported external dependency versions", async () => {
+  const calendar = await resolveComponent("calendar");
+  const carousel = await resolveComponent("carousel");
+
+  assert.ok(calendar.externalDependencies.includes("@daypicker/react@^10.0.1"));
+  assert.ok(carousel.externalDependencies.includes("embla-carousel-react@^8.6.0"));
 });
 
 test("add checks every overwrite before writing component dependencies", async () => {
