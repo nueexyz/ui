@@ -114,10 +114,6 @@ const styles = stylex.create({
     marginTop: spacingVars.space3,
     minWidth: 0,
     outline: "none",
-    transform: "translateY(0)",
-    transitionDuration: motionVars.durationNormal,
-    transitionProperty: "opacity, transform",
-    transitionTimingFunction: motionVars.easingEnter,
     width: "100%",
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
@@ -125,12 +121,7 @@ const styles = stylex.create({
       outlineStyle: "solid",
       outlineWidth: sizeVars.focusRing,
     },
-    "@media (prefers-reduced-motion: reduce)": {
-      transform: "none",
-      transitionDuration: "0.01ms",
-    },
   },
-  panelTransitioning: { opacity: 0, transform: "translateY(0.125rem)" },
 });
 
 export type TabsVariant = "segmented" | "underline";
@@ -204,25 +195,5 @@ export function TabsTrigger({ ...props }: ComponentProps<typeof TabsPrimitive.Ta
 }
 
 export function TabsContent({ ...props }: ComponentProps<typeof TabsPrimitive.Panel>) {
-  return (
-    <TabsPrimitive.Panel
-      {...props}
-      className={(state) => {
-        const sx = stylex.props(
-          styles.panel,
-          state.transitionStatus === "starting" && styles.panelTransitioning,
-          state.transitionStatus === "ending" && styles.panelTransitioning,
-        );
-        return sx.className;
-      }}
-      style={(state) => {
-        const sx = stylex.props(
-          styles.panel,
-          state.transitionStatus === "starting" && styles.panelTransitioning,
-          state.transitionStatus === "ending" && styles.panelTransitioning,
-        );
-        return sx.style;
-      }}
-    />
-  );
+  return <TabsPrimitive.Panel {...props} {...stylex.props(styles.panel)} />;
 }

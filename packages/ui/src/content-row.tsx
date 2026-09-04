@@ -66,7 +66,13 @@ const styles = stylex.create({
     lineHeight: typographyVars.lineHeightNormal,
     margin: 0,
   },
-  actions: { alignItems: "center", display: "flex", flexShrink: 0, gap: spacingVars.space2 },
+  actions: {
+    alignItems: "center",
+    alignSelf: "flex-start",
+    display: "flex",
+    flexShrink: 0,
+    gap: spacingVars.space2,
+  },
 });
 
 export type ContentRowSize = "default" | "sm" | "xs";

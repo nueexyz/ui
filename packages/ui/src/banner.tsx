@@ -1,57 +1,30 @@
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, ReactNode } from "react";
 
-import {
-  colorVars,
-  radiusVars,
-  sizeVars,
-  spacingVars,
-  typographyVars,
-} from "@nuee/tokens/semantic.stylex";
+import { colorVars, radiusVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
   root: {
-    alignItems: "start",
+    backgroundColor: colorVars.bgSubtle,
     borderRadius: radiusVars.sm,
     color: colorVars.fgPrimary,
-    display: "grid",
+    display: "flex",
+    flexDirection: "column",
     width: "100%",
   },
   md: {
-    columnGap: spacingVars.space3,
+    gap: spacingVars.space2,
     paddingBlock: spacingVars.space3,
     paddingInline: spacingVars.space4,
   },
   sm: {
-    alignItems: "center",
     borderRadius: radiusVars.sm,
-    columnGap: spacingVars.space2,
+    gap: spacingVars.space1,
     paddingBlock: spacingVars.space2,
     paddingInline: spacingVars.space3,
   },
-  withIcon: { gridTemplateColumns: `${sizeVars.iconMd} minmax(0, 1fr)` },
-  withAction: { gridTemplateColumns: `minmax(0, 1fr) auto` },
-  withIconAndAction: {
-    gridTemplateColumns: `${sizeVars.iconMd} minmax(0, 1fr) auto`,
-  },
-  icon: {
-    alignItems: "center",
-    alignSelf: "start",
-    display: "inline-flex",
-    height: sizeVars.iconMd,
-    justifyContent: "center",
-    width: sizeVars.iconMd,
-  },
-  iconAlignedCenter: { alignSelf: "center" },
   content: { display: "grid", gap: spacingVars.space1, minWidth: 0 },
   action: { alignItems: "center", display: "flex", gap: spacingVars.space2 },
-  info: { backgroundColor: colorVars.bgFeedbackInfo, color: colorVars.fgFeedbackInfo },
-  warning: {
-    backgroundColor: colorVars.bgFeedbackWarning,
-    color: colorVars.fgFeedbackWarning,
-  },
-  error: { backgroundColor: colorVars.bgFeedbackError, color: colorVars.fgFeedbackError },
-  neutral: { backgroundColor: colorVars.bgSubtle, color: colorVars.fgSecondary },
   title: {
     fontSize: typographyVars.fontSizeSm,
     fontWeight: typographyVars.fontWeightSemibold,
@@ -65,7 +38,6 @@ const styles = stylex.create({
   },
 });
 
-export type BannerVariant = "error" | "info" | "neutral" | "warning";
 export type BannerSize = "md" | "sm";
 export type BannerAnnounce = "assertive" | "polite";
 
@@ -77,10 +49,8 @@ export type BannerProps = ComponentProps<"div"> &
     /** Announces a Banner that is added or updated after the initial page render. */
     announce?: BannerAnnounce;
     description?: ReactNode;
-    icon?: ReactNode;
     size?: BannerSize;
     title?: ReactNode;
-    variant?: BannerVariant;
   };
 
 export function Banner({
@@ -88,11 +58,9 @@ export function Banner({
   announce,
   children,
   description,
-  icon,
   role,
   size = "md",
   title,
-  variant = "info",
   xstyle,
   ...props
 }: BannerProps) {
@@ -103,23 +71,10 @@ export function Banner({
     liveRole = "status";
   }
 
-  const stylexProps = stylex.props(
-    styles.root,
-    styles[size],
-    styles[variant],
-    Boolean(icon) && styles.withIcon,
-    Boolean(action) && styles.withAction,
-    Boolean(icon) && Boolean(action) && styles.withIconAndAction,
-    xstyle,
-  );
+  const stylexProps = stylex.props(styles.root, styles[size], xstyle);
 
   return (
     <div {...props} role={role ?? liveRole} {...stylexProps}>
-      {icon ? (
-        <span {...stylex.props(styles.icon, size === "sm" && styles.iconAlignedCenter)}>
-          {icon}
-        </span>
-      ) : null}
       <div {...stylex.props(styles.content)}>
         {title ? <BannerTitle>{title}</BannerTitle> : null}
         {description ? <BannerDescription>{description}</BannerDescription> : null}

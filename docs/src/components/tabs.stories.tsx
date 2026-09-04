@@ -6,6 +6,7 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@nuee/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@nuee/ui/tabs";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
@@ -17,36 +18,62 @@ const registryName = "tabs";
 function TabsExample() {
   return (
     <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
-      <Tabs defaultValue="account" variant="segmented">
-        <TabsList aria-label="Segmented settings menu">
-          <TabsTrigger value="account">Account</TabsTrigger>
-          <TabsTrigger value="security">Security</TabsTrigger>
-          <TabsTrigger disabled value="billing">
-            Billing
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="account">Manage your name and profile information.</TabsContent>
-        <TabsContent value="security">Manage passwords and sign-in history.</TabsContent>
-        <TabsContent value="billing">Manage payment methods.</TabsContent>
-      </Tabs>
-      <Tabs defaultValue="overview" variant="underline">
-        <TabsList aria-label="Underline project menu">
+      <Tabs defaultValue="overview" variant="segmented">
+        <TabsList aria-label="Project sections">
           <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="activity">Activity</TabsTrigger>
-          <TabsTrigger disabled value="settings">
-            Settings
-          </TabsTrigger>
+          <TabsTrigger value="analytics">Analytics</TabsTrigger>
+          <TabsTrigger value="reports">Reports</TabsTrigger>
+          <TabsTrigger value="settings">Settings</TabsTrigger>
         </TabsList>
-        <TabsContent value="overview">Review the project’s key information.</TabsContent>
-        <TabsContent value="activity">Review recent changes.</TabsContent>
-        <TabsContent value="settings">Manage project settings.</TabsContent>
+        <TabsContent value="overview">
+          <Card>
+            <CardHeader>
+              <CardTitle>Overview</CardTitle>
+              <CardDescription>
+                View key metrics and recent activity across your active projects.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>You have 12 active projects and 3 pending tasks.</CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="analytics">
+          <Card>
+            <CardHeader>
+              <CardTitle>Analytics</CardTitle>
+              <CardDescription>
+                Review trends across your projects and identify work that needs attention.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>Project activity increased 18% this week.</CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="reports">
+          <Card>
+            <CardHeader>
+              <CardTitle>Reports</CardTitle>
+              <CardDescription>Create and share progress reports with your team.</CardDescription>
+            </CardHeader>
+            <CardContent>Your weekly report is ready to review.</CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="settings">
+          <Card>
+            <CardHeader>
+              <CardTitle>Settings</CardTitle>
+              <CardDescription>
+                Manage notifications and preferences for this project.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>Notifications are enabled for project updates.</CardContent>
+          </Card>
+        </TabsContent>
       </Tabs>
     </div>
   );
 }
 
 const tabsExampleCode =
-  'import { Tabs, TabsContent, TabsList, TabsTrigger } from "@nuee/ui/tabs"\n\n<Tabs defaultValue="account" variant="segmented">\n  <TabsList>\n    <TabsTrigger value="account">Account</TabsTrigger>\n    <TabsTrigger value="security">Security</TabsTrigger>\n  </TabsList>\n  <TabsContent value="account">Account settings</TabsContent>\n  <TabsContent value="security">Security settings</TabsContent>\n</Tabs>';
+  'import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@nuee/ui/card"\nimport { Tabs, TabsContent, TabsList, TabsTrigger } from "@nuee/ui/tabs"\n\n<Tabs defaultValue="overview">\n  <TabsList>\n    <TabsTrigger value="overview">Overview</TabsTrigger>\n    <TabsTrigger value="analytics">Analytics</TabsTrigger>\n    <TabsTrigger value="reports">Reports</TabsTrigger>\n    <TabsTrigger value="settings">Settings</TabsTrigger>\n  </TabsList>\n  <TabsContent value="overview">\n    <Card>\n      <CardHeader>\n        <CardTitle>Overview</CardTitle>\n        <CardDescription>View key metrics and recent activity.</CardDescription>\n      </CardHeader>\n      <CardContent>You have 12 active projects and 3 pending tasks.</CardContent>\n    </Card>\n  </TabsContent>\n</Tabs>';
 
 export const TabsStory: Story = {
   name: "Tabs",

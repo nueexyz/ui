@@ -7,7 +7,6 @@ import {
   storyStyles,
 } from "./story-layout/StoryLayout";
 import { Banner } from "@nuee/ui/banner";
-import { Icon } from "@nuee/ui/icon";
 import { Link } from "@nuee/ui/link";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
@@ -27,28 +26,18 @@ function BannerExample() {
           </p>
         </header>
         <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
-          <Banner
-            description="A new version is ready to install."
-            icon={<Icon aria-hidden="true" name="info" weight="fill" />}
-            title="Update available"
-          />
+          <Banner description="A new version is ready to install." title="Update available" />
           <Banner
             description="You will be signed out automatically in 5 minutes."
-            icon={<Icon aria-hidden="true" name="warning" weight="fill" />}
             title="Your session expires soon"
-            variant="warning"
           />
           <Banner
             description="Check your connection and try again."
-            icon={<Icon aria-hidden="true" name="error" weight="fill" />}
             title="Couldn’t save changes"
-            variant="error"
           />
           <Banner
             description="The service will be unavailable for about 10 minutes starting at 11 PM."
-            icon={<Icon aria-hidden="true" name="info" weight="fill" />}
             title="Scheduled maintenance"
-            variant="neutral"
           />
         </div>
       </section>
@@ -76,7 +65,7 @@ function BannerExample() {
 }
 
 const bannerExampleCode =
-  'import { Banner } from "@nuee/ui/banner"\nimport { Icon } from "@nuee/ui/icon"\nimport { Link } from "@nuee/ui/link"';
+  'import { Banner } from "@nuee/ui/banner"\nimport { Link } from "@nuee/ui/link"';
 
 export const BannerStory: Story = {
   name: "Banner",
@@ -95,16 +84,16 @@ export const BannerStory: Story = {
       <ComponentCode usage={bannerExampleCode} />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>Variants</h2>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Messages</h2>
           <p {...stylex.props(storyStyles.description)}>
-            Choose a treatment that communicates the message’s urgency and intent.
+            Keep the message focused on the current state and the next action.
           </p>
         </header>
         <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
           <Banner description="An update is ready." title="Information" />
-          <Banner description="Review this before continuing." title="Warning" variant="warning" />
-          <Banner description="Your changes could not be saved." title="Error" variant="error" />
-          <Banner description="No action is required." title="Neutral" variant="neutral" />
+          <Banner description="Review this before continuing." title="Review needed" />
+          <Banner description="Your changes could not be saved." title="Couldn’t save changes" />
+          <Banner description="No action is required." title="All caught up" />
         </div>
       </section>
       <section {...stylex.props(storyStyles.section)}>
