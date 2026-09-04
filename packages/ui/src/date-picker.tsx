@@ -70,21 +70,23 @@ function defaultFormat(date: Date) {
   return new Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(date);
 }
 
-export function DatePicker({
-  defaultValue,
-  disabled,
-  format = defaultFormat,
-  onValueChange,
-  placeholder = "Pick a date",
-  value,
-  xstyle,
-}: DatePickerProps) {
+export function DatePicker(props: DatePickerProps) {
+  const {
+    defaultValue,
+    disabled,
+    format = defaultFormat,
+    onValueChange,
+    placeholder = "Pick a date",
+    value,
+    xstyle,
+  } = props;
   const [open, setOpen] = useState(false);
   const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
-  const selectedValue = value ?? uncontrolledValue;
+  const isControlled = Object.hasOwn(props, "value");
+  const selectedValue = isControlled ? value : uncontrolledValue;
 
   function handleSelect(date: Date | undefined) {
-    if (value === undefined) setUncontrolledValue(date);
+    if (!isControlled) setUncontrolledValue(date);
     onValueChange?.(date);
     setOpen(false);
   }

@@ -1,6 +1,5 @@
-import { DayPicker, type DayButtonProps } from "@daypicker/react";
+import { DayPicker, type DayButtonProps, type DayPickerProps } from "@daypicker/react";
 import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
 
 import {
   colorVars,
@@ -110,16 +109,6 @@ const styles = stylex.create({
     borderRadius: 0,
     color: colorVars.fgPrimary,
   },
-  rangeStart: {
-    backgroundColor: colorVars.bgActionPrimary,
-    borderRadius: radiusVars.sm,
-    color: colorVars.fgOnActionPrimary,
-  },
-  rangeEnd: {
-    backgroundColor: colorVars.bgActionPrimary,
-    borderRadius: radiusVars.sm,
-    color: colorVars.fgOnActionPrimary,
-  },
   dayLabel: { color: "inherit" },
   dayLabelRangeMiddle: { color: colorVars.fgPrimary },
   dayLabelSelected: { color: colorVars.fgOnActionPrimary },
@@ -176,25 +165,34 @@ function CalendarDayButton({ children, modifiers, ...props }: DayButtonProps) {
   );
 }
 
-export type CalendarProps = ComponentProps<typeof DayPicker> & {
+type WithoutCalendarStyling<Props> = Props extends unknown
+  ? Omit<
+      Props,
+      | "className"
+      | "classNames"
+      | "components"
+      | "modifiersClassNames"
+      | "modifiersStyles"
+      | "style"
+      | "styles"
+    >
+  : never;
+
+type CalendarDayPickerProps = WithoutCalendarStyling<DayPickerProps>;
+
+export type CalendarProps = CalendarDayPickerProps & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function Calendar({
-  classNames: customClassNames,
-  components,
-  navLayout = "around",
-  xstyle,
-  ...props
-}: CalendarProps) {
+export function Calendar({ navLayout = "around", xstyle, ...props }: CalendarProps) {
   const root = stylex.props(styles.root, xstyle);
 
   return (
     <DayPicker
       {...props}
       className={root.className}
-      classNames={{ ...classNames, ...customClassNames }}
-      components={{ ...components, DayButton: CalendarDayButton }}
+      classNames={classNames}
+      components={{ DayButton: CalendarDayButton }}
       navLayout={navLayout}
       style={root.style}
     />

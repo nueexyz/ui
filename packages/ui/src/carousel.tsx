@@ -19,9 +19,6 @@ const styles = stylex.create({
   root: { position: "relative", width: "100%" },
   viewport: { overflow: "hidden", width: "100%" },
   content: { display: "flex" },
-  contentVertical: {
-    flexDirection: "column",
-  },
   item: { flex: "0 0 100%", minWidth: 0 },
   control: {
     borderRadius: radiusVars.full,
@@ -39,13 +36,10 @@ const styles = stylex.create({
 type CarouselApi = ReturnType<typeof useEmblaCarousel>[1];
 type CarouselOptions = Parameters<typeof useEmblaCarousel>[0];
 type CarouselPlugins = Parameters<typeof useEmblaCarousel>[1];
-type CarouselOrientation = "horizontal" | "vertical";
-
 type CarouselContextValue = {
   api: CarouselApi;
   canScrollNext: boolean;
   canScrollPrevious: boolean;
-  orientation: CarouselOrientation;
   scrollNext: () => void;
   scrollPrevious: () => void;
   viewportRef: ReturnType<typeof useEmblaCarousel>[0];
@@ -65,7 +59,6 @@ export type CarouselProps = ComponentProps<"section"> & {
   children: ReactNode;
   onSelect?: (api: NonNullable<CarouselApi>) => void;
   options?: CarouselOptions;
-  orientation?: CarouselOrientation;
   plugins?: CarouselPlugins;
   setApi?: (api: NonNullable<CarouselApi>) => void;
   xstyle?: stylex.StyleXStyles;
@@ -75,16 +68,12 @@ export function Carousel({
   children,
   onSelect,
   options,
-  orientation = "horizontal",
   plugins,
   setApi,
   xstyle,
   ...props
 }: CarouselProps) {
-  const [viewportRef, api] = useEmblaCarousel(
-    { ...options, axis: orientation === "horizontal" ? "x" : "y" },
-    plugins,
-  );
+  const [viewportRef, api] = useEmblaCarousel(options, plugins);
   const [canScrollPrevious, setCanScrollPrevious] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
   const root = stylex.props(styles.root, xstyle);
@@ -125,7 +114,6 @@ export function Carousel({
         api,
         canScrollNext,
         canScrollPrevious,
-        orientation,
         scrollNext,
         scrollPrevious,
         viewportRef,
@@ -141,12 +129,8 @@ export function Carousel({
 export type CarouselContentProps = ComponentProps<"div"> & { xstyle?: stylex.StyleXStyles };
 
 export function CarouselContent({ children, xstyle, ...props }: CarouselContentProps) {
-  const { orientation, viewportRef } = useCarousel();
-  const content = stylex.props(
-    styles.content,
-    orientation === "vertical" && styles.contentVertical,
-    xstyle,
-  );
+  const { viewportRef } = useCarousel();
+  const content = stylex.props(styles.content, xstyle);
 
   return (
     <div ref={viewportRef} {...stylex.props(styles.viewport)}>

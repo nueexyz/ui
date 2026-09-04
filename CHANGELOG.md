@@ -4,6 +4,10 @@ Released on 2026-09-04.
 
 - Added Calendar, Date Picker, and Carousel components. Install only the
   packages you need with `nuee add calendar`, `date-picker`, or `carousel`.
+- Calendar now keeps DayPicker CSS slot overrides internal; customize its root
+  through Nuee's `xstyle` API instead.
+- Fixed Date Picker controlled state so clearing a selection with
+  `value={undefined}` also clears the displayed value.
 - Redesigned dark mode around charcoal surfaces, clearer elevation, and paired
   foreground colors so components remain readable when the theme changes.
 - Removed the incomplete Message Scroller component from the registry. Compose
