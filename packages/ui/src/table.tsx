@@ -61,17 +61,12 @@ const styles = stylex.create({
 });
 
 export type TableProps = ComponentProps<"table"> & {
-  containerClassName?: string;
   xstyle?: stylex.StyleXStyles;
 };
 
-export function Table({ containerClassName, xstyle, ...props }: TableProps) {
+export function Table({ xstyle, ...props }: TableProps) {
   return (
-    <div
-      className={[stylex.props(styles.container).className, containerClassName]
-        .filter(Boolean)
-        .join(" ")}
-    >
+    <div {...stylex.props(styles.container)}>
       <table {...props} {...stylex.props(styles.table, xstyle)} />
     </div>
   );

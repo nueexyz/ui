@@ -1,3 +1,11 @@
+## Version v0.5.0
+
+Released on 2026-09-04.
+
+- Components generated with `nuee new`, Table, and Button Group now keep
+  styling on the StyleX `xstyle` path. Replace native CSS overrides with
+  `xstyle` when upgrading.
+
 ## Version v0.4.2
 
 Released on 2026-09-04.

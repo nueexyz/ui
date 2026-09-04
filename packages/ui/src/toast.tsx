@@ -46,13 +46,14 @@ const styles = stylex.create({
   viewportLeft: { left: spacingVars.space4 },
   viewportCenter: { left: "50%", transform: "translateX(-50%)" },
   viewportRight: { right: spacingVars.space4 },
-  stack: {
+  stack: (height: number | string) => ({
     bottom: 0,
+    height,
     left: 0,
     pointerEvents: toastViewportVars.stackPointerEvents,
     position: "absolute",
     right: 0,
-  },
+  }),
   stackTop: { bottom: "auto", top: 0 },
   root: {
     backgroundColor: colorVars.bgRaised,
@@ -389,11 +390,7 @@ function ToastStack({ position }: { position: ToastPosition }) {
   }, [toasts]);
 
   return (
-    <div
-      ref={stackRef}
-      style={{ height: stackHeight }}
-      {...stylex.props(styles.stack, isTop && styles.stackTop)}
-    >
+    <div ref={stackRef} {...stylex.props(styles.stack(stackHeight), isTop && styles.stackTop)}>
       {toasts.map((item) => (
         <ToastPrimitive.Root
           key={item.id}

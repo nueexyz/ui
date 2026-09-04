@@ -17,8 +17,11 @@ test("new creates a StyleX component without overwriting an existing file", asyn
     await newComponent(projectDirectory, "status-chip");
 
     const componentPath = join(projectDirectory, "src/components/ui/status-chip.tsx");
-    assert.match(await readFile(componentPath, "utf8"), /export function StatusChip/);
-    assert.match(await readFile(componentPath, "utf8"), /from "@\/styles\/semantic\.stylex"/);
+    const componentSource = await readFile(componentPath, "utf8");
+    assert.match(componentSource, /export function StatusChip/);
+    assert.match(componentSource, /from "@\/styles\/semantic\.stylex"/);
+    assert.match(componentSource, /Omit<ComponentProps<"div">, "className" \| "style">/);
+    assert.doesNotMatch(componentSource, /className=|style=\{\{/);
     await assert.rejects(
       () => newComponent(projectDirectory, "status-chip"),
       /will not be overwritten/,

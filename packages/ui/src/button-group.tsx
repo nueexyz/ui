@@ -4,14 +4,18 @@ import {
   cloneElement,
   isValidElement,
   type ComponentProps,
-  type CSSProperties,
   type ReactElement,
   type ReactNode,
 } from "react";
 
 import { Separator } from "./separator";
-import { radiusVars } from "@nuee/tokens/semantic.stylex";
-import { colorVars, sizeVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
+import {
+  colorVars,
+  radiusVars,
+  sizeVars,
+  spacingVars,
+  typographyVars,
+} from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
   root: {
@@ -29,10 +33,36 @@ const styles = stylex.create({
   },
   horizontalItem: { marginInlineStart: -1 },
   horizontalFirstItem: { marginInlineStart: 0 },
-  horizontalLastItem: {},
+  horizontalOnlyItem: { borderRadius: radiusVars.sm },
+  horizontalFirstItemRadius: {
+    borderBottomLeftRadius: radiusVars.sm,
+    borderBottomRightRadius: 0,
+    borderTopLeftRadius: radiusVars.sm,
+    borderTopRightRadius: 0,
+  },
+  horizontalMiddleItem: { borderRadius: 0 },
+  horizontalLastItem: {
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: radiusVars.sm,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: radiusVars.sm,
+  },
   verticalItem: { marginBlockStart: -1 },
   verticalFirstItem: { marginBlockStart: 0 },
-  verticalLastItem: {},
+  verticalOnlyItem: { borderRadius: radiusVars.sm },
+  verticalFirstItemRadius: {
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    borderTopLeftRadius: radiusVars.sm,
+    borderTopRightRadius: radiusVars.sm,
+  },
+  verticalMiddleItem: { borderRadius: 0 },
+  verticalLastItem: {
+    borderBottomLeftRadius: radiusVars.sm,
+    borderBottomRightRadius: radiusVars.sm,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
+  },
   text: {
     alignItems: "center",
     backgroundColor: colorVars.bgSurface,
@@ -50,36 +80,29 @@ const styles = stylex.create({
   separator: { alignSelf: "stretch", height: "auto", marginInline: -1, minHeight: "auto" },
 });
 
-type StyleProps = { style?: CSSProperties; xstyle?: stylex.StyleXStyles };
+type StyleProps = { xstyle?: stylex.StyleXStyles };
 type GroupItem = ReactElement<StyleProps>;
 
 function isGroupItem(child: ReactNode): child is GroupItem {
   return isValidElement(child) && child.type !== ButtonGroupSeparator;
 }
 
-function getItemBorderRadius(
+function getItemPositionStyle(
   orientation: "horizontal" | "vertical",
-  position: number,
-  length: number,
-): CSSProperties {
-  const isFirst = position === 0;
-  const isLast = position === length - 1;
-
+  isFirst: boolean,
+  isLast: boolean,
+) {
   if (orientation === "horizontal") {
-    return {
-      borderBottomLeftRadius: isFirst ? radiusVars.sm : 0,
-      borderBottomRightRadius: isLast ? radiusVars.sm : 0,
-      borderTopLeftRadius: isFirst ? radiusVars.sm : 0,
-      borderTopRightRadius: isLast ? radiusVars.sm : 0,
-    };
+    if (isFirst && isLast) return styles.horizontalOnlyItem;
+    if (isFirst) return styles.horizontalFirstItemRadius;
+    if (isLast) return styles.horizontalLastItem;
+    return styles.horizontalMiddleItem;
   }
 
-  return {
-    borderBottomLeftRadius: isLast ? radiusVars.sm : 0,
-    borderBottomRightRadius: isLast ? radiusVars.sm : 0,
-    borderTopLeftRadius: isFirst ? radiusVars.sm : 0,
-    borderTopRightRadius: isFirst ? radiusVars.sm : 0,
-  };
+  if (isFirst && isLast) return styles.verticalOnlyItem;
+  if (isFirst) return styles.verticalFirstItemRadius;
+  if (isLast) return styles.verticalLastItem;
+  return styles.verticalMiddleItem;
 }
 
 export type ButtonGroupProps = ComponentProps<"div"> &
@@ -96,23 +119,22 @@ export function ButtonGroup({
   const childItems = Children.toArray(children);
   const groupItems = childItems.filter(isGroupItem);
 
-  const content = childItems.map((child, childIndex) => {
+  const content = childItems.map((child) => {
     if (!isGroupItem(child)) return child;
 
-    const position = childItems.slice(0, childIndex).filter(isGroupItem).length;
+    const position = groupItems.indexOf(child);
     const groupItem = child;
+    const isFirst = position === 0;
+    const isLast = position === groupItems.length - 1;
+    const positionStyle = getItemPositionStyle(orientation, isFirst, isLast);
     const itemStyles = [
       styles.item,
       styles[`${orientation}Item`],
-      position === 0 && styles[`${orientation}FirstItem`],
-      position === groupItems.length - 1 && styles[`${orientation}LastItem`],
+      isFirst && styles[`${orientation}FirstItem`],
+      positionStyle,
     ];
 
     return cloneElement(groupItem, {
-      style: {
-        ...groupItem.props.style,
-        ...getItemBorderRadius(orientation, position, groupItems.length),
-      },
       xstyle: [...itemStyles, groupItem.props.xstyle],
     });
   });
