@@ -24,8 +24,8 @@ const styles = stylex.create({
   },
   default: { backgroundColor: colorVars.bgSubtle, color: colorVars.fgPrimary },
   primary: {
-    backgroundColor: colorVars.bgActionPrimary,
-    color: colorVars.fgOnActionPrimary,
+    backgroundColor: colorVars.bgMessageOutgoing,
+    color: colorVars.fgOnMessageOutgoing,
   },
   outline: {
     borderColor: colorVars.strokeDefault,

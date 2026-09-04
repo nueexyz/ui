@@ -29,7 +29,7 @@ const styles = stylex.create({
   primary: {
     backgroundColor: colorVars.bgActionPrimary,
     borderColor: colorVars.bgActionPrimary,
-    color: colorVars.fgInverse,
+    color: colorVars.fgOnActionPrimary,
   },
   secondary: {
     backgroundColor: colorVars.bgSubtle,

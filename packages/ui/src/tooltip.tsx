@@ -14,10 +14,10 @@ import {
 const styles = stylex.create({
   positioner: { zIndex: 70 },
   popup: {
-    backgroundColor: colorVars.fgPrimary,
+    backgroundColor: colorVars.bgInverse,
     borderRadius: radiusVars.sm,
     boxShadow: shadowVars.floating,
-    color: colorVars.bgCanvas,
+    color: colorVars.fgInverse,
     fontSize: typographyVars.fontSizeXs,
     lineHeight: typographyVars.lineHeightNormal,
     maxWidth: "18rem",
@@ -38,7 +38,7 @@ const styles = stylex.create({
     transitionDuration: motionVars.durationFast,
     transitionTimingFunction: motionVars.easingExit,
   },
-  arrow: { fill: colorVars.fgPrimary, height: spacingVars.space2, width: spacingVars.space3 },
+  arrow: { fill: colorVars.bgInverse, height: spacingVars.space2, width: spacingVars.space3 },
 });
 
 export const Tooltip = TooltipPrimitive.Root;

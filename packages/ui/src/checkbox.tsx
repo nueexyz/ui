@@ -1,9 +1,15 @@
 import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox";
+import { CheckIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { Icon } from "./Icon";
-import { colorVars, motionVars, radiusVars, sizeVars } from "@nuee/tokens/semantic.stylex";
+import {
+  colorVars,
+  motionVars,
+  opacityVars,
+  radiusVars,
+  sizeVars,
+} from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
   root: {
@@ -13,17 +19,17 @@ const styles = stylex.create({
     borderRadius: radiusVars.sm,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
-    color: colorVars.fgInverse,
+    color: colorVars.fgOnActionPrimary,
     cursor: "pointer",
     display: "inline-flex",
-    height: "1.5rem",
+    height: "1.25rem",
     justifyContent: "center",
-    minHeight: "1.5rem",
-    minWidth: "1.5rem",
+    minHeight: "1.25rem",
+    minWidth: "1.25rem",
     outline: "none",
     transitionDuration: motionVars.durationFast,
     transitionProperty: "background-color, border-color, opacity",
-    width: "1.5rem",
+    width: "1.25rem",
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
       outlineOffset: sizeVars.focusRing,
@@ -34,11 +40,9 @@ const styles = stylex.create({
   },
   checked: { backgroundColor: colorVars.bgActionPrimary, borderColor: colorVars.bgActionPrimary },
   disabled: {
-    backgroundColor: colorVars.interactionDisabled,
-    borderColor: colorVars.strokeDefault,
-    color: colorVars.fgDisabled,
     cursor: "not-allowed",
-    ":hover": { backgroundColor: colorVars.interactionDisabled },
+    opacity: opacityVars.disabled,
+    ":hover": { backgroundColor: colorVars.bgSurface },
   },
   indicator: {
     alignItems: "center",
@@ -77,7 +81,7 @@ export function Checkbox({ xstyle, ...props }: CheckboxProps) {
       }}
     >
       <CheckboxPrimitive.Indicator {...stylex.props(styles.indicator)}>
-        <Icon aria-hidden="true" name="check" weight="bold" />
+        <CheckIcon aria-hidden="true" weight="bold" />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   );

@@ -6,11 +6,13 @@ export const colorVars = stylex.defineVars({
   bgCanvas: colorPalette.neutral100,
   bgSurface: colorPalette.neutral0,
   bgSurfacePressed: "oklch(97% 0 0)",
+  bgInverse: colorPalette.neutral950,
   bgSubtle: colorPalette.neutral50,
   bgRaised: colorPalette.neutral0,
   bgRaisedPressed: "oklch(97% 0 0)",
   bgActionPrimary: colorPalette.primarySolid,
   bgActionDestructive: colorPalette.redFeedback,
+  bgMessageOutgoing: colorPalette.primarySolid,
   bgFeedbackInfo: colorPalette.blueWeak,
   bgFeedbackSuccess: colorPalette.greenWeak,
   bgFeedbackWarning: colorPalette.yellowWeak,
@@ -22,6 +24,7 @@ export const colorVars = stylex.defineVars({
   fgInverse: colorPalette.neutral0,
   fgOnActionPrimary: colorPalette.neutral0,
   fgOnActionDestructive: colorPalette.neutral0,
+  fgOnMessageOutgoing: colorPalette.neutral0,
   fgAction: colorPalette.primarySolid,
   fgFeedbackInfo: colorPalette.blueSolid,
   fgFeedbackSuccess: colorPalette.greenFeedback,
@@ -104,7 +107,7 @@ export const typographyVars = stylex.defineVars({
 });
 
 export const opacityVars = stylex.defineVars({
-  disabled: "0.8",
+  disabled: "0.6",
 });
 
 export const motionVars = stylex.defineVars({
