@@ -85,7 +85,7 @@ const styles = stylex.create({
     color: colorVars.fgOnActionPrimary,
   },
   secondary: {
-    backgroundColor: colorVars.bgSurface,
+    backgroundColor: colorVars.interactionDefault,
     borderColor: colorVars.strokeDefault,
     color: colorVars.fgPrimary,
   },
