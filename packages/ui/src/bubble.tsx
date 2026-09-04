@@ -7,24 +7,27 @@ const styles = stylex.create({
   root: {
     fontSize: typographyVars.fontSizeSm,
     lineHeight: typographyVars.lineHeightNormal,
-    maxWidth: "min(32rem, 85%)",
+    maxWidth: "min(32rem, 100%)",
     paddingBlock: spacingVars.space3,
     paddingInline: spacingVars.space4,
     whiteSpace: "pre-wrap",
   },
-  incoming: {
+  alignStart: {
     alignSelf: "flex-start",
     borderBottomLeftRadius: radiusVars.sm,
     borderRadius: radiusVars.sm,
   },
-  outgoing: {
+  alignEnd: {
     alignSelf: "flex-end",
     borderBottomRightRadius: radiusVars.sm,
     borderRadius: radiusVars.sm,
   },
-  variantDefault: { backgroundColor: colorVars.bgSubtle, color: colorVars.fgPrimary },
+  default: { backgroundColor: colorVars.bgSubtle, color: colorVars.fgPrimary },
+  primary: {
+    backgroundColor: colorVars.bgActionPrimary,
+    color: colorVars.fgOnActionPrimary,
+  },
   outline: {
-    backgroundColor: colorVars.bgSurface,
     borderColor: colorVars.strokeDefault,
     borderStyle: "solid",
     borderWidth: 1,
@@ -32,18 +35,27 @@ const styles = stylex.create({
   },
 });
 
+export type BubbleAlign = "start" | "end";
+export type BubbleVariant = "default" | "primary" | "outline";
+
 export type BubbleProps = ComponentProps<"div"> & {
-  side?: "incoming" | "outgoing";
-  variant?: "default" | "outline";
+  align?: BubbleAlign;
+  variant?: BubbleVariant;
   xstyle?: stylex.StyleXStyles;
 };
 
-export function Bubble({ side = "incoming", variant = "default", xstyle, ...props }: BubbleProps) {
-  const resolved = stylex.props(
-    styles.root,
-    styles[side],
-    variant === "default" ? styles.variantDefault : styles[variant],
-    xstyle,
+export function Bubble({ align = "start", variant = "default", xstyle, ...props }: BubbleProps) {
+  return (
+    <div
+      {...props}
+      data-align={align}
+      data-variant={variant}
+      {...stylex.props(
+        styles.root,
+        align === "start" ? styles.alignStart : styles.alignEnd,
+        styles[variant],
+        xstyle,
+      )}
+    />
   );
-  return <div {...props} {...resolved} data-side={side} />;
 }

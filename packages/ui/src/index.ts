@@ -31,7 +31,7 @@ export {
 export { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from "./button-group";
 export type { ButtonGroupProps } from "./button-group";
 export { Bubble } from "./bubble";
-export type { BubbleProps } from "./bubble";
+export type { BubbleAlign, BubbleProps, BubbleVariant } from "./bubble";
 export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./card";
 export {
   Dialog,
@@ -141,8 +141,15 @@ export type { LabelProps } from "./label";
 export { Link } from "./link";
 export type { LinkProps, LinkVariant } from "./link";
 export { Marker, MarkerContent, MarkerIcon } from "./marker";
-export { Message, MessageContent, MessageFooter, MessageHeader } from "./message";
-export type { MessageProps } from "./message";
+export {
+  Message,
+  MessageAvatar,
+  MessageContent,
+  MessageFooter,
+  MessageGroup,
+  MessageHeader,
+} from "./message";
+export type { MessageAlign, MessageProps } from "./message";
 export { MessageScroller } from "./message-scroller";
 export type { MessageScrollerProps } from "./message-scroller";
 export {
