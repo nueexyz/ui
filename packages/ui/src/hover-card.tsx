@@ -34,10 +34,28 @@ const styles = stylex.create({
     "@media (prefers-reduced-motion: reduce)": { transform: "none", transitionDuration: "0.01ms" },
   },
   transitioning: { opacity: 0, transform: "translateY(0.25rem) scale(0.98)" },
+  trigger: {
+    color: colorVars.fgPrimary,
+    textDecorationLine: "none",
+    textDecorationThickness: sizeVars.stroke,
+    textUnderlineOffset: "0.25em",
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "text-decoration-color",
+    transitionTimingFunction: motionVars.easingStandard,
+    ":focus-visible": { textDecorationLine: "underline" },
+    ":hover": { textDecorationLine: "underline" },
+  },
 });
 
 export const HoverCard = PreviewCard.Root;
-export const HoverCardTrigger = PreviewCard.Trigger;
+
+export type HoverCardTriggerProps = ComponentProps<typeof PreviewCard.Trigger> & {
+  xstyle?: stylex.StyleXStyles;
+};
+
+export function HoverCardTrigger({ xstyle, ...props }: HoverCardTriggerProps) {
+  return <PreviewCard.Trigger {...props} {...stylex.props(styles.trigger, xstyle)} />;
+}
 
 export type HoverCardContentProps = ComponentProps<typeof PreviewCard.Popup> & {
   align?: ComponentProps<typeof PreviewCard.Positioner>["align"];
