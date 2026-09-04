@@ -85,7 +85,12 @@ export const shadowVars = stylex.defineVars({
 });
 
 export const typographyVars = stylex.defineVars({
+  /** @deprecated Use fontFamilyBody or fontFamilyHeading instead. */
   fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+  fontFamilyBody:
+    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+  fontFamilyHeading:
+    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
   fontSizeXs: "0.75rem",
   fontSizeSm: "0.875rem",
   fontSizeMd: "1rem",

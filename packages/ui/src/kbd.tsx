@@ -19,7 +19,7 @@ const styles = stylex.create({
     borderWidth: sizeVars.stroke,
     color: colorVars.fgSecondary,
     display: "inline-flex",
-    fontFamily: typographyVars.fontFamily,
+    fontFamily: typographyVars.fontFamilyBody,
     fontSize: typographyVars.fontSizeSm,
     fontWeight: typographyVars.fontWeightMedium,
     justifyContent: "center",

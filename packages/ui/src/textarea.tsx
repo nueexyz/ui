@@ -18,7 +18,7 @@ const styles = stylex.create({
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     color: colorVars.fgPrimary,
-    fontFamily: typographyVars.fontFamily,
+    fontFamily: typographyVars.fontFamilyBody,
     fontSize: typographyVars.fontSizeSm,
     lineHeight: typographyVars.lineHeightNormal,
     minHeight: "5rem",

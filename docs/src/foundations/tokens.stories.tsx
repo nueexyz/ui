@@ -284,11 +284,20 @@ export const Typography: Story = {
       description="Use font sizes, weights, and line heights that support information hierarchy and reading flow."
     >
       <TokenRow
-        name="typographyVars.fontFamily"
-        usage="Default product UI typeface"
-        value={typographyVars.fontFamily}
+        name="typographyVars.fontFamilyBody"
+        usage="Body text, form controls, and product UI"
+        value={typographyVars.fontFamilyBody}
       >
-        <span {...stylex.props(styles.fontFamilySample(typographyVars.fontFamily))}>
+        <span {...stylex.props(styles.fontFamilySample(typographyVars.fontFamilyBody))}>
+          Nuee Aa Bb
+        </span>
+      </TokenRow>
+      <TokenRow
+        name="typographyVars.fontFamilyHeading"
+        usage="Display, title, and heading text"
+        value={typographyVars.fontFamilyHeading}
+      >
+        <span {...stylex.props(styles.fontFamilySample(typographyVars.fontFamilyHeading))}>
           Nuee Aa Bb
         </span>
       </TokenRow>

@@ -1,3 +1,11 @@
+## Version v0.4.2
+
+Released on 2026-09-04.
+
+- Added separate body and heading typeface tokens. Set
+  `typographyVars.fontFamilyBody` and `typographyVars.fontFamilyHeading` in
+  your theme when your product uses distinct reading and display typefaces.
+
 ## Version v0.4.1
 
 Released on 2026-09-03.

@@ -4,20 +4,23 @@ import { createElement, type HTMLAttributes } from "react";
 import { colorVars, radiusVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
-  root: { color: colorVars.fgPrimary, fontFamily: typographyVars.fontFamily, margin: 0 },
+  root: { color: colorVars.fgPrimary, fontFamily: typographyVars.fontFamilyBody, margin: 0 },
   display: {
+    fontFamily: typographyVars.fontFamilyHeading,
     fontSize: "2rem",
     fontWeight: typographyVars.fontWeightSemibold,
     letterSpacing: "-0.025em",
     lineHeight: typographyVars.lineHeightTight,
   },
   title: {
+    fontFamily: typographyVars.fontFamilyHeading,
     fontSize: typographyVars.fontSizeXl,
     fontWeight: typographyVars.fontWeightSemibold,
     letterSpacing: "-0.015em",
     lineHeight: typographyVars.lineHeightTight,
   },
   heading: {
+    fontFamily: typographyVars.fontFamilyHeading,
     fontSize: typographyVars.fontSizeLg,
     fontWeight: typographyVars.fontWeightMedium,
     lineHeight: typographyVars.lineHeightTight,

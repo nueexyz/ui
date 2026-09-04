@@ -47,7 +47,7 @@ const styles = stylex.create({
     cursor: "pointer",
     display: "inline-flex",
     flexShrink: 0,
-    fontFamily: typographyVars.fontFamily,
+    fontFamily: typographyVars.fontFamilyBody,
     fontSize: typographyVars.fontSizeSm,
     fontWeight: typographyVars.fontWeightMedium,
     justifyContent: "center",

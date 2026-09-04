@@ -25,7 +25,7 @@ const styles = stylex.create({
     color: colorVars.fgPrimary,
     cursor: "pointer",
     display: "inline-flex",
-    fontFamily: typographyVars.fontFamily,
+    fontFamily: typographyVars.fontFamilyBody,
     fontSize: typographyVars.fontSizeSm,
     gap: spacingVars.space2,
     height: sizeVars.controlMd,

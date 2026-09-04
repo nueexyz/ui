@@ -44,7 +44,7 @@ const styles = stylex.create({
     color: colorVars.fgPrimary,
     cursor: "pointer",
     display: "inline-flex",
-    fontFamily: typographyVars.fontFamily,
+    fontFamily: typographyVars.fontFamilyBody,
     fontSize: typographyVars.fontSizeSm,
     fontWeight: typographyVars.fontWeightMedium,
     gap: spacingVars.space1,
@@ -141,7 +141,7 @@ const styles = stylex.create({
   },
   popupTransitioning: { opacity: 0, transform: "scale(0.9)" },
   viewport: {
-    fontFamily: typographyVars.fontFamily,
+    fontFamily: typographyVars.fontFamilyBody,
     height: "100%",
     overflow: "hidden",
     position: "relative",

@@ -31,7 +31,7 @@ const styles = stylex.create({
     color: colorVars.fgPrimary,
     cursor: "pointer",
     display: "flex",
-    fontFamily: typographyVars.fontFamily,
+    fontFamily: typographyVars.fontFamilyBody,
     fontSize: typographyVars.fontSizeSm,
     fontWeight: typographyVars.fontWeightMedium,
     flexShrink: 0,

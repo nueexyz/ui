@@ -46,7 +46,7 @@ const styles = stylex.create({
     borderRadius: radiusVars.sm,
     color: colorVars.fgPrimary,
     cursor: "pointer",
-    fontFamily: typographyVars.fontFamily,
+    fontFamily: typographyVars.fontFamilyBody,
     fontSize: typographyVars.fontSizeSm,
     fontWeight: typographyVars.fontWeightMedium,
     height: sizeVars.controlSm,

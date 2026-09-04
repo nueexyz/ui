@@ -23,7 +23,7 @@ const styles = stylex.create({
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     color: colorVars.fgPrimary,
-    fontFamily: typographyVars.fontFamily,
+    fontFamily: typographyVars.fontFamilyBody,
     fontSize: typographyVars.fontSizeSm,
     height: sizeVars.controlLg,
     marginInlineStart: -1,

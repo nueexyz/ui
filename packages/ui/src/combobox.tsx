@@ -42,7 +42,7 @@ const styles = stylex.create({
     boxShadow: "none",
     color: colorVars.fgPrimary,
     flex: 1,
-    fontFamily: typographyVars.fontFamily,
+    fontFamily: typographyVars.fontFamilyBody,
     fontSize: typographyVars.fontSizeSm,
     height: "100%",
     minWidth: 0,

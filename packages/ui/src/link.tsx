@@ -10,7 +10,7 @@ const styles = stylex.create({
     alignItems: "center",
     borderRadius: "0.125rem",
     display: "inline-flex",
-    fontFamily: typographyVars.fontFamily,
+    fontFamily: typographyVars.fontFamilyBody,
     gap: "0.1875em",
     outline: "none",
     transitionDuration: motionVars.durationFast,

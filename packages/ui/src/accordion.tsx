@@ -29,7 +29,7 @@ const styles = stylex.create({
     cursor: "pointer",
     display: "flex",
     flex: 1,
-    fontFamily: typographyVars.fontFamily,
+    fontFamily: typographyVars.fontFamilyBody,
     fontSize: typographyVars.fontSizeSm,
     fontWeight: typographyVars.fontWeightMedium,
     justifyContent: "space-between",
