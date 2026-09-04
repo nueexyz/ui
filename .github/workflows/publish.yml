@@ -28,15 +28,19 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Verify the tag matches the package version
+      - name: Verify the tag matches every published package version
         run: |
           tag_version="${GITHUB_REF_NAME#v}"
-          package_version="$(node -p "require('./packages/ui/package.json').version")"
 
-          if [ "$tag_version" != "$package_version" ]; then
-            echo "Tag v$tag_version does not match @nuee/ui@$package_version."
-            exit 1
-          fi
+          for package_file in packages/*/package.json; do
+            package_name="$(node -p "require('./' + process.argv[1]).name" "$package_file")"
+            package_version="$(node -p "require('./' + process.argv[1]).version" "$package_file")"
+
+            if [ "$tag_version" != "$package_version" ]; then
+              echo "Tag v$tag_version does not match $package_name@$package_version."
+              exit 1
+            fi
+          done
 
       - name: Verify and publish unpublished workspace packages
         run: pnpm release

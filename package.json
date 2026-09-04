@@ -17,9 +17,10 @@
     "lint": "pnpm oxlint .",
     "prepare": "lefthook install",
     "release": "pnpm release:verify && node --experimental-strip-types scripts/publish.ts",
-    "release:verify": "pnpm check && pnpm test && pnpm build && pnpm docs:build",
+    "release:verify": "pnpm check && pnpm test && pnpm build && pnpm verify:package && pnpm docs:build",
     "storybook": "pnpm --filter @nuee/docs storybook",
     "test": "pnpm --filter @nuee/cli test && pnpm --filter @nuee/ui test",
+    "verify:package": "node --experimental-strip-types scripts/verify-packages.ts",
     "typecheck": "pnpm --filter @nuee/tokens typecheck && pnpm --filter @nuee/registry build && pnpm --filter @nuee/cli typecheck && pnpm --filter @nuee/ui typecheck && pnpm --filter @nuee/docs typecheck"
   },
   "devDependencies": {
