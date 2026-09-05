@@ -240,6 +240,21 @@ export type { SpinnerProps } from "./spinner";
 export { Switch } from "./switch";
 export type { SwitchProps } from "./switch";
 export {
+  Timeline,
+  TimelineContent,
+  TimelineDescription,
+  TimelineIndicator,
+  TimelineItem,
+  TimelineTime,
+  TimelineTitle,
+} from "./timeline";
+export type {
+  TimelineIndicatorProps,
+  TimelineIndicatorVariant,
+  TimelineItemProps,
+  TimelineProps,
+} from "./timeline";
+export {
   Table,
   TableBody,
   TableCaption,

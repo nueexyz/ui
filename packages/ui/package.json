@@ -69,6 +69,7 @@
     "./switch": "./dist/switch.js",
     "./table": "./dist/table.js",
     "./tabs": "./dist/tabs.js",
+    "./timeline": "./dist/timeline.js",
     "./textarea": "./dist/textarea.js",
     "./toast": "./dist/toast.js",
     "./toggle": "./dist/toggle.js",

@@ -244,6 +244,11 @@ export const registryItems = {
     dependencies: ["@base-ui/react", "@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
+  timeline: {
+    files: ["timeline.tsx"],
+    dependencies: ["@nuee/tokens", "@stylexjs/stylex"],
+    registryDependencies: [],
+  },
   table: {
     files: ["table.tsx"],
     dependencies: ["@nuee/tokens", "@stylexjs/stylex"],
