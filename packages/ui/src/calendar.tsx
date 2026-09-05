@@ -1,3 +1,5 @@
+"use client";
+
 import { DayButton, DayPicker, type DayButtonProps, type DayPickerProps } from "@daypicker/react";
 import * as stylex from "@stylexjs/stylex";
 

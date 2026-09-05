@@ -1,6 +1,9 @@
+"use client";
+
 import { Switch as SwitchPrimitive } from "@base-ui/react/switch";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
+import type { ControlPlacementStyles } from "./control-layout";
 
 import { colorVars, motionVars, radiusVars, sizeVars } from "@nuee/tokens/semantic.stylex";
 
@@ -56,7 +59,7 @@ export type SwitchProps = Omit<
   "className" | "style"
 > & {
   size?: "md" | "sm";
-  xstyle?: stylex.StyleXStyles;
+  xstyle?: ControlPlacementStyles;
 };
 
 export function Switch({ size = "md", xstyle, ...props }: SwitchProps) {

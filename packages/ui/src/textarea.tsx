@@ -45,9 +45,21 @@ const styles = stylex.create({
       cursor: "not-allowed",
       ":hover": { borderColor: colorVars.strokeDefault },
     },
-    ":user-invalid": { borderColor: colorVars.strokeFeedbackError },
+    ":user-invalid": {
+      borderColor: colorVars.strokeFeedbackError,
+      ":focus-visible": {
+        borderColor: colorVars.strokeFeedbackError,
+        outlineColor: colorVars.strokeFeedbackError,
+      },
+    },
   },
-  invalid: { borderColor: colorVars.strokeFeedbackError },
+  invalid: {
+    borderColor: colorVars.strokeFeedbackError,
+    ":focus-visible": {
+      borderColor: colorVars.strokeFeedbackError,
+      outlineColor: colorVars.strokeFeedbackError,
+    },
+  },
 });
 
 export type TextareaProps = Omit<ComponentProps<"textarea">, "className" | "style"> & {

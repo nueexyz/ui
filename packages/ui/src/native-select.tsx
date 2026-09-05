@@ -1,3 +1,5 @@
+"use client";
+
 import * as stylex from "@stylexjs/stylex";
 import { CaretDownIcon } from "@phosphor-icons/react";
 import type { ComponentProps } from "react";

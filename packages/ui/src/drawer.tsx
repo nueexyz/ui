@@ -1,3 +1,5 @@
+"use client";
+
 import { Drawer as DrawerPrimitive } from "@base-ui/react/drawer";
 import * as stylex from "@stylexjs/stylex";
 import { createContext, useContext } from "react";

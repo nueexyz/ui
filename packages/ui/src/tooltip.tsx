@@ -1,3 +1,5 @@
+"use client";
+
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";

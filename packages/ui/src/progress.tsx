@@ -1,3 +1,5 @@
+"use client";
+
 import { Progress as ProgressPrimitive } from "@base-ui/react/progress";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";

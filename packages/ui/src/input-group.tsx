@@ -1,8 +1,11 @@
+"use client";
+
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, MouseEvent } from "react";
 
 import { Button, type ButtonProps } from "./button";
-import { Input, type InputProps } from "./input";
+import { Input as InputPrimitive } from "@base-ui/react/input";
+import type { InputProps } from "./input";
 import { Textarea, type TextareaProps } from "./textarea";
 import {
   colorVars,
@@ -37,7 +40,13 @@ const styles = stylex.create({
       outlineWidth: sizeVars.focusRing,
     },
   },
-  invalid: { borderColor: colorVars.strokeFeedbackError },
+  invalid: {
+    borderColor: colorVars.strokeFeedbackError,
+    ":focus-within": {
+      borderColor: colorVars.strokeFeedbackError,
+      outlineColor: colorVars.strokeFeedbackError,
+    },
+  },
   addon: {
     alignItems: "center",
     color: colorVars.fgSecondary,
@@ -85,6 +94,20 @@ const styles = stylex.create({
     },
   },
   textarea: { minHeight: "5rem" },
+  input: {
+    color: colorVars.fgPrimary,
+    fontSize: typographyVars.fontSizeSm,
+    height: sizeVars.controlMd,
+    lineHeight: typographyVars.lineHeightNormal,
+    paddingInline: spacingVars.space3,
+    width: "100%",
+    "::placeholder": { color: colorVars.fgTertiary },
+    ":disabled": {
+      backgroundColor: colorVars.bgSubtle,
+      color: colorVars.fgDisabled,
+      cursor: "not-allowed",
+    },
+  },
   button: { flexShrink: 0, margin: spacingVars.space1 },
   text: {
     alignItems: "center",
@@ -135,7 +158,7 @@ export function InputGroupAddon({
 }
 
 export function InputGroupInput({ xstyle, ...props }: InputProps) {
-  return <Input {...props} xstyle={[styles.control, xstyle]} />;
+  return <InputPrimitive {...props} {...stylex.props(styles.input, styles.control, xstyle)} />;
 }
 
 export function InputGroupTextarea({ xstyle, ...props }: TextareaProps) {

@@ -1,3 +1,5 @@
+"use client";
+
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";

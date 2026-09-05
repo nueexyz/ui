@@ -1,3 +1,5 @@
+"use client";
+
 import { CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import useEmblaCarousel from "embla-carousel-react";
@@ -12,7 +14,7 @@ import {
   type ReactNode,
 } from "react";
 
-import { radiusVars, sizeVars } from "@nuee/tokens/semantic.stylex";
+import { sizeVars } from "@nuee/tokens/semantic.stylex";
 
 import { Button } from "./button";
 
@@ -22,13 +24,8 @@ const styles = stylex.create({
   content: { display: "flex" },
   item: { flex: "0 0 100%", minWidth: 0 },
   control: {
-    borderRadius: radiusVars.full,
-    height: sizeVars.controlSm,
-    paddingInline: 0,
     position: "absolute",
-    top: "50%",
-    transform: "translateY(-50%)",
-    width: sizeVars.controlSm,
+    top: `calc(50% - ${sizeVars.controlSm} / 2)`,
   },
   previous: { insetInlineStart: `calc(${sizeVars.controlSm} * -1.5)` },
   next: { insetInlineEnd: `calc(${sizeVars.controlSm} * -1.5)` },
@@ -76,7 +73,6 @@ export function Carousel({
   const [viewportRef, api] = useEmblaCarousel(options, plugins);
   const [canScrollPrevious, setCanScrollPrevious] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
-  const root = stylex.props(styles.root, xstyle);
 
   const onSelectRef = useRef(onSelect);
   useLayoutEffect(() => {
@@ -120,7 +116,7 @@ export function Carousel({
         viewportRef,
       }}
     >
-      <section {...props} {...root}>
+      <section {...props} {...stylex.props(styles.root, xstyle)}>
         {children}
       </section>
     </CarouselContext.Provider>
@@ -133,11 +129,10 @@ export type CarouselContentProps = Omit<ComponentProps<"div">, "className" | "st
 
 export function CarouselContent({ children, xstyle, ...props }: CarouselContentProps) {
   const { viewportRef } = useCarousel();
-  const content = stylex.props(styles.content, xstyle);
 
   return (
     <div ref={viewportRef} {...stylex.props(styles.viewport)}>
-      <div {...props} {...content}>
+      <div {...props} {...stylex.props(styles.content, xstyle)}>
         {children}
       </div>
     </div>
@@ -149,16 +144,13 @@ export type CarouselItemProps = Omit<ComponentProps<"div">, "className" | "style
 };
 
 export function CarouselItem({ xstyle, ...props }: CarouselItemProps) {
-  const item = stylex.props(styles.item, xstyle);
-  return <div {...props} {...item} />;
+  return <div {...props} {...stylex.props(styles.item, xstyle)} />;
 }
 
 type CarouselControlProps = Omit<
   ComponentProps<typeof Button>,
   "children" | "onClick" | "className" | "style"
-> & {
-  xstyle?: stylex.StyleXStyles;
-};
+>;
 
 export function CarouselPrevious({ disabled, xstyle, ...props }: CarouselControlProps) {
   const { canScrollPrevious, scrollPrevious } = useCarousel();
@@ -168,6 +160,7 @@ export function CarouselPrevious({ disabled, xstyle, ...props }: CarouselControl
       disabled={disabled ?? !canScrollPrevious}
       onClick={scrollPrevious}
       size="sm"
+      shape="circle"
       variant="secondary"
       xstyle={[styles.control, styles.previous, xstyle]}
       {...props}
@@ -185,6 +178,7 @@ export function CarouselNext({ disabled, xstyle, ...props }: CarouselControlProp
       disabled={disabled ?? !canScrollNext}
       onClick={scrollNext}
       size="sm"
+      shape="circle"
       variant="secondary"
       xstyle={[styles.control, styles.next, xstyle]}
       {...props}

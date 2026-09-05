@@ -1,3 +1,5 @@
+"use client";
+
 import { PreviewCard } from "@base-ui/react/preview-card";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";

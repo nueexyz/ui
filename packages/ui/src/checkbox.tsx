@@ -1,3 +1,5 @@
+"use client";
+
 import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox";
 import { CheckIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";

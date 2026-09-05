@@ -1,3 +1,5 @@
+"use client";
+
 import { Tabs as TabsPrimitive } from "@base-ui/react/tabs";
 import * as stylex from "@stylexjs/stylex";
 import { createContext, type ComponentProps, useContext } from "react";

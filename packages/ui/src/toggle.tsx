@@ -1,3 +1,5 @@
+"use client";
+
 import { Toggle as TogglePrimitive } from "@base-ui/react/toggle";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";

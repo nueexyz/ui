@@ -1,6 +1,9 @@
+"use client";
+
 import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, ReactNode } from "react";
+import type { ControlLayoutStyles } from "./control-layout";
 
 import {
   colorVars,
@@ -129,6 +132,11 @@ const styles = stylex.create({
     height: sizeVars.controlLg,
     paddingInline: spacingVars.space5,
   },
+  square: { paddingInline: 0 },
+  circle: { borderRadius: radiusVars.full, paddingInline: 0 },
+  iconSm: { width: sizeVars.controlSm },
+  iconMd: { width: sizeVars.controlMd },
+  iconLg: { width: sizeVars.controlLg },
 });
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "destructive";
@@ -137,14 +145,17 @@ type ButtonSize = "sm" | "md" | "lg";
 export type ButtonProps = Omit<ComponentProps<typeof ButtonPrimitive>, "className" | "style"> & {
   children: ReactNode;
   size?: ButtonSize;
+  /** Use square or circle for an icon-only button, with an accessible name. */
+  shape?: "default" | "square" | "circle";
   variant?: ButtonVariant;
-  xstyle?: stylex.StyleXStyles;
+  xstyle?: ControlLayoutStyles;
 };
 
 export function Button({
   children,
   disabled,
   size = "md",
+  shape = "default",
   variant = "primary",
   xstyle,
   ...props
@@ -160,6 +171,10 @@ export function Button({
         styles.root,
         styles[variant],
         styles[size],
+        shape !== "default" && styles[shape],
+        shape !== "default" && size === "sm" && styles.iconSm,
+        shape !== "default" && size === "md" && styles.iconMd,
+        shape !== "default" && size === "lg" && styles.iconLg,
         hasSolidBackground ? styles.solidInteraction : styles.surfaceInteraction,
         isDisabled && styles.disabled,
         isDisabled && variant === "ghost" && styles.disabledGhost,

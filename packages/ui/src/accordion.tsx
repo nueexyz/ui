@@ -1,3 +1,5 @@
+"use client";
+
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
 import { CaretDownIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";

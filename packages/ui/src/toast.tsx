@@ -1,3 +1,5 @@
+"use client";
+
 import { Toast as ToastPrimitive } from "@base-ui/react/toast";
 import * as stylex from "@stylexjs/stylex";
 import { CheckCircleIcon, InfoIcon, WarningIcon, XCircleIcon, XIcon } from "@phosphor-icons/react";
@@ -371,15 +373,16 @@ function ToastStack({ position }: { position: ToastPosition }) {
       );
       const toastGap =
         Number.parseFloat(getComputedStyle(document.documentElement).fontSize) * 0.75;
-      const nextHeight = rootList.reduce((maximumHeight, root) => {
+      let nextHeight = 0;
+      for (const root of rootList) {
         const rootStyles = getComputedStyle(root);
         const offset = Number.parseFloat(rootStyles.getPropertyValue("--toast-offset-y")) || 0;
         const index = Number.parseFloat(rootStyles.getPropertyValue("--toast-index")) || 0;
         const rootHeight =
           Number.parseFloat(rootStyles.getPropertyValue("--toast-height")) || root.offsetHeight;
 
-        return Math.max(maximumHeight, offset + index * toastGap + rootHeight);
-      }, 0);
+        nextHeight = Math.max(nextHeight, offset + index * toastGap + rootHeight);
+      }
 
       setHeight(nextHeight);
     };

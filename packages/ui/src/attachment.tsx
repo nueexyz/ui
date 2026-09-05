@@ -1,3 +1,5 @@
+"use client";
+
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
@@ -87,7 +89,7 @@ const styles = stylex.create({
     position: "relative",
     zIndex: 2,
   },
-  action: { minWidth: sizeVars.controlSm, paddingInline: spacingVars.space2 },
+  action: { minWidth: sizeVars.controlSm },
   trigger: {
     backgroundColor: "transparent",
     borderWidth: 0,

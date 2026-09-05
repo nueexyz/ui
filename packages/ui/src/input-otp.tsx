@@ -1,3 +1,5 @@
+"use client";
+
 import { OTPField } from "@base-ui/react/otp-field";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";

@@ -63,7 +63,7 @@ export const darkColorTheme = stylex.createTheme(colorVars, {
   bgSkeleton: colorPalette.neutral700,
   bgActionPrimary: colorPalette.neutral100,
   bgActionDestructive: colorPalette.redFeedback,
-  bgMessageOutgoing: colorPalette.neutral600,
+  bgMessageOutgoing: colorPalette.neutral100,
   bgFeedbackInfo: colorPalette.blueWeakDark,
   bgFeedbackSuccess: colorPalette.greenWeakDark,
   bgFeedbackWarning: colorPalette.yellowWeakDark,
@@ -75,7 +75,7 @@ export const darkColorTheme = stylex.createTheme(colorVars, {
   fgInverse: colorPalette.neutral200,
   fgOnActionPrimary: colorPalette.neutral950,
   fgOnActionDestructive: colorPalette.neutral200,
-  fgOnMessageOutgoing: colorPalette.neutral200,
+  fgOnMessageOutgoing: colorPalette.neutral950,
   fgAction: colorPalette.primarySolidDark,
   fgFeedbackInfo: colorPalette.blueContrastDark,
   fgFeedbackSuccess: colorPalette.greenContrastDark,
@@ -83,7 +83,7 @@ export const darkColorTheme = stylex.createTheme(colorVars, {
   fgFeedbackError: colorPalette.redContrastDark,
   strokeDefault: colorPalette.neutral700,
   strokeStrong: colorPalette.neutral600,
-  strokeFocus: colorPalette.neutral300,
+  strokeFocus: colorPalette.blueBadge,
   strokeAction: colorPalette.neutral100,
   strokeFeedbackInfo: colorPalette.blueMutedDark,
   strokeFeedbackSuccess: colorPalette.greenMutedDark,
@@ -96,7 +96,7 @@ export const darkColorTheme = stylex.createTheme(colorVars, {
   interactionSolidPressed: colorPalette.alphaBlack20,
   interactionSelected: colorPalette.neutral700,
   interactionDisabled: colorPalette.neutral700,
-  interactionFocus: colorPalette.neutral300,
+  interactionFocus: colorPalette.blueBadge,
 });
 
 export const lightShadowTheme = stylex.createTheme(shadowVars, {

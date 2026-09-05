@@ -1,3 +1,5 @@
+"use client";
+
 import { useRender } from "@base-ui/react/use-render";
 import { ArrowSquareOutIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";

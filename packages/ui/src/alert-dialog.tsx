@@ -1,3 +1,5 @@
+"use client";
+
 import { AlertDialog as AlertDialogPrimitive } from "@base-ui/react/alert-dialog";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, ReactNode } from "react";

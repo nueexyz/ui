@@ -1,3 +1,5 @@
+"use client";
+
 import { Collapsible as CollapsiblePrimitive } from "@base-ui/react/collapsible";
 import { ArrowsDownUpIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";

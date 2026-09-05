@@ -1,18 +1,28 @@
 import { readFile, readdir, rm, writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { basename, join, resolve } from "node:path";
 
-import { build } from "esbuild";
+import { build, type Plugin } from "esbuild";
 import reactCompiler from "babel-plugin-react-compiler";
 import stylex from "@stylexjs/unplugin/esbuild";
 
 const sourceDirectory = "src";
 const outputDirectory = "dist";
 type StylexCompilerOptions = NonNullable<Parameters<typeof stylex>[0]> & {
-  babelConfig: { plugins: [typeof reactCompiler] };
+  babelConfig: { plugins: [[typeof reactCompiler, { sources: (filename: string) => boolean }]] };
 };
 
+const entryPoints = await getEntryPoints();
+const clientModules = new Set<string>();
+for (const sourcePath of Object.values(entryPoints)) {
+  if ((await readFile(sourcePath, "utf8")).startsWith('"use client";')) {
+    clientModules.add(resolve(sourcePath));
+  }
+}
+
 const stylexCompilerOptions: StylexCompilerOptions = {
-  babelConfig: { plugins: [reactCompiler] },
+  babelConfig: {
+    plugins: [[reactCompiler, { sources: (filename) => clientModules.has(filename) }]],
+  },
   useCSSLayers: true,
 };
 
@@ -35,15 +45,28 @@ async function getEntryPoints() {
 
 await rm(outputDirectory, { force: true, recursive: true });
 
+// Keep component imports as module boundaries so RSC consumers can see directives.
+const componentModules: Plugin = {
+  name: "component-modules",
+  setup(builder) {
+    builder.onResolve({ filter: /^\.\// }, ({ path, importer }) => {
+      if (!importer.startsWith(join(process.cwd(), sourceDirectory))) return;
+      const name = basename(path).replace(/\.[jt]sx?$/, "");
+      if (!(name in entryPoints)) return;
+      return { path: `./${name}.js`, external: true };
+    });
+  },
+};
+
 await build({
   bundle: true,
-  entryPoints: await getEntryPoints(),
+  entryPoints,
   format: "esm",
   jsx: "automatic",
   outdir: outputDirectory,
   packages: "external",
   platform: "browser",
-  plugins: [stylex(stylexCompilerOptions)],
+  plugins: [componentModules, stylex(stylexCompilerOptions)],
   metafile: true,
   sourcemap: true,
   target: "es2022",

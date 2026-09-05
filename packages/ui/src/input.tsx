@@ -1,6 +1,9 @@
+"use client";
+
 import { Input as InputPrimitive } from "@base-ui/react/input";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
+import type { ControlLayoutStyles } from "./control-layout";
 
 import {
   colorVars,
@@ -51,15 +54,21 @@ const styles = stylex.create({
     },
     ":user-invalid": {
       borderColor: colorVars.strokeFeedbackError,
+      ":focus-visible": {
+        outlineColor: colorVars.strokeFeedbackError,
+      },
     },
   },
   invalid: {
     borderColor: colorVars.strokeFeedbackError,
+    ":focus-visible": {
+      outlineColor: colorVars.strokeFeedbackError,
+    },
   },
 });
 
 export type InputProps = Omit<ComponentProps<typeof InputPrimitive>, "className" | "style"> & {
-  xstyle?: stylex.StyleXStyles;
+  xstyle?: ControlLayoutStyles;
 };
 
 export function Input({ "aria-invalid": ariaInvalid, xstyle, ...props }: InputProps) {

@@ -1,3 +1,5 @@
+"use client";
+
 import type { Icon as PhosphorIcon, IconProps as PhosphorIconProps } from "@phosphor-icons/react";
 import {
   ArrowDownIcon,
