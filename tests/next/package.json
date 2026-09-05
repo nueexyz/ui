@@ -1,0 +1,27 @@
+{
+  "name": "@nuee/test-next",
+  "private": true,
+  "scripts": {
+    "prepare:consumer": "node --experimental-strip-types prepare.mts",
+    "test": "pnpm prepare:consumer && tsc -p tsconfig.tools.json && next build --webpack && node --experimental-strip-types verify.mts"
+  },
+  "dependencies": {
+    "@base-ui/react": "catalog:stable",
+    "@daypicker/react": "catalog:stable",
+    "@phosphor-icons/react": "catalog:stable",
+    "@stylexjs/stylex": "catalog:stable",
+    "embla-carousel-react": "catalog:stable",
+    "next": "catalog:stable",
+    "react": "catalog:stable",
+    "react-dom": "catalog:stable"
+  },
+  "devDependencies": {
+    "@stylexjs/babel-plugin": "catalog:stable",
+    "@stylexjs/postcss-plugin": "catalog:stable",
+    "@types/node": "catalog:stable",
+    "@types/react": "catalog:stable",
+    "@types/react-dom": "catalog:stable",
+    "playwright": "catalog:stable",
+    "typescript": "catalog:stable"
+  }
+}
