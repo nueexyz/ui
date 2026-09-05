@@ -38,7 +38,7 @@ const styles = stylex.create({
 export type BubbleAlign = "start" | "end";
 export type BubbleVariant = "default" | "primary" | "outline";
 
-export type BubbleProps = ComponentProps<"div"> & {
+export type BubbleProps = Omit<ComponentProps<"div">, "className" | "style"> & {
   align?: BubbleAlign;
   variant?: BubbleVariant;
   xstyle?: stylex.StyleXStyles;

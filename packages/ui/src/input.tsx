@@ -58,7 +58,7 @@ const styles = stylex.create({
   },
 });
 
-export type InputProps = ComponentProps<typeof InputPrimitive> & {
+export type InputProps = Omit<ComponentProps<typeof InputPrimitive>, "className" | "style"> & {
   xstyle?: stylex.StyleXStyles;
 };
 

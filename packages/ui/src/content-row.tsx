@@ -78,7 +78,7 @@ const styles = stylex.create({
 export type ContentRowSize = "default" | "sm" | "xs";
 export type ContentRowVariant = "default" | "muted" | "outline";
 
-export type ContentRowProps = ComponentProps<"div"> & {
+export type ContentRowProps = Omit<ComponentProps<"div">, "className" | "style"> & {
   size?: ContentRowSize;
   variant?: ContentRowVariant;
   xstyle?: stylex.StyleXStyles;
@@ -103,11 +103,11 @@ export function ContentRow({
   );
 }
 
-export function ContentRowGroup({ ...props }: ComponentProps<"div">) {
+export function ContentRowGroup({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
   return <div {...props} {...stylex.props(styles.group)} />;
 }
 
-export type ContentRowMediaProps = ComponentProps<"div"> & {
+export type ContentRowMediaProps = Omit<ComponentProps<"div">, "className" | "style"> & {
   variant?: "avatar" | "icon" | "image";
 };
 
@@ -115,18 +115,24 @@ export function ContentRowMedia({ variant = "icon", ...props }: ContentRowMediaP
   return <div {...props} {...stylex.props(styles.media, styles[`media${variant}`])} />;
 }
 
-export function ContentRowContent({ ...props }: ComponentProps<"div">) {
+export function ContentRowContent({
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style">) {
   return <div {...props} {...stylex.props(styles.content)} />;
 }
 
-export function ContentRowTitle({ ...props }: ComponentProps<"div">) {
+export function ContentRowTitle({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
   return <div {...props} {...stylex.props(styles.title)} />;
 }
 
-export function ContentRowDescription({ ...props }: ComponentProps<"p">) {
+export function ContentRowDescription({
+  ...props
+}: Omit<ComponentProps<"p">, "className" | "style">) {
   return <p {...props} {...stylex.props(styles.description)} />;
 }
 
-export function ContentRowActions({ ...props }: ComponentProps<"div">) {
+export function ContentRowActions({
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style">) {
   return <div {...props} {...stylex.props(styles.actions)} />;
 }

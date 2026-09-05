@@ -68,7 +68,9 @@ const LinkBase = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
   });
 });
 
-function ExternalIcon(props: ComponentProps<typeof ArrowSquareOutIcon>) {
+function ExternalIcon(
+  props: Omit<ComponentProps<typeof ArrowSquareOutIcon>, "className" | "style">,
+) {
   return <ArrowSquareOutIcon aria-hidden="true" size="1em" {...props} />;
 }
 

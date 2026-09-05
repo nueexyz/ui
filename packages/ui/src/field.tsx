@@ -62,55 +62,71 @@ const styles = stylex.create({
 type StyleProps = { xstyle?: stylex.StyleXStyles };
 type FieldOrientation = "horizontal" | "vertical";
 
-export type FieldProps = ComponentProps<typeof FieldPrimitive.Root> &
+export type FieldProps = Omit<ComponentProps<typeof FieldPrimitive.Root>, "className" | "style"> &
   StyleProps & { orientation?: FieldOrientation };
 
 export function Field({ orientation = "vertical", xstyle, ...props }: FieldProps) {
-  const stylexProps = stylex.props(styles.root, styles[orientation], xstyle);
-
-  return <FieldPrimitive.Root {...props} data-orientation={orientation} {...stylexProps} />;
+  return (
+    <FieldPrimitive.Root
+      {...props}
+      data-orientation={orientation}
+      {...stylex.props(styles.root, styles[orientation], xstyle)}
+    />
+  );
 }
 
 export function FieldLabel({
   xstyle,
   ...props
-}: ComponentProps<typeof FieldPrimitive.Label> & StyleProps) {
-  const stylexProps = stylex.props(styles.label, xstyle);
-  return <FieldPrimitive.Label {...props} {...stylexProps} />;
+}: Omit<ComponentProps<typeof FieldPrimitive.Label>, "className" | "style"> & StyleProps) {
+  return <FieldPrimitive.Label {...props} {...stylex.props(styles.label, xstyle)} />;
 }
 
 export function FieldDescription({
   xstyle,
   ...props
-}: ComponentProps<typeof FieldPrimitive.Description> & StyleProps) {
-  const stylexProps = stylex.props(styles.description, xstyle);
-  return <FieldPrimitive.Description {...props} {...stylexProps} />;
+}: Omit<ComponentProps<typeof FieldPrimitive.Description>, "className" | "style"> & StyleProps) {
+  return <FieldPrimitive.Description {...props} {...stylex.props(styles.description, xstyle)} />;
 }
 
 export function FieldError({
   xstyle,
   ...props
-}: ComponentProps<typeof FieldPrimitive.Error> & StyleProps) {
-  const stylexProps = stylex.props(styles.error, xstyle);
-  return <FieldPrimitive.Error {...props} {...stylexProps} />;
+}: Omit<ComponentProps<typeof FieldPrimitive.Error>, "className" | "style"> & StyleProps) {
+  return <FieldPrimitive.Error {...props} {...stylex.props(styles.error, xstyle)} />;
 }
 
-export function FieldSet({ xstyle, ...props }: ComponentProps<"fieldset"> & StyleProps) {
+export function FieldSet({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"fieldset">, "className" | "style"> & StyleProps) {
   return <fieldset {...props} {...stylex.props(styles.set, xstyle)} />;
 }
 
-export function FieldLegend({ xstyle, ...props }: ComponentProps<"legend"> & StyleProps) {
+export function FieldLegend({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"legend">, "className" | "style"> & StyleProps) {
   return <legend {...props} {...stylex.props(styles.legend, xstyle)} />;
 }
 
-export function FieldGroup({ xstyle, ...props }: ComponentProps<"div"> & StyleProps) {
+export function FieldGroup({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & StyleProps) {
   return <div {...props} {...stylex.props(styles.group, xstyle)} />;
 }
 
-export function FieldContent({ xstyle, ...props }: ComponentProps<"div"> & StyleProps) {
+export function FieldContent({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & StyleProps) {
   return <div {...props} {...stylex.props(styles.content, xstyle)} />;
 }
 
-export function FieldTitle({ xstyle, ...props }: ComponentProps<"div"> & StyleProps) {
+export function FieldTitle({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & StyleProps) {
   return <div {...props} {...stylex.props(styles.title, xstyle)} />;
 }

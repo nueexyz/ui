@@ -49,7 +49,7 @@ const styles = stylex.create({
 
 export type MessageAlign = "start" | "end";
 
-export type MessageProps = ComponentProps<"article"> & {
+export type MessageProps = Omit<ComponentProps<"article">, "className" | "style"> & {
   align?: MessageAlign;
   xstyle?: stylex.StyleXStyles;
 };
@@ -68,22 +68,22 @@ export function Message({ align = "start", xstyle, ...props }: MessageProps) {
   );
 }
 
-export function MessageGroup({ ...props }: ComponentProps<"div">) {
+export function MessageGroup({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
   return <div {...props} {...stylex.props(styles.group)} />;
 }
 
-export function MessageAvatar({ ...props }: ComponentProps<"div">) {
+export function MessageAvatar({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
   return <div {...props} {...stylex.props(styles.avatar)} />;
 }
 
-export function MessageHeader({ ...props }: ComponentProps<"header">) {
+export function MessageHeader({ ...props }: Omit<ComponentProps<"header">, "className" | "style">) {
   return <header {...props} {...stylex.props(styles.header)} />;
 }
 
-export function MessageContent({ ...props }: ComponentProps<"div">) {
+export function MessageContent({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
   return <div {...props} {...stylex.props(styles.content)} />;
 }
 
-export function MessageFooter({ ...props }: ComponentProps<"footer">) {
+export function MessageFooter({ ...props }: Omit<ComponentProps<"footer">, "className" | "style">) {
   return <footer {...props} {...stylex.props(styles.footer)} />;
 }

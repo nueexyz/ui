@@ -43,7 +43,7 @@ export type BannerAnnounce = "assertive" | "polite";
 
 type StyleProps = { xstyle?: stylex.StyleXStyles };
 
-export type BannerProps = ComponentProps<"div"> &
+export type BannerProps = Omit<ComponentProps<"div">, "title" | "className" | "style"> &
   StyleProps & {
     action?: ReactNode;
     /** Announces a Banner that is added or updated after the initial page render. */
@@ -71,10 +71,8 @@ export function Banner({
     liveRole = "status";
   }
 
-  const stylexProps = stylex.props(styles.root, styles[size], xstyle);
-
   return (
-    <div {...props} role={role ?? liveRole} {...stylexProps}>
+    <div {...props} role={role ?? liveRole} {...stylex.props(styles.root, styles[size], xstyle)}>
       <div {...stylex.props(styles.content)}>
         {title ? <BannerTitle>{title}</BannerTitle> : null}
         {description ? <BannerDescription>{description}</BannerDescription> : null}
@@ -85,12 +83,16 @@ export function Banner({
   );
 }
 
-export function BannerTitle({ xstyle, ...props }: ComponentProps<"div"> & StyleProps) {
-  const stylexProps = stylex.props(styles.title, xstyle);
-  return <div {...props} {...stylexProps} />;
+export function BannerTitle({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & StyleProps) {
+  return <div {...props} {...stylex.props(styles.title, xstyle)} />;
 }
 
-export function BannerDescription({ xstyle, ...props }: ComponentProps<"div"> & StyleProps) {
-  const stylexProps = stylex.props(styles.description, xstyle);
-  return <div {...props} {...stylexProps} />;
+export function BannerDescription({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & StyleProps) {
+  return <div {...props} {...stylex.props(styles.description, xstyle)} />;
 }

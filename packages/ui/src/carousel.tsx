@@ -3,7 +3,8 @@ import * as stylex from "@stylexjs/stylex";
 import useEmblaCarousel from "embla-carousel-react";
 import {
   createContext,
-  useCallback,
+  useLayoutEffect,
+  useRef,
   useContext,
   useEffect,
   useState,
@@ -37,7 +38,6 @@ type CarouselApi = ReturnType<typeof useEmblaCarousel>[1];
 type CarouselOptions = Parameters<typeof useEmblaCarousel>[0];
 type CarouselPlugins = Parameters<typeof useEmblaCarousel>[1];
 type CarouselContextValue = {
-  api: CarouselApi;
   canScrollNext: boolean;
   canScrollPrevious: boolean;
   scrollNext: () => void;
@@ -55,7 +55,7 @@ function useCarousel() {
 
 export type { CarouselApi };
 
-export type CarouselProps = ComponentProps<"section"> & {
+export type CarouselProps = Omit<ComponentProps<"section">, "className" | "style"> & {
   children: ReactNode;
   onSelect?: (api: NonNullable<CarouselApi>) => void;
   options?: CarouselOptions;
@@ -78,27 +78,29 @@ export function Carousel({
   const [canScrollNext, setCanScrollNext] = useState(false);
   const root = stylex.props(styles.root, xstyle);
 
-  const updateState = useCallback(
-    (nextApi: NonNullable<CarouselApi>) => {
-      setCanScrollPrevious(nextApi.canScrollPrev());
-      setCanScrollNext(nextApi.canScrollNext());
-      onSelect?.(nextApi);
-    },
-    [onSelect],
-  );
+  const onSelectRef = useRef(onSelect);
+  useLayoutEffect(() => {
+    onSelectRef.current = onSelect;
+  }, [onSelect]);
+
+  useEffect(() => {
+    if (api) setApi?.(api);
+  }, [api, setApi]);
 
   useEffect(() => {
     if (!api) return;
-    setApi?.(api);
-    api.on("reInit", updateState).on("select", updateState);
-
-    const frame = requestAnimationFrame(() => updateState(api));
-
+    function handleSelection(nextApi: NonNullable<CarouselApi>) {
+      setCanScrollPrevious(nextApi.canScrollPrev());
+      setCanScrollNext(nextApi.canScrollNext());
+      onSelectRef.current?.(nextApi);
+    }
+    api.on("reInit", handleSelection).on("select", handleSelection);
+    const frame = requestAnimationFrame(() => handleSelection(api));
     return () => {
       cancelAnimationFrame(frame);
-      api.off("reInit", updateState).off("select", updateState);
+      api.off("reInit", handleSelection).off("select", handleSelection);
     };
-  }, [api, setApi, updateState]);
+  }, [api]);
 
   function scrollPrevious() {
     api?.scrollPrev();
@@ -111,7 +113,6 @@ export function Carousel({
   return (
     <CarouselContext.Provider
       value={{
-        api,
         canScrollNext,
         canScrollPrevious,
         scrollNext,
@@ -126,7 +127,9 @@ export function Carousel({
   );
 }
 
-export type CarouselContentProps = ComponentProps<"div"> & { xstyle?: stylex.StyleXStyles };
+export type CarouselContentProps = Omit<ComponentProps<"div">, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+};
 
 export function CarouselContent({ children, xstyle, ...props }: CarouselContentProps) {
   const { viewportRef } = useCarousel();
@@ -141,14 +144,19 @@ export function CarouselContent({ children, xstyle, ...props }: CarouselContentP
   );
 }
 
-export type CarouselItemProps = ComponentProps<"div"> & { xstyle?: stylex.StyleXStyles };
+export type CarouselItemProps = Omit<ComponentProps<"div">, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+};
 
 export function CarouselItem({ xstyle, ...props }: CarouselItemProps) {
   const item = stylex.props(styles.item, xstyle);
   return <div {...props} {...item} />;
 }
 
-type CarouselControlProps = Omit<ComponentProps<typeof Button>, "children" | "onClick"> & {
+type CarouselControlProps = Omit<
+  ComponentProps<typeof Button>,
+  "children" | "onClick" | "className" | "style"
+> & {
   xstyle?: stylex.StyleXStyles;
 };
 

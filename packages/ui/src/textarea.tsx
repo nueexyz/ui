@@ -50,7 +50,7 @@ const styles = stylex.create({
   invalid: { borderColor: colorVars.strokeFeedbackError },
 });
 
-export type TextareaProps = ComponentProps<"textarea"> & {
+export type TextareaProps = Omit<ComponentProps<"textarea">, "className" | "style"> & {
   xstyle?: stylex.StyleXStyles;
 };
 

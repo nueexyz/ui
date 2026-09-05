@@ -57,9 +57,9 @@ type StyleProps = {
   xstyle?: stylex.StyleXStyles;
 };
 
-type ElementProps = ComponentProps<"div"> & StyleProps;
-type HeadingProps = ComponentProps<"h3"> & StyleProps;
-type ParagraphProps = ComponentProps<"p"> & StyleProps;
+type ElementProps = Omit<ComponentProps<"div">, "className" | "style"> & StyleProps;
+type HeadingProps = Omit<ComponentProps<"h3">, "className" | "style"> & StyleProps;
+type ParagraphProps = Omit<ComponentProps<"p">, "className" | "style"> & StyleProps;
 
 export function Card({ xstyle, ...props }: ElementProps) {
   return <div {...props} {...stylex.props(styles.card, xstyle)} />;

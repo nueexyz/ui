@@ -115,7 +115,7 @@ const styles = stylex.create({
 export type AttachmentState = "done" | "error" | "idle" | "processing" | "uploading";
 export type AttachmentSize = "default" | "sm" | "xs";
 
-export type AttachmentProps = Omit<ComponentProps<"div">, "title"> & {
+export type AttachmentProps = Omit<ComponentProps<"div">, "title" | "className" | "style"> & {
   orientation?: "horizontal" | "vertical";
   size?: AttachmentSize;
   state?: AttachmentState;
@@ -145,7 +145,7 @@ export function Attachment({
   );
 }
 
-export type AttachmentMediaProps = ComponentProps<"div"> & {
+export type AttachmentMediaProps = Omit<ComponentProps<"div">, "className" | "style"> & {
   variant?: "icon" | "image";
 };
 
@@ -153,19 +153,25 @@ export function AttachmentMedia({ variant = "icon", ...props }: AttachmentMediaP
   return <div {...props} {...stylex.props(styles.media, styles[`media${variant}`])} />;
 }
 
-export function AttachmentContent({ ...props }: ComponentProps<"div">) {
+export function AttachmentContent({
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style">) {
   return <div {...props} {...stylex.props(styles.content)} />;
 }
 
-export function AttachmentTitle({ ...props }: ComponentProps<"div">) {
+export function AttachmentTitle({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
   return <div {...props} {...stylex.props(styles.title)} />;
 }
 
-export function AttachmentDescription({ ...props }: ComponentProps<"p">) {
+export function AttachmentDescription({
+  ...props
+}: Omit<ComponentProps<"p">, "className" | "style">) {
   return <p {...props} {...stylex.props(styles.description)} />;
 }
 
-export function AttachmentActions({ ...props }: ComponentProps<"div">) {
+export function AttachmentActions({
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style">) {
   return <div {...props} {...stylex.props(styles.actions)} />;
 }
 
@@ -175,10 +181,13 @@ export function AttachmentAction({ xstyle, ...props }: AttachmentActionProps) {
   return <Button {...props} size="sm" variant="ghost" xstyle={[styles.action, xstyle]} />;
 }
 
-export function AttachmentTrigger({ type = "button", ...props }: ComponentProps<"button">) {
+export function AttachmentTrigger({
+  type = "button",
+  ...props
+}: Omit<ComponentProps<"button">, "className" | "style">) {
   return <button {...props} type={type} {...stylex.props(styles.trigger)} />;
 }
 
-export function AttachmentGroup({ ...props }: ComponentProps<"div">) {
+export function AttachmentGroup({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
   return <div {...props} {...stylex.props(styles.group)} />;
 }

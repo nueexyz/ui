@@ -18,7 +18,9 @@ const styles = stylex.create({
   },
 });
 
-export type LabelProps = ComponentProps<"label"> & { xstyle?: stylex.StyleXStyles };
+export type LabelProps = Omit<ComponentProps<"label">, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+};
 
 export function Label({ xstyle, ...props }: LabelProps) {
   return <label {...props} {...stylex.props(styles.root, xstyle)} />;

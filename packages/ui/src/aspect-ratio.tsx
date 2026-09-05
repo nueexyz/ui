@@ -10,12 +10,11 @@ const styles = stylex.create({
   }),
 });
 
-export type AspectRatioProps = ComponentProps<"div"> & {
+export type AspectRatioProps = Omit<ComponentProps<"div">, "className" | "style"> & {
   ratio?: number;
   xstyle?: stylex.StyleXStyles;
 };
 
 export function AspectRatio({ ratio = 1, xstyle, ...props }: AspectRatioProps) {
-  const stylexProps = stylex.props(styles.root(ratio), xstyle);
-  return <div {...props} {...stylexProps} />;
+  return <div {...props} {...stylex.props(styles.root(ratio), xstyle)} />;
 }

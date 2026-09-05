@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 import {
   Children,
+  Fragment,
   cloneElement,
   isValidElement,
   type ComponentProps,
@@ -84,7 +85,12 @@ type StyleProps = { xstyle?: stylex.StyleXStyles };
 type GroupItem = ReactElement<StyleProps>;
 
 function isGroupItem(child: ReactNode): child is GroupItem {
-  return isValidElement(child) && child.type !== ButtonGroupSeparator;
+  return (
+    isValidElement(child) &&
+    typeof child.type !== "string" &&
+    child.type !== Fragment &&
+    child.type !== ButtonGroupSeparator
+  );
 }
 
 function getItemPositionStyle(
@@ -105,7 +111,8 @@ function getItemPositionStyle(
   return styles.verticalMiddleItem;
 }
 
-export type ButtonGroupProps = ComponentProps<"div"> &
+/** Direct children must be Nuee buttons or components that forward xstyle. Fragments and native elements are not styled as group items. */
+export type ButtonGroupProps = Omit<ComponentProps<"div">, "className" | "style"> &
   StyleProps & { orientation?: "horizontal" | "vertical" };
 
 export function ButtonGroup({
@@ -115,15 +122,18 @@ export function ButtonGroup({
   xstyle,
   ...props
 }: ButtonGroupProps) {
-  const stylexProps = stylex.props(styles.root, styles[orientation], xstyle);
   const childItems = Children.toArray(children);
   const groupItems = childItems.filter(isGroupItem);
 
-  const content = childItems.map((child) => {
-    if (!isGroupItem(child)) return child;
+  let position = -1;
+  const content: ReactNode[] = [];
+  for (const child of childItems) {
+    if (!isGroupItem(child)) {
+      content.push(child);
+      continue;
+    }
 
-    const position = groupItems.indexOf(child);
-    const groupItem = child;
+    position += 1;
     const isFirst = position === 0;
     const isLast = position === groupItems.length - 1;
     const positionStyle = getItemPositionStyle(orientation, isFirst, isLast);
@@ -134,27 +144,36 @@ export function ButtonGroup({
       positionStyle,
     ];
 
-    return cloneElement(groupItem, {
-      xstyle: [...itemStyles, groupItem.props.xstyle],
-    });
-  });
+    content.push(
+      cloneElement(child, {
+        xstyle: [...itemStyles, child.props.xstyle],
+      }),
+    );
+  }
 
   return (
-    <div {...props} data-orientation={orientation} role={role ?? "group"} {...stylexProps}>
+    <div
+      {...props}
+      data-orientation={orientation}
+      role={role ?? "group"}
+      {...stylex.props(styles.root, styles[orientation], xstyle)}
+    >
       {content}
     </div>
   );
 }
 
-export function ButtonGroupText({ xstyle, ...props }: ComponentProps<"span"> & StyleProps) {
-  const stylexProps = stylex.props(styles.text, xstyle);
-  return <span {...props} {...stylexProps} />;
+export function ButtonGroupText({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"span">, "className" | "style"> & StyleProps) {
+  return <span {...props} {...stylex.props(styles.text, xstyle)} />;
 }
 
 export function ButtonGroupSeparator({
   orientation = "vertical",
   xstyle,
   ...props
-}: ComponentProps<typeof Separator> & StyleProps) {
+}: Omit<ComponentProps<typeof Separator>, "className" | "style"> & StyleProps) {
   return <Separator {...props} orientation={orientation} xstyle={[styles.separator, xstyle]} />;
 }

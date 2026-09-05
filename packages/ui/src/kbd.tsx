@@ -33,12 +33,16 @@ const styles = stylex.create({
 
 type StyleProps = { xstyle?: stylex.StyleXStyles };
 
-export function Kbd({ xstyle, ...props }: ComponentProps<"kbd"> & StyleProps) {
-  const stylexProps = stylex.props(styles.root, xstyle);
-  return <kbd {...props} {...stylexProps} />;
+export function Kbd({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"kbd">, "className" | "style"> & StyleProps) {
+  return <kbd {...props} {...stylex.props(styles.root, xstyle)} />;
 }
 
-export function KbdGroup({ xstyle, ...props }: ComponentProps<"span"> & StyleProps) {
-  const stylexProps = stylex.props(styles.group, xstyle);
-  return <span {...props} {...stylexProps} />;
+export function KbdGroup({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"span">, "className" | "style"> & StyleProps) {
+  return <span {...props} {...stylex.props(styles.group, xstyle)} />;
 }

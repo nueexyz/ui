@@ -66,19 +66,32 @@ const styles = stylex.create({
 
 type StyleProps = { xstyle?: stylex.StyleXStyles };
 
-export function Empty({ xstyle, ...props }: ComponentProps<"div"> & StyleProps) {
+export function Empty({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & StyleProps) {
   return <div {...props} {...stylex.props(styles.root, xstyle)} />;
 }
 
-export function EmptyHeader({ xstyle, ...props }: ComponentProps<"div"> & StyleProps) {
+export function EmptyHeader({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & StyleProps) {
   return <div {...props} {...stylex.props(styles.header, xstyle)} />;
 }
 
-export function EmptyMedia({ xstyle, ...props }: ComponentProps<"div"> & StyleProps) {
+export function EmptyMedia({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & StyleProps) {
   return <div {...props} aria-hidden="true" {...stylex.props(styles.media, xstyle)} />;
 }
 
-export function EmptyTitle({ children, xstyle, ...props }: ComponentProps<"h3"> & StyleProps) {
+export function EmptyTitle({
+  children,
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"h3">, "className" | "style"> & StyleProps) {
   return (
     <h3 {...props} {...stylex.props(styles.title, xstyle)}>
       {children}
@@ -86,10 +99,16 @@ export function EmptyTitle({ children, xstyle, ...props }: ComponentProps<"h3"> 
   );
 }
 
-export function EmptyDescription({ xstyle, ...props }: ComponentProps<"p"> & StyleProps) {
+export function EmptyDescription({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"p">, "className" | "style"> & StyleProps) {
   return <p {...props} {...stylex.props(styles.description, xstyle)} />;
 }
 
-export function EmptyContent({ xstyle, ...props }: ComponentProps<"div"> & StyleProps) {
+export function EmptyContent({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & StyleProps) {
   return <div {...props} {...stylex.props(styles.content, xstyle)} />;
 }

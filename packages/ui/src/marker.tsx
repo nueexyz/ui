@@ -41,7 +41,7 @@ const styles = stylex.create({
   content: { overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" },
 });
 
-export type MarkerProps = ComponentProps<"div"> & {
+export type MarkerProps = Omit<ComponentProps<"div">, "className" | "style"> & {
   variant?: "border" | "default" | "separator";
   xstyle?: stylex.StyleXStyles;
 };
@@ -59,10 +59,10 @@ export function Marker({ variant = "default", xstyle, ...props }: MarkerProps) {
   );
 }
 
-export function MarkerIcon({ ...props }: ComponentProps<"span">) {
+export function MarkerIcon({ ...props }: Omit<ComponentProps<"span">, "className" | "style">) {
   return <span aria-hidden="true" {...props} {...stylex.props(styles.icon)} />;
 }
 
-export function MarkerContent({ ...props }: ComponentProps<"span">) {
+export function MarkerContent({ ...props }: Omit<ComponentProps<"span">, "className" | "style">) {
   return <span {...props} {...stylex.props(styles.content)} />;
 }

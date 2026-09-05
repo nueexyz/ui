@@ -10,7 +10,10 @@ const styles = stylex.create({
   vertical: { alignSelf: "stretch", minHeight: sizeVars.touchTarget, width: sizeVars.stroke },
 });
 
-export type SeparatorProps = ComponentProps<typeof SeparatorPrimitive> & {
+export type SeparatorProps = Omit<
+  ComponentProps<typeof SeparatorPrimitive>,
+  "className" | "style"
+> & {
   decorative?: boolean;
   xstyle?: stylex.StyleXStyles;
 };
@@ -21,14 +24,13 @@ export function Separator({
   xstyle,
   ...props
 }: SeparatorProps) {
-  const stylexProps = stylex.props(styles.root, styles[orientation], xstyle);
   return (
     <SeparatorPrimitive
       {...props}
       aria-hidden={decorative || undefined}
       orientation={orientation}
       role={decorative ? "presentation" : undefined}
-      {...stylexProps}
+      {...stylex.props(styles.root, styles[orientation], xstyle)}
     />
   );
 }

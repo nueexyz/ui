@@ -23,7 +23,7 @@ const styles = stylex.create({
   },
 });
 
-export type SpinnerProps = ComponentProps<"output"> & {
+export type SpinnerProps = Omit<ComponentProps<"output">, "className" | "style"> & {
   label?: string;
   xstyle?: stylex.StyleXStyles;
 };

@@ -55,7 +55,7 @@ const styles = stylex.create({
 
 type BadgeVariant = "primary" | "secondary" | "destructive" | "outline" | "ghost";
 
-export type BadgeProps = ComponentProps<"span"> & {
+export type BadgeProps = Omit<ComponentProps<"span">, "className" | "style"> & {
   variant?: BadgeVariant;
   xstyle?: stylex.StyleXStyles;
 };

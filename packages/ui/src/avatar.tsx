@@ -76,7 +76,10 @@ const styles = stylex.create({
 
 export type AvatarSize = "lg" | "md" | "sm";
 
-export type AvatarProps = ComponentProps<typeof AvatarPrimitive.Root> & {
+export type AvatarProps = Omit<
+  ComponentProps<typeof AvatarPrimitive.Root>,
+  "className" | "style"
+> & {
   size?: AvatarSize;
   xstyle?: stylex.StyleXStyles;
 };
@@ -84,45 +87,42 @@ export type AvatarProps = ComponentProps<typeof AvatarPrimitive.Root> & {
 export function Avatar({ size = "md", xstyle, ...props }: AvatarProps) {
   const stylexProps = stylex.props(styles.root, styles[size], xstyle);
   return (
-    <AvatarPrimitive.Root
-      {...props}
-      className={() => stylexProps.className}
-      style={() => stylexProps.style}
-    />
+    <AvatarPrimitive.Root {...props} className={stylexProps.className} style={stylexProps.style} />
   );
 }
 
-export function AvatarImage({ ...props }: ComponentProps<typeof AvatarPrimitive.Image>) {
+export function AvatarImage({
+  ...props
+}: Omit<ComponentProps<typeof AvatarPrimitive.Image>, "className" | "style">) {
   const stylexProps = stylex.props(styles.image);
   return (
-    <AvatarPrimitive.Image
-      {...props}
-      className={() => stylexProps.className}
-      style={() => stylexProps.style}
-    />
+    <AvatarPrimitive.Image {...props} className={stylexProps.className} style={stylexProps.style} />
   );
 }
 
-export function AvatarFallback({ ...props }: ComponentProps<typeof AvatarPrimitive.Fallback>) {
+export function AvatarFallback({
+  ...props
+}: Omit<ComponentProps<typeof AvatarPrimitive.Fallback>, "className" | "style">) {
   const stylexProps = stylex.props(styles.fallback);
   return (
     <AvatarPrimitive.Fallback
       {...props}
-      className={() => stylexProps.className}
-      style={() => stylexProps.style}
+      className={stylexProps.className}
+      style={stylexProps.style}
     />
   );
 }
 
-export function AvatarBadge({ ...props }: ComponentProps<"span">) {
+export function AvatarBadge({ ...props }: Omit<ComponentProps<"span">, "className" | "style">) {
   return <span {...props} {...stylex.props(styles.badge)} />;
 }
 
-export function AvatarGroup({ ...props }: ComponentProps<"div">) {
-  const stylexProps = stylex.props(styles.group);
-  return <div {...props} {...stylexProps} />;
+export function AvatarGroup({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
+  return <div {...props} {...stylex.props(styles.group)} />;
 }
 
-export function AvatarGroupCount({ ...props }: ComponentProps<"span">) {
+export function AvatarGroupCount({
+  ...props
+}: Omit<ComponentProps<"span">, "className" | "style">) {
   return <span {...props} {...stylex.props(styles.groupCount)} />;
 }

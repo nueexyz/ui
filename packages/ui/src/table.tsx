@@ -60,7 +60,7 @@ const styles = stylex.create({
   },
 });
 
-export type TableProps = ComponentProps<"table"> & {
+export type TableProps = Omit<ComponentProps<"table">, "className" | "style"> & {
   xstyle?: stylex.StyleXStyles;
 };
 
@@ -72,30 +72,30 @@ export function Table({ xstyle, ...props }: TableProps) {
   );
 }
 
-export function TableHeader({ ...props }: ComponentProps<"thead">) {
+export function TableHeader({ ...props }: Omit<ComponentProps<"thead">, "className" | "style">) {
   return <thead {...props} {...stylex.props(styles.header)} />;
 }
 
-export function TableBody({ ...props }: ComponentProps<"tbody">) {
+export function TableBody({ ...props }: Omit<ComponentProps<"tbody">, "className" | "style">) {
   return <tbody {...props} {...stylex.props(styles.body)} />;
 }
 
-export function TableFooter({ ...props }: ComponentProps<"tfoot">) {
+export function TableFooter({ ...props }: Omit<ComponentProps<"tfoot">, "className" | "style">) {
   return <tfoot {...props} {...stylex.props(styles.footer)} />;
 }
 
-export function TableRow({ ...props }: ComponentProps<"tr">) {
+export function TableRow({ ...props }: Omit<ComponentProps<"tr">, "className" | "style">) {
   return <tr {...props} {...stylex.props(styles.row)} />;
 }
 
-export function TableHead({ ...props }: ComponentProps<"th">) {
+export function TableHead({ ...props }: Omit<ComponentProps<"th">, "className" | "style">) {
   return <th {...props} {...stylex.props(styles.head)} />;
 }
 
-export function TableCell({ ...props }: ComponentProps<"td">) {
+export function TableCell({ ...props }: Omit<ComponentProps<"td">, "className" | "style">) {
   return <td {...props} {...stylex.props(styles.cell)} />;
 }
 
-export function TableCaption({ ...props }: ComponentProps<"caption">) {
+export function TableCaption({ ...props }: Omit<ComponentProps<"caption">, "className" | "style">) {
   return <caption {...props} {...stylex.props(styles.caption)} />;
 }
