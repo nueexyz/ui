@@ -39,7 +39,7 @@ function SkeletonExample() {
 }
 
 const skeletonExampleCode =
-  'import { Skeleton } from "@nuee/ui/skeleton"\n\n<div>\n  <Skeleton style={{ height: "1.5rem", width: "45%" }} />\n  <Skeleton style={{ height: "2.5rem", width: "100%" }} />\n</div>';
+  'import * as stylex from "@stylexjs/stylex"\nimport { Skeleton } from "@nuee/ui/skeleton"\n\nconst styles = stylex.create({\n  title: { height: "1rem", width: "45%" },\n  body: { height: "2.25rem", width: "100%" },\n})\n\n<div>\n  <Skeleton xstyle={styles.title} />\n  <Skeleton xstyle={styles.body} />\n</div>';
 
 export const SkeletonStory: Story = {
   name: "Skeleton",

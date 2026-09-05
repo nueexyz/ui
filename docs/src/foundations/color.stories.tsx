@@ -198,6 +198,8 @@ const backgroundTokens = [
   ["bgSubtle", colorVars.bgSubtle, colorVars.fgPrimary, "Inputs and subtle fills"],
   ["bgRaised", colorVars.bgRaised, colorVars.fgPrimary, "Floating content background"],
   ["bgRaisedPressed", colorVars.bgRaisedPressed, colorVars.fgPrimary, "Pressed floating surface"],
+  ["bgCurrent", colorVars.bgCurrent, colorVars.fgPrimary, "Current item indicator"],
+  ["bgSkeleton", colorVars.bgSkeleton, colorVars.fgPrimary, "Loading placeholder"],
   ["bgActionPrimary", colorVars.bgActionPrimary, colorVars.fgInverse, "Primary action background"],
   [
     "bgActionDestructive",

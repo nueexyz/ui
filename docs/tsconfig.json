@@ -1,4 +1,5 @@
 {
   "extends": "../tsconfig.json",
-  "include": [".storybook", "src"]
+  "compilerOptions": { "types": ["vite/client"] },
+  "include": [".storybook/**/*.ts", ".storybook/**/*.tsx", "src"]
 }

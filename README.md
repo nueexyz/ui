@@ -105,7 +105,21 @@ nuee doctor
 ```
 
 Run `nuee doctor` after setup to check aliases, the StyleX compiler, and the
-application CSS entry point.
+application CSS entry point. A warning returns a nonzero exit code. Compiler
+inspection currently supports literal Vite plugin arrays with either the default
+`@stylexjs/unplugin` import or the direct `@stylexjs/unplugin/vite` import.
+Other bundlers and computed configurations require manual verification.
+
+`init --framework vite` updates an exported object or `defineConfig({ ... })`
+imported from Vite. Functions, spreads, and indirect plugin arrays are left for
+manual setup. Explicit TypeScript paths (including inherited paths) take priority;
+`@/` falls back to `src/` only when no explicit mapping matches.
+
+Styled components expose `xstyle` where customization is supported, and reject
+native `className` and `style` props. Primitive exports and the Phosphor Icon
+adapter retain their underlying APIs. Button Group expects direct Nuee buttons
+or custom components that forward `xstyle`; native elements and Fragments are
+not styled as group items.
 
 ## Contributing
 

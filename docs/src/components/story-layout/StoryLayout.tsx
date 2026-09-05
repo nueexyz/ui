@@ -10,7 +10,7 @@ import { Button } from "@nuee/ui/button";
 import { Icon } from "@nuee/ui/icon";
 import { type ReactNode, useEffect, useState } from "react";
 
-import { useStoryColorMode } from "./story-source-context";
+import { useStoryColorMode } from "./story-color-mode-context";
 
 export const storyStyles = stylex.create({
   page: {
@@ -297,6 +297,7 @@ export function CodeBlock({
   const colorMode = useStoryColorMode();
   const [highlightedLines, setHighlightedLines] = useState<HighlightedToken[][]>();
   const [isCopied, setIsCopied] = useState(false);
+  const [copyError, setCopyError] = useState<string>();
   const normalizedCode = normalizeCode(code);
 
   useEffect(() => {
@@ -337,13 +338,18 @@ export function CodeBlock({
             variant="ghost"
             xstyle={storyStyles.copyButton}
             onClick={() => {
-              void navigator.clipboard.writeText(normalizedCode).then(() => setIsCopied(true));
+              setCopyError(undefined);
+              void Promise.resolve()
+                .then(() => navigator.clipboard.writeText(normalizedCode))
+                .then(() => setIsCopied(true))
+                .catch(() => setCopyError("Could not copy. Select and copy the code manually."));
             }}
           >
             <Icon aria-hidden="true" name={isCopied ? "check" : "copy"} weight="regular" />
           </Button>
         </div>
       </div>
+      {copyError ? <output>{copyError}</output> : null}
       <pre {...stylex.props(styles.pre)}>
         <code>
           {highlightedLines

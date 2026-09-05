@@ -10,7 +10,7 @@ import * as stylex from "@stylexjs/stylex";
 import type { Preview } from "@storybook/react-vite";
 import { type ReactNode, useLayoutEffect } from "react";
 
-import { StorySourceProvider } from "../src/components/story-layout/story-source-context";
+import { StoryColorModeProvider } from "../src/components/story-layout/story-color-mode-context";
 
 type ColorMode = "light" | "dark";
 type MotionPreference = "system" | "reduce" | "no-preference";
@@ -20,11 +20,12 @@ const originalMotionMediaQueries = new WeakMap<CSSMediaRule, string>();
 function collectMotionMediaRules(rules: CSSRuleList, mediaRules: CSSMediaRule[]) {
   for (const rule of Array.from(rules)) {
     if (rule instanceof CSSMediaRule) {
-      if (rule.conditionText.includes("prefers-reduced-motion")) {
+      if (
+        originalMotionMediaQueries.has(rule) ||
+        rule.conditionText.includes("prefers-reduced-motion")
+      ) {
         mediaRules.push(rule);
       }
-
-      continue;
     }
 
     if (rule instanceof CSSGroupingRule) {
@@ -48,8 +49,14 @@ function setMotionPreference(preference: MotionPreference) {
     const originalQuery = originalMotionMediaQueries.get(rule) ?? rule.media.mediaText;
     originalMotionMediaQueries.set(rule, originalQuery);
 
-    rule.media.mediaText =
-      preference === "system" ? originalQuery : preference === "reduce" ? "all" : "not all";
+    let query = originalQuery;
+    if (preference !== "system") {
+      query = originalQuery.replace(
+        /\(prefers-reduced-motion:\s*(reduce|no-preference)\)/g,
+        (_, value: string) => (value === preference ? "(min-width: 0px)" : "(max-width: -1px)"),
+      );
+    }
+    rule.media.mediaText = query;
   }
 }
 
@@ -62,7 +69,7 @@ const styles = stylex.create({
   },
 });
 
-function handlePreviewClick(event: MouseEvent<HTMLDivElement>) {
+function handlePreviewClick(event: MouseEvent) {
   if (!(event.target instanceof Element)) return;
 
   const placeholderLink = event.target.closest('a[href="#"]');
@@ -122,19 +129,15 @@ const preview: Preview = {
     (Story, context) => {
       const mode = context.globals.colorMode as ColorMode;
       const motionPreference = context.globals.motionPreference as MotionPreference;
-      const source = context.parameters.docs?.source?.originalSource;
 
       return (
-        <StorySourceProvider
-          colorMode={mode}
-          source={typeof source === "string" ? source : undefined}
-        >
+        <StoryColorModeProvider colorMode={mode}>
           <MotionPreferenceScope preference={motionPreference}>
             <ThemeScope mode={mode}>
               <Story />
             </ThemeScope>
           </MotionPreferenceScope>
-        </StorySourceProvider>
+        </StoryColorModeProvider>
       );
     },
   ],

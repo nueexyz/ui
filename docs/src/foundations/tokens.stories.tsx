@@ -499,6 +499,7 @@ export const Opacity: Story = {
 };
 
 const motionTokens = [
+  ["durationInstant", motionVars.durationInstant, "Reduced motion fallback"],
   ["durationFast", motionVars.durationFast, "Hover and small state changes"],
   ["durationNormal", motionVars.durationNormal, "Surface and content transitions"],
   ["durationSlow", motionVars.durationSlow, "Large surface transitions, such as Dialog and Toast"],

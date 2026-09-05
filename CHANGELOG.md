@@ -1,3 +1,32 @@
+## Unreleased
+
+- Storybook motion settings can be changed repeatedly without reloading. Popup
+  closing transitions now respect reduced-motion settings as well.
+- Interactive controls now use consistent motion timings for hover, selection,
+  disabled, and open states. Reduced-motion transitions use a shared instant
+  duration while keyboard menu highlighting remains immediate.
+- Calendar dates remain readable in dark mode, and today has a subtle token-based
+  background in both color modes. Date Picker triggers no longer include a
+  calendar icon.
+- Dark mode now separates primary, secondary, and tertiary content more clearly.
+  Skeleton placeholders and disabled switches have stronger token-based
+  contrast in both themes.
+- Initialization preserves unreadable user tokens and checks supported Vite
+  configuration before changing project files. Unsupported configuration
+  shapes require manual compiler setup.
+- Component installation validates registry data, source syntax, and the
+  project manifest before writing components. Boolean CLI flags can precede
+  component names, and aliases follow explicit TypeScript paths and inheritance.
+- `nuee doctor` recognizes direct Vite compiler imports and exits unsuccessfully
+  when setup cannot be verified. Other bundlers still need manual verification.
+- Calendar arrow keys move focus correctly. Range interiors remain distinct
+  from endpoints, and selected dates keep readable backgrounds while hovered.
+- Styled component types reject native `className` and `style` overrides;
+  use `xstyle` on components that expose it. Banner accepts React content in
+  its title. Select and Combobox separators use valid token-based spacing.
+- Carousel callback changes no longer restart selection subscriptions. Button
+  Group styles direct Nuee buttons or custom components that forward `xstyle`.
+
 ## Version v0.5.0
 
 Released on 2026-09-04.
