@@ -4,6 +4,7 @@ import type { ComponentProps, ReactNode } from "react";
 
 import {
   colorVars,
+  motionVars,
   radiusVars,
   sizeVars,
   spacingVars,
@@ -30,6 +31,9 @@ const styles = stylex.create({
     color: colorVars.fgSecondary,
     outline: "none",
     textDecoration: "none",
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "color, text-decoration-color",
+    transitionTimingFunction: motionVars.easingStandard,
     ":hover": { color: colorVars.fgPrimary, textDecoration: "underline" },
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
@@ -50,19 +54,22 @@ const styles = stylex.create({
   },
 });
 
-export function Breadcrumb({ ...props }: ComponentProps<"nav">) {
+export function Breadcrumb({ ...props }: Omit<ComponentProps<"nav">, "className" | "style">) {
   return <nav aria-label="Breadcrumb" {...props} {...stylex.props(styles.root)} />;
 }
 
-export function BreadcrumbList({ ...props }: ComponentProps<"ol">) {
+export function BreadcrumbList({ ...props }: Omit<ComponentProps<"ol">, "className" | "style">) {
   return <ol {...props} {...stylex.props(styles.list)} />;
 }
 
-export function BreadcrumbItem({ ...props }: ComponentProps<"li">) {
+export function BreadcrumbItem({ ...props }: Omit<ComponentProps<"li">, "className" | "style">) {
   return <li {...props} {...stylex.props(styles.item)} />;
 }
 
-export function BreadcrumbLink({ children, ...props }: ComponentProps<"a">) {
+export function BreadcrumbLink({
+  children,
+  ...props
+}: Omit<ComponentProps<"a">, "className" | "style">) {
   return (
     <a {...props} {...stylex.props(styles.link)}>
       {children}
@@ -70,14 +77,14 @@ export function BreadcrumbLink({ children, ...props }: ComponentProps<"a">) {
   );
 }
 
-export function BreadcrumbPage({ ...props }: ComponentProps<"span">) {
+export function BreadcrumbPage({ ...props }: Omit<ComponentProps<"span">, "className" | "style">) {
   return <span aria-current="page" {...props} {...stylex.props(styles.page)} />;
 }
 
 export function BreadcrumbSeparator({
   children,
   ...props
-}: ComponentProps<"li"> & { children?: ReactNode }) {
+}: Omit<ComponentProps<"li">, "className" | "style"> & { children?: ReactNode }) {
   return (
     <li aria-hidden="true" role="presentation" {...props} {...stylex.props(styles.separator)}>
       {children ?? <CaretRightIcon />}
@@ -85,7 +92,9 @@ export function BreadcrumbSeparator({
   );
 }
 
-export function BreadcrumbEllipsis({ ...props }: ComponentProps<"span">) {
+export function BreadcrumbEllipsis({
+  ...props
+}: Omit<ComponentProps<"span">, "className" | "style">) {
   return (
     <span aria-hidden="true" {...props} {...stylex.props(styles.ellipsis)}>
       …

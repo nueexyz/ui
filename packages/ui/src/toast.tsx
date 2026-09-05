@@ -74,7 +74,7 @@ const styles = stylex.create({
     transform:
       "translateX(var(--toast-swipe-movement-x)) translateY(calc(var(--toast-swipe-movement-y) - (var(--toast-index) * 0.75rem) - ((1 - max(0, 1 - (var(--toast-index) * 0.1))) * var(--toast-frontmost-height, var(--toast-height))))) scale(calc(max(0, 1 - (var(--toast-index) * 0.1))))",
     transformOrigin: "bottom",
-    transition: "transform 500ms cubic-bezier(0.22, 1, 0.36, 1), opacity 500ms, height 150ms",
+    transition: `transform ${motionVars.durationSlow} ${motionVars.easingEnter}, opacity ${motionVars.durationNormal} ${motionVars.easingStandard}, height ${motionVars.durationNormal} ${motionVars.easingStandard}`,
     userSelect: "none",
     width: "100%",
     willChange: "transform",
@@ -118,7 +118,7 @@ const styles = stylex.create({
         "translateX(calc(var(--toast-swipe-movement-x) + 150%)) translateY(calc((var(--toast-offset-y) * -1) - (var(--toast-index) * 0.75rem) + var(--toast-swipe-movement-y)))",
     },
     "@media (prefers-reduced-motion: reduce)": {
-      transitionDuration: motionVars.durationNormal,
+      transitionDuration: motionVars.durationInstant,
       ":is([data-starting-style])": { transform: "translateY(24%)" },
       ":is([data-ending-style])": { transform: "translateY(24%)" },
     },
@@ -159,6 +159,7 @@ const styles = stylex.create({
     position: "relative",
     transitionDuration: motionVars.durationNormal,
     transitionProperty: "opacity",
+    transitionTimingFunction: motionVars.easingStandard,
     ":is([data-behind]:not([data-expanded]))": { opacity: 0, pointerEvents: "none" },
   },
   message: {
@@ -222,6 +223,9 @@ const styles = stylex.create({
     justifyContent: "center",
     outline: "none",
     paddingInline: spacingVars.space3,
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color, border-color, color",
+    transitionTimingFunction: motionVars.easingStandard,
     ":hover": { backgroundColor: colorVars.interactionHover },
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
@@ -246,6 +250,9 @@ const styles = stylex.create({
     height: "1.75rem",
     justifyContent: "center",
     outline: "none",
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color, color",
+    transitionTimingFunction: motionVars.easingStandard,
     width: "1.75rem",
     ":hover": { backgroundColor: colorVars.interactionHover, color: colorVars.fgPrimary },
     ":focus-visible": {
@@ -277,6 +284,9 @@ const styles = stylex.create({
     position: "absolute",
     right: 0,
     top: 0,
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color, color, opacity",
+    transitionTimingFunction: motionVars.easingStandard,
     zIndex: 1001,
     ":hover": { backgroundColor: colorVars.bgRaised, color: colorVars.fgPrimary },
     ":focus-visible": {
@@ -299,7 +309,7 @@ export type ToastPosition =
 
 export type ToasterProps = Omit<
   ComponentProps<typeof ToastPrimitive.Provider>,
-  "children" | "toastManager"
+  "children" | "toastManager" | "className" | "style"
 > & {
   /** Toast viewport position. @default "bottom-right" */
   position?: ToastPosition;
@@ -355,11 +365,9 @@ function ToastStack({ position }: { position: ToastPosition }) {
       return;
     }
 
-    const measuredStack = stack;
-
-    function updateHeight() {
+    const updateHeight = () => {
       const rootList = Array.from(
-        measuredStack.querySelectorAll<HTMLElement>("[data-nuee-toast-root]:not([data-limited])"),
+        stack.querySelectorAll<HTMLElement>("[data-nuee-toast-root]:not([data-limited])"),
       );
       const toastGap =
         Number.parseFloat(getComputedStyle(document.documentElement).fontSize) * 0.75;
@@ -373,13 +381,13 @@ function ToastStack({ position }: { position: ToastPosition }) {
         return Math.max(maximumHeight, offset + index * toastGap + rootHeight);
       }, 0);
 
-      setHeight((currentHeight) => (currentHeight === nextHeight ? currentHeight : nextHeight));
-    }
+      setHeight(nextHeight);
+    };
 
     updateHeight();
 
     const resizeObserver = new ResizeObserver(updateHeight);
-    const rootList = measuredStack.querySelectorAll<HTMLElement>("[data-nuee-toast-root]");
+    const rootList = stack.querySelectorAll<HTMLElement>("[data-nuee-toast-root]");
     rootList.forEach((root) => resizeObserver.observe(root));
     window.addEventListener("resize", updateHeight);
 

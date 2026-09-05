@@ -28,6 +28,7 @@ const styles = stylex.create({
     outline: "none",
     transitionDuration: motionVars.durationFast,
     transitionProperty: "background-color, border-color, color, opacity",
+    transitionTimingFunction: motionVars.easingStandard,
     ":hover": { backgroundColor: colorVars.interactionHover },
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
@@ -67,38 +68,28 @@ const styles = stylex.create({
 export type ToggleSize = "lg" | "md" | "sm";
 export type ToggleVariant = "default" | "outline";
 
-export type ToggleProps = ComponentProps<typeof TogglePrimitive> & {
+export type ToggleProps = Omit<ComponentProps<typeof TogglePrimitive>, "className" | "style"> & {
   size?: ToggleSize;
   variant?: ToggleVariant;
   xstyle?: stylex.StyleXStyles;
 };
 
 export function Toggle({ size = "md", variant = "default", xstyle, ...props }: ToggleProps) {
+  function getToggleStyles(state: TogglePrimitive.State) {
+    return stylex.props(
+      styles.root,
+      styles[size],
+      styles[variant],
+      state.pressed && styles.pressed,
+      state.disabled && styles.disabled,
+      xstyle,
+    );
+  }
   return (
     <TogglePrimitive
       {...props}
-      className={(state) => {
-        const stylexProps = stylex.props(
-          styles.root,
-          styles[size],
-          styles[variant],
-          state.pressed && styles.pressed,
-          state.disabled && styles.disabled,
-          xstyle,
-        );
-        return stylexProps.className;
-      }}
-      style={(state) => {
-        const stylexProps = stylex.props(
-          styles.root,
-          styles[size],
-          styles[variant],
-          state.pressed && styles.pressed,
-          state.disabled && styles.disabled,
-          xstyle,
-        );
-        return stylexProps.style;
-      }}
+      className={(state) => getToggleStyles(state).className}
+      style={(state) => getToggleStyles(state).style}
     />
   );
 }

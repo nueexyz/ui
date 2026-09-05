@@ -33,13 +33,16 @@ const styles = stylex.create({
     width: "18rem",
     "@media (prefers-reduced-motion: reduce)": {
       transform: "none",
-      transitionDuration: "0.01ms",
+      transitionDuration: motionVars.durationInstant,
     },
   },
   popupTransitioning: { opacity: 0, transform: "scale(0.98)" },
   popupEnding: {
     transitionDuration: motionVars.durationFast,
     transitionTimingFunction: motionVars.easingExit,
+    "@media (prefers-reduced-motion: reduce)": {
+      transitionDuration: motionVars.durationInstant,
+    },
   },
   header: { display: "flex", flexDirection: "column", gap: spacingVars.space1 },
   title: {
@@ -60,7 +63,10 @@ export const Popover = PopoverPrimitive.Root;
 export const PopoverTrigger = PopoverPrimitive.Trigger;
 export const PopoverClose = PopoverPrimitive.Close;
 
-type PopoverContentProps = ComponentProps<typeof PopoverPrimitive.Popup> &
+type PopoverContentProps = Omit<
+  ComponentProps<typeof PopoverPrimitive.Popup>,
+  "className" | "style"
+> &
   Pick<ComponentProps<typeof PopoverPrimitive.Positioner>, "align" | "side" | "sideOffset"> & {
     xstyle?: stylex.StyleXStyles;
   };
@@ -72,6 +78,15 @@ export function PopoverContent({
   xstyle,
   ...props
 }: PopoverContentProps) {
+  function getPopupStyles(state: PopoverPrimitive.Popup.State) {
+    return stylex.props(
+      styles.popup,
+      state.transitionStatus === "starting" && styles.popupTransitioning,
+      state.transitionStatus === "ending" && styles.popupTransitioning,
+      state.transitionStatus === "ending" && styles.popupEnding,
+      xstyle,
+    );
+  }
   return (
     <PopoverPrimitive.Portal>
       <PopoverPrimitive.Positioner
@@ -82,42 +97,27 @@ export function PopoverContent({
       >
         <PopoverPrimitive.Popup
           {...props}
-          className={(state) => {
-            const stylexProps = stylex.props(
-              styles.popup,
-              state.transitionStatus === "starting" && styles.popupTransitioning,
-              state.transitionStatus === "ending" && styles.popupTransitioning,
-              state.transitionStatus === "ending" && styles.popupEnding,
-              xstyle,
-            );
-            return stylexProps.className;
-          }}
-          style={(state) => {
-            const stylexProps = stylex.props(
-              styles.popup,
-              state.transitionStatus === "starting" && styles.popupTransitioning,
-              state.transitionStatus === "ending" && styles.popupTransitioning,
-              state.transitionStatus === "ending" && styles.popupEnding,
-              xstyle,
-            );
-            return stylexProps.style;
-          }}
+          className={(state) => getPopupStyles(state).className}
+          style={(state) => getPopupStyles(state).style}
         />
       </PopoverPrimitive.Positioner>
     </PopoverPrimitive.Portal>
   );
 }
 
-export function PopoverHeader({ ...props }: ComponentProps<"div">) {
+export function PopoverHeader({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
   return <div {...props} {...stylex.props(styles.header)} />;
 }
-export function PopoverTitle({ children, ...props }: ComponentProps<"h2">) {
+export function PopoverTitle({
+  children,
+  ...props
+}: Omit<ComponentProps<"h2">, "className" | "style">) {
   return (
     <h2 {...props} {...stylex.props(styles.title)}>
       {children}
     </h2>
   );
 }
-export function PopoverDescription({ ...props }: ComponentProps<"p">) {
+export function PopoverDescription({ ...props }: Omit<ComponentProps<"p">, "className" | "style">) {
   return <p {...props} {...stylex.props(styles.description)} />;
 }

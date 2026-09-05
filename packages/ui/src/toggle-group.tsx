@@ -46,6 +46,7 @@ const styles = stylex.create({
     outline: "none",
     transitionDuration: motionVars.durationFast,
     transitionProperty: "background-color, border-color, color, opacity",
+    transitionTimingFunction: motionVars.easingStandard,
     ":hover": { backgroundColor: colorVars.interactionHover },
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
@@ -91,7 +92,10 @@ const ToggleGroupContext = createContext<ToggleGroupContextValue>({
   variant: "default",
 });
 
-export type ToggleGroupProps = ComponentProps<typeof ToggleGroupPrimitive> & {
+export type ToggleGroupProps = Omit<
+  ComponentProps<typeof ToggleGroupPrimitive>,
+  "className" | "style"
+> & {
   children: ReactNode;
   size?: ToggleSize;
   variant?: ToggleVariant;
@@ -107,17 +111,16 @@ export function ToggleGroup({
 }: ToggleGroupProps) {
   const stylexProps = stylex.props(styles.root, styles[variant], xstyle);
   return (
-    <ToggleGroupPrimitive
-      {...props}
-      className={() => stylexProps.className}
-      style={() => stylexProps.style}
-    >
+    <ToggleGroupPrimitive {...props} className={stylexProps.className} style={stylexProps.style}>
       <ToggleGroupContext value={{ size, variant }}>{children}</ToggleGroupContext>
     </ToggleGroupPrimitive>
   );
 }
 
-export type ToggleGroupItemProps = ComponentProps<typeof TogglePrimitive> & {
+export type ToggleGroupItemProps = Omit<
+  ComponentProps<typeof TogglePrimitive>,
+  "className" | "style"
+> & {
   size?: ToggleSize;
   variant?: ToggleVariant;
   xstyle?: stylex.StyleXStyles;
@@ -127,32 +130,22 @@ export function ToggleGroupItem({ size, variant, xstyle, ...props }: ToggleGroup
   const context = useContext(ToggleGroupContext);
   const finalSize = size ?? context.size;
   const finalVariant = variant ?? context.variant;
+  function getToggleStyles(state: TogglePrimitive.State) {
+    return stylex.props(
+      styles.item,
+      itemSizeStyles[finalSize],
+      itemVariantStyles[finalVariant],
+      state.pressed && styles.itemPressed,
+      state.disabled && styles.itemDisabled,
+      finalVariant === "outline" && styles.outlineItem,
+      xstyle,
+    );
+  }
   return (
     <TogglePrimitive
       {...props}
-      className={(state) => {
-        const stylexProps = stylex.props(
-          styles.item,
-          itemSizeStyles[finalSize],
-          itemVariantStyles[finalVariant],
-          state.pressed && styles.itemPressed,
-          state.disabled && styles.itemDisabled,
-          finalVariant === "outline" && styles.outlineItem,
-          xstyle,
-        );
-        return stylexProps.className;
-      }}
-      style={(state) => {
-        const stylexProps = stylex.props(
-          styles.item,
-          itemSizeStyles[finalSize],
-          itemVariantStyles[finalVariant],
-          state.pressed && styles.itemPressed,
-          state.disabled && styles.itemDisabled,
-          xstyle,
-        );
-        return stylexProps.style;
-      }}
+      className={(state) => getToggleStyles(state).className}
+      style={(state) => getToggleStyles(state).style}
     />
   );
 }

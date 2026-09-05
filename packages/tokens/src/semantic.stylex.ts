@@ -10,6 +10,8 @@ export const colorVars = stylex.defineVars({
   bgSubtle: colorPalette.neutral50,
   bgRaised: colorPalette.neutral0,
   bgRaisedPressed: "oklch(97% 0 0)",
+  bgCurrent: colorPalette.alphaBlack6,
+  bgSkeleton: colorPalette.neutral200,
   bgActionPrimary: colorPalette.primarySolid,
   bgActionDestructive: colorPalette.redFeedback,
   bgMessageOutgoing: colorPalette.primarySolid,
@@ -111,6 +113,7 @@ export const opacityVars = stylex.defineVars({
 });
 
 export const motionVars = stylex.defineVars({
+  durationInstant: "0.01ms",
   durationFast: "120ms",
   durationNormal: "180ms",
   durationSlow: "240ms",

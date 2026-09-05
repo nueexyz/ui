@@ -5,6 +5,7 @@ import type { ComponentProps } from "react";
 
 import {
   colorVars,
+  motionVars,
   opacityVars,
   radiusVars,
   sizeVars,
@@ -25,6 +26,9 @@ const styles = stylex.create({
     height: "1.5rem",
     justifyContent: "center",
     outline: "none",
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "border-color, opacity",
+    transitionTimingFunction: motionVars.easingStandard,
     width: "1.5rem",
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
@@ -44,37 +48,36 @@ const styles = stylex.create({
   },
 });
 
-export type RadioGroupProps = ComponentProps<typeof RadioGroupPrimitive> & {
+export type RadioGroupProps = Omit<
+  ComponentProps<typeof RadioGroupPrimitive>,
+  "className" | "style"
+> & {
   xstyle?: stylex.StyleXStyles;
 };
 
 export function RadioGroup({ xstyle, ...props }: RadioGroupProps) {
   const stylexProps = stylex.props(styles.group, xstyle);
   return (
-    <RadioGroupPrimitive
-      {...props}
-      className={() => stylexProps.className}
-      style={() => stylexProps.style}
-    />
+    <RadioGroupPrimitive {...props} className={stylexProps.className} style={stylexProps.style} />
   );
 }
 
-export type RadioGroupItemProps = ComponentProps<typeof RadioPrimitive.Root> & {
+export type RadioGroupItemProps = Omit<
+  ComponentProps<typeof RadioPrimitive.Root>,
+  "className" | "style"
+> & {
   xstyle?: stylex.StyleXStyles;
 };
 
 export function RadioGroupItem({ xstyle, ...props }: RadioGroupItemProps) {
+  function getRootStyles(state: RadioPrimitive.Root.State) {
+    return stylex.props(styles.item, state.checked && styles.checked, xstyle);
+  }
   return (
     <RadioPrimitive.Root
       {...props}
-      className={(state) => {
-        const stylexProps = stylex.props(styles.item, state.checked && styles.checked, xstyle);
-        return stylexProps.className;
-      }}
-      style={(state) => {
-        const stylexProps = stylex.props(styles.item, state.checked && styles.checked, xstyle);
-        return stylexProps.style;
-      }}
+      className={(state) => getRootStyles(state).className}
+      style={(state) => getRootStyles(state).style}
     >
       <RadioPrimitive.Indicator {...stylex.props(styles.indicator)}>
         <span {...stylex.props(styles.dot)} />

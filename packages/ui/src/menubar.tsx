@@ -19,6 +19,7 @@ import {
 } from "./dropdown-menu";
 import {
   colorVars,
+  motionVars,
   radiusVars,
   sizeVars,
   spacingVars,
@@ -52,6 +53,9 @@ const styles = stylex.create({
     height: sizeVars.controlSm,
     outline: "none",
     paddingInline: spacingVars.space3,
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color, color",
+    transitionTimingFunction: motionVars.easingStandard,
     ":hover": { backgroundColor: colorVars.interactionHover },
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
@@ -69,32 +73,29 @@ const styles = stylex.create({
   },
 });
 
-export function Menubar(props: ComponentProps<typeof MenubarPrimitive>) {
+export function Menubar(
+  props: Omit<ComponentProps<typeof MenubarPrimitive>, "className" | "style">,
+) {
   return <MenubarPrimitive {...props} {...stylex.props(styles.root)} />;
 }
 
 export const MenubarMenu = MenuPrimitive.Root;
 
-export function MenubarTrigger({ ...props }: ComponentProps<typeof MenuPrimitive.Trigger>) {
+export function MenubarTrigger({
+  ...props
+}: Omit<ComponentProps<typeof MenuPrimitive.Trigger>, "className" | "style">) {
+  function getTriggerStyles(state: MenuPrimitive.Trigger.State) {
+    return stylex.props(
+      styles.trigger,
+      state.open && styles.triggerOpen,
+      state.disabled && styles.triggerDisabled,
+    );
+  }
   return (
     <MenuPrimitive.Trigger
       {...props}
-      className={(state) => {
-        const sx = stylex.props(
-          styles.trigger,
-          state.open && styles.triggerOpen,
-          state.disabled && styles.triggerDisabled,
-        );
-        return sx.className;
-      }}
-      style={(state) => {
-        const sx = stylex.props(
-          styles.trigger,
-          state.open && styles.triggerOpen,
-          state.disabled && styles.triggerDisabled,
-        );
-        return sx.style;
-      }}
+      className={(state) => getTriggerStyles(state).className}
+      style={(state) => getTriggerStyles(state).style}
     />
   );
 }

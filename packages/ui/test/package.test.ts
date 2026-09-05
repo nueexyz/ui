@@ -227,3 +227,8 @@ test("published package keeps Base UI primitive escape hatches for documentation
   const primitives = await import("../dist/primitives.js");
   assert.ok(primitives.Popover);
 });
+
+test("production StyleX CSS contains no invalid numeric declarations", async () => {
+  const css = await readFile(new URL("../dist/stylex.css", import.meta.url), "utf8");
+  assert.doesNotMatch(css, /:\s*[^;}]*\b(?:(?:NaN|Infinity)[a-z%]*|undefined\b)/);
+});

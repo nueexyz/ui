@@ -11,13 +11,15 @@ const styles = stylex.create({
     animationIterationCount: "infinite",
     animationName: pulse,
     animationTimingFunction: "ease-in-out",
-    backgroundColor: colorVars.bgSubtle,
+    backgroundColor: colorVars.bgSkeleton,
     borderRadius: radiusVars.sm,
     "@media (prefers-reduced-motion: reduce)": { animationName: "none" },
   },
 });
 
-export type SkeletonProps = ComponentProps<"div"> & { xstyle?: stylex.StyleXStyles };
+export type SkeletonProps = Omit<ComponentProps<"div">, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+};
 
 export function Skeleton({ xstyle, ...props }: SkeletonProps) {
   return <div {...props} aria-hidden="true" {...stylex.props(styles.root, xstyle)} />;

@@ -43,7 +43,8 @@ const styles = stylex.create({
     outline: "none",
     textDecoration: "none",
     transitionDuration: motionVars.durationFast,
-    transitionProperty: "background-color, border-color",
+    transitionProperty: "background-color, border-color, color",
+    transitionTimingFunction: motionVars.easingStandard,
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
       outlineOffset: sizeVars.stroke,
@@ -69,19 +70,19 @@ const styles = stylex.create({
   },
 });
 
-export function Pagination({ ...props }: ComponentProps<"nav">) {
+export function Pagination({ ...props }: Omit<ComponentProps<"nav">, "className" | "style">) {
   return <nav aria-label="Pagination" {...props} {...stylex.props(styles.root)} />;
 }
 
-export function PaginationContent({ ...props }: ComponentProps<"ul">) {
+export function PaginationContent({ ...props }: Omit<ComponentProps<"ul">, "className" | "style">) {
   return <ul {...props} {...stylex.props(styles.content)} />;
 }
 
-export function PaginationItem({ ...props }: ComponentProps<"li">) {
+export function PaginationItem({ ...props }: Omit<ComponentProps<"li">, "className" | "style">) {
   return <li {...props} {...stylex.props(styles.item)} />;
 }
 
-export type PaginationLinkProps = ComponentProps<"a"> & {
+export type PaginationLinkProps = Omit<ComponentProps<"a">, "className" | "style"> & {
   isActive?: boolean;
   size?: "default" | "icon";
 };
@@ -121,7 +122,9 @@ export function PaginationNext({ children, ...props }: PaginationLinkProps) {
   );
 }
 
-export function PaginationEllipsis({ ...props }: ComponentProps<"span">) {
+export function PaginationEllipsis({
+  ...props
+}: Omit<ComponentProps<"span">, "className" | "style">) {
   return (
     <span aria-hidden="true" {...props} {...stylex.props(styles.ellipsis)}>
       …

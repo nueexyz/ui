@@ -33,13 +33,16 @@ const styles = stylex.create({
     transitionTimingFunction: motionVars.easingEnter,
     "@media (prefers-reduced-motion: reduce)": {
       transform: "none",
-      transitionDuration: "0.01ms",
+      transitionDuration: motionVars.durationInstant,
     },
   },
   popupTransitioning: { opacity: 0, transform: "scale(0.98)" },
   popupEnding: {
     transitionDuration: motionVars.durationFast,
     transitionTimingFunction: motionVars.easingExit,
+    "@media (prefers-reduced-motion: reduce)": {
+      transitionDuration: motionVars.durationInstant,
+    },
   },
   item: {
     alignItems: "center",
@@ -105,7 +108,10 @@ export const DropdownMenuGroup = MenuPrimitive.Group;
 export const DropdownMenuRadioGroup = MenuPrimitive.RadioGroup;
 export const DropdownMenuSub = MenuPrimitive.SubmenuRoot;
 
-type DropdownMenuContentProps = ComponentProps<typeof MenuPrimitive.Popup> &
+type DropdownMenuContentProps = Omit<
+  ComponentProps<typeof MenuPrimitive.Popup>,
+  "className" | "style"
+> &
   Pick<
     ComponentProps<typeof MenuPrimitive.Positioner>,
     "align" | "alignOffset" | "side" | "sideOffset"
@@ -118,6 +124,14 @@ export function DropdownMenuContent({
   sideOffset = 4,
   ...props
 }: DropdownMenuContentProps) {
+  function getPopupStyles(state: MenuPrimitive.Popup.State) {
+    return stylex.props(
+      styles.popup,
+      state.transitionStatus === "starting" && styles.popupTransitioning,
+      state.transitionStatus === "ending" && styles.popupTransitioning,
+      state.transitionStatus === "ending" && styles.popupEnding,
+    );
+  }
   return (
     <MenuPrimitive.Portal>
       <MenuPrimitive.Positioner
@@ -129,31 +143,18 @@ export function DropdownMenuContent({
       >
         <MenuPrimitive.Popup
           {...props}
-          className={(state) => {
-            const sx = stylex.props(
-              styles.popup,
-              state.transitionStatus === "starting" && styles.popupTransitioning,
-              state.transitionStatus === "ending" && styles.popupTransitioning,
-              state.transitionStatus === "ending" && styles.popupEnding,
-            );
-            return sx.className;
-          }}
-          style={(state) => {
-            const sx = stylex.props(
-              styles.popup,
-              state.transitionStatus === "starting" && styles.popupTransitioning,
-              state.transitionStatus === "ending" && styles.popupTransitioning,
-              state.transitionStatus === "ending" && styles.popupEnding,
-            );
-            return sx.style;
-          }}
+          className={(state) => getPopupStyles(state).className}
+          style={(state) => getPopupStyles(state).style}
         />
       </MenuPrimitive.Positioner>
     </MenuPrimitive.Portal>
   );
 }
 
-type DropdownMenuItemProps = ComponentProps<typeof MenuPrimitive.Item> & {
+type DropdownMenuItemProps = Omit<
+  ComponentProps<typeof MenuPrimitive.Item>,
+  "className" | "style"
+> & {
   destructive?: boolean;
   inset?: boolean;
 };
@@ -163,29 +164,20 @@ export function DropdownMenuItem({
   inset = false,
   ...props
 }: DropdownMenuItemProps) {
+  function getItemStyles(state: MenuPrimitive.Item.State) {
+    return stylex.props(
+      styles.item,
+      state.highlighted && styles.itemHighlighted,
+      state.disabled && styles.itemDisabled,
+      inset && styles.inset,
+      destructive && styles.destructive,
+    );
+  }
   return (
     <MenuPrimitive.Item
       {...props}
-      className={(state) => {
-        const sx = stylex.props(
-          styles.item,
-          state.highlighted && styles.itemHighlighted,
-          state.disabled && styles.itemDisabled,
-          inset && styles.inset,
-          destructive && styles.destructive,
-        );
-        return sx.className;
-      }}
-      style={(state) => {
-        const sx = stylex.props(
-          styles.item,
-          state.highlighted && styles.itemHighlighted,
-          state.disabled && styles.itemDisabled,
-          inset && styles.inset,
-          destructive && styles.destructive,
-        );
-        return sx.style;
-      }}
+      className={(state) => getItemStyles(state).className}
+      style={(state) => getItemStyles(state).style}
     />
   );
 }
@@ -193,28 +185,20 @@ export function DropdownMenuItem({
 export function DropdownMenuCheckboxItem({
   children,
   ...props
-}: ComponentProps<typeof MenuPrimitive.CheckboxItem>) {
+}: Omit<ComponentProps<typeof MenuPrimitive.CheckboxItem>, "className" | "style">) {
+  function getCheckboxItemStyles(state: MenuPrimitive.CheckboxItem.State) {
+    return stylex.props(
+      styles.item,
+      styles.choiceItem,
+      state.highlighted && styles.itemHighlighted,
+      state.disabled && styles.itemDisabled,
+    );
+  }
   return (
     <MenuPrimitive.CheckboxItem
       {...props}
-      className={(state) => {
-        const sx = stylex.props(
-          styles.item,
-          styles.choiceItem,
-          state.highlighted && styles.itemHighlighted,
-          state.disabled && styles.itemDisabled,
-        );
-        return sx.className;
-      }}
-      style={(state) => {
-        const sx = stylex.props(
-          styles.item,
-          styles.choiceItem,
-          state.highlighted && styles.itemHighlighted,
-          state.disabled && styles.itemDisabled,
-        );
-        return sx.style;
-      }}
+      className={(state) => getCheckboxItemStyles(state).className}
+      style={(state) => getCheckboxItemStyles(state).style}
     >
       <MenuPrimitive.CheckboxItemIndicator {...stylex.props(styles.indicator)}>
         <CheckIcon aria-hidden="true" />
@@ -227,28 +211,20 @@ export function DropdownMenuCheckboxItem({
 export function DropdownMenuRadioItem({
   children,
   ...props
-}: ComponentProps<typeof MenuPrimitive.RadioItem>) {
+}: Omit<ComponentProps<typeof MenuPrimitive.RadioItem>, "className" | "style">) {
+  function getRadioItemStyles(state: MenuPrimitive.RadioItem.State) {
+    return stylex.props(
+      styles.item,
+      styles.choiceItem,
+      state.highlighted && styles.itemHighlighted,
+      state.disabled && styles.itemDisabled,
+    );
+  }
   return (
     <MenuPrimitive.RadioItem
       {...props}
-      className={(state) => {
-        const sx = stylex.props(
-          styles.item,
-          styles.choiceItem,
-          state.highlighted && styles.itemHighlighted,
-          state.disabled && styles.itemDisabled,
-        );
-        return sx.className;
-      }}
-      style={(state) => {
-        const sx = stylex.props(
-          styles.item,
-          styles.choiceItem,
-          state.highlighted && styles.itemHighlighted,
-          state.disabled && styles.itemDisabled,
-        );
-        return sx.style;
-      }}
+      className={(state) => getRadioItemStyles(state).className}
+      style={(state) => getRadioItemStyles(state).style}
     >
       <MenuPrimitive.RadioItemIndicator {...stylex.props(styles.indicator)}>
         <span {...stylex.props(styles.radioDot)} />
@@ -261,21 +237,23 @@ export function DropdownMenuRadioItem({
 export function DropdownMenuLabel({
   inset = false,
   ...props
-}: ComponentProps<typeof MenuPrimitive.GroupLabel> & { inset?: boolean }) {
+}: Omit<ComponentProps<typeof MenuPrimitive.GroupLabel>, "className" | "style"> & {
+  inset?: boolean;
+}) {
   const sx = stylex.props(styles.label, inset && styles.inset);
-  return (
-    <MenuPrimitive.GroupLabel {...props} className={() => sx.className} style={() => sx.style} />
-  );
+  return <MenuPrimitive.GroupLabel {...props} className={sx.className} style={sx.style} />;
 }
 
-export function DropdownMenuSeparator(props: ComponentProps<typeof MenuPrimitive.Separator>) {
+export function DropdownMenuSeparator(
+  props: Omit<ComponentProps<typeof MenuPrimitive.Separator>, "className" | "style">,
+) {
   return <MenuPrimitive.Separator {...props} {...stylex.props(styles.separator)} />;
 }
 
 export function DropdownMenuShortcut({
   children,
   ...props
-}: ComponentProps<"span"> & { children: ReactNode }) {
+}: Omit<ComponentProps<"span">, "className" | "style"> & { children: ReactNode }) {
   return (
     <span {...props} {...stylex.props(styles.shortcut)}>
       {children}
@@ -287,28 +265,22 @@ export function DropdownMenuSubTrigger({
   children,
   inset = false,
   ...props
-}: ComponentProps<typeof MenuPrimitive.SubmenuTrigger> & { inset?: boolean }) {
+}: Omit<ComponentProps<typeof MenuPrimitive.SubmenuTrigger>, "className" | "style"> & {
+  inset?: boolean;
+}) {
+  function getSubmenuTriggerStyles(state: MenuPrimitive.SubmenuTrigger.State) {
+    return stylex.props(
+      styles.item,
+      state.highlighted && styles.itemHighlighted,
+      state.disabled && styles.itemDisabled,
+      inset && styles.inset,
+    );
+  }
   return (
     <MenuPrimitive.SubmenuTrigger
       {...props}
-      className={(state) => {
-        const sx = stylex.props(
-          styles.item,
-          state.highlighted && styles.itemHighlighted,
-          state.disabled && styles.itemDisabled,
-          inset && styles.inset,
-        );
-        return sx.className;
-      }}
-      style={(state) => {
-        const sx = stylex.props(
-          styles.item,
-          state.highlighted && styles.itemHighlighted,
-          state.disabled && styles.itemDisabled,
-          inset && styles.inset,
-        );
-        return sx.style;
-      }}
+      className={(state) => getSubmenuTriggerStyles(state).className}
+      style={(state) => getSubmenuTriggerStyles(state).style}
     >
       {children}
       <CaretRightIcon aria-hidden="true" {...stylex.props(styles.subIcon)} />

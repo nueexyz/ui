@@ -2,10 +2,22 @@ import { Slider as SliderPrimitive } from "@base-ui/react/slider";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { colorVars, opacityVars, radiusVars, sizeVars } from "@nuee/tokens/semantic.stylex";
+import {
+  colorVars,
+  motionVars,
+  opacityVars,
+  radiusVars,
+  sizeVars,
+} from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
-  root: { opacity: { default: 1, ":disabled": opacityVars.disabled }, width: "100%" },
+  root: {
+    opacity: { default: 1, ":disabled": opacityVars.disabled },
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "opacity",
+    transitionTimingFunction: motionVars.easingStandard,
+    width: "100%",
+  },
   control: {
     alignItems: "center",
     display: "flex",
@@ -44,7 +56,10 @@ const styles = stylex.create({
   },
 });
 
-export type SliderProps = ComponentProps<typeof SliderPrimitive.Root> & {
+export type SliderProps = Omit<
+  ComponentProps<typeof SliderPrimitive.Root>,
+  "className" | "style"
+> & {
   /** Returns an accessible name for each thumb in a range slider. */
   getAriaLabel?: (index: number) => string;
   xstyle?: stylex.StyleXStyles;
@@ -59,8 +74,8 @@ export function Slider({ defaultValue, getAriaLabel, value, xstyle, ...props }: 
       {...props}
       defaultValue={defaultValue}
       value={value}
-      className={() => stylexProps.className}
-      style={() => stylexProps.style}
+      className={stylexProps.className}
+      style={stylexProps.style}
     >
       <SliderPrimitive.Control {...stylex.props(styles.control)}>
         <SliderPrimitive.Track {...stylex.props(styles.track)}>

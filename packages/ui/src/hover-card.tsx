@@ -31,7 +31,10 @@ const styles = stylex.create({
     transitionProperty: "opacity, transform",
     transitionTimingFunction: motionVars.easingEnter,
     zIndex: 60,
-    "@media (prefers-reduced-motion: reduce)": { transform: "none", transitionDuration: "0.01ms" },
+    "@media (prefers-reduced-motion: reduce)": {
+      transform: "none",
+      transitionDuration: motionVars.durationInstant,
+    },
   },
   transitioning: { opacity: 0, transform: "translateY(0.25rem) scale(0.98)" },
   trigger: {
@@ -49,7 +52,10 @@ const styles = stylex.create({
 
 export const HoverCard = PreviewCard.Root;
 
-export type HoverCardTriggerProps = ComponentProps<typeof PreviewCard.Trigger> & {
+export type HoverCardTriggerProps = Omit<
+  ComponentProps<typeof PreviewCard.Trigger>,
+  "className" | "style"
+> & {
   xstyle?: stylex.StyleXStyles;
 };
 
@@ -57,9 +63,12 @@ export function HoverCardTrigger({ xstyle, ...props }: HoverCardTriggerProps) {
   return <PreviewCard.Trigger {...props} {...stylex.props(styles.trigger, xstyle)} />;
 }
 
-export type HoverCardContentProps = ComponentProps<typeof PreviewCard.Popup> & {
-  align?: ComponentProps<typeof PreviewCard.Positioner>["align"];
-  side?: ComponentProps<typeof PreviewCard.Positioner>["side"];
+export type HoverCardContentProps = Omit<
+  ComponentProps<typeof PreviewCard.Popup>,
+  "className" | "style"
+> & {
+  align?: Omit<ComponentProps<typeof PreviewCard.Positioner>, "className" | "style">["align"];
+  side?: Omit<ComponentProps<typeof PreviewCard.Positioner>, "className" | "style">["side"];
   sideOffset?: number;
   xstyle?: stylex.StyleXStyles;
 };

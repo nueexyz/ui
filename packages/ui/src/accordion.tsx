@@ -1,5 +1,5 @@
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
-import { CaretDownIcon, CaretUpIcon } from "@phosphor-icons/react";
+import { CaretDownIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
@@ -40,6 +40,7 @@ const styles = stylex.create({
     textAlign: "start",
     transitionDuration: motionVars.durationFast,
     transitionProperty: "color",
+    transitionTimingFunction: motionVars.easingStandard,
     ":hover": { textDecoration: "underline", textUnderlineOffset: spacingVars.space1 },
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
@@ -60,17 +61,15 @@ const styles = stylex.create({
     flexShrink: 0,
     height: "1rem",
     justifyContent: "center",
+    transform: "rotate(0deg)",
+    transitionDuration: motionVars.durationNormal,
+    transitionProperty: "transform",
+    transitionTimingFunction: motionVars.easingStandard,
     width: "1rem",
-  },
-  iconClosed: {
-    alignItems: "center",
-    display: "inline-flex",
-    ":is([data-panel-open] *)": { display: "none" },
-  },
-  iconOpen: {
-    alignItems: "center",
-    display: "none",
-    ":is([data-panel-open] *)": { display: "inline-flex" },
+    ":is([data-panel-open] *)": { transform: "rotate(180deg)" },
+    "@media (prefers-reduced-motion: reduce)": {
+      transitionDuration: motionVars.durationInstant,
+    },
   },
   panel: {
     color: colorVars.fgSecondary,
@@ -84,7 +83,9 @@ const styles = stylex.create({
     transitionProperty: "height, opacity",
     transitionTimingFunction: motionVars.easingStandard,
     width: "100%",
-    "@media (prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" },
+    "@media (prefers-reduced-motion: reduce)": {
+      transitionDuration: motionVars.durationInstant,
+    },
   },
   panelTransitioning: { height: 0, opacity: 0 },
   panelContent: {
@@ -94,24 +95,28 @@ const styles = stylex.create({
   },
 });
 
-export function Accordion({ ...props }: ComponentProps<typeof AccordionPrimitive.Root>) {
+export function Accordion({
+  ...props
+}: Omit<ComponentProps<typeof AccordionPrimitive.Root>, "className" | "style">) {
   const stylexProps = stylex.props(styles.root);
   return (
     <AccordionPrimitive.Root
       {...props}
-      className={() => stylexProps.className}
-      style={() => stylexProps.style}
+      className={stylexProps.className}
+      style={stylexProps.style}
     />
   );
 }
 
-export function AccordionItem({ ...props }: ComponentProps<typeof AccordionPrimitive.Item>) {
+export function AccordionItem({
+  ...props
+}: Omit<ComponentProps<typeof AccordionPrimitive.Item>, "className" | "style">) {
   const stylexProps = stylex.props(styles.item);
   return (
     <AccordionPrimitive.Item
       {...props}
-      className={() => stylexProps.className}
-      style={() => stylexProps.style}
+      className={stylexProps.className}
+      style={stylexProps.style}
     />
   );
 }
@@ -119,34 +124,20 @@ export function AccordionItem({ ...props }: ComponentProps<typeof AccordionPrimi
 export function AccordionTrigger({
   children,
   ...props
-}: ComponentProps<typeof AccordionPrimitive.Trigger>) {
+}: Omit<ComponentProps<typeof AccordionPrimitive.Trigger>, "className" | "style">) {
+  function getTriggerStyles(state: AccordionPrimitive.Trigger.State) {
+    return stylex.props(styles.trigger, state.disabled && styles.triggerDisabled);
+  }
   return (
     <AccordionPrimitive.Header {...stylex.props(styles.header)}>
       <AccordionPrimitive.Trigger
         {...props}
-        className={(state) => {
-          const stylexProps = stylex.props(
-            styles.trigger,
-            state.disabled && styles.triggerDisabled,
-          );
-          return stylexProps.className;
-        }}
-        style={(state) => {
-          const stylexProps = stylex.props(
-            styles.trigger,
-            state.disabled && styles.triggerDisabled,
-          );
-          return stylexProps.style;
-        }}
+        className={(state) => getTriggerStyles(state).className}
+        style={(state) => getTriggerStyles(state).style}
       >
         {children}
         <span aria-hidden="true" {...stylex.props(styles.icon)}>
-          <span {...stylex.props(styles.iconClosed)}>
-            <CaretDownIcon />
-          </span>
-          <span {...stylex.props(styles.iconOpen)}>
-            <CaretUpIcon />
-          </span>
+          <CaretDownIcon />
         </span>
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
@@ -156,26 +147,19 @@ export function AccordionTrigger({
 export function AccordionContent({
   children,
   ...props
-}: ComponentProps<typeof AccordionPrimitive.Panel>) {
+}: Omit<ComponentProps<typeof AccordionPrimitive.Panel>, "className" | "style">) {
+  function getPanelStyles(state: AccordionPrimitive.Panel.State) {
+    return stylex.props(
+      styles.panel,
+      state.transitionStatus === "starting" && styles.panelTransitioning,
+      state.transitionStatus === "ending" && styles.panelTransitioning,
+    );
+  }
   return (
     <AccordionPrimitive.Panel
       {...props}
-      className={(state) => {
-        const stylexProps = stylex.props(
-          styles.panel,
-          state.transitionStatus === "starting" && styles.panelTransitioning,
-          state.transitionStatus === "ending" && styles.panelTransitioning,
-        );
-        return stylexProps.className;
-      }}
-      style={(state) => {
-        const stylexProps = stylex.props(
-          styles.panel,
-          state.transitionStatus === "starting" && styles.panelTransitioning,
-          state.transitionStatus === "ending" && styles.panelTransitioning,
-        );
-        return stylexProps.style;
-      }}
+      className={(state) => getPanelStyles(state).className}
+      style={(state) => getPanelStyles(state).style}
     >
       <div {...stylex.props(styles.panelContent)}>{children}</div>
     </AccordionPrimitive.Panel>

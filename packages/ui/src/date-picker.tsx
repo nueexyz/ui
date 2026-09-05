@@ -1,9 +1,9 @@
-import { CalendarIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import { useState } from "react";
 
 import {
   colorVars,
+  motionVars,
   radiusVars,
   sizeVars,
   spacingVars,
@@ -29,11 +29,13 @@ const styles = stylex.create({
     fontFamily: typographyVars.fontFamilyBody,
     fontSize: typographyVars.fontSizeSm,
     fontWeight: typographyVars.fontWeightRegular,
-    gap: spacingVars.space2,
     height: sizeVars.controlMd,
     outline: "none",
     paddingInline: spacingVars.space3,
     textAlign: "left",
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color, border-color, color",
+    transitionTimingFunction: motionVars.easingStandard,
     width: "100%",
     ":hover": { borderColor: colorVars.strokeStrong },
     ":focus-visible": {
@@ -52,7 +54,6 @@ const styles = stylex.create({
   },
   placeholder: { color: colorVars.fgSecondary },
   calendar: { padding: 0, width: "fit-content" },
-  icon: { flexShrink: 0 },
   value: { fontWeight: typographyVars.fontWeightRegular },
 });
 
@@ -97,7 +98,6 @@ export function DatePicker(props: DatePickerProps) {
         <PopoverTrigger
           render={
             <button disabled={disabled} type="button" {...stylex.props(styles.trigger)}>
-              <CalendarIcon aria-hidden="true" {...stylex.props(styles.icon)} />
               {selectedValue ? (
                 <span {...stylex.props(styles.value)}>{format(selectedValue)}</span>
               ) : (

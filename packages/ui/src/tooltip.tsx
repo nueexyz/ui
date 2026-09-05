@@ -30,13 +30,16 @@ const styles = stylex.create({
     transitionTimingFunction: motionVars.easingEnter,
     "@media (prefers-reduced-motion: reduce)": {
       transform: "none",
-      transitionDuration: "0.01ms",
+      transitionDuration: motionVars.durationInstant,
     },
   },
   popupTransitioning: { opacity: 0, transform: "scale(0.98)" },
   popupEnding: {
     transitionDuration: motionVars.durationFast,
     transitionTimingFunction: motionVars.easingExit,
+    "@media (prefers-reduced-motion: reduce)": {
+      transitionDuration: motionVars.durationInstant,
+    },
   },
   arrow: { fill: colorVars.bgInverse, height: spacingVars.space2, width: spacingVars.space3 },
 });
@@ -45,7 +48,10 @@ export const Tooltip = TooltipPrimitive.Root;
 export const TooltipProvider = TooltipPrimitive.Provider;
 export const TooltipTrigger = TooltipPrimitive.Trigger;
 
-type TooltipContentProps = ComponentProps<typeof TooltipPrimitive.Popup> &
+type TooltipContentProps = Omit<
+  ComponentProps<typeof TooltipPrimitive.Popup>,
+  "className" | "style"
+> &
   Pick<ComponentProps<typeof TooltipPrimitive.Positioner>, "align" | "side" | "sideOffset"> & {
     xstyle?: stylex.StyleXStyles;
   };
@@ -57,6 +63,15 @@ export function TooltipContent({
   xstyle,
   ...props
 }: TooltipContentProps) {
+  function getPopupStyles(state: TooltipPrimitive.Popup.State) {
+    return stylex.props(
+      styles.popup,
+      state.transitionStatus === "starting" && styles.popupTransitioning,
+      state.transitionStatus === "ending" && styles.popupTransitioning,
+      state.transitionStatus === "ending" && styles.popupEnding,
+      xstyle,
+    );
+  }
   return (
     <TooltipPrimitive.Portal>
       <TooltipPrimitive.Positioner
@@ -67,26 +82,8 @@ export function TooltipContent({
       >
         <TooltipPrimitive.Popup
           {...props}
-          className={(state) => {
-            const stylexProps = stylex.props(
-              styles.popup,
-              state.transitionStatus === "starting" && styles.popupTransitioning,
-              state.transitionStatus === "ending" && styles.popupTransitioning,
-              state.transitionStatus === "ending" && styles.popupEnding,
-              xstyle,
-            );
-            return stylexProps.className;
-          }}
-          style={(state) => {
-            const stylexProps = stylex.props(
-              styles.popup,
-              state.transitionStatus === "starting" && styles.popupTransitioning,
-              state.transitionStatus === "ending" && styles.popupTransitioning,
-              state.transitionStatus === "ending" && styles.popupEnding,
-              xstyle,
-            );
-            return stylexProps.style;
-          }}
+          className={(state) => getPopupStyles(state).className}
+          style={(state) => getPopupStyles(state).style}
         >
           {props.children}
           <TooltipPrimitive.Arrow {...stylex.props(styles.arrow)} />

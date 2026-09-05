@@ -29,6 +29,10 @@ const styles = stylex.create({
       transitionDuration: motionVars.durationNormal,
       transitionTimingFunction: motionVars.easingExit,
     },
+    "@media (prefers-reduced-motion: reduce)": {
+      transitionDuration: motionVars.durationInstant,
+      ":is([data-ending-style])": { transitionDuration: motionVars.durationInstant },
+    },
   },
   viewport: {
     alignItems: "center",
@@ -68,7 +72,8 @@ const styles = stylex.create({
       transitionTimingFunction: motionVars.easingExit,
     },
     "@media (prefers-reduced-motion: reduce)": {
-      transitionDuration: motionVars.durationNormal,
+      transitionDuration: motionVars.durationInstant,
+      ":is([data-ending-style])": { transitionDuration: motionVars.durationInstant },
       ":is([data-starting-style], [data-ending-style])": { transform: "scale(0.99)" },
     },
   },
@@ -98,7 +103,10 @@ const styles = stylex.create({
 export const AlertDialog = AlertDialogPrimitive.Root;
 export const AlertDialogTrigger = AlertDialogPrimitive.Trigger;
 
-type AlertDialogContentProps = ComponentProps<typeof AlertDialogPrimitive.Popup> & {
+type AlertDialogContentProps = Omit<
+  ComponentProps<typeof AlertDialogPrimitive.Popup>,
+  "className" | "style"
+> & {
   children: ReactNode;
   xstyle?: stylex.StyleXStyles;
 };
@@ -112,8 +120,8 @@ export function AlertDialogContent({ children, xstyle, ...props }: AlertDialogCo
       <AlertDialogPrimitive.Viewport {...stylex.props(styles.viewport)}>
         <AlertDialogPrimitive.Popup
           {...props}
-          className={() => stylexProps.className}
-          style={() => stylexProps.style}
+          className={stylexProps.className}
+          style={stylexProps.style}
         >
           {children}
         </AlertDialogPrimitive.Popup>
@@ -125,42 +133,47 @@ export function AlertDialogContent({ children, xstyle, ...props }: AlertDialogCo
 export function AlertDialogHeader({
   xstyle,
   ...props
-}: ComponentProps<"div"> & { xstyle?: stylex.StyleXStyles }) {
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
   return <div {...props} {...stylex.props(styles.header, xstyle)} />;
 }
 
 export function AlertDialogFooter({
   xstyle,
   ...props
-}: ComponentProps<"div"> & { xstyle?: stylex.StyleXStyles }) {
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
   return <div {...props} {...stylex.props(styles.footer, xstyle)} />;
 }
 
-export function AlertDialogTitle({ ...props }: ComponentProps<typeof AlertDialogPrimitive.Title>) {
+export function AlertDialogTitle({
+  ...props
+}: Omit<ComponentProps<typeof AlertDialogPrimitive.Title>, "className" | "style">) {
   const stylexProps = stylex.props(styles.title);
   return (
     <AlertDialogPrimitive.Title
       {...props}
-      className={() => stylexProps.className}
-      style={() => stylexProps.style}
+      className={stylexProps.className}
+      style={stylexProps.style}
     />
   );
 }
 
 export function AlertDialogDescription({
   ...props
-}: ComponentProps<typeof AlertDialogPrimitive.Description>) {
+}: Omit<ComponentProps<typeof AlertDialogPrimitive.Description>, "className" | "style">) {
   const stylexProps = stylex.props(styles.description);
   return (
     <AlertDialogPrimitive.Description
       {...props}
-      className={() => stylexProps.className}
-      style={() => stylexProps.style}
+      className={stylexProps.className}
+      style={stylexProps.style}
     />
   );
 }
 
-type AlertDialogButtonProps = ComponentProps<typeof AlertDialogPrimitive.Close>;
+type AlertDialogButtonProps = Omit<
+  ComponentProps<typeof AlertDialogPrimitive.Close>,
+  "className" | "style"
+>;
 
 export function AlertDialogCancel({ children, ...props }: AlertDialogButtonProps) {
   return (

@@ -31,6 +31,7 @@ const styles = stylex.create({
     textAlign: "center",
     transitionDuration: motionVars.durationFast,
     transitionProperty: "background-color, border-color, box-shadow, opacity",
+    transitionTimingFunction: motionVars.easingStandard,
     width: sizeVars.controlLg,
     ":first-child": {
       borderBottomLeftRadius: radiusVars.sm,
@@ -51,29 +52,29 @@ const styles = stylex.create({
   separator: { color: colorVars.fgTertiary, paddingInline: spacingVars.space1 },
 });
 
-export type InputOTPProps = ComponentProps<typeof OTPField.Root> & {
+export type InputOTPProps = Omit<ComponentProps<typeof OTPField.Root>, "className" | "style"> & {
   xstyle?: stylex.StyleXStyles;
 };
 
 export function InputOTP({ xstyle, ...props }: InputOTPProps) {
   const resolved = stylex.props(styles.root, xstyle);
-  return (
-    <OTPField.Root {...props} className={() => resolved.className} style={() => resolved.style} />
-  );
+  return <OTPField.Root {...props} className={resolved.className} style={resolved.style} />;
 }
 
-export function InputOTPGroup({ ...props }: ComponentProps<"div">) {
+export function InputOTPGroup({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
   return <div {...props} {...stylex.props(styles.group)} />;
 }
 
-export function InputOTPSlot({ ...props }: ComponentProps<typeof OTPField.Input>) {
+export function InputOTPSlot({
+  ...props
+}: Omit<ComponentProps<typeof OTPField.Input>, "className" | "style">) {
   const resolved = stylex.props(styles.slot);
-  return (
-    <OTPField.Input {...props} className={() => resolved.className} style={() => resolved.style} />
-  );
+  return <OTPField.Input {...props} className={resolved.className} style={resolved.style} />;
 }
 
-export function InputOTPSeparator({ ...props }: ComponentProps<"span">) {
+export function InputOTPSeparator({
+  ...props
+}: Omit<ComponentProps<"span">, "className" | "style">) {
   return (
     <span aria-hidden="true" {...props} {...stylex.props(styles.separator)}>
       {props.children ?? "–"}

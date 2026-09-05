@@ -17,21 +17,24 @@ const styles = stylex.create({
     height: "100%",
     transitionDuration: motionVars.durationNormal,
     transitionProperty: "width",
+    transitionTimingFunction: motionVars.easingStandard,
+    "@media (prefers-reduced-motion: reduce)": {
+      transitionDuration: motionVars.durationInstant,
+    },
   },
 });
 
-export type ProgressProps = ComponentProps<typeof ProgressPrimitive.Root> & {
+export type ProgressProps = Omit<
+  ComponentProps<typeof ProgressPrimitive.Root>,
+  "className" | "style"
+> & {
   xstyle?: stylex.StyleXStyles;
 };
 
 export function Progress({ xstyle, ...props }: ProgressProps) {
   const stylexProps = stylex.props(styles.root, xstyle);
   return (
-    <ProgressPrimitive.Root
-      {...props}
-      className={() => stylexProps.className}
-      style={() => stylexProps.style}
-    >
+    <ProgressPrimitive.Root {...props} className={stylexProps.className} style={stylexProps.style}>
       <ProgressPrimitive.Indicator {...stylex.props(styles.indicator)} />
     </ProgressPrimitive.Root>
   );

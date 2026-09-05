@@ -39,6 +39,9 @@ const styles = stylex.create({
     justifyContent: "center",
     outline: "none",
     padding: 0,
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color, color",
+    transitionTimingFunction: motionVars.easingStandard,
     width: sizeVars.controlSm,
     ":hover": { backgroundColor: colorVars.interactionHover },
     ":focus-visible": {
@@ -67,25 +70,27 @@ const styles = stylex.create({
     transitionProperty: "height, opacity",
     transitionTimingFunction: motionVars.easingStandard,
     width: "100%",
-    "@media (prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" },
+    "@media (prefers-reduced-motion: reduce)": {
+      transitionDuration: motionVars.durationInstant,
+    },
   },
   panelTransitioning: { height: 0, opacity: 0 },
   panelContent: { display: "flex", flexDirection: "column", gap: spacingVars.space2 },
   icon: {
     alignItems: "center",
     display: "inline-flex",
-    transitionDuration: motionVars.durationNormal,
-    transitionProperty: "transform",
   },
 });
 
-export function Collapsible({ ...props }: ComponentProps<typeof CollapsiblePrimitive.Root>) {
+export function Collapsible({
+  ...props
+}: Omit<ComponentProps<typeof CollapsiblePrimitive.Root>, "className" | "style">) {
   const stylexProps = stylex.props(styles.root);
   return (
     <CollapsiblePrimitive.Root
       {...props}
-      className={() => stylexProps.className}
-      style={() => stylexProps.style}
+      className={stylexProps.className}
+      style={stylexProps.style}
     />
   );
 }
@@ -93,18 +98,15 @@ export function Collapsible({ ...props }: ComponentProps<typeof CollapsiblePrimi
 export function CollapsibleTrigger({
   children,
   ...props
-}: ComponentProps<typeof CollapsiblePrimitive.Trigger>) {
+}: Omit<ComponentProps<typeof CollapsiblePrimitive.Trigger>, "className" | "style">) {
+  function getTriggerStyles(state: CollapsiblePrimitive.Trigger.State) {
+    return stylex.props(styles.trigger, state.disabled && styles.triggerDisabled);
+  }
   return (
     <CollapsiblePrimitive.Trigger
       {...props}
-      className={(state) => {
-        const sx = stylex.props(styles.trigger, state.disabled && styles.triggerDisabled);
-        return sx.className;
-      }}
-      style={(state) => {
-        const sx = stylex.props(styles.trigger, state.disabled && styles.triggerDisabled);
-        return sx.style;
-      }}
+      className={(state) => getTriggerStyles(state).className}
+      style={(state) => getTriggerStyles(state).style}
     >
       {children}
       <span aria-hidden="true" {...stylex.props(styles.icon)}>
@@ -117,26 +119,19 @@ export function CollapsibleTrigger({
 export function CollapsibleContent({
   children,
   ...props
-}: ComponentProps<typeof CollapsiblePrimitive.Panel>) {
+}: Omit<ComponentProps<typeof CollapsiblePrimitive.Panel>, "className" | "style">) {
+  function getPanelStyles(state: CollapsiblePrimitive.Panel.State) {
+    return stylex.props(
+      styles.panel,
+      state.transitionStatus === "starting" && styles.panelTransitioning,
+      state.transitionStatus === "ending" && styles.panelTransitioning,
+    );
+  }
   return (
     <CollapsiblePrimitive.Panel
       {...props}
-      className={(state) => {
-        const sx = stylex.props(
-          styles.panel,
-          state.transitionStatus === "starting" && styles.panelTransitioning,
-          state.transitionStatus === "ending" && styles.panelTransitioning,
-        );
-        return sx.className;
-      }}
-      style={(state) => {
-        const sx = stylex.props(
-          styles.panel,
-          state.transitionStatus === "starting" && styles.panelTransitioning,
-          state.transitionStatus === "ending" && styles.panelTransitioning,
-        );
-        return sx.style;
-      }}
+      className={(state) => getPanelStyles(state).className}
+      style={(state) => getPanelStyles(state).style}
     >
       <div {...stylex.props(styles.panelContent)}>{children}</div>
     </CollapsiblePrimitive.Panel>

@@ -48,6 +48,9 @@ const styles = stylex.create({
       inset: 0,
       pointerEvents: "none",
       position: "absolute",
+      transitionDuration: motionVars.durationFast,
+      transitionProperty: "background-color",
+      transitionTimingFunction: motionVars.easingStandard,
       zIndex: 0,
     },
   },
@@ -131,7 +134,7 @@ const styles = stylex.create({
 type ButtonVariant = "primary" | "secondary" | "ghost" | "destructive";
 type ButtonSize = "sm" | "md" | "lg";
 
-export type ButtonProps = ComponentProps<typeof ButtonPrimitive> & {
+export type ButtonProps = Omit<ComponentProps<typeof ButtonPrimitive>, "className" | "style"> & {
   children: ReactNode;
   size?: ButtonSize;
   variant?: ButtonVariant;
@@ -148,26 +151,32 @@ export function Button({
 }: ButtonProps) {
   const isDisabled = Boolean(disabled);
   const hasSolidBackground = variant === "primary" || variant === "destructive";
-  const stylexProps = stylex.props(
-    styles.root,
-    styles[variant],
-    styles[size],
-    hasSolidBackground ? styles.solidInteraction : styles.surfaceInteraction,
-    isDisabled && styles.disabled,
-    isDisabled && variant === "ghost" && styles.disabledGhost,
-    isDisabled && styles.disabledInteraction,
-    xstyle,
-  );
-  const contentStylexProps = stylex.props(
-    styles.content,
-    variant === "primary" && styles.primaryContent,
-    variant === "destructive" && styles.destructiveContent,
-    isDisabled && styles.disabledContent,
-  );
 
   return (
-    <ButtonPrimitive {...props} disabled={disabled} {...stylexProps}>
-      <span {...contentStylexProps}>{children}</span>
+    <ButtonPrimitive
+      {...props}
+      disabled={disabled}
+      {...stylex.props(
+        styles.root,
+        styles[variant],
+        styles[size],
+        hasSolidBackground ? styles.solidInteraction : styles.surfaceInteraction,
+        isDisabled && styles.disabled,
+        isDisabled && variant === "ghost" && styles.disabledGhost,
+        isDisabled && styles.disabledInteraction,
+        xstyle,
+      )}
+    >
+      <span
+        {...stylex.props(
+          styles.content,
+          variant === "primary" && styles.primaryContent,
+          variant === "destructive" && styles.destructiveContent,
+          isDisabled && styles.disabledContent,
+        )}
+      >
+        {children}
+      </span>
     </ButtonPrimitive>
   );
 }

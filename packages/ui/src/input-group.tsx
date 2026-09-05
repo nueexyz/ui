@@ -6,6 +6,7 @@ import { Input, type InputProps } from "./input";
 import { Textarea, type TextareaProps } from "./textarea";
 import {
   colorVars,
+  motionVars,
   radiusVars,
   sizeVars,
   spacingVars,
@@ -24,6 +25,9 @@ const styles = stylex.create({
     flexWrap: "wrap",
     minHeight: sizeVars.controlMd,
     minWidth: 0,
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "border-color",
+    transitionTimingFunction: motionVars.easingStandard,
     width: "100%",
     ":focus-within": {
       borderColor: colorVars.strokeFocus,
@@ -94,11 +98,17 @@ const styles = stylex.create({
 type StyleProps = { xstyle?: stylex.StyleXStyles };
 type AddonAlignment = "block-end" | "block-start" | "inline-end" | "inline-start";
 
-export type InputGroupProps = ComponentProps<"div"> & StyleProps & { invalid?: boolean };
+export type InputGroupProps = Omit<ComponentProps<"div">, "className" | "style"> &
+  StyleProps & { invalid?: boolean };
 
 export function InputGroup({ invalid = false, xstyle, ...props }: InputGroupProps) {
-  const stylexProps = stylex.props(styles.root, invalid && styles.invalid, xstyle);
-  return <div {...props} data-invalid={invalid || undefined} {...stylexProps} />;
+  return (
+    <div
+      {...props}
+      data-invalid={invalid || undefined}
+      {...stylex.props(styles.root, invalid && styles.invalid, xstyle)}
+    />
+  );
 }
 
 export function InputGroupAddon({
@@ -106,8 +116,7 @@ export function InputGroupAddon({
   onClick,
   xstyle,
   ...props
-}: ComponentProps<"div"> & StyleProps & { align?: AddonAlignment }) {
-  const stylexProps = stylex.props(styles.addon, styles[align], xstyle);
+}: Omit<ComponentProps<"div">, "className" | "style"> & StyleProps & { align?: AddonAlignment }) {
   const handleClick = (event: MouseEvent<HTMLDivElement>) => {
     onClick?.(event);
     if (event.defaultPrevented || (event.target as HTMLElement).closest("button")) return;
@@ -115,7 +124,13 @@ export function InputGroupAddon({
   };
 
   return (
-    <div {...props} role="presentation" data-align={align} onClick={handleClick} {...stylexProps} />
+    <div
+      {...props}
+      role="presentation"
+      data-align={align}
+      onClick={handleClick}
+      {...stylex.props(styles.addon, styles[align], xstyle)}
+    />
   );
 }
 
@@ -136,7 +151,9 @@ export function InputGroupButton({
   return <Button {...props} size={size} variant={variant} xstyle={[styles.button, xstyle]} />;
 }
 
-export function InputGroupText({ xstyle, ...props }: ComponentProps<"span"> & StyleProps) {
-  const stylexProps = stylex.props(styles.text, xstyle);
-  return <span {...props} {...stylexProps} />;
+export function InputGroupText({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"span">, "className" | "style"> & StyleProps) {
+  return <span {...props} {...stylex.props(styles.text, xstyle)} />;
 }

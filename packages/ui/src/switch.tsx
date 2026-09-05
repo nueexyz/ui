@@ -19,6 +19,7 @@ const styles = stylex.create({
     padding: "0.125rem",
     transitionDuration: motionVars.durationFast,
     transitionProperty: "background-color, opacity",
+    transitionTimingFunction: motionVars.easingStandard,
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
       outlineOffset: sizeVars.focusRing,
@@ -31,13 +32,18 @@ const styles = stylex.create({
   md: { height: "1.5rem", width: "2.5rem" },
   checked: { backgroundColor: colorVars.bgActionPrimary },
   disabled: { backgroundColor: colorVars.interactionDisabled, cursor: "not-allowed" },
+  disabledThumb: { backgroundColor: colorVars.fgDisabled },
   thumb: {
     backgroundColor: colorVars.bgSurface,
     borderRadius: radiusVars.full,
     display: "block",
     transform: "translateX(0)",
     transitionDuration: motionVars.durationFast,
-    transitionProperty: "transform",
+    transitionProperty: "background-color, transform",
+    transitionTimingFunction: motionVars.easingStandard,
+    "@media (prefers-reduced-motion: reduce)": {
+      transitionDuration: motionVars.durationInstant,
+    },
   },
   thumbsm: { height: "1rem", width: "1rem" },
   thumbmd: { height: "1.25rem", width: "1.25rem" },
@@ -45,35 +51,29 @@ const styles = stylex.create({
   thumbCheckedmd: { transform: "translateX(1rem)" },
 });
 
-export type SwitchProps = ComponentProps<typeof SwitchPrimitive.Root> & {
+export type SwitchProps = Omit<
+  ComponentProps<typeof SwitchPrimitive.Root>,
+  "className" | "style"
+> & {
   size?: "md" | "sm";
   xstyle?: stylex.StyleXStyles;
 };
 
 export function Switch({ size = "md", xstyle, ...props }: SwitchProps) {
+  function getRootStyles(state: SwitchPrimitive.Root.State) {
+    return stylex.props(
+      styles.root,
+      styles[size],
+      state.checked && styles.checked,
+      state.disabled && styles.disabled,
+      xstyle,
+    );
+  }
   return (
     <SwitchPrimitive.Root
       {...props}
-      className={(state) => {
-        const stylexProps = stylex.props(
-          styles.root,
-          styles[size],
-          state.checked && styles.checked,
-          state.disabled && styles.disabled,
-          xstyle,
-        );
-        return stylexProps.className;
-      }}
-      style={(state) => {
-        const stylexProps = stylex.props(
-          styles.root,
-          styles[size],
-          state.checked && styles.checked,
-          state.disabled && styles.disabled,
-          xstyle,
-        );
-        return stylexProps.style;
-      }}
+      className={(state) => getRootStyles(state).className}
+      style={(state) => getRootStyles(state).style}
     >
       <SwitchPrimitive.Thumb
         className={(state) =>
@@ -81,6 +81,7 @@ export function Switch({ size = "md", xstyle, ...props }: SwitchProps) {
             styles.thumb,
             styles[`thumb${size}`],
             state.checked && styles[`thumbChecked${size}`],
+            state.disabled && styles.disabledThumb,
           ).className
         }
       />

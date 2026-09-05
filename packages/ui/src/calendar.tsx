@@ -1,8 +1,9 @@
-import { DayPicker, type DayButtonProps, type DayPickerProps } from "@daypicker/react";
+import { DayButton, DayPicker, type DayButtonProps, type DayPickerProps } from "@daypicker/react";
 import * as stylex from "@stylexjs/stylex";
 
 import {
   colorVars,
+  motionVars,
   radiusVars,
   sizeVars,
   spacingVars,
@@ -51,6 +52,9 @@ const styles = stylex.create({
     outline: "none",
     padding: 0,
     position: "absolute",
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color, color",
+    transitionTimingFunction: motionVars.easingStandard,
     width: sizeVars.controlSm,
     ":hover": { backgroundColor: colorVars.interactionHover },
     ":focus-visible": {
@@ -79,6 +83,7 @@ const styles = stylex.create({
     borderRadius: radiusVars.sm,
     borderStyle: "none",
     borderWidth: 0,
+    color: colorVars.fgPrimary,
     cursor: "pointer",
     display: "inline-flex",
     font: "inherit",
@@ -86,6 +91,9 @@ const styles = stylex.create({
     justifyContent: "center",
     outline: "none",
     padding: 0,
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color, color",
+    transitionTimingFunction: motionVars.easingStandard,
     width: "100%",
     ":hover": { backgroundColor: colorVars.interactionHover },
     ":focus-visible": {
@@ -100,8 +108,14 @@ const styles = stylex.create({
     borderRadius: radiusVars.sm,
     color: colorVars.fgOnActionPrimary,
     fontWeight: typographyVars.fontWeightMedium,
+    ":hover": { backgroundColor: colorVars.bgActionPrimary },
   },
-  today: { color: colorVars.fgAction, fontWeight: typographyVars.fontWeightSemibold },
+  today: {
+    backgroundColor: colorVars.bgCurrent,
+    color: colorVars.fgAction,
+    fontWeight: typographyVars.fontWeightSemibold,
+    ":hover": { backgroundColor: colorVars.interactionPressed },
+  },
   outside: { color: colorVars.fgTertiary },
   disabled: { color: colorVars.fgDisabled, cursor: "not-allowed" },
   rangeMiddle: {
@@ -110,9 +124,6 @@ const styles = stylex.create({
     color: colorVars.fgPrimary,
   },
   dayLabel: { color: "inherit" },
-  dayLabelRangeMiddle: { color: colorVars.fgPrimary },
-  dayLabelSelected: { color: colorVars.fgOnActionPrimary },
-  dayLabelToday: { color: colorVars.fgAction },
   chevron: {
     fill: colorVars.fgPrimary,
     height: sizeVars.iconMd,
@@ -126,42 +137,35 @@ const classNames = {
   caption_label: stylex.props(styles.captionLabel).className,
   day: stylex.props(styles.day).className,
   chevron: stylex.props(styles.chevron).className,
-  disabled: stylex.props(styles.disabled).className,
   month: stylex.props(styles.month).className,
   month_caption: stylex.props(styles.monthCaption).className,
   month_grid: stylex.props(styles.monthGrid).className,
   months: stylex.props(styles.months).className,
   nav: stylex.props(styles.nav).className,
-  outside: stylex.props(styles.outside).className,
   week: stylex.props(styles.week).className,
   weekday: stylex.props(styles.weekday).className,
   weekdays: stylex.props(styles.weekdays).className,
 };
 
 function CalendarDayButton({ children, modifiers, ...props }: DayButtonProps) {
-  const isSelected = modifiers.range_start || modifiers.range_end || modifiers.selected;
+  const isSelected =
+    modifiers.range_start || modifiers.range_end || (modifiers.selected && !modifiers.range_middle);
 
   return (
-    <button
+    <DayButton
       {...props}
+      modifiers={modifiers}
       {...stylex.props(
         styles.dayButton,
+        modifiers.outside && styles.outside,
         modifiers.range_middle && styles.rangeMiddle,
         isSelected && styles.selected,
         modifiers.today && !modifiers.selected && styles.today,
+        modifiers.disabled && styles.disabled,
       )}
     >
-      <span
-        {...stylex.props(
-          styles.dayLabel,
-          modifiers.range_middle && styles.dayLabelRangeMiddle,
-          isSelected && styles.dayLabelSelected,
-          modifiers.today && !modifiers.selected && styles.dayLabelToday,
-        )}
-      >
-        {children}
-      </span>
-    </button>
+      <span {...stylex.props(styles.dayLabel)}>{children}</span>
+    </DayButton>
   );
 }
 

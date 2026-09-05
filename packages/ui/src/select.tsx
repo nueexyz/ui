@@ -33,6 +33,9 @@ const styles = stylex.create({
     width: "11rem",
     outline: "none",
     paddingInline: spacingVars.space3,
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color, border-color, color",
+    transitionTimingFunction: motionVars.easingStandard,
     ":hover": { backgroundColor: colorVars.bgSurfacePressed },
     ":focus-visible": {
       borderColor: colorVars.strokeFocus,
@@ -77,13 +80,16 @@ const styles = stylex.create({
     transitionTimingFunction: motionVars.easingEnter,
     "@media (prefers-reduced-motion: reduce)": {
       transform: "none",
-      transitionDuration: "0.01ms",
+      transitionDuration: motionVars.durationInstant,
     },
   },
   popupTransitioning: { opacity: 0, transform: "scale(0.98)" },
   popupEnding: {
     transitionDuration: motionVars.durationFast,
     transitionTimingFunction: motionVars.easingExit,
+    "@media (prefers-reduced-motion: reduce)": {
+      transitionDuration: motionVars.durationInstant,
+    },
   },
   list: { overflowY: "auto", overscrollBehavior: "contain", padding: 0 },
   item: {
@@ -125,7 +131,7 @@ const styles = stylex.create({
     backgroundColor: colorVars.strokeDefault,
     height: sizeVars.stroke,
     marginBlock: spacingVars.space1,
-    marginInline: -spacingVars.space1,
+    marginInline: `calc(${spacingVars.space1} * -1)`,
   },
 });
 
@@ -136,18 +142,15 @@ export const SelectGroup = SelectPrimitive.Group;
 export function SelectTrigger({
   children,
   ...props
-}: ComponentProps<typeof SelectPrimitive.Trigger>) {
+}: Omit<ComponentProps<typeof SelectPrimitive.Trigger>, "className" | "style">) {
+  function getTriggerStyles(state: SelectPrimitive.Trigger.State) {
+    return stylex.props(styles.trigger, state.disabled && styles.triggerDisabled);
+  }
   return (
     <SelectPrimitive.Trigger
       {...props}
-      className={(state) => {
-        const sx = stylex.props(styles.trigger, state.disabled && styles.triggerDisabled);
-        return sx.className;
-      }}
-      style={(state) => {
-        const sx = stylex.props(styles.trigger, state.disabled && styles.triggerDisabled);
-        return sx.style;
-      }}
+      className={(state) => getTriggerStyles(state).className}
+      style={(state) => getTriggerStyles(state).style}
     >
       {children}
       <SelectPrimitive.Icon {...stylex.props(styles.triggerIcon)}>
@@ -157,7 +160,10 @@ export function SelectTrigger({
   );
 }
 
-type SelectContentProps = ComponentProps<typeof SelectPrimitive.Popup> &
+type SelectContentProps = Omit<
+  ComponentProps<typeof SelectPrimitive.Popup>,
+  "className" | "style"
+> &
   Pick<
     ComponentProps<typeof SelectPrimitive.Positioner>,
     "align" | "alignItemWithTrigger" | "side" | "sideOffset"
@@ -171,6 +177,14 @@ export function SelectContent({
   sideOffset = 4,
   ...props
 }: SelectContentProps) {
+  function getPopupStyles(state: SelectPrimitive.Popup.State) {
+    return stylex.props(
+      styles.popup,
+      state.transitionStatus === "starting" && styles.popupTransitioning,
+      state.transitionStatus === "ending" && styles.popupTransitioning,
+      state.transitionStatus === "ending" && styles.popupEnding,
+    );
+  }
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Positioner
@@ -182,24 +196,8 @@ export function SelectContent({
       >
         <SelectPrimitive.Popup
           {...props}
-          className={(state) => {
-            const sx = stylex.props(
-              styles.popup,
-              state.transitionStatus === "starting" && styles.popupTransitioning,
-              state.transitionStatus === "ending" && styles.popupTransitioning,
-              state.transitionStatus === "ending" && styles.popupEnding,
-            );
-            return sx.className;
-          }}
-          style={(state) => {
-            const sx = stylex.props(
-              styles.popup,
-              state.transitionStatus === "starting" && styles.popupTransitioning,
-              state.transitionStatus === "ending" && styles.popupTransitioning,
-              state.transitionStatus === "ending" && styles.popupEnding,
-            );
-            return sx.style;
-          }}
+          className={(state) => getPopupStyles(state).className}
+          style={(state) => getPopupStyles(state).style}
         >
           <SelectPrimitive.List {...stylex.props(styles.list)}>{children}</SelectPrimitive.List>
         </SelectPrimitive.Popup>
@@ -208,26 +206,22 @@ export function SelectContent({
   );
 }
 
-export function SelectItem({ children, ...props }: ComponentProps<typeof SelectPrimitive.Item>) {
+export function SelectItem({
+  children,
+  ...props
+}: Omit<ComponentProps<typeof SelectPrimitive.Item>, "className" | "style">) {
+  function getItemStyles(state: SelectPrimitive.Item.State) {
+    return stylex.props(
+      styles.item,
+      state.highlighted && styles.itemHighlighted,
+      state.disabled && styles.itemDisabled,
+    );
+  }
   return (
     <SelectPrimitive.Item
       {...props}
-      className={(state) => {
-        const sx = stylex.props(
-          styles.item,
-          state.highlighted && styles.itemHighlighted,
-          state.disabled && styles.itemDisabled,
-        );
-        return sx.className;
-      }}
-      style={(state) => {
-        const sx = stylex.props(
-          styles.item,
-          state.highlighted && styles.itemHighlighted,
-          state.disabled && styles.itemDisabled,
-        );
-        return sx.style;
-      }}
+      className={(state) => getItemStyles(state).className}
+      style={(state) => getItemStyles(state).style}
     >
       <SelectPrimitive.ItemIndicator {...stylex.props(styles.indicator)}>
         <CheckIcon aria-hidden="true" />
@@ -237,10 +231,14 @@ export function SelectItem({ children, ...props }: ComponentProps<typeof SelectP
   );
 }
 
-export function SelectLabel(props: ComponentProps<typeof SelectPrimitive.GroupLabel>) {
+export function SelectLabel(
+  props: Omit<ComponentProps<typeof SelectPrimitive.GroupLabel>, "className" | "style">,
+) {
   return <SelectPrimitive.GroupLabel {...props} {...stylex.props(styles.label)} />;
 }
 
-export function SelectSeparator(props: ComponentProps<typeof SelectPrimitive.Separator>) {
+export function SelectSeparator(
+  props: Omit<ComponentProps<typeof SelectPrimitive.Separator>, "className" | "style">,
+) {
   return <SelectPrimitive.Separator {...props} {...stylex.props(styles.separator)} />;
 }

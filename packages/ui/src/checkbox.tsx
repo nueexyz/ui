@@ -29,6 +29,7 @@ const styles = stylex.create({
     outline: "none",
     transitionDuration: motionVars.durationFast,
     transitionProperty: "background-color, border-color, opacity",
+    transitionTimingFunction: motionVars.easingStandard,
     width: "1.25rem",
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
@@ -53,32 +54,27 @@ const styles = stylex.create({
   },
 });
 
-export type CheckboxProps = ComponentProps<typeof CheckboxPrimitive.Root> & {
+export type CheckboxProps = Omit<
+  ComponentProps<typeof CheckboxPrimitive.Root>,
+  "className" | "style"
+> & {
   xstyle?: stylex.StyleXStyles;
 };
 
 export function Checkbox({ xstyle, ...props }: CheckboxProps) {
+  function getRootStyles(state: CheckboxPrimitive.Root.State) {
+    return stylex.props(
+      styles.root,
+      xstyle,
+      state.checked && styles.checked,
+      state.disabled && styles.disabled,
+    );
+  }
   return (
     <CheckboxPrimitive.Root
       {...props}
-      className={(state) => {
-        const stylexProps = stylex.props(
-          styles.root,
-          xstyle,
-          state.checked && styles.checked,
-          state.disabled && styles.disabled,
-        );
-        return stylexProps.className;
-      }}
-      style={(state) => {
-        const stylexProps = stylex.props(
-          styles.root,
-          xstyle,
-          state.checked && styles.checked,
-          state.disabled && styles.disabled,
-        );
-        return stylexProps.style;
-      }}
+      className={(state) => getRootStyles(state).className}
+      style={(state) => getRootStyles(state).style}
     >
       <CheckboxPrimitive.Indicator {...stylex.props(styles.indicator)}>
         <CheckIcon aria-hidden="true" weight="bold" />

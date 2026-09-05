@@ -29,6 +29,10 @@ const styles = stylex.create({
       transitionDuration: motionVars.durationNormal,
       transitionTimingFunction: motionVars.easingExit,
     },
+    "@media (prefers-reduced-motion: reduce)": {
+      transitionDuration: motionVars.durationInstant,
+      ":is([data-ending-style])": { transitionDuration: motionVars.durationInstant },
+    },
   },
   viewport: {
     alignItems: "center",
@@ -68,7 +72,8 @@ const styles = stylex.create({
       transitionTimingFunction: motionVars.easingExit,
     },
     "@media (prefers-reduced-motion: reduce)": {
-      transitionDuration: motionVars.durationNormal,
+      transitionDuration: motionVars.durationInstant,
+      ":is([data-ending-style])": { transitionDuration: motionVars.durationInstant },
       ":is([data-starting-style], [data-ending-style])": { transform: "scale(0.99)" },
     },
   },
@@ -88,6 +93,9 @@ const styles = stylex.create({
     position: "absolute",
     right: spacingVars.space3,
     top: spacingVars.space3,
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color, color",
+    transitionTimingFunction: motionVars.easingStandard,
     width: sizeVars.touchTarget,
     ":hover": { backgroundColor: colorVars.interactionHover, color: colorVars.fgPrimary },
     ":focus-visible": {
@@ -129,7 +137,10 @@ export const Dialog = DialogPrimitive.Root;
 export const DialogTrigger = DialogPrimitive.Trigger;
 export const DialogClose = DialogPrimitive.Close;
 
-type DialogContentProps = ComponentProps<typeof DialogPrimitive.Popup> & {
+type DialogContentProps = Omit<
+  ComponentProps<typeof DialogPrimitive.Popup>,
+  "className" | "style"
+> & {
   children: ReactNode;
   /** Accessible name for the optional close button. @default "Close" */
   closeLabel?: string;
@@ -151,8 +162,8 @@ export function DialogContent({
       <DialogPrimitive.Viewport {...stylex.props(styles.viewport)}>
         <DialogPrimitive.Popup
           {...props}
-          className={() => stylexProps.className}
-          style={() => stylexProps.style}
+          className={stylexProps.className}
+          style={stylexProps.style}
         >
           {children}
           {showCloseButton ? (
@@ -169,37 +180,35 @@ export function DialogContent({
 export function DialogHeader({
   xstyle,
   ...props
-}: ComponentProps<"div"> & { xstyle?: stylex.StyleXStyles }) {
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
   return <div {...props} {...stylex.props(styles.header, xstyle)} />;
 }
 
 export function DialogFooter({
   xstyle,
   ...props
-}: ComponentProps<"div"> & { xstyle?: stylex.StyleXStyles }) {
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
   return <div {...props} {...stylex.props(styles.footer, xstyle)} />;
 }
 
-export function DialogTitle({ ...props }: ComponentProps<typeof DialogPrimitive.Title>) {
+export function DialogTitle({
+  ...props
+}: Omit<ComponentProps<typeof DialogPrimitive.Title>, "className" | "style">) {
   const stylexProps = stylex.props(styles.title);
   return (
-    <DialogPrimitive.Title
-      {...props}
-      className={() => stylexProps.className}
-      style={() => stylexProps.style}
-    />
+    <DialogPrimitive.Title {...props} className={stylexProps.className} style={stylexProps.style} />
   );
 }
 
 export function DialogDescription({
   ...props
-}: ComponentProps<typeof DialogPrimitive.Description>) {
+}: Omit<ComponentProps<typeof DialogPrimitive.Description>, "className" | "style">) {
   const stylexProps = stylex.props(styles.description);
   return (
     <DialogPrimitive.Description
       {...props}
-      className={() => stylexProps.className}
-      style={() => stylexProps.style}
+      className={stylexProps.className}
+      style={stylexProps.style}
     />
   );
 }

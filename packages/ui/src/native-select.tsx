@@ -4,6 +4,7 @@ import type { ComponentProps } from "react";
 
 import {
   colorVars,
+  motionVars,
   radiusVars,
   sizeVars,
   spacingVars,
@@ -25,6 +26,9 @@ const styles = stylex.create({
     outline: "none",
     paddingInlineStart: spacingVars.space3,
     paddingInlineEnd: spacingVars.space8,
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color, border-color, color",
+    transitionTimingFunction: motionVars.easingStandard,
     width: "100%",
     ":hover": { borderColor: colorVars.strokeStrong },
     ":focus-visible": {
@@ -54,16 +58,15 @@ const styles = stylex.create({
   },
 });
 
-export type NativeSelectProps = Omit<ComponentProps<"select">, "size"> & {
+export type NativeSelectProps = Omit<ComponentProps<"select">, "size" | "className" | "style"> & {
   size?: "md" | "sm";
   xstyle?: stylex.StyleXStyles;
 };
 
 export function NativeSelect({ children, size = "md", xstyle, ...props }: NativeSelectProps) {
-  const stylexProps = stylex.props(styles.select, styles[size], xstyle);
   return (
     <span {...stylex.props(styles.root)}>
-      <select {...props} {...stylexProps}>
+      <select {...props} {...stylex.props(styles.select, styles[size], xstyle)}>
         {children}
       </select>
       <CaretDownIcon aria-hidden="true" {...stylex.props(styles.icon)} />
@@ -71,9 +74,11 @@ export function NativeSelect({ children, size = "md", xstyle, ...props }: Native
   );
 }
 
-export function NativeSelectOption(props: ComponentProps<"option">) {
+export function NativeSelectOption(props: Omit<ComponentProps<"option">, "className" | "style">) {
   return <option {...props} />;
 }
-export function NativeSelectOptGroup(props: ComponentProps<"optgroup">) {
+export function NativeSelectOptGroup(
+  props: Omit<ComponentProps<"optgroup">, "className" | "style">,
+) {
   return <optgroup {...props} />;
 }
