@@ -139,3 +139,7 @@ export const invalidButtonShape: ComponentProps<typeof Button> = {
   // @ts-expect-error Shapes are a closed set of supported control treatments.
   shape: "oval",
 };
+
+export const toasterWithCustomClearContent: import("../dist/toast.js").ToasterProps = {
+  clearAllProps: { children: <span>모두 지우기</span>, "aria-label": "Clear all" },
+};

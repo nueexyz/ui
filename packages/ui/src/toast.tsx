@@ -1,12 +1,9 @@
 "use client";
 
 import { Toast as ToastPrimitive } from "@base-ui/react/toast";
-import * as stylex from "@stylexjs/stylex";
-import { CheckCircleIcon, InfoIcon, WarningIcon, XCircleIcon, XIcon } from "@phosphor-icons/react";
-import { useLayoutEffect, useRef, useState, type ComponentProps } from "react";
-
 import {
   colorVars,
+  layerVars,
   motionVars,
   radiusVars,
   shadowVars,
@@ -14,25 +11,29 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import { CheckCircleIcon, InfoIcon, WarningIcon, XCircleIcon, XIcon } from "@phosphor-icons/react";
+import * as stylex from "@stylexjs/stylex";
+import { useEffect, useLayoutEffect, useRef, useState, type ComponentProps } from "react";
+
 import { toastViewportVars } from "./toast.stylex";
 
 const spin = stylex.keyframes({ to: { transform: "rotate(360deg)" } });
 
 const styles = stylex.create({
   viewport: {
-    maxWidth: "24rem",
+    maxWidth: sizeVars.contentSm,
     outline: "none",
     pointerEvents: "none",
     position: "fixed",
-    width: "calc(100vw - 2rem)",
-    zIndex: 70,
+    width: `calc(100vw - ${spacingVars.space4} * 2)`,
+    zIndex: layerVars.notification,
     [toastViewportVars.stackPointerEvents]: {
       default: "none",
       ":is([data-expanded])": "auto",
     },
     [toastViewportVars.clearActionOffset]: {
       default: "0px",
-      ":is([data-expanded])": "2.25rem",
+      ":is([data-expanded])": `calc(${sizeVars.controlSm} + ${spacingVars.space2})`,
     },
     [toastViewportVars.clearActionOpacity]: {
       default: "0",
@@ -51,6 +52,7 @@ const styles = stylex.create({
   stack: (height: number | string) => ({
     bottom: 0,
     height,
+    columnGap: spacingVars.space3,
     left: 0,
     pointerEvents: toastViewportVars.stackPointerEvents,
     position: "absolute",
@@ -71,19 +73,17 @@ const styles = stylex.create({
     overflow: "hidden",
     pointerEvents: "auto",
     position: "absolute",
-    left: 0,
-    right: 0,
-    transform:
-      "translateX(var(--toast-swipe-movement-x)) translateY(calc(var(--toast-swipe-movement-y) - (var(--toast-index) * 0.75rem) - ((1 - max(0, 1 - (var(--toast-index) * 0.1))) * var(--toast-frontmost-height, var(--toast-height))))) scale(calc(max(0, 1 - (var(--toast-index) * 0.1))))",
+    left: "calc(min(var(--toast-index), 2) * 5%)",
+    right: "calc(min(var(--toast-index), 2) * 5%)",
+    transform: `translateX(var(--toast-swipe-movement-x)) translateY(calc(var(--toast-swipe-movement-y) - (var(--toast-index) * ${spacingVars.space3})))`,
     transformOrigin: "bottom",
-    transition: `transform ${motionVars.durationSlow} ${motionVars.easingEnter}, opacity ${motionVars.durationNormal} ${motionVars.easingStandard}, height ${motionVars.durationNormal} ${motionVars.easingStandard}`,
+    transition: `transform ${motionVars.durationSlow} ${motionVars.easingEnter}, opacity ${motionVars.durationNormal} ${motionVars.easingStandard}, height ${motionVars.durationNormal} ${motionVars.easingStandard}, left ${motionVars.durationSlow} ${motionVars.easingEnter}, right ${motionVars.durationSlow} ${motionVars.easingEnter}`,
     userSelect: "none",
-    width: "100%",
-    willChange: "transform",
+    width: "auto",
     zIndex: "calc(1000 - var(--toast-index))",
     "::after": {
       content: '""',
-      height: "calc(0.75rem + 1px)",
+      height: `calc(${spacingVars.space3} + ${sizeVars.stroke})`,
       left: 0,
       position: "absolute",
       top: "100%",
@@ -97,9 +97,10 @@ const styles = stylex.create({
     },
     ":is([data-expanded])": {
       height: "var(--toast-height)",
+      left: 0,
+      right: 0,
       overflow: "visible",
-      transform:
-        "translateX(var(--toast-swipe-movement-x)) translateY(calc((var(--toast-offset-y) * -1) - (var(--toast-index) * 0.75rem) + var(--toast-swipe-movement-y)))",
+      transform: `translateX(var(--toast-swipe-movement-x)) translateY(calc((var(--toast-offset-y) * -1) - (var(--toast-index) * ${spacingVars.space3}) + var(--toast-swipe-movement-y)))`,
     },
     ":is([data-limited])": { opacity: 0, pointerEvents: "none" },
     ":is([data-swiping])": { transitionDuration: "0ms" },
@@ -112,12 +113,10 @@ const styles = stylex.create({
       transform: "translateY(calc(var(--toast-swipe-movement-y) + 150%))",
     },
     ":is([data-ending-style][data-swipe-direction='left'])": {
-      transform:
-        "translateX(calc(var(--toast-swipe-movement-x) - 150%)) translateY(calc((var(--toast-offset-y) * -1) - (var(--toast-index) * 0.75rem) + var(--toast-swipe-movement-y)))",
+      transform: `translateX(calc(var(--toast-swipe-movement-x) - 150%)) translateY(calc((var(--toast-offset-y) * -1) - (var(--toast-index) * ${spacingVars.space3}) + var(--toast-swipe-movement-y)))`,
     },
     ":is([data-ending-style][data-swipe-direction='right'])": {
-      transform:
-        "translateX(calc(var(--toast-swipe-movement-x) + 150%)) translateY(calc((var(--toast-offset-y) * -1) - (var(--toast-index) * 0.75rem) + var(--toast-swipe-movement-y)))",
+      transform: `translateX(calc(var(--toast-swipe-movement-x) + 150%)) translateY(calc((var(--toast-offset-y) * -1) - (var(--toast-index) * ${spacingVars.space3}) + var(--toast-swipe-movement-y)))`,
     },
     "@media (prefers-reduced-motion: reduce)": {
       transitionDuration: motionVars.durationInstant,
@@ -128,22 +127,18 @@ const styles = stylex.create({
   rootTop: {
     bottom: "auto",
     top: 0,
-    transform:
-      "translateX(var(--toast-swipe-movement-x)) translateY(calc(var(--toast-swipe-movement-y) + (var(--toast-index) * 0.75rem) + ((1 - max(0, 1 - (var(--toast-index) * 0.1))) * var(--toast-frontmost-height, var(--toast-height))))) scale(calc(max(0, 1 - (var(--toast-index) * 0.1))))",
+    transform: `translateX(var(--toast-swipe-movement-x)) translateY(calc(var(--toast-swipe-movement-y) + (var(--toast-index) * ${spacingVars.space3})))`,
     transformOrigin: "top",
     ":is([data-expanded])": {
-      transform:
-        "translateX(var(--toast-swipe-movement-x)) translateY(calc(var(--toast-offset-y) + (var(--toast-index) * 0.75rem) + var(--toast-swipe-movement-y)))",
+      transform: `translateX(var(--toast-swipe-movement-x)) translateY(calc(var(--toast-offset-y) + (var(--toast-index) * ${spacingVars.space3}) + var(--toast-swipe-movement-y)))`,
     },
     ":is([data-starting-style])": { transform: "translateY(-150%)" },
     ":is([data-ending-style])": { transform: "translateY(-150%)" },
     ":is([data-ending-style][data-swipe-direction='left'])": {
-      transform:
-        "translateX(calc(var(--toast-swipe-movement-x) - 150%)) translateY(calc(var(--toast-offset-y) + (var(--toast-index) * 0.75rem) + var(--toast-swipe-movement-y)))",
+      transform: `translateX(calc(var(--toast-swipe-movement-x) - 150%)) translateY(calc(var(--toast-offset-y) + (var(--toast-index) * ${spacingVars.space3}) + var(--toast-swipe-movement-y)))`,
     },
     ":is([data-ending-style][data-swipe-direction='right'])": {
-      transform:
-        "translateX(calc(var(--toast-swipe-movement-x) + 150%)) translateY(calc(var(--toast-offset-y) + (var(--toast-index) * 0.75rem) + var(--toast-swipe-movement-y)))",
+      transform: `translateX(calc(var(--toast-swipe-movement-x) + 150%)) translateY(calc(var(--toast-offset-y) + (var(--toast-index) * ${spacingVars.space3}) + var(--toast-swipe-movement-y)))`,
     },
     "@media (prefers-reduced-motion: reduce)": {
       ":is([data-starting-style])": { transform: "translateY(-24%)" },
@@ -155,7 +150,7 @@ const styles = stylex.create({
     display: "flex",
     gap: spacingVars.space3,
     height: "100%",
-    minHeight: "4.75rem",
+    minHeight: toastViewportVars.contentMinHeight,
     overflow: "hidden",
     padding: spacingVars.space4,
     position: "relative",
@@ -165,6 +160,7 @@ const styles = stylex.create({
     ":is([data-behind]:not([data-expanded]))": { opacity: 0, pointerEvents: "none" },
   },
   message: {
+    alignSelf: "baseline",
     display: "flex",
     flex: 1,
     flexDirection: "column",
@@ -184,16 +180,20 @@ const styles = stylex.create({
     margin: 0,
   },
   statusIcon: {
+    alignSelf: "baseline",
     alignItems: "center",
     display: "inline-flex",
     flexShrink: 0,
-    height: sizeVars.iconMd,
+    fontFamily: typographyVars.fontFamilyBody,
+    fontSize: typographyVars.fontSizeSm,
+    fontWeight: typographyVars.fontWeightMedium,
+    lineHeight: typographyVars.lineHeightTight,
     justifyContent: "center",
     width: sizeVars.iconMd,
+    "::before": { content: '"\\200b"' },
   },
-  statusIconWithDescription: { alignSelf: "flex-start", marginTop: "0.0625rem" },
   loadingIcon: {
-    animationDuration: "700ms",
+    animationDuration: motionVars.durationLoading,
     animationIterationCount: "infinite",
     animationName: spin,
     animationTimingFunction: "linear",
@@ -204,16 +204,18 @@ const styles = stylex.create({
     flexShrink: 0,
     height: sizeVars.iconMd,
     width: sizeVars.iconMd,
-    "@media (prefers-reduced-motion: reduce)": { animationDuration: "1.5s" },
+    "@media (prefers-reduced-motion: reduce)": {
+      animationDuration: motionVars.durationLoadingReduced,
+    },
   },
   action: {
+    alignSelf: "baseline",
     alignItems: "center",
     appearance: "none",
-    backgroundColor: colorVars.bgSurface,
-    borderColor: colorVars.strokeDefault,
+    backgroundColor: "transparent",
     borderRadius: radiusVars.sm,
-    borderStyle: "solid",
-    borderWidth: sizeVars.stroke,
+    borderStyle: "none",
+    borderWidth: 0,
     color: colorVars.fgPrimary,
     cursor: "pointer",
     display: "inline-flex",
@@ -221,14 +223,15 @@ const styles = stylex.create({
     fontFamily: typographyVars.fontFamilyBody,
     fontSize: typographyVars.fontSizeXs,
     fontWeight: typographyVars.fontWeightMedium,
-    height: "1.75rem",
+    lineHeight: typographyVars.lineHeightTight,
+    height: sizeVars.controlXs,
     justifyContent: "center",
     outline: "none",
     paddingInline: spacingVars.space3,
     transitionDuration: motionVars.durationFast,
-    transitionProperty: "background-color, border-color, color",
+    transitionProperty: "color",
     transitionTimingFunction: motionVars.easingStandard,
-    ":hover": { backgroundColor: colorVars.interactionHover },
+    ":hover": { textDecoration: "underline" },
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
       outlineOffset: sizeVars.stroke,
@@ -236,8 +239,8 @@ const styles = stylex.create({
       outlineWidth: sizeVars.focusRing,
     },
   },
-  actionWithDescription: { alignSelf: "flex-start", marginTop: "0.0625rem" },
   close: {
+    alignSelf: "baseline",
     alignItems: "center",
     appearance: "none",
     backgroundColor: "transparent",
@@ -249,13 +252,19 @@ const styles = stylex.create({
     cursor: "pointer",
     display: "inline-flex",
     flexShrink: 0,
-    height: "1.75rem",
+    fontFamily: typographyVars.fontFamilyBody,
+    fontSize: typographyVars.fontSizeSm,
+    fontWeight: typographyVars.fontWeightMedium,
+    lineHeight: typographyVars.lineHeightTight,
+    height: sizeVars.controlXs,
     justifyContent: "center",
     outline: "none",
     transitionDuration: motionVars.durationFast,
     transitionProperty: "background-color, color",
     transitionTimingFunction: motionVars.easingStandard,
-    width: "1.75rem",
+    width: sizeVars.controlXs,
+    // Match the title's text baseline while centering the icon in its hit area.
+    "::before": { content: '"\\200b"' },
     ":hover": { backgroundColor: colorVars.interactionHover, color: colorVars.fgPrimary },
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
@@ -264,7 +273,6 @@ const styles = stylex.create({
       outlineWidth: sizeVars.focusRing,
     },
   },
-  closeWithDescription: { alignSelf: "flex-start", marginTop: "0.0625rem" },
   clearAll: {
     appearance: "none",
     backgroundColor: colorVars.bgSubtle,
@@ -275,9 +283,9 @@ const styles = stylex.create({
     color: colorVars.fgSecondary,
     cursor: "pointer",
     fontFamily: typographyVars.fontFamilyBody,
-    fontSize: "0.625rem",
+    fontSize: typographyVars.fontSizeXs,
     fontWeight: typographyVars.fontWeightMedium,
-    height: "1.75rem",
+    height: sizeVars.controlSm,
     outline: "none",
     paddingBlock: spacingVars.space1,
     paddingInline: spacingVars.space2,
@@ -315,6 +323,8 @@ export type ToasterProps = Omit<
 > & {
   /** Toast viewport position. @default "bottom-right" */
   position?: ToastPosition;
+  /** Content and accessible label for the action that dismisses all toasts. */
+  clearAllProps?: Pick<ComponentProps<"button">, "children" | "aria-label">;
 };
 
 export const toast = ToastPrimitive.createToastManager();
@@ -326,13 +336,17 @@ const toastIcons = {
   error: XCircleIcon,
 };
 
-function ToastStatusIcon({ hasDescription, type }: { hasDescription: boolean; type?: string }) {
+function ToastStatusIcon({ type }: { type?: string }) {
   if (!type || type === "default") {
     return null;
   }
 
   if (type === "loading") {
-    return <span aria-hidden="true" {...stylex.props(styles.loadingIcon)} />;
+    return (
+      <span aria-hidden="true" {...stylex.props(styles.statusIcon)}>
+        <span {...stylex.props(styles.loadingIcon)} />
+      </span>
+    );
   }
 
   const IconComponent = toastIcons[type as keyof typeof toastIcons];
@@ -341,24 +355,61 @@ function ToastStatusIcon({ hasDescription, type }: { hasDescription: boolean; ty
   }
 
   return (
-    <span
-      aria-hidden="true"
-      {...stylex.props(styles.statusIcon, hasDescription && styles.statusIconWithDescription)}
-    >
+    <span aria-hidden="true" {...stylex.props(styles.statusIcon)}>
       <IconComponent />
     </span>
   );
 }
 
-function ToastStack({ position }: { position: ToastPosition }) {
+function ToastStack({
+  position,
+  clearAllProps,
+}: {
+  position: ToastPosition;
+  clearAllProps: ToasterProps["clearAllProps"];
+}) {
   const { toasts } = ToastPrimitive.useToastManager();
   const stackRef = useRef<HTMLDivElement>(null);
+  const dismissedIds = useRef(new Set<string>());
   const [height, setHeight] = useState(0);
   const isTop = position.startsWith("top");
   const hasClearAction = toasts.length > 1;
   const stackHeight = hasClearAction
     ? `calc(${height}px + ${toastViewportVars.clearActionOffset})`
     : height;
+
+  useEffect(() => {
+    const stack = stackRef.current;
+    if (!stack) return;
+
+    const document = stack.ownerDocument;
+    const currentIds = new Set(toasts.map((item) => item.id));
+    for (const id of dismissedIds.current) {
+      if (!currentIds.has(id)) dismissedIds.current.delete(id);
+    }
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape" || event.defaultPrevented || event.isComposing) return;
+      const latest = toasts.find(
+        (item) => item.transitionStatus !== "ending" && !dismissedIds.current.has(item.id),
+      );
+      if (!latest) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+      if (event.repeat) return;
+      dismissedIds.current.add(latest.id);
+      toast.close(latest.id);
+    };
+
+    // Intercept Toast's own focused-item dismissal so one key closes only the newest item.
+    stack.addEventListener("keydown", handleEscape, true);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      stack.removeEventListener("keydown", handleEscape, true);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [toasts]);
 
   useLayoutEffect(() => {
     const stack = stackRef.current;
@@ -371,8 +422,7 @@ function ToastStack({ position }: { position: ToastPosition }) {
       const rootList = Array.from(
         stack.querySelectorAll<HTMLElement>("[data-nuee-toast-root]:not([data-limited])"),
       );
-      const toastGap =
-        Number.parseFloat(getComputedStyle(document.documentElement).fontSize) * 0.75;
+      const toastGap = Number.parseFloat(getComputedStyle(stack).columnGap) || 0;
       let nextHeight = 0;
       for (const root of rootList) {
         const rootStyles = getComputedStyle(root);
@@ -410,26 +460,13 @@ function ToastStack({ position }: { position: ToastPosition }) {
           {...stylex.props(styles.root, isTop && styles.rootTop)}
         >
           <ToastPrimitive.Content {...stylex.props(styles.content)}>
-            <ToastStatusIcon hasDescription={Boolean(item.description)} type={item.type} />
+            <ToastStatusIcon type={item.type} />
             <div {...stylex.props(styles.message)}>
               <ToastPrimitive.Title {...stylex.props(styles.title)} />
               <ToastPrimitive.Description {...stylex.props(styles.description)} />
             </div>
-            {item.actionProps ? (
-              <ToastPrimitive.Action
-                {...stylex.props(
-                  styles.action,
-                  Boolean(item.description) && styles.actionWithDescription,
-                )}
-              />
-            ) : null}
-            <ToastPrimitive.Close
-              aria-label="Close toast"
-              {...stylex.props(
-                styles.close,
-                Boolean(item.description) && styles.closeWithDescription,
-              )}
-            >
+            {item.actionProps ? <ToastPrimitive.Action {...stylex.props(styles.action)} /> : null}
+            <ToastPrimitive.Close aria-label="Close toast" {...stylex.props(styles.close)}>
               <XIcon aria-hidden="true" />
             </ToastPrimitive.Close>
           </ToastPrimitive.Content>
@@ -437,18 +474,24 @@ function ToastStack({ position }: { position: ToastPosition }) {
       ))}
       {hasClearAction ? (
         <button
+          {...clearAllProps}
           type="button"
           onClick={() => toast.close()}
           {...stylex.props(styles.clearAll, isTop && styles.clearAllTop)}
         >
-          Clear all
+          {clearAllProps?.children ?? "Clear all"}
         </button>
       ) : null}
     </div>
   );
 }
 
-export function Toaster({ limit = 3, position = "bottom-right", ...props }: ToasterProps) {
+export function Toaster({
+  limit = 3,
+  position = "bottom-right",
+  clearAllProps,
+  ...props
+}: ToasterProps) {
   const [verticalPosition, horizontalPosition] = position.split("-") as [
     "bottom" | "top",
     "center" | "left" | "right",
@@ -466,7 +509,7 @@ export function Toaster({ limit = 3, position = "bottom-right", ...props }: Toas
             horizontalPosition === "right" && styles.viewportRight,
           )}
         >
-          <ToastStack position={position} />
+          <ToastStack position={position} clearAllProps={clearAllProps} />
         </ToastPrimitive.Viewport>
       </ToastPrimitive.Portal>
     </ToastPrimitive.Provider>

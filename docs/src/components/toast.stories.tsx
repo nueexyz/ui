@@ -1,14 +1,15 @@
-import * as stylex from "@stylexjs/stylex";
 import { Button } from "@nuee/ui/button";
 import { toast, Toaster } from "@nuee/ui/toast";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+import { useEffect } from "react";
+
 import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { useEffect } from "react";
 
 const meta = {
   title: "Components",
@@ -56,7 +57,7 @@ function ToastExample({
 }) {
   return (
     <>
-      <Toaster position={position} />
+      <Toaster position={position} clearAllProps={{ children: "Dismiss all" }} />
       <PersistentToast />
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
@@ -93,6 +94,8 @@ function ToastExample({
             onClick={() => {
               const id = toast.add({
                 title: "Moved to archive.",
+                description: "You can restore this item with Undo.",
+                timeout: 0,
                 actionProps: {
                   children: "Undo",
                   onClick: () => toast.close(id),
@@ -149,7 +152,7 @@ function ToastExample({
 }
 
 const toastExampleCode =
-  'import { Button } from "@nuee/ui/button"\nimport { toast, Toaster } from "@nuee/ui/toast"\n\n<>\n  <Button onClick={() => toast.add({ title: "Saved." })}>Save</Button>\n  <Toaster position="bottom-right" />\n</>';
+  'import { Button } from "@nuee/ui/button"\nimport { toast, Toaster } from "@nuee/ui/toast"\n\n<>\n  <Button onClick={() => toast.add({ title: "Saved." })}>Save</Button>\n  <Toaster position="bottom-right" clearAllProps={{ children: "Dismiss all" }} />\n</>';
 
 export const ToastStory: Story = {
   name: "Toast",
