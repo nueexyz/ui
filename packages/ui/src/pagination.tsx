@@ -1,9 +1,5 @@
 "use client";
 
-import * as stylex from "@stylexjs/stylex";
-import { CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
-import type { ComponentProps } from "react";
-
 import {
   colorVars,
   motionVars,
@@ -12,6 +8,9 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import { CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
 
 const styles = stylex.create({
   root: { display: "flex", justifyContent: "center", width: "100%" },

@@ -1,10 +1,6 @@
 "use client";
 
 import { Collapsible as CollapsiblePrimitive } from "@base-ui/react/collapsible";
-import { ArrowsDownUpIcon } from "@phosphor-icons/react";
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
-
 import {
   colorVars,
   motionVars,
@@ -13,6 +9,9 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import { ArrowsDownUpIcon } from "@phosphor-icons/react";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
 
 const styles = stylex.create({
   root: {

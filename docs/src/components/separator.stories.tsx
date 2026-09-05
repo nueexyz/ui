@@ -1,13 +1,14 @@
-import * as stylex from "@stylexjs/stylex";
+import { sizeVars, spacingVars } from "@nuee/tokens/semantic.stylex";
+import { Separator } from "@nuee/ui/separator";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
 import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { sizeVars, spacingVars } from "@nuee/tokens/semantic.stylex";
-import { Separator } from "@nuee/ui/separator";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;

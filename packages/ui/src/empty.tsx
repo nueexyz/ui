@@ -1,6 +1,3 @@
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
-
 import {
   colorVars,
   radiusVars,
@@ -8,6 +5,8 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
 
 const styles = stylex.create({
   root: {

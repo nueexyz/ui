@@ -1,6 +1,6 @@
 import type { StorybookConfig } from "@storybook/react-vite";
-import reactCompiler from "babel-plugin-react-compiler";
 import stylex from "@stylexjs/unplugin/vite";
+import reactCompiler from "babel-plugin-react-compiler";
 
 type StylexCompilerOptions = NonNullable<Parameters<typeof stylex>[0]> & {
   babelConfig: { plugins: [typeof reactCompiler] };

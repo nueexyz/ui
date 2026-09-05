@@ -1,12 +1,13 @@
-import * as stylex from "@stylexjs/stylex";
+import { Spinner } from "@nuee/ui/spinner";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
 import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Spinner } from "@nuee/ui/spinner";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;

@@ -1,12 +1,4 @@
-import * as stylex from "@stylexjs/stylex";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-
-import {
-  CodeBlock,
-  ComponentCode,
-  ComponentExample,
-  storyStyles,
-} from "./story-layout/StoryLayout";
+import { colorVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 import {
   Carousel,
   CarouselContent,
@@ -14,7 +6,15 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@nuee/ui/carousel";
-import { colorVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
+import {
+  CodeBlock,
+  ComponentCode,
+  ComponentExample,
+  storyStyles,
+} from "./story-layout/StoryLayout";
 
 const styles = stylex.create({
   carousel: { maxWidth: "25rem" },

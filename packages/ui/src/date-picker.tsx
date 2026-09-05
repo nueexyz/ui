@@ -1,8 +1,5 @@
 "use client";
 
-import * as stylex from "@stylexjs/stylex";
-import { useState } from "react";
-
 import {
   colorVars,
   motionVars,
@@ -11,6 +8,8 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import { useState } from "react";
 
 import { Calendar } from "./calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";

@@ -1,9 +1,9 @@
 import { readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { basename, join, resolve } from "node:path";
 
-import { build, type Plugin } from "esbuild";
-import reactCompiler from "babel-plugin-react-compiler";
 import stylex from "@stylexjs/unplugin/esbuild";
+import reactCompiler from "babel-plugin-react-compiler";
+import { build, type Plugin } from "esbuild";
 
 const sourceDirectory = "src";
 const outputDirectory = "dist";

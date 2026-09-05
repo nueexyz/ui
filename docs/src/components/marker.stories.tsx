@@ -1,8 +1,9 @@
-import * as stylex from "@stylexjs/stylex";
 import { Icon } from "@nuee/ui/icon";
 import { Marker, MarkerContent, MarkerIcon } from "@nuee/ui/marker";
 import { Spinner } from "@nuee/ui/spinner";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
 import {
   CodeBlock,
   ComponentCode,

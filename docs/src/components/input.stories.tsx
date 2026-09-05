@@ -1,6 +1,7 @@
 import { Input } from "@nuee/ui/input";
-import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
 import {
   CodeBlock,
   ComponentCode,

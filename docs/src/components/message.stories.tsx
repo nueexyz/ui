@@ -1,14 +1,15 @@
-import * as stylex from "@stylexjs/stylex";
+import { Avatar, AvatarFallback } from "@nuee/ui/avatar";
+import { Bubble } from "@nuee/ui/bubble";
+import { Message, MessageAvatar, MessageContent, MessageFooter } from "@nuee/ui/message";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
 import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Avatar, AvatarFallback } from "@nuee/ui/avatar";
-import { Bubble } from "@nuee/ui/bubble";
-import { Message, MessageAvatar, MessageContent, MessageFooter } from "@nuee/ui/message";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;

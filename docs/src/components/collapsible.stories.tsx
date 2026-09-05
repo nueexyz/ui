@@ -1,12 +1,3 @@
-import * as stylex from "@stylexjs/stylex";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import {
-  CodeBlock,
-  ComponentCode,
-  ComponentExample,
-  storyStyles,
-} from "./story-layout/StoryLayout";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@nuee/ui/collapsible";
 import {
   colorVars,
   radiusVars,
@@ -14,6 +5,16 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@nuee/ui/collapsible";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
+import {
+  CodeBlock,
+  ComponentCode,
+  ComponentExample,
+  storyStyles,
+} from "./story-layout/StoryLayout";
 
 const meta = {
   title: "Components",

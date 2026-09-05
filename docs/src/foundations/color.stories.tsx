@@ -6,8 +6,8 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
-import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
 import { useLayoutEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 

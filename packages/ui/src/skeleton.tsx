@@ -1,7 +1,6 @@
+import { colorVars, radiusVars } from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
-
-import { colorVars, radiusVars } from "@nuee/tokens/semantic.stylex";
 
 const pulse = stylex.keyframes({ "0%, 100%": { opacity: 1 }, "50%": { opacity: 0.5 } });
 

@@ -2,6 +2,14 @@
 
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 import { Menubar as MenubarPrimitive } from "@base-ui/react/menubar";
+import {
+  colorVars,
+  motionVars,
+  radiusVars,
+  sizeVars,
+  spacingVars,
+  typographyVars,
+} from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
@@ -19,14 +27,6 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
 } from "./dropdown-menu";
-import {
-  colorVars,
-  motionVars,
-  radiusVars,
-  sizeVars,
-  spacingVars,
-  typographyVars,
-} from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
   root: {

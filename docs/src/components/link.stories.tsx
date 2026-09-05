@@ -1,6 +1,7 @@
-import * as stylex from "@stylexjs/stylex";
 import { Link } from "@nuee/ui/link";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
 import {
   CodeBlock,
   ComponentCode,

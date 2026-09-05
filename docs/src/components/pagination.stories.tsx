@@ -1,11 +1,3 @@
-import * as stylex from "@stylexjs/stylex";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import {
-  CodeBlock,
-  ComponentCode,
-  ComponentExample,
-  storyStyles,
-} from "./story-layout/StoryLayout";
 import {
   Pagination,
   PaginationContent,
@@ -15,6 +7,15 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@nuee/ui/pagination";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
+import {
+  CodeBlock,
+  ComponentCode,
+  ComponentExample,
+  storyStyles,
+} from "./story-layout/StoryLayout";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;

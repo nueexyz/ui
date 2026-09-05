@@ -1,13 +1,14 @@
-import * as stylex from "@stylexjs/stylex";
+import { Banner } from "@nuee/ui/banner";
+import { Link } from "@nuee/ui/link";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
 import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Banner } from "@nuee/ui/banner";
-import { Link } from "@nuee/ui/link";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;

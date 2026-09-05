@@ -1,13 +1,14 @@
-import * as stylex from "@stylexjs/stylex";
 import { Avatar, AvatarBadge, AvatarFallback } from "@nuee/ui/avatar";
+import { AvatarGroup, AvatarGroupCount } from "@nuee/ui/avatar";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
 import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { AvatarGroup, AvatarGroupCount } from "@nuee/ui/avatar";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;

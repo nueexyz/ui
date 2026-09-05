@@ -1,18 +1,19 @@
-import * as stylex from "@stylexjs/stylex";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import {
-  CodeBlock,
-  ComponentCode,
-  ComponentExample,
-  storyStyles,
-} from "./story-layout/StoryLayout";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@nuee/ui/hover-card";
 import {
   ContentRow,
   ContentRowContent,
   ContentRowDescription,
   ContentRowTitle,
 } from "@nuee/ui/content-row";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@nuee/ui/hover-card";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
+import {
+  CodeBlock,
+  ComponentCode,
+  ComponentExample,
+  storyStyles,
+} from "./story-layout/StoryLayout";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;

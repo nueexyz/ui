@@ -1,13 +1,14 @@
-import * as stylex from "@stylexjs/stylex";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@nuee/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@nuee/ui/tabs";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
 import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@nuee/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@nuee/ui/tabs";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;

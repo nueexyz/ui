@@ -1,5 +1,3 @@
-import * as stylex from "@stylexjs/stylex";
-import { DownloadSimpleIcon, FileIcon, PaperclipIcon, XIcon } from "@phosphor-icons/react";
 import {
   Attachment,
   AttachmentAction,
@@ -9,14 +7,17 @@ import {
   AttachmentMedia,
   AttachmentTitle,
 } from "@nuee/ui/attachment";
+import { AttachmentGroup } from "@nuee/ui/attachment";
+import { DownloadSimpleIcon, FileIcon, PaperclipIcon, XIcon } from "@phosphor-icons/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
 import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { AttachmentGroup } from "@nuee/ui/attachment";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;

@@ -1,5 +1,3 @@
-import { Icon, iconRegistry } from "@nuee/ui/icon";
-import type { IconName } from "@nuee/ui/icon";
 import {
   colorVars,
   radiusVars,
@@ -7,8 +5,10 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
-import * as stylex from "@stylexjs/stylex";
+import { Icon, iconRegistry } from "@nuee/ui/icon";
+import type { IconName } from "@nuee/ui/icon";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
 
 const meta = {
   title: "Foundations/Icon",

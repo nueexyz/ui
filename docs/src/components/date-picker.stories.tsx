@@ -1,5 +1,6 @@
-import * as stylex from "@stylexjs/stylex";
+import { DatePicker } from "@nuee/ui/date-picker";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
 import { useState } from "react";
 
 import {
@@ -8,7 +9,6 @@ import {
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { DatePicker } from "@nuee/ui/date-picker";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;

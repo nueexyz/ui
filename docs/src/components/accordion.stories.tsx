@@ -1,13 +1,14 @@
-import * as stylex from "@stylexjs/stylex";
+import { colorVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@nuee/ui/accordion";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
 import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@nuee/ui/accordion";
-import { colorVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;

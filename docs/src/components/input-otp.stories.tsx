@@ -1,12 +1,13 @@
-import * as stylex from "@stylexjs/stylex";
+import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@nuee/ui/input-otp";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
 import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@nuee/ui/input-otp";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;

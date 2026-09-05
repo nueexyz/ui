@@ -1,10 +1,6 @@
 "use client";
 
 import { Input as InputPrimitive } from "@base-ui/react/input";
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
-import type { ControlLayoutStyles } from "./control-layout";
-
 import {
   colorVars,
   motionVars,
@@ -13,6 +9,10 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
+
+import type { ControlLayoutStyles } from "./control-layout";
 
 const styles = stylex.create({
   root: {

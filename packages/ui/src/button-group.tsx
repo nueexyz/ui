@@ -1,5 +1,12 @@
 "use client";
 
+import {
+  colorVars,
+  radiusVars,
+  sizeVars,
+  spacingVars,
+  typographyVars,
+} from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 import {
   Children,
@@ -12,13 +19,6 @@ import {
 } from "react";
 
 import { Separator } from "./separator";
-import {
-  colorVars,
-  radiusVars,
-  sizeVars,
-  spacingVars,
-  typographyVars,
-} from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
   root: {

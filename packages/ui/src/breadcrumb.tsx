@@ -1,9 +1,5 @@
 "use client";
 
-import * as stylex from "@stylexjs/stylex";
-import { CaretRightIcon } from "@phosphor-icons/react";
-import type { ComponentProps, ReactNode } from "react";
-
 import {
   colorVars,
   motionVars,
@@ -12,6 +8,9 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import { CaretRightIcon } from "@phosphor-icons/react";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps, ReactNode } from "react";
 
 const styles = stylex.create({
   root: { minWidth: 0 },
