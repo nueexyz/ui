@@ -45,7 +45,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   button: {
-    files: ["button.tsx"],
+    files: ["button.tsx", "control-layout.ts"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -130,7 +130,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   input: {
-    files: ["input.tsx"],
+    files: ["input.tsx", "control-layout.ts"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -240,7 +240,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   switch: {
-    files: ["switch.tsx"],
+    files: ["switch.tsx", "control-layout.ts"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
