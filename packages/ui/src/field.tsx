@@ -1,15 +1,14 @@
 "use client";
 
 import { Field as FieldPrimitive } from "@base-ui/react/field";
+import { colorVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
-
-import { colorVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
   root: { display: "flex", gap: spacingVars.space2, width: "100%" },
   vertical: { flexDirection: "column" },
-  horizontal: { alignItems: "center", flexDirection: "row", gap: spacingVars.space4 },
+  horizontal: { alignItems: "baseline", flexDirection: "row", gap: spacingVars.space4 },
   label: {
     color: colorVars.fgPrimary,
     cursor: "default",

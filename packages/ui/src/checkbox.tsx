@@ -7,6 +7,7 @@ import {
   opacityVars,
   radiusVars,
   sizeVars,
+  typographyVars,
 } from "@nuee/tokens/semantic.stylex";
 import { CheckIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
@@ -25,6 +26,11 @@ const styles = stylex.create({
     color: colorVars.fgOnActionPrimary,
     cursor: "pointer",
     display: "inline-flex",
+    flexShrink: 0,
+    fontFamily: typographyVars.fontFamilyBody,
+    fontSize: typographyVars.fontSizeSm,
+    fontWeight: typographyVars.fontWeightMedium,
+    lineHeight: typographyVars.lineHeightNormal,
     height: sizeVars.iconLg,
     justifyContent: "center",
     minHeight: sizeVars.iconLg,
@@ -34,6 +40,8 @@ const styles = stylex.create({
     transitionProperty: "background-color, border-color, opacity",
     transitionTimingFunction: motionVars.easingStandard,
     width: sizeVars.iconLg,
+    // Keep a text baseline whether the checked indicator is mounted or not.
+    "::before": { content: '"\\200b"' },
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
       outlineOffset: sizeVars.focusRing,

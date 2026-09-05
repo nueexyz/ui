@@ -1,11 +1,3 @@
-import * as stylex from "@stylexjs/stylex";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import {
-  CodeBlock,
-  ComponentCode,
-  ComponentExample,
-  storyStyles,
-} from "./story-layout/StoryLayout";
 import { Checkbox } from "@nuee/ui/checkbox";
 import {
   Field,
@@ -19,6 +11,15 @@ import {
   FieldTitle,
 } from "@nuee/ui/field";
 import { Input } from "@nuee/ui/input";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
+import {
+  CodeBlock,
+  ComponentCode,
+  ComponentExample,
+  storyStyles,
+} from "./story-layout/StoryLayout";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -54,6 +55,10 @@ function FieldExample() {
                 />
                 <FieldDescription>Enter all 16 digits.</FieldDescription>
                 <FieldError>The card number is incomplete.</FieldError>
+              </Field>
+              <Field orientation="horizontal">
+                <Checkbox id="email-receipt" />
+                <FieldLabel htmlFor="email-receipt">Email me a receipt.</FieldLabel>
               </Field>
               <Field orientation="horizontal">
                 <Checkbox id="billing-address" defaultChecked />
