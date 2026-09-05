@@ -3,13 +3,14 @@ import { access, chmod, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
+
+import { add } from "../dist/add.js";
 import { parseArguments } from "../dist/arguments.js";
 import { defaultConfig, resolveConfigAlias, validateConfig, writeConfig } from "../dist/config.js";
-import { init } from "../dist/init.js";
-import { add } from "../dist/add.js";
-import { resolveComponent } from "../dist/registry.js";
-import { run } from "../dist/index.js";
 import { doctor } from "../dist/doctor.js";
+import { run } from "../dist/index.js";
+import { init } from "../dist/init.js";
+import { resolveComponent } from "../dist/registry.js";
 
 async function fixture(action: (directory: string) => Promise<void>) {
   const directory = await mkdtemp(join(tmpdir(), "nuee-regression-"));
@@ -48,7 +49,7 @@ test("Vite initialization changes only the exported plugins array", () =>
     const source =
       "const babelOptions = { plugins: ['babel-plugin-react-compiler'] };\nexport default { plugins: [react({babel: babelOptions})] };";
     await writeFile(join(directory, "vite.config.ts"), source);
-    await init(directory, { framework: "vite", defaults: true, "skip-dependencies": true }, false);
+    await init(directory, { vite: true, defaults: true, "skip-dependencies": true }, false);
     const result = await readFile(join(directory, "vite.config.ts"), "utf8");
     assert.ok(
       result.includes("const babelOptions = { plugins: ['babel-plugin-react-compiler'] };"),
@@ -60,7 +61,7 @@ test("Vite initialization preserves direct compiler imports", () =>
     const source =
       'import sx from "@stylexjs/unplugin/vite"; export default { plugins: [sx({useCSSLayers: true})] };';
     await writeFile(join(directory, "vite.config.ts"), source);
-    await init(directory, { framework: "vite", defaults: true, "skip-dependencies": true }, false);
+    await init(directory, { vite: true, defaults: true, "skip-dependencies": true }, false);
     assert.equal(await readFile(join(directory, "vite.config.ts"), "utf8"), source);
   }));
 test("unsupported Vite functions leave all foundation files absent", () =>
@@ -68,7 +69,7 @@ test("unsupported Vite functions leave all foundation files absent", () =>
     const source = "export default () => ({ plugins: [] });";
     await writeFile(join(directory, "vite.config.ts"), source);
     await assert.rejects(
-      init(directory, { framework: "vite", defaults: true, "skip-dependencies": true }),
+      init(directory, { vite: true, defaults: true, "skip-dependencies": true }),
     );
     assert.equal(await readFile(join(directory, "vite.config.ts"), "utf8"), source);
     await assert.rejects(access(join(directory, "src/styles")));
@@ -115,7 +116,7 @@ for (const [key, value] of [
   test(`remote registry rejects invalid ${key}`, async () => {
     await assert.rejects(
       resolveComponent(remote({ files: [], dependencies: [], [key]: value })),
-      /valid Nuee registry/,
+      new RegExp(`Invalid registry item: ${key}`),
     );
   });
 }

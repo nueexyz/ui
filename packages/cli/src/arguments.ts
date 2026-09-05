@@ -3,13 +3,13 @@ import { parseArgs } from "node:util";
 export type CliOptions = {
   cwd?: string;
   defaults?: boolean;
-  framework?: string;
   "dry-run"?: boolean;
   force?: boolean;
   "skip-dependencies"?: boolean;
   styles?: string;
   tokens?: string;
   ui?: string;
+  vite?: boolean;
 };
 
 export function parseArguments(arguments_: readonly string[]) {
@@ -20,13 +20,13 @@ export function parseArguments(arguments_: readonly string[]) {
     options: {
       cwd: { type: "string" },
       defaults: { type: "boolean" },
-      framework: { type: "string" },
       "dry-run": { type: "boolean" },
       force: { type: "boolean" },
       "skip-dependencies": { type: "boolean" },
       styles: { type: "string" },
       tokens: { type: "string" },
       ui: { type: "string" },
+      vite: { type: "boolean" },
     },
   });
   return { command, options, positionals };

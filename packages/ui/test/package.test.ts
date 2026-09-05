@@ -3,9 +3,10 @@ import { execFile as execFileCallback } from "node:child_process";
 import { access, mkdir, mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
+import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
-import test from "node:test";
+
 import { build } from "vite";
 
 const execFile = promisify(execFileCallback);
@@ -63,8 +64,7 @@ test("@nuee/ui CLI builds every added component in a Vite app", async () => {
       cliPath,
       "init",
       "--defaults",
-      "--framework",
-      "vite",
+      "--vite",
       "--skip-dependencies",
       "--cwd",
       projectDirectory,
@@ -102,7 +102,7 @@ test("@nuee/ui CLI builds every added component in a Vite app", async () => {
     let mainSource = await readFile(mainPath, "utf8");
     for (const [index, example] of examples.entries()) {
       await writeFile(join(projectDirectory, `src/readme-${index}.tsx`), example[1]);
-      mainSource += `import Example${index} from "./readme-${index}";\nconsole.log(Example${index});\n`;
+      mainSource += `import * as Example${index} from "./readme-${index}";\nconsole.log(Example${index});\n`;
     }
     await writeFile(mainPath, mainSource);
     await writeFile(
@@ -185,8 +185,7 @@ test("@nuee/ui CLI keeps the UI package out of a generated Vite app", async () =
       cliPath,
       "init",
       "--defaults",
-      "--framework",
-      "vite",
+      "--vite",
       "--skip-dependencies",
       "--cwd",
       projectDirectory,

@@ -2,11 +2,18 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, relative, sep } from "node:path";
 import { createInterface } from "node:readline/promises";
 
-import { defaultConfig, hasConfig, resolveConfigAlias, writeConfig } from "./config.js";
-import { configureVite } from "./source.js";
-import { getMissingDependencies, installDependencies } from "./dependencies.js";
-import type { CliOptions } from "./arguments.js";
 import { getFoundationFiles } from "@nuee/registry";
+
+import type { CliOptions } from "./arguments.js";
+import {
+  defaultConfig,
+  getDefaultAliases,
+  hasConfig,
+  resolveConfigAlias,
+  writeConfig,
+} from "./config.js";
+import { getMissingDependencies, installDependencies } from "./dependencies.js";
+import { configureVite } from "./source.js";
 
 async function ask(
   question: string,
@@ -17,7 +24,7 @@ async function ask(
   return answer.trim() || defaultValue;
 }
 
-async function readViteConfig(projectDirectory: string) {
+async function findViteConfig(projectDirectory: string) {
   const configFileNames = [
     "vite.config.ts",
     "vite.config.mts",
@@ -42,7 +49,7 @@ async function readViteConfig(projectDirectory: string) {
     }
   }
 
-  throw new Error("Could not find a Vite config file.");
+  return undefined;
 }
 
 function getRelativeImportPath(from: string, to: string) {
@@ -116,28 +123,28 @@ export async function prepareInitialization(projectDirectory: string, options: C
     : null;
 
   try {
-    if (options.framework && options.framework !== "vite") {
-      throw new Error(`Unsupported framework: ${options.framework}. Use vite or omit --framework.`);
-    }
+    const defaultAliases = await getDefaultAliases(projectDirectory);
     const uiAlias =
       options.ui ??
       (readline
-        ? await ask("Enter the UI import alias.", defaultConfig.aliases.ui, readline)
-        : defaultConfig.aliases.ui);
+        ? await ask("Enter the UI import alias.", defaultAliases.ui, readline)
+        : defaultAliases.ui);
     const stylesAlias =
       options.styles ??
       options.tokens ??
       (readline
-        ? await ask("Enter the styles import alias.", defaultConfig.aliases.styles, readline)
-        : defaultConfig.aliases.styles);
+        ? await ask("Enter the styles import alias.", defaultAliases.styles, readline)
+        : defaultAliases.styles);
     const tokenDirectory = await resolveConfigAlias(
       projectDirectory,
       stylesAlias,
       "aliases.styles",
     );
     await resolveConfigAlias(projectDirectory, uiAlias, "aliases.ui");
-    const viteConfig =
-      options.framework === "vite" ? await readViteConfig(projectDirectory) : undefined;
+    const viteConfig = options.vite ? await findViteConfig(projectDirectory) : undefined;
+    if (options.vite && !viteConfig) {
+      throw new Error("Could not find a Vite config file.");
+    }
     const configuredVite = viteConfig ? configureVite(viteConfig.source) : undefined;
     const files = await prepareFoundationFiles(tokenDirectory, Boolean(options.force));
     if (viteConfig && configuredVite !== undefined) {
@@ -154,8 +161,7 @@ export async function prepareInitialization(projectDirectory: string, options: C
     return {
       files,
       runtimeDependencies: options["skip-dependencies"] ? [] : runtimeDependencies,
-      buildDependencies:
-        options["skip-dependencies"] || options.framework !== "vite" ? [] : buildDependencies,
+      buildDependencies: options["skip-dependencies"] || !options.vite ? [] : buildDependencies,
       config: {
         accessibility: defaultConfig.accessibility,
         aliases: { ui: uiAlias, styles: stylesAlias },

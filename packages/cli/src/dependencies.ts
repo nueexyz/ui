@@ -1,6 +1,6 @@
+import { spawn } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
-import { spawn } from "node:child_process";
 
 function detectPackageManager() {
   const userAgent = process.env.npm_config_user_agent ?? "";
@@ -17,15 +17,9 @@ export function installDependencies(
 ) {
   if (dependencies.length === 0) return Promise.resolve();
   const packageManager = detectPackageManager();
-  const developmentFlag = isDevelopmentDependency ? "-D" : undefined;
-  const arguments_ =
-    packageManager === "npm"
-      ? ["install", developmentFlag, ...dependencies].filter((argument): argument is string =>
-          Boolean(argument),
-        )
-      : ["add", developmentFlag, ...dependencies].filter((argument): argument is string =>
-          Boolean(argument),
-        );
+  const arguments_ = [packageManager === "npm" ? "install" : "add"];
+  if (isDevelopmentDependency) arguments_.push("-D");
+  arguments_.push(...dependencies);
 
   return new Promise<void>((resolvePromise, reject) => {
     const child = spawn(packageManager, arguments_, { cwd: projectDirectory, stdio: "ignore" });

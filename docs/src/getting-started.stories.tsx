@@ -5,8 +5,8 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
-import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
 
 import { CodeBlock, storyStyles } from "./components/story-layout/StoryLayout";
 
@@ -92,11 +92,7 @@ export const GettingStarted: Story = {
           <h2 {...stylex.props(storyStyles.sectionTitle)}>1. Initialize</h2>
           <p {...stylex.props(storyStyles.description)}>Run this once from the project root.</p>
         </header>
-        <CodeBlock
-          code="pnpm dlx @nuee/ui init --framework vite"
-          label="Terminal"
-          language="bash"
-        />
+        <CodeBlock code="pnpm dlx @nuee/ui init --vite" label="Terminal" language="bash" />
       </section>
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>

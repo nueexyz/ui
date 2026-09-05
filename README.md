@@ -1,130 +1,37 @@
-# nuee
+# Nuee
 
-An open-code React design system for StyleX apps, built with Base UI.
+StyleX 앱을 위한 오픈 코드 React 컴포넌트 모음입니다.
 
-## Start
+## 설치
+
+프로젝트에서 초기 설정과 컴포넌트 경로를 대화형으로 정합니다.
 
 ```sh
-pnpm dlx @nuee/ui init --framework vite
+pnpm dlx @nuee/ui init
+```
 
+Vite 프로젝트라면 StyleX 플러그인 설정과 reset CSS import까지 함께 추가합니다.
+
+```sh
+pnpm dlx @nuee/ui init --vite
+```
+
+## 사용
+
+필요한 컴포넌트 소스를 프로젝트에 추가합니다.
+
+```sh
 pnpm dlx @nuee/ui add button
 ```
 
-`init` installs StyleX, configures the Vite compiler, imports Nuee's reset CSS,
-and creates `nuee.json`.
-By default, components go in `@/components/ui` and local token source goes in
-`@/styles`. Use `--ui` or `--styles` to choose other import aliases. Nuee keeps
-those aliases in `nuee.json` and uses them in every added component.
-
-Configure the aliases in your TypeScript and bundler setup before adding
-components. Nuee does not change your alias configuration. For example, a Vite
-project using the defaults can configure both Vite and StyleX:
-
-```ts
-import { defineConfig } from "vite";
-import stylex from "@stylexjs/unplugin";
-
-export default defineConfig({
-  resolve: {
-    alias: { "@": new URL("./src", import.meta.url).pathname },
-  },
-  plugins: [
-    stylex.vite({
-      aliases: { "@/styles/*": [new URL("./src/styles/*", import.meta.url).pathname] },
-      unstable_moduleResolution: { type: "commonJS" },
-    }),
-  ],
-});
-```
-
-```txt
-src/styles/
-  color-palette.stylex.ts
-  semantic.stylex.ts
-  themes.stylex.ts
-```
-
-Nuee copies component, token, and theme source into your app. Configure the
-StyleX compiler for your bundler before adding components. Vite projects should
-keep a normal CSS import in their application entry point so Vite can emit
-StyleX's generated CSS.
-
-When a project has no StyleX plugin yet, `init --framework vite` adds StyleX's
-variable-module resolution. It preserves existing StyleX and alias settings.
-Nuee uses local `defineVars()` tokens, so keep this configuration before React.
-
-```ts
-stylex.vite({
-  unstable_moduleResolution: { type: "commonJS" },
-});
-```
-
-```ts
-import "./index.css";
-```
-
-Vite projects import the shared reset before their own CSS rules:
-
-```css
-@import "@nuee/ui/reset.css";
-```
-
-Nuee does not prescribe theme state, storage, or a React provider. Your app
-can apply the generated dark theme classes wherever it owns color-mode state.
+기본 경로를 선택했다면 컴포넌트를 이렇게 사용합니다.
 
 ```tsx
-import * as stylex from "@stylexjs/stylex";
+import { Button } from "@/components/ui/button";
 
-import { darkColorTheme, darkShadowTheme } from "./styles/themes.stylex";
-
-const darkThemeClasses = stylex.props(darkColorTheme, darkShadowTheme).className?.split(" ") ?? [];
-
-for (const className of darkThemeClasses) {
-  document.documentElement.classList.toggle(className, colorMode === "dark");
+export function SaveButton() {
+  return <Button>Save</Button>;
 }
 ```
 
-To create a product theme, override Nuee's semantic variable groups with
-`stylex.createTheme()`. Components keep using the same semantic tokens.
-
-## What you get
-
-- Editable local StyleX tokens with light defaults and dark themes.
-- Added component source imports local tokens through your configured alias.
-- Your app owns theme state and can override Nuee semantic variable groups
-  with `stylex.createTheme()`.
-- Accessible React primitives from Base UI with nuee visual defaults.
-- Component source in your project, ready to read and change.
-
-## Need help?
-
-```sh
-nuee list
-nuee docs button
-nuee doctor
-```
-
-Run `nuee doctor` after setup to check aliases, the StyleX compiler, and the
-application CSS entry point. A warning returns a nonzero exit code. Compiler
-inspection currently supports literal Vite plugin arrays with either the default
-`@stylexjs/unplugin` import or the direct `@stylexjs/unplugin/vite` import.
-Other bundlers and computed configurations require manual verification.
-
-`init --framework vite` updates an exported object or `defineConfig({ ... })`
-imported from Vite. Functions, spreads, and indirect plugin arrays are left for
-manual setup. Explicit TypeScript paths (including inherited paths) take priority;
-`@/` falls back to `src/` only when no explicit mapping matches.
-
-Styled components expose `xstyle` where customization is supported, and reject
-native `className` and `style` props. Primitive exports and the Phosphor Icon
-adapter retain their underlying APIs. Button Group expects direct Nuee buttons
-or custom components that forward `xstyle`; native elements and Fragments are
-not styled as group items.
-
-## Contributing
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md).
-
-## License
-
-Apache-2.0. See [LICENSE](./LICENSE).
+`init`에서 UI와 스타일 import alias를 바꿨다면 그 경로를 사용하면 됩니다.

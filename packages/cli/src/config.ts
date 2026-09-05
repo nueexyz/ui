@@ -1,7 +1,8 @@
 import { access, readFile, writeFile } from "node:fs/promises";
 import { isAbsolute, join, relative, resolve } from "node:path";
-import { parse, type ParseError } from "jsonc-parser";
+
 import { createPathsMatcher, parseTsconfig } from "get-tsconfig";
+import { parse, type ParseError } from "jsonc-parser";
 
 export const configFileName = "nuee.json";
 
@@ -24,6 +25,21 @@ export const defaultConfig: NueeConfig = {
     styles: "@/styles",
   },
 };
+
+function getAliasPrefix(paths: Record<string, string[]> | undefined) {
+  if (!paths) return undefined;
+
+  for (const [pattern, targetList] of Object.entries(paths)) {
+    if (!pattern.endsWith("*")) continue;
+
+    const hasProjectRootTarget = targetList.some((target) =>
+      ["*", "./*", "src/*", "./src/*"].includes(target.replaceAll("\\", "/")),
+    );
+    if (hasProjectRootTarget) return pattern.slice(0, -1);
+  }
+
+  return undefined;
+}
 
 export async function hasConfig(projectDirectory: string) {
   try {
@@ -140,11 +156,22 @@ async function readTsConfig(projectDirectory: string) {
   return undefined;
 }
 
+export async function getDefaultAliases(projectDirectory: string) {
+  const tsConfig = await readTsConfig(projectDirectory);
+  const aliasPrefix = getAliasPrefix(tsConfig?.config.compilerOptions?.paths);
+  if (!aliasPrefix) return defaultConfig.aliases;
+
+  return {
+    styles: `${aliasPrefix}styles`,
+    ui: `${aliasPrefix}components/ui`,
+  };
+}
+
 export async function resolveConfigAlias(projectDirectory: string, alias: string, name: string) {
   const tsConfig = await readTsConfig(projectDirectory);
   const paths = tsConfig?.config.compilerOptions?.paths;
   // Only explicit paths mappings override the conventional @/src fallback.
-  const matched =
+  const hasMatchingPath =
     paths &&
     Object.keys(paths).some((pattern) => {
       const wildcard = pattern.indexOf("*");
@@ -153,7 +180,7 @@ export async function resolveConfigAlias(projectDirectory: string, alias: string
         alias.startsWith(pattern.slice(0, wildcard)) && alias.endsWith(pattern.slice(wildcard + 1))
       );
     });
-  if (tsConfig && matched) {
+  if (tsConfig && hasMatchingPath) {
     const targets = createPathsMatcher(tsConfig)?.(alias);
     if (targets?.[0]) return resolveConfigPath(projectDirectory, targets[0], name);
   } else if (alias.startsWith("@/")) {

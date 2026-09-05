@@ -5,6 +5,7 @@ import { join } from "node:path";
 import test from "node:test";
 
 import { registryItems } from "@nuee/registry";
+
 import { add, getMissingDependencies } from "../dist/add.js";
 import { configFileName, defaultConfig, readConfig } from "../dist/config.js";
 import { init } from "../dist/init.js";

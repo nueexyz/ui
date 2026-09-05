@@ -26,7 +26,7 @@ test("doctor verifies local StyleX sources, the compiler, and a CSS entry point"
     );
     await mkdir(join(projectDirectory, "src"), { recursive: true });
     await writeFile(join(projectDirectory, "src/main.tsx"), 'import "./index.css";\n');
-    await init(projectDirectory, { defaults: true, framework: "vite", "skip-dependencies": true });
+    await init(projectDirectory, { defaults: true, vite: true, "skip-dependencies": true });
 
     assert.equal(await doctor(projectDirectory), true);
   } finally {

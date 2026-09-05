@@ -24,7 +24,26 @@ export async function newComponent(projectDirectory: string, name: string | unde
   try {
     await writeFile(
       componentPath,
-      `import { colorVars, radiusVars, spacingVars } from "${tokenImport}";\nimport * as stylex from "@stylexjs/stylex";\nimport type { ComponentProps } from "react";\n\nconst styles = stylex.create({\n  root: {\n    backgroundColor: colorVars.bgSurface,\n    borderRadius: radiusVars.sm,\n    padding: spacingVars.space3,\n  },\n});\n\nexport type ${componentName}Props = Omit<ComponentProps<"div">, "className" | "style"> & {\n  xstyle?: stylex.StyleXStyles;\n};\n\nexport function ${componentName}({ xstyle, ...props }: ${componentName}Props) {\n  return <div {...props} {...stylex.props(styles.root, xstyle)} />;\n}\n`,
+      `import { colorVars, radiusVars, spacingVars } from "${tokenImport}";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
+
+const styles = stylex.create({
+  root: {
+    backgroundColor: colorVars.bgSurface,
+    borderRadius: radiusVars.sm,
+    padding: spacingVars.space3,
+  },
+});
+
+export type ${componentName}Props = Omit<ComponentProps<"div">, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+};
+
+export function ${componentName}({ xstyle, ...props }: ${componentName}Props) {
+  return <div {...props} {...stylex.props(styles.root, xstyle)} />;
+}
+`,
       { flag: "wx" },
     );
   } catch (error) {

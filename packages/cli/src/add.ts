@@ -2,13 +2,19 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { basename, dirname, isAbsolute, relative, resolve } from "node:path";
 import { createInterface } from "node:readline/promises";
 
-import { defaultConfig, hasConfig, readConfig, resolveConfigAlias } from "./config.js";
+import {
+  defaultConfig,
+  getDefaultAliases,
+  hasConfig,
+  readConfig,
+  resolveConfigAlias,
+} from "./config.js";
 export { getMissingDependencies } from "./dependencies.js";
+import type { CliOptions } from "./arguments.js";
 import { getMissingDependencies, installDependencies } from "./dependencies.js";
 import { applyInitialization, prepareInitialization } from "./init.js";
-import type { CliOptions } from "./arguments.js";
-import { parseSource, removeReducedMotionStyles } from "./source.js";
 import { resolveComponent } from "./registry.js";
+import { parseSource, removeReducedMotionStyles } from "./source.js";
 
 export type AddOptions = CliOptions & {
   /** @deprecated Use skip-dependencies. */
@@ -75,29 +81,34 @@ export async function add(
   }
 
   const shouldInitialize = !(await hasConfig(projectDirectory));
-  const config = shouldInitialize
-    ? {
-        ...defaultConfig,
-        aliases: {
-          ui: options.ui ?? defaultConfig.aliases.ui,
-          styles: options.styles ?? options.tokens ?? defaultConfig.aliases.styles,
-        },
-      }
-    : await readConfig(projectDirectory);
+  let config;
+  if (shouldInitialize) {
+    const defaultAliases = await getDefaultAliases(projectDirectory);
+    config = {
+      ...defaultConfig,
+      aliases: {
+        ui: options.ui ?? defaultAliases.ui,
+        styles: options.styles ?? options.tokens ?? defaultAliases.styles,
+      },
+    };
+  } else {
+    config = await readConfig(projectDirectory);
+  }
   const resolvedList = await Promise.all(componentNameList.map(resolveComponent));
   await resolveConfigAlias(projectDirectory, config.aliases.styles, "aliases.styles");
   const uiDirectory = await resolveConfigAlias(projectDirectory, config.aliases.ui, "aliases.ui");
-  const sources = resolvedList.flatMap((resolved) =>
-    resolved.files.map((file) => {
-      const tokenSource = replaceTokenImport(file.content, config.aliases.styles);
-      const source =
-        config.accessibility.respectReducedMotion || !/\.[cm]?[jt]sx?$/.test(file.path)
-          ? tokenSource
-          : removeReducedMotionStyles(tokenSource);
-      if (/\.[cm]?[jt]sx?$/.test(file.path)) parseSource(source);
-      return { source, targetPath: resolveTargetPath(uiDirectory, file.path) };
-    }),
-  );
+  const sources: { source: string; targetPath: string }[] = [];
+  for (const resolved of resolvedList) {
+    for (const file of resolved.files) {
+      const isScript = /\.[cm]?[jt]sx?$/.test(file.path);
+      let source = replaceTokenImport(file.content, config.aliases.styles);
+      if (isScript && !config.accessibility.respectReducedMotion) {
+        source = removeReducedMotionStyles(source);
+      }
+      if (isScript) parseSource(source);
+      sources.push({ source, targetPath: resolveTargetPath(uiDirectory, file.path) });
+    }
+  }
   const externalDependencies = await getMissingDependencies(projectDirectory, [
     ...new Set(resolvedList.flatMap((resolved) => resolved.externalDependencies)),
   ]);

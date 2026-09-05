@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
 
-import { configFileName, defaultConfig, readConfig } from "../dist/config.js";
+import { configFileName, defaultConfig, getDefaultAliases, readConfig } from "../dist/config.js";
 import { init } from "../dist/init.js";
 
 test("init stores a custom UI path", async () => {
@@ -97,7 +97,7 @@ test("init --force refreshes legacy semantic defaults", async () => {
   }
 });
 
-test("init configures a standard Vite project", async () => {
+test("init --vite configures a standard Vite project", async () => {
   const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
 
   try {
@@ -108,7 +108,7 @@ test("init configures a standard Vite project", async () => {
     await mkdir(join(projectDirectory, "src"), { recursive: true });
     await writeFile(join(projectDirectory, "src/main.tsx"), "export {};\n");
     await writeFile(join(projectDirectory, "src/index.css"), "body { color: black; }\n");
-    await init(projectDirectory, { defaults: true, framework: "vite", "skip-dependencies": true });
+    await init(projectDirectory, { defaults: true, vite: true, "skip-dependencies": true });
 
     assert.match(
       await readFile(join(projectDirectory, "vite.config.ts"), "utf8"),
@@ -124,6 +124,24 @@ test("init configures a standard Vite project", async () => {
     );
     await access(join(projectDirectory, "src/styles/reset.css"));
     await access(join(projectDirectory, "src/styles/themes.stylex.ts"));
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
+test("init --vite explains a missing Vite config", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+
+  try {
+    await assert.rejects(
+      init(projectDirectory, {
+        defaults: true,
+        vite: true,
+        "skip-dependencies": true,
+      }),
+      /Could not find a Vite config file/,
+    );
+    await assert.rejects(() => access(join(projectDirectory, configFileName)));
   } finally {
     await rm(projectDirectory, { recursive: true });
   }
@@ -156,7 +174,7 @@ export default defineConfig({
     await init(projectDirectory, {
       defaults: true,
       force: true,
-      framework: "vite",
+      vite: true,
       "skip-dependencies": true,
     });
 
@@ -183,11 +201,36 @@ test("init does not change a Vite project when its plugin array cannot be update
     await writeFile(join(projectDirectory, "src/main.tsx"), "export {};\n");
 
     await assert.rejects(
-      init(projectDirectory, { defaults: true, framework: "vite", "skip-dependencies": true }),
+      init(projectDirectory, { defaults: true, vite: true, "skip-dependencies": true }),
       /Could not safely update/,
     );
     assert.equal(await readFile(join(projectDirectory, "vite.config.ts"), "utf8"), configSource);
     await assert.rejects(() => access(join(projectDirectory, "src/styles/semantic.stylex.ts")));
+  } finally {
+    await rm(projectDirectory, { recursive: true });
+  }
+});
+
+test("init derives aliases from a project root path mapping", async () => {
+  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+
+  try {
+    await writeFile(
+      join(projectDirectory, "tsconfig.json"),
+      JSON.stringify({ compilerOptions: { paths: { "~/*": ["./src/*"] } } }),
+    );
+
+    assert.deepEqual(await getDefaultAliases(projectDirectory), {
+      ui: "~/components/ui",
+      styles: "~/styles",
+    });
+    await init(projectDirectory, { defaults: true, "skip-dependencies": true });
+
+    assert.deepEqual((await readConfig(projectDirectory)).aliases, {
+      ui: "~/components/ui",
+      styles: "~/styles",
+    });
+    await access(join(projectDirectory, "src/styles/semantic.stylex.ts"));
   } finally {
     await rm(projectDirectory, { recursive: true });
   }

@@ -6,23 +6,25 @@ import { join } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
-import { add } from "../dist/add.js";
-import { removeReducedMotionStyles } from "../dist/source.js";
+
 import { isRegistryItem } from "@nuee/registry";
+
+import { add } from "../dist/add.js";
+import { configureVite, inspectViteConfig, removeReducedMotionStyles } from "../dist/source.js";
 
 const execFile = promisify(execute);
 
-test("dry-run validates the same initialization plan as add", async () => {
+test("dry-run validates the same Vite initialization plan as add", async () => {
   const directory = await mkdtemp(join(tmpdir(), "nuee-plan-"));
   try {
     for (const dryRun of [true, false]) {
       await assert.rejects(
         add(directory, "card", {
-          framework: "unsupported",
+          vite: true,
           "dry-run": dryRun,
           "skip-dependencies": true,
         }),
-        /Unsupported framework/,
+        /Could not find a Vite config file/,
       );
     }
     await assert.rejects(access(join(directory, "nuee.json")));
@@ -97,3 +99,51 @@ for (const code of ["ENOTFOUND", "E404"]) {
     }
   });
 }
+
+test("Vite inspection follows defineConfig and compiler import aliases", () => {
+  const source = `import { defineConfig as config } from "vite";
+import compiler from "@stylexjs/unplugin";
+export default config({ "plugins": [compiler.vite()] });`;
+  assert.equal(inspectViteConfig(source)?.hasCompiler, true);
+  assert.equal(configureVite(source), source);
+  const direct = `import compiler from "@stylexjs/unplugin/vite";
+export default { plugins: [compiler()] };`;
+  assert.equal(inspectViteConfig(direct)?.hasCompiler, true);
+  assert.equal(configureVite(direct), direct);
+});
+
+test("Vite inspection refuses ambiguous config and unrelated calls", () => {
+  for (const source of [
+    "export default defineConfig({ plugins: [] });",
+    'import { defineConfig } from "elsewhere"; export default defineConfig({ plugins: [] });',
+    "export default { plugins: [], plugins: [] };",
+    "export default { plugins: [], ...other };",
+    'export default { ["plugins"]: [] };',
+  ]) {
+    assert.equal(inspectViteConfig(source), undefined);
+  }
+  for (const source of [
+    'import sx from "@stylexjs/unplugin"; export default { plugins: [sx()] };',
+    'import sx from "@stylexjs/unplugin/vite"; export default { plugins: [sx.vite()] };',
+    'import sx from "@stylexjs/unplugin"; export default { plugins: [sx["vite"]()] };',
+  ]) {
+    assert.equal(inspectViteConfig(source)?.hasCompiler, false);
+  }
+});
+
+test("motion removal removes nested ranges once and preserves unrelated properties", () => {
+  const source = `const styles = {
+    before: 1,
+    "@media (prefers-reduced-motion: reduce)": {
+      "@media (prefers-reduced-motion: reduce)": { opacity: 0 },
+      opacity: 1,
+    },
+    after: { color: "red" },
+    other: { "@media (prefers-reduced-motion: reduce)": {}, kept: true },
+  };`;
+  const result = removeReducedMotionStyles(source);
+  assert.doesNotMatch(result, /prefers-reduced-motion/);
+  assert.match(result, /before: 1/);
+  assert.match(result, /after: \{ color: "red" \}/);
+  assert.match(result, /kept: true/);
+});

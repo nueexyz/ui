@@ -25,28 +25,67 @@ export type FoundationFile = {
   name: string;
 };
 
-export function isRegistryItem(value: unknown): value is RegistryItem {
-  if (typeof value !== "object" || value === null) return false;
+export function parseRegistryItem(value: unknown): RegistryItem {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) {
+    throw new Error("Invalid registry item: expected an object.");
+  }
+  const item = value as Record<string, unknown>;
+  const { name, primaryExport } = item;
+  if (typeof name !== "string" || name.length === 0) {
+    throw new Error("Invalid registry item: name must be a non-empty string.");
+  }
+  if (typeof primaryExport !== "string" || primaryExport.length === 0) {
+    throw new Error("Invalid registry item: primaryExport must be a non-empty string.");
+  }
+  const dependencies = parseDependencies(item.dependencies, "dependencies");
+  const registryDependencies = parseDependencies(item.registryDependencies, "registryDependencies");
+  if (!Array.isArray(item.files)) {
+    throw new Error("Invalid registry item: files must be an array.");
+  }
+  const files = item.files.map((file: unknown, index): RegistryFile => {
+    if (typeof file !== "object" || file === null || Array.isArray(file)) {
+      throw new Error(`Invalid registry item: files[${index}] must be an object.`);
+    }
+    const entry = file as Record<string, unknown>;
+    if (typeof entry.path !== "string") {
+      throw new Error(`Invalid registry item: files[${index}].path must be a string.`);
+    }
+    if (typeof entry.content !== "string") {
+      throw new Error(`Invalid registry item: files[${index}].content must be a string.`);
+    }
+    return { path: entry.path, content: entry.content };
+  });
+  return {
+    name,
+    primaryExport,
+    dependencies,
+    registryDependencies,
+    files,
+  };
+}
 
-  const item = value as Partial<RegistryItem>;
-  return (
-    typeof item.name === "string" &&
-    item.name.length > 0 &&
-    typeof item.primaryExport === "string" &&
-    item.primaryExport.length > 0 &&
-    Array.isArray(item.dependencies) &&
-    item.dependencies.every((entry) => typeof entry === "string" && entry.length > 0) &&
-    Array.isArray(item.files) &&
-    Array.isArray(item.registryDependencies) &&
-    item.registryDependencies.every((entry) => typeof entry === "string" && entry.length > 0) &&
-    item.files.every(
-      (file) =>
-        typeof file === "object" &&
-        file !== null &&
-        typeof file.path === "string" &&
-        typeof file.content === "string",
-    )
-  );
+function parseDependencies(
+  value: unknown,
+  field: "dependencies" | "registryDependencies",
+): string[] {
+  if (!Array.isArray(value)) {
+    throw new Error(`Invalid registry item: ${field} must be an array.`);
+  }
+  return value.map((entry: unknown, index) => {
+    if (typeof entry !== "string" || entry.length === 0) {
+      throw new Error(`Invalid registry item: ${field}[${index}] must be a non-empty string.`);
+    }
+    return entry;
+  });
+}
+
+export function isRegistryItem(value: unknown): value is RegistryItem {
+  try {
+    parseRegistryItem(value);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 export async function getRegistryItem(name: string): Promise<RegistryItem> {
@@ -54,8 +93,7 @@ export async function getRegistryItem(name: string): Promise<RegistryItem> {
 
   try {
     const item: unknown = JSON.parse(await readFile(file, "utf8"));
-    if (!isRegistryItem(item)) throw new Error("Invalid registry item.");
-    return item;
+    return parseRegistryItem(item);
   } catch (error) {
     if (typeof error === "object" && error !== null && "code" in error && error.code === "ENOENT") {
       throw new Error(`Unknown component: ${name}`);

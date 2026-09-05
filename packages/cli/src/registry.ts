@@ -1,7 +1,7 @@
 import {
   dependencyVersions,
   getRegistryItem,
-  isRegistryItem,
+  parseRegistryItem,
   type RegistryItem,
 } from "@nuee/registry";
 
@@ -24,8 +24,7 @@ async function readRegistryItem(name: string): Promise<RegistryItem> {
     registryDependencies:
       candidate.registryDependencies === undefined ? [] : candidate.registryDependencies,
   };
-  if (!isRegistryItem(item)) throw new Error("This is not a valid Nuee registry item.");
-  return item;
+  return parseRegistryItem(item);
 }
 
 export async function resolveComponent(name: string) {

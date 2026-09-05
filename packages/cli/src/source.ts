@@ -1,5 +1,5 @@
 import { parse } from "@babel/parser";
-import { traverseFast } from "@babel/types";
+import { traverseFast, type ArrayExpression, type Statement } from "@babel/types";
 
 const parserOptions = { sourceType: "module", plugins: ["typescript", "jsx"] } as const;
 
@@ -7,79 +7,89 @@ export function parseSource(source: string) {
   return parse(source, { ...parserOptions, tokens: true, plugins: [...parserOptions.plugins] });
 }
 
+type StylexImport = { name: string; direct: boolean };
+
+function getViteImports(body: readonly Statement[]) {
+  const defineConfigNames = new Set<string>();
+  const stylexImports: StylexImport[] = [];
+  for (const node of body) {
+    if (node.type !== "ImportDeclaration") continue;
+    if (node.source.value === "vite") {
+      for (const specifier of node.specifiers) {
+        if (specifier.type !== "ImportSpecifier") continue;
+        if (specifier.imported.type !== "Identifier") continue;
+        if (specifier.imported.name !== "defineConfig") continue;
+        defineConfigNames.add(specifier.local.name);
+      }
+      continue;
+    }
+    if (
+      node.source.value !== "@stylexjs/unplugin" &&
+      node.source.value !== "@stylexjs/unplugin/vite"
+    )
+      continue;
+    for (const specifier of node.specifiers) {
+      if (specifier.type !== "ImportDefaultSpecifier") continue;
+      stylexImports.push({
+        name: specifier.local.name,
+        direct: node.source.value.endsWith("/vite"),
+      });
+    }
+  }
+  return { defineConfigNames, stylexImports };
+}
+
+function hasStylexCompiler(plugins: ArrayExpression, imports: readonly StylexImport[]) {
+  for (const node of plugins.elements) {
+    if (node?.type !== "CallExpression") continue;
+    const callee = node.callee;
+    if (callee.type === "Identifier") {
+      if (imports.some((binding) => binding.direct && binding.name === callee.name)) return true;
+      continue;
+    }
+    if (callee.type !== "MemberExpression" || callee.computed) continue;
+    if (callee.object.type !== "Identifier") continue;
+    if (callee.property.type !== "Identifier" || callee.property.name !== "vite") continue;
+    const name = callee.object.name;
+    if (imports.some((binding) => !binding.direct && binding.name === name)) return true;
+  }
+  return false;
+}
+
 export function inspectViteConfig(source: string) {
   const file = parseSource(source);
+  const { defineConfigNames, stylexImports } = getViteImports(file.program.body);
   const exported = file.program.body.find((node) => node.type === "ExportDefaultDeclaration");
   if (!exported || exported.type !== "ExportDefaultDeclaration") return undefined;
+
   let config = exported.declaration;
   if (config.type === "CallExpression" && config.arguments.length === 1) {
+    const { callee } = config;
+    if (callee.type !== "Identifier" || !defineConfigNames.has(callee.name)) return undefined;
     const argument = config.arguments[0];
     if (argument.type !== "ObjectExpression") return undefined;
-    // Only the imported Vite defineConfig helper has a known configuration contract.
-    const callee = config.callee;
-    const isDefineConfig = file.program.body.some(
-      (node) =>
-        node.type === "ImportDeclaration" &&
-        node.source.value === "vite" &&
-        node.specifiers.some(
-          (specifier) =>
-            specifier.type === "ImportSpecifier" &&
-            specifier.imported.type === "Identifier" &&
-            specifier.imported.name === "defineConfig" &&
-            callee.type === "Identifier" &&
-            specifier.local.name === callee.name,
-        ),
-    );
-    if (!isDefineConfig) return undefined;
     config = argument;
   }
   if (config.type !== "ObjectExpression") return undefined;
-  const properties = config.properties.filter(
-    (node) =>
-      node.type === "ObjectProperty" &&
-      !node.computed &&
-      ((node.key.type === "Identifier" && node.key.name === "plugins") ||
-        (node.key.type === "StringLiteral" && node.key.value === "plugins")),
-  );
-  if (
-    properties.length !== 1 ||
-    config.properties.some((node) => node.type === "SpreadElement" || node.computed)
-  )
-    return undefined;
-  const property = properties[0];
-  if (property.type !== "ObjectProperty" || property.value.type !== "ArrayExpression")
-    return undefined;
-  const plugins = property.value;
-  const imports = file.program.body.flatMap((node) => {
-    if (
-      node.type !== "ImportDeclaration" ||
-      !["@stylexjs/unplugin", "@stylexjs/unplugin/vite"].includes(node.source.value)
-    )
-      return [];
-    return node.specifiers
-      .filter((specifier) => specifier.type === "ImportDefaultSpecifier")
-      .map((specifier) => ({
-        name: specifier.local.name,
-        direct: node.source.value.endsWith("/vite"),
-      }));
-  });
-  const hasCompiler = plugins.elements.some(
-    (node) =>
-      node?.type === "CallExpression" &&
-      imports.some((binding) => {
-        const callee = node.callee;
-        if (binding.direct) return callee.type === "Identifier" && callee.name === binding.name;
-        return (
-          callee.type === "MemberExpression" &&
-          !callee.computed &&
-          callee.object.type === "Identifier" &&
-          callee.object.name === binding.name &&
-          callee.property.type === "Identifier" &&
-          callee.property.name === "vite"
-        );
-      }),
-  );
-  return { plugins, imports, hasCompiler };
+
+  let plugins: ArrayExpression | undefined;
+  for (const property of config.properties) {
+    if (property.type === "SpreadElement" || property.computed) return undefined;
+    if (property.type !== "ObjectProperty") continue;
+    const key = property.key;
+    const isPlugins =
+      (key.type === "Identifier" && key.name === "plugins") ||
+      (key.type === "StringLiteral" && key.value === "plugins");
+    if (!isPlugins) continue;
+    if (plugins || property.value.type !== "ArrayExpression") return undefined;
+    plugins = property.value;
+  }
+  if (!plugins) return undefined;
+  return {
+    plugins,
+    imports: stylexImports,
+    hasCompiler: hasStylexCompiler(plugins, stylexImports),
+  };
 }
 
 export function configureVite(source: string) {
@@ -94,7 +104,8 @@ export function configureVite(source: string) {
   // An unused name avoids colliding with a user variable or an existing import.
   let name = "nueeStylex";
   while (source.includes(name)) name += "_";
-  const factory = binding ? `${binding.name}${binding.direct ? "" : ".vite"}` : `${name}.vite`;
+  let factory = `${name}.vite`;
+  if (binding) factory = binding.direct ? binding.name : `${binding.name}.vite`;
   const plugin = `${factory}({ unstable_moduleResolution: { type: "commonJS" } })`;
   const offset = inspected.plugins.start! + 1;
   const configured =
@@ -126,12 +137,17 @@ export function removeReducedMotionStyles(source: string) {
     if (nextToken && source.slice(nextToken.start, nextToken.end) === ",") end = nextToken.end;
     removals.push({ start, end });
   });
+  // Keep outer ranges first so nested rules are removed with their parent.
+  const outerRemovals: typeof removals = [];
+  let coveredEnd = -1;
+  for (const removal of removals.sort((a, b) => a.start - b.start)) {
+    if (removal.end <= coveredEnd) continue;
+    outerRemovals.push(removal);
+    coveredEnd = removal.end;
+  }
   let result = source;
   let boundary = source.length;
-  for (const removal of removals
-    .sort((a, b) => a.start - b.start)
-    .filter((entry, index, list) => !list.slice(0, index).some((parent) => parent.end >= entry.end))
-    .reverse()) {
+  for (const removal of outerRemovals.reverse()) {
     if (removal.end > boundary) continue;
     result = result.slice(0, removal.start) + result.slice(removal.end);
     boundary = removal.start;
