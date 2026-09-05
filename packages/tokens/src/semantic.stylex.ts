@@ -11,6 +11,7 @@ export const colorVars = stylex.defineVars({
   bgRaised: colorPalette.neutral0,
   bgRaisedPressed: "oklch(97% 0 0)",
   bgCurrent: colorPalette.alphaBlack6,
+  bgOverlay: colorPalette.alphaBlack40,
   bgSkeleton: colorPalette.neutral200,
   bgActionPrimary: colorPalette.primarySolid,
   bgActionDestructive: colorPalette.redFeedback,
@@ -22,7 +23,7 @@ export const colorVars = stylex.defineVars({
   fgPrimary: colorPalette.neutral950,
   fgSecondary: colorPalette.neutral600,
   fgTertiary: colorPalette.neutral500,
-  fgDisabled: colorPalette.alphaBlack50,
+  fgDisabled: colorPalette.neutral500,
   fgInverse: colorPalette.neutral0,
   fgOnActionPrimary: colorPalette.neutral0,
   fgOnActionDestructive: colorPalette.neutral0,
@@ -42,16 +43,19 @@ export const colorVars = stylex.defineVars({
   strokeFeedbackError: colorPalette.redMuted,
   interactionDefault: "transparent",
   interactionHover: colorPalette.alphaBlack6,
-  interactionPressed: "oklch(97% 0 0)",
+  // Translucent state layers preserve the underlying surface; press is stronger than hover.
+  interactionPressed: colorPalette.alphaBlack10,
   interactionSolidHover: colorPalette.alphaWhite10,
   interactionSolidPressed: colorPalette.alphaWhite20,
-  interactionSelected: "oklch(97% 0 0)",
+  // Persistent selected surface for segmented controls, matching the explicit light theme.
+  interactionSelected: colorPalette.neutral0,
   interactionDisabled: colorPalette.alphaBlack8,
   interactionFocus: colorPalette.blueBadge,
 });
 
 export const spacingVars = stylex.defineVars({
   space0: "0",
+  space0_5: "0.125rem",
   space1: "0.25rem",
   space2: "0.5rem",
   space3: "0.75rem",
@@ -64,13 +68,19 @@ export const spacingVars = stylex.defineVars({
 });
 
 export const sizeVars = stylex.defineVars({
+  controlXs: "1.5rem",
   controlSm: "2rem",
   controlMd: "2.25rem",
   controlLg: "2.5rem",
+  iconXs: "0.75rem",
   iconSm: "0.875rem",
   iconMd: "1rem",
+  iconLg: "1.25rem",
+  contentXs: "18rem",
   contentSm: "24rem",
   contentMd: "32rem",
+  trackSm: "0.375rem",
+  trackMd: "0.5rem",
   touchTarget: "2.75rem",
   stroke: "0.0625rem",
   focusRing: "0.125rem",
@@ -80,6 +90,7 @@ export const radiusVars = stylex.defineVars({
   sm: "0.375rem",
   md: "0.5rem",
   lg: "0.75rem",
+  xl: "1rem",
   full: "9999px",
 });
 
@@ -87,6 +98,13 @@ export const shadowVars = stylex.defineVars({
   subtle: "0 1px 4px oklch(0% 0 0 / 8%)",
   floating: "0 2px 10px oklch(0% 0 0 / 10%)",
   overlay: "0 4px 16px oklch(0% 0 0 / 12%)",
+});
+
+export const layerVars = stylex.defineVars({
+  modalBackdrop: "50",
+  modal: "51",
+  popup: "60",
+  notification: "70",
 });
 
 export const typographyVars = stylex.defineVars({
@@ -117,6 +135,8 @@ export const motionVars = stylex.defineVars({
   durationFast: "120ms",
   durationNormal: "180ms",
   durationSlow: "240ms",
+  durationLoading: "700ms",
+  durationLoadingReduced: "1.5s",
   easingStandard: "cubic-bezier(0.2, 0, 0, 1)",
   easingEnter: "cubic-bezier(0.16, 1, 0.3, 1)",
   easingExit: "cubic-bezier(0.4, 0, 1, 1)",

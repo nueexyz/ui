@@ -1,6 +1,7 @@
 export { colorPalette, colorPaletteGroups } from "./color-palette.stylex";
 export {
   colorVars,
+  layerVars,
   motionVars,
   opacityVars,
   radiusVars,
