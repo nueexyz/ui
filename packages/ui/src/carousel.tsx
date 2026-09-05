@@ -1,5 +1,6 @@
 "use client";
 
+import { sizeVars } from "@nuee/tokens/semantic.stylex";
 import { CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import useEmblaCarousel from "embla-carousel-react";
@@ -13,8 +14,6 @@ import {
   type ComponentProps,
   type ReactNode,
 } from "react";
-
-import { sizeVars } from "@nuee/tokens/semantic.stylex";
 
 import { Button } from "./button";
 
@@ -159,7 +158,7 @@ export function CarouselPrevious({ disabled, xstyle, ...props }: CarouselControl
       aria-label="Previous slide"
       disabled={disabled ?? !canScrollPrevious}
       onClick={scrollPrevious}
-      size="sm"
+      size="icon-sm"
       shape="circle"
       variant="secondary"
       xstyle={[styles.control, styles.previous, xstyle]}
@@ -177,7 +176,7 @@ export function CarouselNext({ disabled, xstyle, ...props }: CarouselControlProp
       aria-label="Next slide"
       disabled={disabled ?? !canScrollNext}
       onClick={scrollNext}
-      size="sm"
+      size="icon-sm"
       shape="circle"
       variant="secondary"
       xstyle={[styles.control, styles.next, xstyle]}

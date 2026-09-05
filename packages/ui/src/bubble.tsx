@@ -1,13 +1,18 @@
+import {
+  colorVars,
+  radiusVars,
+  sizeVars,
+  spacingVars,
+  typographyVars,
+} from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
-
-import { colorVars, radiusVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
   root: {
     fontSize: typographyVars.fontSizeSm,
     lineHeight: typographyVars.lineHeightNormal,
-    maxWidth: "min(32rem, 100%)",
+    maxWidth: `min(${sizeVars.contentMd}, 100%)`,
     paddingBlock: spacingVars.space3,
     paddingInline: spacingVars.space4,
     whiteSpace: "pre-wrap",
@@ -30,7 +35,7 @@ const styles = stylex.create({
   outline: {
     borderColor: colorVars.strokeDefault,
     borderStyle: "solid",
-    borderWidth: 1,
+    borderWidth: sizeVars.stroke,
     color: colorVars.fgPrimary,
   },
 });

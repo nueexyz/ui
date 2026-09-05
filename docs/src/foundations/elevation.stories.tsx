@@ -6,8 +6,8 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
-import * as stylex from "@stylexjs/stylex";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
 import { useLayoutEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 
@@ -289,7 +289,7 @@ export const Shadow: Story = {
   render: () => (
     <Page
       title="Shadow"
-      description="Use shadows when the background alone does not establish enough separation. In dark mode, use higher opacity to preserve depth."
+      description="Use shadows when the background alone does not establish enough separation. In dark mode, pair a fine light ring with wider shadows to preserve depth."
     >
       <div {...stylex.props(styles.grid)}>
         {shadowTokens.map(([name, token, description]) => (

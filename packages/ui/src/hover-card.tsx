@@ -1,11 +1,9 @@
 "use client";
 
 import { PreviewCard } from "@base-ui/react/preview-card";
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
-
 import {
   colorVars,
+  layerVars,
   motionVars,
   radiusVars,
   shadowVars,
@@ -13,6 +11,8 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
 
 const styles = stylex.create({
   popup: {
@@ -32,7 +32,7 @@ const styles = stylex.create({
     transitionDuration: motionVars.durationNormal,
     transitionProperty: "opacity, transform",
     transitionTimingFunction: motionVars.easingEnter,
-    zIndex: 60,
+    zIndex: layerVars.popup,
     "@media (prefers-reduced-motion: reduce)": {
       transform: "none",
       transitionDuration: motionVars.durationInstant,

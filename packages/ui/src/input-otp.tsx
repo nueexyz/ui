@@ -1,9 +1,6 @@
 "use client";
 
 import { OTPField } from "@base-ui/react/otp-field";
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
-
 import {
   colorVars,
   motionVars,
@@ -13,6 +10,10 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
+
+import type { ControlLayoutStyles } from "./control-layout";
 
 const styles = stylex.create({
   root: { alignItems: "center", display: "flex", gap: spacingVars.space2 },
@@ -55,7 +56,7 @@ const styles = stylex.create({
 });
 
 export type InputOTPProps = Omit<ComponentProps<typeof OTPField.Root>, "className" | "style"> & {
-  xstyle?: stylex.StyleXStyles;
+  xstyle?: ControlLayoutStyles;
 };
 
 export function InputOTP({ xstyle, ...props }: InputOTPProps) {

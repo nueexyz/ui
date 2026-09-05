@@ -1,11 +1,17 @@
 "use client";
 
 import { Switch as SwitchPrimitive } from "@base-ui/react/switch";
+import {
+  colorVars,
+  motionVars,
+  radiusVars,
+  sizeVars,
+  spacingVars,
+} from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
-import type { ControlPlacementStyles } from "./control-layout";
 
-import { colorVars, motionVars, radiusVars, sizeVars } from "@nuee/tokens/semantic.stylex";
+import type { ControlPlacementStyles } from "./control-layout";
 
 const styles = stylex.create({
   root: {
@@ -19,7 +25,7 @@ const styles = stylex.create({
     display: "inline-flex",
     flexShrink: 0,
     outline: "none",
-    padding: "0.125rem",
+    padding: spacingVars.space0_5,
     transitionDuration: motionVars.durationFast,
     transitionProperty: "background-color, opacity",
     transitionTimingFunction: motionVars.easingStandard,
@@ -31,8 +37,8 @@ const styles = stylex.create({
     },
     ":disabled": { cursor: "not-allowed" },
   },
-  sm: { height: "1.5rem", width: "2rem" },
-  md: { height: "1.5rem", width: "2.5rem" },
+  sm: { height: sizeVars.controlXs, width: sizeVars.controlSm },
+  md: { height: sizeVars.controlXs, width: sizeVars.controlLg },
   checked: { backgroundColor: colorVars.bgActionPrimary },
   disabled: { backgroundColor: colorVars.interactionDisabled, cursor: "not-allowed" },
   disabledThumb: { backgroundColor: colorVars.fgDisabled },
@@ -48,10 +54,10 @@ const styles = stylex.create({
       transitionDuration: motionVars.durationInstant,
     },
   },
-  thumbsm: { height: "1rem", width: "1rem" },
-  thumbmd: { height: "1.25rem", width: "1.25rem" },
-  thumbCheckedsm: { transform: "translateX(0.75rem)" },
-  thumbCheckedmd: { transform: "translateX(1rem)" },
+  thumbsm: { height: sizeVars.iconMd, width: sizeVars.iconMd },
+  thumbmd: { height: sizeVars.iconLg, width: sizeVars.iconLg },
+  thumbCheckedsm: { transform: `translateX(${spacingVars.space3})` },
+  thumbCheckedmd: { transform: `translateX(${spacingVars.space4})` },
 });
 
 export type SwitchProps = Omit<

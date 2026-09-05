@@ -1,7 +1,6 @@
+import { colorVars, sizeVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
-
-import { colorVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
   root: {
@@ -18,7 +17,7 @@ const styles = stylex.create({
   border: {
     borderBottomColor: colorVars.strokeDefault,
     borderBottomStyle: "solid",
-    borderBottomWidth: 1,
+    borderBottomWidth: sizeVars.stroke,
     paddingBottom: spacingVars.space2,
   },
   separator: {
@@ -28,13 +27,13 @@ const styles = stylex.create({
       backgroundColor: colorVars.strokeDefault,
       content: "",
       flex: 1,
-      height: 1,
+      height: sizeVars.stroke,
     },
     "::after": {
       backgroundColor: colorVars.strokeDefault,
       content: "",
       flex: 1,
-      height: 1,
+      height: sizeVars.stroke,
     },
   },
   icon: { alignItems: "center", display: "inline-flex", flexShrink: 0 },

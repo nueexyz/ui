@@ -1,12 +1,9 @@
 "use client";
 
 import { NavigationMenu as NavigationMenuPrimitive } from "@base-ui/react/navigation-menu";
-import { CaretDownIcon } from "@phosphor-icons/react";
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
-
 import {
   colorVars,
+  layerVars,
   motionVars,
   radiusVars,
   shadowVars,
@@ -14,6 +11,9 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import { CaretDownIcon } from "@phosphor-icons/react";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
 
 const styles = stylex.create({
   root: {
@@ -77,13 +77,7 @@ const styles = stylex.create({
     position: "relative",
     top: sizeVars.stroke,
     transform: "rotate(0deg)",
-    transitionDuration: motionVars.durationNormal,
-    transitionProperty: "transform",
-    transitionTimingFunction: motionVars.easingStandard,
     ":is([data-popup-open] *)": { transform: "rotate(180deg)" },
-    "@media (prefers-reduced-motion: reduce)": {
-      transitionDuration: motionVars.durationInstant,
-    },
   },
   content: {
     height: "100%",
@@ -130,7 +124,7 @@ const styles = stylex.create({
       transitionDuration: motionVars.durationInstant,
     },
     width: "var(--positioner-width)",
-    zIndex: 60,
+    zIndex: layerVars.popup,
   },
   popup: {
     backgroundColor: colorVars.bgRaised,

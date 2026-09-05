@@ -2,10 +2,6 @@
 
 import { Toggle as TogglePrimitive } from "@base-ui/react/toggle";
 import { ToggleGroup as ToggleGroupPrimitive } from "@base-ui/react/toggle-group";
-import * as stylex from "@stylexjs/stylex";
-import { createContext, useContext, type ComponentProps, type ReactNode } from "react";
-
-import type { ToggleSize, ToggleVariant } from "./toggle";
 import {
   colorVars,
   motionVars,
@@ -14,6 +10,11 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import { createContext, useContext, type ComponentProps, type ReactNode } from "react";
+
+import type { ControlLayoutStyles, ControlPlacementStyles } from "./control-layout";
+import type { ToggleSize, ToggleVariant } from "./toggle";
 
 const styles = stylex.create({
   root: { alignItems: "center", display: "inline-flex", width: "fit-content" },
@@ -75,7 +76,7 @@ const styles = stylex.create({
   },
   itemDefault: { backgroundColor: "transparent" },
   itemOutline: { backgroundColor: colorVars.bgSurface, borderColor: colorVars.strokeDefault },
-  itemPressed: { backgroundColor: colorVars.bgSurfacePressed, color: colorVars.fgPrimary },
+  itemPressed: { backgroundColor: colorVars.interactionSelected, color: colorVars.fgPrimary },
   itemDisabled: {
     backgroundColor: colorVars.interactionDisabled,
     borderColor: colorVars.strokeDefault,
@@ -101,7 +102,7 @@ export type ToggleGroupProps = Omit<
   children: ReactNode;
   size?: ToggleSize;
   variant?: ToggleVariant;
-  xstyle?: stylex.StyleXStyles;
+  xstyle?: ControlLayoutStyles;
 };
 
 export function ToggleGroup({
@@ -125,7 +126,7 @@ export type ToggleGroupItemProps = Omit<
 > & {
   size?: ToggleSize;
   variant?: ToggleVariant;
-  xstyle?: stylex.StyleXStyles;
+  xstyle?: ControlPlacementStyles;
 };
 
 export function ToggleGroupItem({ size, variant, xstyle, ...props }: ToggleGroupItemProps) {

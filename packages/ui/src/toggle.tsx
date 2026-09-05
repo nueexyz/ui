@@ -1,9 +1,6 @@
 "use client";
 
 import { Toggle as TogglePrimitive } from "@base-ui/react/toggle";
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
-
 import {
   colorVars,
   motionVars,
@@ -12,6 +9,10 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
+
+import type { ControlLayoutStyles } from "./control-layout";
 
 const styles = stylex.create({
   root: {
@@ -57,7 +58,7 @@ const styles = stylex.create({
   },
   default: { backgroundColor: "transparent" },
   outline: { backgroundColor: colorVars.bgSurface, borderColor: colorVars.strokeDefault },
-  pressed: { backgroundColor: colorVars.bgSurfacePressed, color: colorVars.fgPrimary },
+  pressed: { backgroundColor: colorVars.interactionSelected, color: colorVars.fgPrimary },
   disabled: {
     backgroundColor: colorVars.interactionDisabled,
     borderColor: colorVars.strokeDefault,
@@ -73,7 +74,7 @@ export type ToggleVariant = "default" | "outline";
 export type ToggleProps = Omit<ComponentProps<typeof TogglePrimitive>, "className" | "style"> & {
   size?: ToggleSize;
   variant?: ToggleVariant;
-  xstyle?: stylex.StyleXStyles;
+  xstyle?: ControlLayoutStyles;
 };
 
 export function Toggle({ size = "md", variant = "default", xstyle, ...props }: ToggleProps) {

@@ -1,9 +1,6 @@
 "use client";
 
 import { Slider as SliderPrimitive } from "@base-ui/react/slider";
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
-
 import {
   colorVars,
   motionVars,
@@ -11,6 +8,10 @@ import {
   radiusVars,
   sizeVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
+
+import type { ControlLayoutStyles } from "./control-layout";
 
 const styles = stylex.create({
   root: {
@@ -31,7 +32,7 @@ const styles = stylex.create({
   track: {
     backgroundColor: colorVars.bgSubtle,
     borderRadius: radiusVars.full,
-    height: "0.375rem",
+    height: sizeVars.trackSm,
     overflow: "hidden",
     width: "100%",
   },
@@ -46,9 +47,9 @@ const styles = stylex.create({
     borderRadius: radiusVars.full,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
-    height: "1.25rem",
+    height: sizeVars.iconLg,
     outline: "none",
-    width: "1.25rem",
+    width: sizeVars.iconLg,
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
       outlineOffset: sizeVars.focusRing,
@@ -64,7 +65,7 @@ export type SliderProps = Omit<
 > & {
   /** Returns an accessible name for each thumb in a range slider. */
   getAriaLabel?: (index: number) => string;
-  xstyle?: stylex.StyleXStyles;
+  xstyle?: ControlLayoutStyles;
 };
 
 export function Slider({ defaultValue, getAriaLabel, value, xstyle, ...props }: SliderProps) {

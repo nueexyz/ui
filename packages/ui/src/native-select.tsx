@@ -1,9 +1,5 @@
 "use client";
 
-import * as stylex from "@stylexjs/stylex";
-import { CaretDownIcon } from "@phosphor-icons/react";
-import type { ComponentProps } from "react";
-
 import {
   colorVars,
   motionVars,
@@ -12,6 +8,11 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import { CaretDownIcon } from "@phosphor-icons/react";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
+
+import type { ControlLayoutStyles } from "./control-layout";
 
 const styles = stylex.create({
   root: { display: "inline-flex", position: "relative", width: "fit-content" },
@@ -62,7 +63,7 @@ const styles = stylex.create({
 
 export type NativeSelectProps = Omit<ComponentProps<"select">, "size" | "className" | "style"> & {
   size?: "md" | "sm";
-  xstyle?: stylex.StyleXStyles;
+  xstyle?: ControlLayoutStyles;
 };
 
 export function NativeSelect({ children, size = "md", xstyle, ...props }: NativeSelectProps) {

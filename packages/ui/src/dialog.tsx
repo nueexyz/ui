@@ -1,12 +1,9 @@
 "use client";
 
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
-import { XIcon } from "@phosphor-icons/react";
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps, ReactNode } from "react";
-
 import {
   colorVars,
+  layerVars,
   motionVars,
   radiusVars,
   shadowVars,
@@ -14,17 +11,20 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import { XIcon } from "@phosphor-icons/react";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps, ReactNode } from "react";
 
 const styles = stylex.create({
   backdrop: {
     backdropFilter: "blur(4px)",
-    backgroundColor: "oklch(0% 0 0 / 40%)",
+    backgroundColor: colorVars.bgOverlay,
     inset: 0,
     position: "fixed",
     transitionDuration: motionVars.durationSlow,
     transitionProperty: "opacity",
     transitionTimingFunction: motionVars.easingEnter,
-    zIndex: 50,
+    zIndex: layerVars.modalBackdrop,
     ":is([data-starting-style])": { opacity: 0 },
     ":is([data-ending-style])": {
       opacity: 0,
@@ -43,7 +43,7 @@ const styles = stylex.create({
     justifyContent: "center",
     padding: spacingVars.space4,
     position: "fixed",
-    zIndex: 51,
+    zIndex: layerVars.modal,
   },
   popup: {
     backgroundColor: colorVars.bgRaised,
@@ -56,7 +56,7 @@ const styles = stylex.create({
     flexDirection: "column",
     gap: spacingVars.space4,
     maxHeight: "calc(100dvh - 2rem)",
-    maxWidth: "32rem",
+    maxWidth: sizeVars.contentMd,
     outline: "none",
     overflow: "auto",
     padding: spacingVars.space6,

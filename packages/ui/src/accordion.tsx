@@ -1,10 +1,6 @@
 "use client";
 
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
-import { CaretDownIcon } from "@phosphor-icons/react";
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
-
 import {
   colorVars,
   motionVars,
@@ -12,6 +8,9 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import { CaretDownIcon } from "@phosphor-icons/react";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
 
 const styles = stylex.create({
   root: { minWidth: 0, width: "100%" },
@@ -61,17 +60,11 @@ const styles = stylex.create({
     alignItems: "center",
     display: "inline-flex",
     flexShrink: 0,
-    height: "1rem",
+    height: sizeVars.iconMd,
     justifyContent: "center",
     transform: "rotate(0deg)",
-    transitionDuration: motionVars.durationNormal,
-    transitionProperty: "transform",
-    transitionTimingFunction: motionVars.easingStandard,
-    width: "1rem",
+    width: sizeVars.iconMd,
     ":is([data-panel-open] *)": { transform: "rotate(180deg)" },
-    "@media (prefers-reduced-motion: reduce)": {
-      transitionDuration: motionVars.durationInstant,
-    },
   },
   panel: {
     color: colorVars.fgSecondary,

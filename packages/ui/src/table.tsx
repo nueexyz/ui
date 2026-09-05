@@ -1,7 +1,12 @@
+import {
+  colorVars,
+  motionVars,
+  sizeVars,
+  spacingVars,
+  typographyVars,
+} from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
-
-import { colorVars, motionVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
   container: { overflowX: "auto", position: "relative", width: "100%" },
@@ -15,20 +20,20 @@ const styles = stylex.create({
   header: {
     borderBottomColor: colorVars.strokeDefault,
     borderBottomStyle: "solid",
-    borderBottomWidth: 1,
+    borderBottomWidth: sizeVars.stroke,
   },
   body: {},
   footer: {
     backgroundColor: colorVars.bgSubtle,
     borderTopColor: colorVars.strokeDefault,
     borderTopStyle: "solid",
-    borderTopWidth: 1,
+    borderTopWidth: sizeVars.stroke,
     fontWeight: typographyVars.fontWeightMedium,
   },
   row: {
     borderBottomColor: colorVars.strokeDefault,
     borderBottomStyle: "solid",
-    borderBottomWidth: 1,
+    borderBottomWidth: sizeVars.stroke,
     transitionDuration: motionVars.durationFast,
     transitionProperty: "background-color",
     transitionTimingFunction: motionVars.easingStandard,
@@ -40,7 +45,7 @@ const styles = stylex.create({
   head: {
     color: colorVars.fgSecondary,
     fontWeight: typographyVars.fontWeightMedium,
-    height: "2.5rem",
+    height: sizeVars.controlLg,
     paddingInline: spacingVars.space3,
     textAlign: "left",
     verticalAlign: "middle",
@@ -57,6 +62,8 @@ const styles = stylex.create({
     fontSize: typographyVars.fontSizeSm,
     marginTop: spacingVars.space4,
     textAlign: "left",
+    paddingInline: spacingVars.space1,
+    paddingBlock: spacingVars.space3,
   },
 });
 

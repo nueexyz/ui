@@ -1,12 +1,6 @@
 "use client";
 
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps, MouseEvent } from "react";
-
-import { Button, type ButtonProps } from "./button";
 import { Input as InputPrimitive } from "@base-ui/react/input";
-import type { InputProps } from "./input";
-import { Textarea, type TextareaProps } from "./textarea";
 import {
   colorVars,
   motionVars,
@@ -15,6 +9,12 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps, MouseEvent } from "react";
+
+import { Button, type ButtonProps } from "./button";
+import type { InputProps } from "./input";
+import type { TextareaProps } from "./textarea";
 
 const styles = stylex.create({
   root: {
@@ -162,7 +162,7 @@ export function InputGroupInput({ xstyle, ...props }: InputProps) {
 }
 
 export function InputGroupTextarea({ xstyle, ...props }: TextareaProps) {
-  return <Textarea {...props} xstyle={[styles.control, styles.textarea, xstyle]} />;
+  return <textarea {...props} {...stylex.props(styles.control, styles.textarea, xstyle)} />;
 }
 
 export function InputGroupButton({

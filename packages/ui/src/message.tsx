@@ -1,7 +1,12 @@
+import {
+  colorVars,
+  radiusVars,
+  sizeVars,
+  spacingVars,
+  typographyVars,
+} from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
-
-import { colorVars, sizeVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
   group: { display: "flex", flexDirection: "column", gap: spacingVars.space2, minWidth: 0 },
@@ -12,7 +17,7 @@ const styles = stylex.create({
     alignItems: "center",
     alignSelf: "flex-start",
     backgroundColor: colorVars.bgSubtle,
-    borderRadius: "9999px",
+    borderRadius: radiusVars.full,
     display: "flex",
     flexShrink: 0,
     justifyContent: "center",

@@ -1,12 +1,9 @@
 "use client";
 
 import { AlertDialog as AlertDialogPrimitive } from "@base-ui/react/alert-dialog";
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps, ReactNode } from "react";
-
-import { Button } from "./button";
 import {
   colorVars,
+  layerVars,
   motionVars,
   radiusVars,
   shadowVars,
@@ -14,17 +11,21 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps, ReactNode } from "react";
+
+import { Button } from "./button";
 
 const styles = stylex.create({
   backdrop: {
     backdropFilter: "blur(4px)",
-    backgroundColor: "oklch(0% 0 0 / 40%)",
+    backgroundColor: colorVars.bgOverlay,
     inset: 0,
     position: "fixed",
     transitionDuration: motionVars.durationSlow,
     transitionProperty: "opacity",
     transitionTimingFunction: motionVars.easingEnter,
-    zIndex: 50,
+    zIndex: layerVars.modalBackdrop,
     ":is([data-starting-style])": { opacity: 0 },
     ":is([data-ending-style])": {
       opacity: 0,
@@ -43,7 +44,7 @@ const styles = stylex.create({
     justifyContent: "center",
     padding: spacingVars.space4,
     position: "fixed",
-    zIndex: 51,
+    zIndex: layerVars.modal,
   },
   popup: {
     backgroundColor: colorVars.bgRaised,

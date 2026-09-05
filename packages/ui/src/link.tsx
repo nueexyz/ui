@@ -1,11 +1,10 @@
 "use client";
 
 import { useRender } from "@base-ui/react/use-render";
+import { colorVars, motionVars, sizeVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 import { ArrowSquareOutIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import { forwardRef, type ComponentProps } from "react";
-
-import { colorVars, motionVars, sizeVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
   root: {
@@ -48,16 +47,15 @@ const styles = stylex.create({
 
 export type LinkVariant = "current" | "inline" | "plain";
 
-export type LinkProps = useRender.ComponentProps<"a"> & {
+export type LinkProps = Omit<useRender.ComponentProps<"a">, "className" | "style"> & {
   variant?: LinkVariant;
-  xstyle?: stylex.StyleXStyles;
 };
 
 const LinkBase = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
-  { render, variant = "inline", xstyle, ...props },
+  { render, variant = "inline", ...props },
   ref,
 ) {
-  const stylexProps = stylex.props(styles.root, styles[variant], xstyle);
+  const stylexProps = stylex.props(styles.root, styles[variant]);
 
   return useRender({
     defaultTagName: "a",

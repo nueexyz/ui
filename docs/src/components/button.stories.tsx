@@ -1,7 +1,9 @@
-import * as stylex from "@stylexjs/stylex";
 import { Button } from "@nuee/ui/button";
 import { Spinner } from "@nuee/ui/spinner";
+import { PlusIcon } from "@phosphor-icons/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
 import {
   CodeBlock,
   ComponentCode,
@@ -66,22 +68,6 @@ export const ButtonStory: Story = {
       </section>
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
-          <h2 {...stylex.props(storyStyles.sectionTitle)}>Emphasized backgrounds</h2>
-          <p {...stylex.props(storyStyles.description)}>
-            Preserve action hierarchy and contrast on an emphasized background.
-          </p>
-        </header>
-        <div {...stylex.props(storyStyles.preview, storyStyles.inverse)}>
-          <Button variant="secondary" xstyle={storyStyles.inverseSecondary}>
-            Back
-          </Button>
-          <Button variant="ghost" xstyle={storyStyles.inverseGhost}>
-            Close
-          </Button>
-        </div>
-      </section>
-      <section {...stylex.props(storyStyles.section)}>
-        <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Sizes</h2>
           <p {...stylex.props(storyStyles.description)}>
             Choose a size that matches the screen’s information density.
@@ -91,6 +77,28 @@ export const ButtonStory: Story = {
           <Button size="sm">Save</Button>
           <Button size="md">Save</Button>
           <Button size="lg">Save</Button>
+        </div>
+      </section>
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Icon buttons</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Use an icon size and an accessible name when the action has no text label.
+          </p>
+        </header>
+        <div {...stylex.props(storyStyles.preview)}>
+          <Button aria-label="Add item" size="icon-xs">
+            <PlusIcon aria-hidden="true" />
+          </Button>
+          <Button aria-label="Add item" size="icon-sm">
+            <PlusIcon aria-hidden="true" />
+          </Button>
+          <Button aria-label="Add item" size="icon">
+            <PlusIcon aria-hidden="true" />
+          </Button>
+          <Button aria-label="Add item" size="icon-lg">
+            <PlusIcon aria-hidden="true" />
+          </Button>
         </div>
       </section>
       <section {...stylex.props(storyStyles.section)}>

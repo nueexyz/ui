@@ -1,16 +1,17 @@
 "use client";
 
 import { Progress as ProgressPrimitive } from "@base-ui/react/progress";
+import { colorVars, motionVars, radiusVars, sizeVars } from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import { colorVars, motionVars, radiusVars } from "@nuee/tokens/semantic.stylex";
+import type { ControlLayoutStyles } from "./control-layout";
 
 const styles = stylex.create({
   root: {
     backgroundColor: colorVars.strokeDefault,
     borderRadius: radiusVars.full,
-    height: "0.5rem",
+    height: sizeVars.trackMd,
     overflow: "hidden",
     width: "100%",
   },
@@ -30,7 +31,7 @@ export type ProgressProps = Omit<
   ComponentProps<typeof ProgressPrimitive.Root>,
   "className" | "style"
 > & {
-  xstyle?: stylex.StyleXStyles;
+  xstyle?: ControlLayoutStyles;
 };
 
 export function Progress({ xstyle, ...props }: ProgressProps) {

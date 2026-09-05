@@ -1,6 +1,3 @@
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
-
 import {
   colorVars,
   motionVars,
@@ -9,6 +6,10 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
+
+import type { ControlFieldStyles } from "./control-layout";
 
 const styles = stylex.create({
   root: {
@@ -63,7 +64,7 @@ const styles = stylex.create({
 });
 
 export type TextareaProps = Omit<ComponentProps<"textarea">, "className" | "style"> & {
-  xstyle?: stylex.StyleXStyles;
+  xstyle?: ControlFieldStyles;
 };
 
 export function Textarea({ "aria-invalid": ariaInvalid, xstyle, ...props }: TextareaProps) {

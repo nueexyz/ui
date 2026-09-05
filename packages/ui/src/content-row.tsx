@@ -1,6 +1,3 @@
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
-
 import {
   colorVars,
   radiusVars,
@@ -8,6 +5,8 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
 
 const styles = stylex.create({
   root: {
@@ -49,6 +48,7 @@ const styles = stylex.create({
     width: sizeVars.touchTarget,
   },
   content: {
+    alignSelf: "baseline",
     display: "flex",
     flex: 1,
     flexDirection: "column",
@@ -67,8 +67,8 @@ const styles = stylex.create({
     margin: 0,
   },
   actions: {
-    alignItems: "center",
-    alignSelf: "flex-start",
+    alignItems: "baseline",
+    alignSelf: "baseline",
     display: "flex",
     flexShrink: 0,
     gap: spacingVars.space2,

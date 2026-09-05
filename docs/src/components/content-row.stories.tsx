@@ -1,14 +1,5 @@
-import * as stylex from "@stylexjs/stylex";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import {
-  CodeBlock,
-  ComponentCode,
-  ComponentExample,
-  storyStyles,
-} from "./story-layout/StoryLayout";
 import { Avatar, AvatarFallback } from "@nuee/ui/avatar";
 import { Button } from "@nuee/ui/button";
-import { Icon } from "@nuee/ui/icon";
 import {
   ContentRow,
   ContentRowActions,
@@ -18,14 +9,22 @@ import {
   ContentRowMedia,
   ContentRowTitle,
 } from "@nuee/ui/content-row";
+import { DotsThreeIcon, FolderIcon } from "@phosphor-icons/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
+import {
+  CodeBlock,
+  ComponentCode,
+  ComponentExample,
+  storyStyles,
+} from "./story-layout/StoryLayout";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 const registryName = "content-row";
-
-const styles = stylex.create({ moreActions: { paddingInline: 0 } });
 
 function ContentRowExample() {
   return (
@@ -40,20 +39,15 @@ function ContentRowExample() {
         <ContentRowGroup>
           <ContentRow variant="outline">
             <ContentRowMedia>
-              <Icon name="folder" />
+              <FolderIcon aria-hidden="true" />
             </ContentRowMedia>
             <ContentRowContent>
               <ContentRowTitle>Design system</ContentRowTitle>
               <ContentRowDescription>Last edited today at 2:18 PM</ContentRowDescription>
             </ContentRowContent>
             <ContentRowActions>
-              <Button
-                aria-label="More actions"
-                size="sm"
-                variant="ghost"
-                xstyle={styles.moreActions}
-              >
-                <Icon aria-hidden="true" name="moreHorizontal" size="1.25rem" />
+              <Button aria-label="More actions" size="icon-xs" variant="ghost">
+                <DotsThreeIcon aria-hidden="true" size="1rem" />
               </Button>
             </ContentRowActions>
           </ContentRow>
@@ -75,7 +69,7 @@ function ContentRowExample() {
 }
 
 const contentRowExampleCode =
-  'import * as stylex from "@stylexjs/stylex"\nimport { Button } from "@nuee/ui/button"\nimport { ContentRow, ContentRowActions, ContentRowContent, ContentRowDescription, ContentRowGroup, ContentRowMedia, ContentRowTitle } from "@nuee/ui/content-row"\nimport { Icon } from "@nuee/ui/icon"\n\nconst styles = stylex.create({ moreActions: { paddingInline: 0 } })\n\n<ContentRowGroup>\n  <ContentRow variant="outline">\n    <ContentRowMedia><Icon name="folder" /></ContentRowMedia>\n    <ContentRowContent><ContentRowTitle>Design system</ContentRowTitle><ContentRowDescription>Last edited today at 2:18 PM</ContentRowDescription></ContentRowContent>\n    <ContentRowActions>\n      <Button aria-label="More actions" size="sm" variant="ghost" xstyle={styles.moreActions}>\n        <Icon aria-hidden="true" name="moreHorizontal" size="1.25rem" />\n      </Button>\n    </ContentRowActions>\n  </ContentRow>\n</ContentRowGroup>';
+  'import { DotsThreeIcon, FolderIcon } from "@phosphor-icons/react"\nimport { Button } from "@nuee/ui/button"\nimport { ContentRow, ContentRowActions, ContentRowContent, ContentRowDescription, ContentRowGroup, ContentRowMedia, ContentRowTitle } from "@nuee/ui/content-row"\n\n<ContentRowGroup>\n  <ContentRow variant="outline">\n    <ContentRowMedia><FolderIcon aria-hidden="true" /></ContentRowMedia>\n    <ContentRowContent><ContentRowTitle>Design system</ContentRowTitle><ContentRowDescription>Last edited today at 2:18 PM</ContentRowDescription></ContentRowContent>\n    <ContentRowActions>\n      <Button aria-label="More actions" size="icon-sm" variant="ghost">\n        <DotsThreeIcon aria-hidden="true" size="1rem" />\n      </Button>\n    </ContentRowActions>\n  </ContentRow>\n</ContentRowGroup>';
 
 export const ContentRowStory: Story = {
   name: "Content Row",
@@ -92,6 +86,34 @@ export const ContentRowStory: Story = {
       </ComponentExample>
 
       <ComponentCode usage={contentRowExampleCode} />
+      <section {...stylex.props(storyStyles.section)}>
+        <header {...stylex.props(storyStyles.sectionHeader)}>
+          <h2 {...stylex.props(storyStyles.sectionTitle)}>Action alignment</h2>
+          <p {...stylex.props(storyStyles.description)}>
+            Titles and action labels share their first baseline across button sizes. Descriptions
+            can wrap without changing that alignment.
+          </p>
+        </header>
+        <ContentRowGroup>
+          {(["sm", "md", "lg"] as const).map((size) => (
+            <ContentRow key={size} variant="outline">
+              <ContentRowContent>
+                <ContentRowTitle>Project settings</ContentRowTitle>
+                <ContentRowDescription>
+                  Review project access and notification preferences.
+                  <br />
+                  Changes apply to everyone in the workspace.
+                </ContentRowDescription>
+              </ContentRowContent>
+              <ContentRowActions>
+                <Button size={size} variant="secondary">
+                  Edit
+                </Button>
+              </ContentRowActions>
+            </ContentRow>
+          ))}
+        </ContentRowGroup>
+      </section>
       <section {...stylex.props(storyStyles.section)}>
         <header {...stylex.props(storyStyles.sectionHeader)}>
           <h2 {...stylex.props(storyStyles.sectionTitle)}>Variants</h2>

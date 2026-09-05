@@ -1,9 +1,6 @@
 "use client";
 
 import { Tabs as TabsPrimitive } from "@base-ui/react/tabs";
-import * as stylex from "@stylexjs/stylex";
-import { createContext, type ComponentProps, useContext } from "react";
-
 import {
   colorVars,
   motionVars,
@@ -13,6 +10,8 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import { createContext, type ComponentProps, useContext } from "react";
 
 const styles = stylex.create({
   root: { minWidth: 0, width: "100%" },
@@ -30,7 +29,7 @@ const styles = stylex.create({
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     minHeight: sizeVars.controlMd,
-    padding: "0.125rem",
+    padding: spacingVars.space0_5,
   },
   underlineList: {
     borderBottomColor: colorVars.strokeDefault,
@@ -100,7 +99,7 @@ const styles = stylex.create({
     },
   },
   segmentedIndicator: {
-    backgroundColor: colorVars.bgSurface,
+    backgroundColor: colorVars.interactionSelected,
     borderRadius: radiusVars.sm,
     boxShadow: shadowVars.subtle,
     height: "var(--active-tab-height)",

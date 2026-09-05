@@ -1,12 +1,9 @@
 "use client";
 
 import { Combobox as ComboboxPrimitive } from "@base-ui/react/combobox";
-import { CaretDownIcon, CheckIcon, MagnifyingGlassIcon } from "@phosphor-icons/react";
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps, ReactNode } from "react";
-
 import {
   colorVars,
+  layerVars,
   motionVars,
   radiusVars,
   shadowVars,
@@ -14,6 +11,9 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import { CaretDownIcon, CheckIcon, MagnifyingGlassIcon } from "@phosphor-icons/react";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps, ReactNode } from "react";
 
 const styles = stylex.create({
   inputGroup: {
@@ -79,7 +79,7 @@ const styles = stylex.create({
     cursor: "not-allowed",
     ":hover": { backgroundColor: "transparent" },
   },
-  positioner: { zIndex: 60 },
+  positioner: { zIndex: layerVars.popup },
   popup: {
     backgroundColor: colorVars.bgRaised,
     borderColor: colorVars.strokeDefault,

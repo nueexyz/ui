@@ -2,9 +2,6 @@
 
 import { Radio as RadioPrimitive } from "@base-ui/react/radio";
 import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group";
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
-
 import {
   colorVars,
   motionVars,
@@ -13,6 +10,10 @@ import {
   sizeVars,
   spacingVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
+
+import type { ControlLayoutStyles, ControlPlacementStyles } from "./control-layout";
 
 const styles = stylex.create({
   group: { display: "flex", flexDirection: "column", gap: spacingVars.space3 },
@@ -25,13 +26,13 @@ const styles = stylex.create({
     borderWidth: sizeVars.stroke,
     cursor: "pointer",
     display: "inline-flex",
-    height: "1.5rem",
+    height: sizeVars.controlXs,
     justifyContent: "center",
     outline: "none",
     transitionDuration: motionVars.durationFast,
     transitionProperty: "border-color, opacity",
     transitionTimingFunction: motionVars.easingStandard,
-    width: "1.5rem",
+    width: sizeVars.controlXs,
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
       outlineOffset: sizeVars.focusRing,
@@ -45,8 +46,8 @@ const styles = stylex.create({
   dot: {
     backgroundColor: colorVars.bgActionPrimary,
     borderRadius: radiusVars.full,
-    height: "0.75rem",
-    width: "0.75rem",
+    height: sizeVars.iconXs,
+    width: sizeVars.iconXs,
   },
 });
 
@@ -54,7 +55,7 @@ export type RadioGroupProps = Omit<
   ComponentProps<typeof RadioGroupPrimitive>,
   "className" | "style"
 > & {
-  xstyle?: stylex.StyleXStyles;
+  xstyle?: ControlLayoutStyles;
 };
 
 export function RadioGroup({ xstyle, ...props }: RadioGroupProps) {
@@ -68,7 +69,7 @@ export type RadioGroupItemProps = Omit<
   ComponentProps<typeof RadioPrimitive.Root>,
   "className" | "style"
 > & {
-  xstyle?: stylex.StyleXStyles;
+  xstyle?: ControlPlacementStyles;
 };
 
 export function RadioGroupItem({ xstyle, ...props }: RadioGroupItemProps) {

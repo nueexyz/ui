@@ -1,8 +1,7 @@
+import { colorVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 /* oxlint-disable jsx-a11y/label-has-associated-control -- The caller provides htmlFor or nests the control. */
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
-
-import { colorVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
   root: {
@@ -18,10 +17,8 @@ const styles = stylex.create({
   },
 });
 
-export type LabelProps = Omit<ComponentProps<"label">, "className" | "style"> & {
-  xstyle?: stylex.StyleXStyles;
-};
+export type LabelProps = Omit<ComponentProps<"label">, "className" | "style">;
 
-export function Label({ xstyle, ...props }: LabelProps) {
-  return <label {...props} {...stylex.props(styles.root, xstyle)} />;
+export function Label(props: LabelProps) {
+  return <label {...props} {...stylex.props(styles.root)} />;
 }

@@ -1,10 +1,6 @@
 "use client";
 
 import { Button as ButtonPrimitive } from "@base-ui/react/button";
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps, ReactNode } from "react";
-import type { ControlLayoutStyles } from "./control-layout";
-
 import {
   colorVars,
   motionVars,
@@ -13,6 +9,10 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps, ReactNode } from "react";
+
+import type { ControlLayoutStyles } from "./control-layout";
 
 const styles = stylex.create({
   root: {
@@ -82,6 +82,11 @@ const styles = stylex.create({
     position: "relative",
     zIndex: 1,
   },
+  iconContent: {
+    gap: 0,
+    // Give icon-only buttons a text baseline without adding visible content.
+    "::before": { content: '"\\200b"' },
+  },
   primaryContent: { color: colorVars.fgOnActionPrimary },
   destructiveContent: { color: colorVars.fgOnActionDestructive },
   disabledContent: { color: colorVars.fgDisabled },
@@ -132,6 +137,30 @@ const styles = stylex.create({
     height: sizeVars.controlLg,
     paddingInline: spacingVars.space5,
   },
+  "icon-xs": {
+    borderRadius: radiusVars.sm,
+    height: sizeVars.controlXs,
+    paddingInline: 0,
+    width: sizeVars.controlXs,
+  },
+  "icon-sm": {
+    borderRadius: radiusVars.sm,
+    height: sizeVars.controlSm,
+    paddingInline: 0,
+    width: sizeVars.controlSm,
+  },
+  icon: {
+    borderRadius: radiusVars.sm,
+    height: sizeVars.controlMd,
+    paddingInline: 0,
+    width: sizeVars.controlMd,
+  },
+  "icon-lg": {
+    borderRadius: radiusVars.sm,
+    height: sizeVars.controlLg,
+    paddingInline: 0,
+    width: sizeVars.controlLg,
+  },
   square: { paddingInline: 0 },
   circle: { borderRadius: radiusVars.full, paddingInline: 0 },
   iconSm: { width: sizeVars.controlSm },
@@ -140,12 +169,12 @@ const styles = stylex.create({
 });
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "destructive";
-type ButtonSize = "sm" | "md" | "lg";
+type ButtonSize = "sm" | "md" | "lg" | "icon-xs" | "icon-sm" | "icon" | "icon-lg";
 
 export type ButtonProps = Omit<ComponentProps<typeof ButtonPrimitive>, "className" | "style"> & {
   children: ReactNode;
   size?: ButtonSize;
-  /** Use square or circle for an icon-only button, with an accessible name. */
+  /** Use an icon size for icon-only buttons, and add an accessible name. */
   shape?: "default" | "square" | "circle";
   variant?: ButtonVariant;
   xstyle?: ControlLayoutStyles;
@@ -161,6 +190,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   const isDisabled = Boolean(disabled);
+  const isIconSize = size.startsWith("icon");
   const hasSolidBackground = variant === "primary" || variant === "destructive";
 
   return (
@@ -172,9 +202,9 @@ export function Button({
         styles[variant],
         styles[size],
         shape !== "default" && styles[shape],
-        shape !== "default" && size === "sm" && styles.iconSm,
-        shape !== "default" && size === "md" && styles.iconMd,
-        shape !== "default" && size === "lg" && styles.iconLg,
+        !isIconSize && shape !== "default" && size === "sm" && styles.iconSm,
+        !isIconSize && shape !== "default" && size === "md" && styles.iconMd,
+        !isIconSize && shape !== "default" && size === "lg" && styles.iconLg,
         hasSolidBackground ? styles.solidInteraction : styles.surfaceInteraction,
         isDisabled && styles.disabled,
         isDisabled && variant === "ghost" && styles.disabledGhost,
@@ -185,6 +215,7 @@ export function Button({
       <span
         {...stylex.props(
           styles.content,
+          isIconSize && styles.iconContent,
           variant === "primary" && styles.primaryContent,
           variant === "destructive" && styles.destructiveContent,
           isDisabled && styles.disabledContent,

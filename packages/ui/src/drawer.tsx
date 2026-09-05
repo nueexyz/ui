@@ -1,12 +1,9 @@
 "use client";
 
 import { Drawer as DrawerPrimitive } from "@base-ui/react/drawer";
-import * as stylex from "@stylexjs/stylex";
-import { createContext, useContext } from "react";
-import type { ComponentProps } from "react";
-
 import {
   colorVars,
+  layerVars,
   motionVars,
   radiusVars,
   shadowVars,
@@ -14,17 +11,20 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import { createContext, useContext } from "react";
+import type { ComponentProps } from "react";
 
 const styles = stylex.create({
   overlay: {
     backdropFilter: "blur(4px)",
-    backgroundColor: "oklch(0% 0 0 / 40%)",
+    backgroundColor: colorVars.bgOverlay,
     inset: 0,
     position: "fixed",
     transitionDuration: motionVars.durationSlow,
     transitionProperty: "opacity",
     transitionTimingFunction: motionVars.easingEnter,
-    zIndex: 50,
+    zIndex: layerVars.modalBackdrop,
     ":is([data-starting-style])": { opacity: 0 },
     ":is([data-ending-style])": {
       opacity: 0,
@@ -37,7 +37,7 @@ const styles = stylex.create({
     },
   },
   overlayTransparent: { backdropFilter: "none", backgroundColor: "transparent" },
-  viewport: { inset: 0, position: "fixed", zIndex: 51 },
+  viewport: { inset: 0, position: "fixed", zIndex: layerVars.modal },
   popup: {
     backgroundColor: colorVars.bgRaised,
     borderColor: colorVars.strokeDefault,
@@ -72,7 +72,7 @@ const styles = stylex.create({
     width: "100%",
   },
   downPopup: {
-    borderRadius: "1rem 1rem 0 0",
+    borderRadius: `${radiusVars.xl} ${radiusVars.xl} 0 0`,
     bottom: 0,
     minHeight: "50dvh",
     transform:
@@ -88,7 +88,7 @@ const styles = stylex.create({
     },
   },
   upPopup: {
-    borderRadius: "0 0 1rem 1rem",
+    borderRadius: `0 0 ${radiusVars.xl} ${radiusVars.xl}`,
     minHeight: "50dvh",
     top: 0,
     transform:
@@ -105,12 +105,12 @@ const styles = stylex.create({
   },
   horizontalPopup: {
     bottom: 0,
-    maxWidth: "24rem",
+    maxWidth: sizeVars.contentSm,
     top: 0,
     width: "75vw",
   },
   leftPopup: {
-    borderRadius: "0 1rem 1rem 0",
+    borderRadius: `0 ${radiusVars.xl} ${radiusVars.xl} 0`,
     left: 0,
     transform:
       "translate3d(var(--drawer-swipe-movement-x, 0px), var(--drawer-swipe-movement-y, 0px), 0)",
@@ -125,7 +125,7 @@ const styles = stylex.create({
     },
   },
   rightPopup: {
-    borderRadius: "1rem 0 0 1rem",
+    borderRadius: `${radiusVars.xl} 0 0 ${radiusVars.xl}`,
     right: 0,
     transform:
       "translate3d(var(--drawer-swipe-movement-x, 0px), var(--drawer-swipe-movement-y, 0px), 0)",
@@ -145,17 +145,17 @@ const styles = stylex.create({
     backgroundColor: colorVars.strokeDefault,
     borderRadius: radiusVars.full,
     flexShrink: 0,
-    height: "0.25rem",
+    height: spacingVars.space1,
     marginBlock: spacingVars.space2,
-    width: "2.5rem",
+    width: spacingVars.space10,
   },
   horizontalSwipeHandle: {
-    height: "2.5rem",
+    height: spacingVars.space10,
     marginBlock: 0,
     position: "absolute",
     top: "50%",
     transform: "translateY(-50%)",
-    width: "0.25rem",
+    width: spacingVars.space1,
   },
   upSwipeHandle: {
     bottom: spacingVars.space2,

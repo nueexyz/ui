@@ -1,10 +1,6 @@
 "use client";
 
 import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox";
-import { CheckIcon } from "@phosphor-icons/react";
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
-
 import {
   colorVars,
   motionVars,
@@ -12,6 +8,11 @@ import {
   radiusVars,
   sizeVars,
 } from "@nuee/tokens/semantic.stylex";
+import { CheckIcon } from "@phosphor-icons/react";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
+
+import type { ControlPlacementStyles } from "./control-layout";
 
 const styles = stylex.create({
   root: {
@@ -24,15 +25,15 @@ const styles = stylex.create({
     color: colorVars.fgOnActionPrimary,
     cursor: "pointer",
     display: "inline-flex",
-    height: "1.25rem",
+    height: sizeVars.iconLg,
     justifyContent: "center",
-    minHeight: "1.25rem",
-    minWidth: "1.25rem",
+    minHeight: sizeVars.iconLg,
+    minWidth: sizeVars.iconLg,
     outline: "none",
     transitionDuration: motionVars.durationFast,
     transitionProperty: "background-color, border-color, opacity",
     transitionTimingFunction: motionVars.easingStandard,
-    width: "1.25rem",
+    width: sizeVars.iconLg,
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
       outlineOffset: sizeVars.focusRing,
@@ -60,7 +61,7 @@ export type CheckboxProps = Omit<
   ComponentProps<typeof CheckboxPrimitive.Root>,
   "className" | "style"
 > & {
-  xstyle?: stylex.StyleXStyles;
+  xstyle?: ControlPlacementStyles;
 };
 
 export function Checkbox({ xstyle, ...props }: CheckboxProps) {

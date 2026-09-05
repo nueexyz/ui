@@ -1,12 +1,9 @@
 "use client";
 
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
-import { CaretRightIcon, CheckIcon } from "@phosphor-icons/react";
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps, ReactNode } from "react";
-
 import {
   colorVars,
+  layerVars,
   motionVars,
   radiusVars,
   shadowVars,
@@ -14,9 +11,12 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import { CaretRightIcon, CheckIcon } from "@phosphor-icons/react";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps, ReactNode } from "react";
 
 const styles = stylex.create({
-  positioner: { zIndex: 60 },
+  positioner: { zIndex: layerVars.popup },
   popup: {
     backgroundColor: colorVars.bgRaised,
     borderColor: colorVars.strokeDefault,

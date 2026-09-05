@@ -1,20 +1,21 @@
 "use client";
 
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
-
 import {
   colorVars,
+  layerVars,
   motionVars,
   radiusVars,
   shadowVars,
+  sizeVars,
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
 
 const styles = stylex.create({
-  positioner: { zIndex: 70 },
+  positioner: { zIndex: layerVars.notification },
   popup: {
     backgroundColor: colorVars.bgInverse,
     borderRadius: radiusVars.sm,
@@ -22,7 +23,7 @@ const styles = stylex.create({
     color: colorVars.fgInverse,
     fontSize: typographyVars.fontSizeXs,
     lineHeight: typographyVars.lineHeightNormal,
-    maxWidth: "18rem",
+    maxWidth: sizeVars.contentXs,
     paddingBlock: spacingVars.space1,
     paddingInline: spacingVars.space3,
     transform: "scale(1)",

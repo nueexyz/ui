@@ -1,6 +1,3 @@
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
-
 import {
   colorVars,
   radiusVars,
@@ -8,6 +5,8 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
 
 const styles = stylex.create({
   root: {
@@ -23,26 +22,18 @@ const styles = stylex.create({
     fontSize: typographyVars.fontSizeSm,
     fontWeight: typographyVars.fontWeightMedium,
     justifyContent: "center",
-    minHeight: "1.25rem",
-    minWidth: "1.25rem",
+    minHeight: sizeVars.iconLg,
+    minWidth: sizeVars.iconLg,
     paddingInline: spacingVars.space1,
     userSelect: "none",
   },
   group: { alignItems: "center", display: "inline-flex", gap: spacingVars.space1 },
 });
 
-type StyleProps = { xstyle?: stylex.StyleXStyles };
-
-export function Kbd({
-  xstyle,
-  ...props
-}: Omit<ComponentProps<"kbd">, "className" | "style"> & StyleProps) {
-  return <kbd {...props} {...stylex.props(styles.root, xstyle)} />;
+export function Kbd(props: Omit<ComponentProps<"kbd">, "className" | "style">) {
+  return <kbd {...props} {...stylex.props(styles.root)} />;
 }
 
-export function KbdGroup({
-  xstyle,
-  ...props
-}: Omit<ComponentProps<"span">, "className" | "style"> & StyleProps) {
-  return <span {...props} {...stylex.props(styles.group, xstyle)} />;
+export function KbdGroup(props: Omit<ComponentProps<"span">, "className" | "style">) {
+  return <span {...props} {...stylex.props(styles.group)} />;
 }

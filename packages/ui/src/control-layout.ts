@@ -34,3 +34,9 @@ export type ControlPlacementStyles = StyleXStyles<Placement>;
 export type ControlLayoutStyles = StyleXStyles<
   Placement & Pick<CSSProperties, "width" | "minWidth" | "maxWidth">
 >;
+
+/** A multiline field may opt into its vertical space; its visual treatment stays owned. */
+export type ControlFieldStyles = StyleXStyles<
+  Placement &
+    Pick<CSSProperties, "width" | "minWidth" | "maxWidth" | "height" | "minHeight" | "maxHeight">
+>;

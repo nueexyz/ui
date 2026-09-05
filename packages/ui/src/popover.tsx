@@ -1,11 +1,9 @@
 "use client";
 
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
-
 import {
   colorVars,
+  layerVars,
   motionVars,
   radiusVars,
   shadowVars,
@@ -13,9 +11,11 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
 
 const styles = stylex.create({
-  positioner: { zIndex: 60 },
+  positioner: { zIndex: layerVars.popup },
   popup: {
     backgroundColor: colorVars.bgRaised,
     borderColor: colorVars.strokeDefault,
@@ -32,7 +32,7 @@ const styles = stylex.create({
     transitionDuration: motionVars.durationNormal,
     transitionProperty: "opacity, transform",
     transitionTimingFunction: motionVars.easingEnter,
-    width: "18rem",
+    width: sizeVars.contentXs,
     "@media (prefers-reduced-motion: reduce)": {
       transform: "none",
       transitionDuration: motionVars.durationInstant,

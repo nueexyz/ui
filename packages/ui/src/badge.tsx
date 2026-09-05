@@ -1,6 +1,3 @@
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
-
 import {
   colorVars,
   radiusVars,
@@ -8,6 +5,8 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
 
 const styles = stylex.create({
   root: {
@@ -38,7 +37,7 @@ const styles = stylex.create({
   },
   destructive: {
     backgroundColor: colorVars.bgFeedbackError,
-    borderColor: colorVars.strokeFeedbackError,
+    borderColor: "transparent",
     color: colorVars.fgFeedbackError,
   },
   outline: {
@@ -57,9 +56,8 @@ type BadgeVariant = "primary" | "secondary" | "destructive" | "outline" | "ghost
 
 export type BadgeProps = Omit<ComponentProps<"span">, "className" | "style"> & {
   variant?: BadgeVariant;
-  xstyle?: stylex.StyleXStyles;
 };
 
-export function Badge({ variant = "primary", xstyle, ...props }: BadgeProps) {
-  return <span {...props} {...stylex.props(styles.root, styles[variant], xstyle)} />;
+export function Badge({ variant = "primary", ...props }: BadgeProps) {
+  return <span {...props} {...stylex.props(styles.root, styles[variant])} />;
 }

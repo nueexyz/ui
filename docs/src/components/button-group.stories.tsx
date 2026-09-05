@@ -1,8 +1,9 @@
-import * as stylex from "@stylexjs/stylex";
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Button } from "@nuee/ui/button";
 import { ButtonGroup } from "@nuee/ui/button-group";
 import { Icon } from "@nuee/ui/icon";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
 import {
   CodeBlock,
   ComponentCode,
@@ -25,7 +26,7 @@ import { Icon } from "@nuee/ui/icon"
 
 <div>
   <ButtonGroup aria-label="Navigate back">
-    <Button size="sm" variant="secondary" aria-label="Go back">
+    <Button size="icon-sm" variant="secondary" aria-label="Go back">
       <Icon aria-hidden="true" name="chevronLeft" />
     </Button>
   </ButtonGroup>
@@ -37,7 +38,7 @@ import { Icon } from "@nuee/ui/icon"
 
   <ButtonGroup aria-label="More actions">
     <Button size="sm" variant="secondary">Snooze</Button>
-    <Button size="sm" variant="secondary" aria-label="More actions">
+    <Button size="icon-sm" variant="secondary" aria-label="More actions">
       <Icon aria-hidden="true" name="moreHorizontal" />
     </Button>
   </ButtonGroup>
@@ -56,7 +57,7 @@ export const ButtonGroupStory: Story = {
       <ComponentExample>
         <div {...stylex.props(storyStyles.preview)}>
           <ButtonGroup aria-label="Navigate back">
-            <Button size="sm" variant="secondary" aria-label="Go back">
+            <Button size="icon-sm" variant="secondary" aria-label="Go back">
               <Icon aria-hidden="true" name="chevronLeft" />
             </Button>
           </ButtonGroup>
@@ -72,7 +73,7 @@ export const ButtonGroupStory: Story = {
             <Button size="sm" variant="secondary">
               Snooze
             </Button>
-            <Button size="sm" variant="secondary" aria-label="More actions">
+            <Button size="icon-sm" variant="secondary" aria-label="More actions">
               <Icon aria-hidden="true" name="moreHorizontal" />
             </Button>
           </ButtonGroup>

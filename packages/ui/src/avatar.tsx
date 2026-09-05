@@ -1,9 +1,6 @@
 "use client";
 
 import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
-
 import {
   colorVars,
   radiusVars,
@@ -11,6 +8,8 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
 
 const styles = stylex.create({
   root: {
@@ -83,11 +82,10 @@ export type AvatarProps = Omit<
   "className" | "style"
 > & {
   size?: AvatarSize;
-  xstyle?: stylex.StyleXStyles;
 };
 
-export function Avatar({ size = "md", xstyle, ...props }: AvatarProps) {
-  const stylexProps = stylex.props(styles.root, styles[size], xstyle);
+export function Avatar({ size = "md", ...props }: AvatarProps) {
+  const stylexProps = stylex.props(styles.root, styles[size]);
   return (
     <AvatarPrimitive.Root {...props} className={stylexProps.className} style={stylexProps.style} />
   );

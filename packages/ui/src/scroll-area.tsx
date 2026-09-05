@@ -1,10 +1,9 @@
 "use client";
 
 import { ScrollArea as ScrollAreaPrimitive } from "@base-ui/react/scroll-area";
+import { colorVars, motionVars, radiusVars, spacingVars } from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, ReactNode } from "react";
-
-import { colorVars, motionVars, radiusVars } from "@nuee/tokens/semantic.stylex";
 
 const styles = stylex.create({
   root: { overflow: "hidden", position: "relative" },
@@ -12,7 +11,7 @@ const styles = stylex.create({
   content: { minWidth: "100%" },
   scrollbar: {
     display: "flex",
-    padding: 2,
+    padding: spacingVars.space0_5,
     touchAction: "none",
     transitionDuration: motionVars.durationFast,
     transitionProperty: "background-color",

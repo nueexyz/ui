@@ -1,12 +1,13 @@
-import * as stylex from "@stylexjs/stylex";
+import { Bubble } from "@nuee/ui/bubble";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as stylex from "@stylexjs/stylex";
+
 import {
   CodeBlock,
   ComponentCode,
   ComponentExample,
   storyStyles,
 } from "./story-layout/StoryLayout";
-import { Bubble } from "@nuee/ui/bubble";
 
 const meta = { title: "Components", parameters: { layout: "fullscreen" } } satisfies Meta;
 export default meta;
@@ -25,7 +26,7 @@ function BubbleExample() {
       </header>
       <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
         <Bubble>Could you review today’s meeting materials?</Bubble>
-        <Bubble align="end" variant="outline">
+        <Bubble align="end" variant="primary">
           Yes, I’ll leave feedback before 3 PM.
         </Bubble>
       </div>
@@ -60,6 +61,9 @@ export const BubbleStory: Story = {
         </header>
         <div {...stylex.props(storyStyles.preview, storyStyles.column)}>
           <Bubble>Filled message</Bubble>
+          <Bubble align="end" variant="primary">
+            Sent message
+          </Bubble>
           <Bubble variant="outline">Outlined message</Bubble>
         </div>
       </section>

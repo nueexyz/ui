@@ -1,12 +1,9 @@
 "use client";
 
 import { Select as SelectPrimitive } from "@base-ui/react/select";
-import { CaretDownIcon, CheckIcon } from "@phosphor-icons/react";
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps, ReactNode } from "react";
-
 import {
   colorVars,
+  layerVars,
   motionVars,
   radiusVars,
   shadowVars,
@@ -14,6 +11,9 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import { CaretDownIcon, CheckIcon } from "@phosphor-icons/react";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps, ReactNode } from "react";
 
 const styles = stylex.create({
   trigger: {
@@ -61,7 +61,7 @@ const styles = stylex.create({
     display: "inline-flex",
     flexShrink: 0,
   },
-  positioner: { zIndex: 60 },
+  positioner: { zIndex: layerVars.popup },
   popup: {
     backgroundColor: colorVars.bgRaised,
     borderColor: colorVars.strokeDefault,

@@ -1,1 +1,6 @@
 /* Global styles are composed by the package build. */
+
+::selection {
+  background-color: color-mix(in oklch, currentColor 20%, transparent);
+  color: inherit;
+}

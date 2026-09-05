@@ -1,9 +1,5 @@
 "use client";
 
-import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
-
-import { Button, type ButtonProps } from "./button";
 import {
   colorVars,
   motionVars,
@@ -12,6 +8,10 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
+
+import { Button, type ButtonProps } from "./button";
 
 const styles = stylex.create({
   root: {
@@ -36,7 +36,7 @@ const styles = stylex.create({
   xs: { gap: spacingVars.space2, minHeight: sizeVars.controlMd, padding: spacingVars.space1 },
   error: {
     backgroundColor: colorVars.bgFeedbackError,
-    borderColor: colorVars.strokeFeedbackError,
+    borderColor: "transparent",
   },
   media: {
     alignItems: "center",

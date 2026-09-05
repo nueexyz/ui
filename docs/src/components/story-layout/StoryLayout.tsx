@@ -5,9 +5,9 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
-import * as stylex from "@stylexjs/stylex";
 import { Button } from "@nuee/ui/button";
 import { Icon } from "@nuee/ui/icon";
+import * as stylex from "@stylexjs/stylex";
 import { type ReactNode, useEffect, useState } from "react";
 
 import { useStoryColorMode } from "./story-color-mode-context";
@@ -91,15 +91,6 @@ export const storyStyles = stylex.create({
     gridTemplateColumns: "repeat(auto-fit, minmax(18rem, 1fr))",
     width: "100%",
   },
-  inverse: { backgroundColor: colorVars.bgActionPrimary },
-  inverseSecondary: {
-    backgroundColor: colorVars.fgInverse,
-    borderColor: colorVars.fgInverse,
-    color: colorVars.bgActionPrimary,
-  },
-  inverseGhost: {
-    color: colorVars.fgInverse,
-  },
   option: {
     alignItems: "center",
     display: "flex",
@@ -133,7 +124,6 @@ export const storyStyles = stylex.create({
     marginTop: spacingVars.space1,
   },
   stack: { display: "flex", flexDirection: "column", gap: spacingVars.space3 },
-  copyButton: { minWidth: sizeVars.controlSm, paddingInline: spacingVars.space2 },
   exampleContent: { display: "flex", flexDirection: "column", gap: spacingVars.space4 },
   propsTable: {
     borderCollapse: "collapse",
@@ -336,7 +326,6 @@ export function CodeBlock({
             aria-label={isCopied ? "Copied" : `Copy ${label}`}
             size="sm"
             variant="ghost"
-            xstyle={storyStyles.copyButton}
             onClick={() => {
               setCopyError(undefined);
               void Promise.resolve()
