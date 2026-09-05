@@ -1,5 +1,51 @@
-## Unreleased
+## Version v0.5.0
 
+Not yet released.
+
+- Horizontal fields align checkboxes with the first line of their label,
+  including fields with supporting descriptions.
+- Use `nuee init --vite` instead of `--framework vite` for Vite setup.
+  Initialization suggests aliases from your TypeScript configuration.
+
+- Stacked notifications keep crisp borders and shadows by narrowing older
+  cards without scaling their contents.
+
+- Press Escape to dismiss notifications one at a time, newest first.
+  Holding the key does not dismiss the entire stack.
+- Content Row titles and action labels now share their first text baseline,
+  adapting to different button sizes without manual spacing adjustments.
+- Icon-only buttons align with text actions in Content Row. Storybook now
+  preserves component font sizes when loading the reset stylesheet.
+- Toast status and loading icons align with the title's first line.
+  Actions align with the title's first text baseline, and the close icon
+  aligns with the center of that line, even when descriptions wrap.
+
+- Customize the dismiss-all toast label with `clearAllProps.children`. It keeps
+  a subtle background and border, while individual toast actions appear
+  without backgrounds or borders, including on hover.
+- Toast spacing and loading indicators now follow shared design tokens.
+  Accordion, Message, Bubble, Table, Marker, Drawer, and Scroll Area also
+  respect shared tokens for matching dimensions, borders, and spacing.
+
+- Pressed controls in light mode now use a stronger, translucent highlight
+  that preserves their underlying surface. Selected controls also look
+  consistent with or without an explicitly applied light theme.
+- Added Timeline for vertically ordered activity, status, and event histories.
+  Compose items with clear state markers, content, descriptions, and semantic
+  times.
+- Dark-mode feedback surfaces now make each status easier to distinguish while
+  preserving a consistent visual weight across information, success, warning,
+  and error.
+- Feedback surfaces no longer pair a soft status background with a competing
+  colored border. Feedback borders remain for validation states that need a
+  clear field boundary.
+- Disabled content now sits clearly below secondary text in both color modes.
+- Text selection uses a neutral highlight that adapts to surrounding text.
+  Dark-mode default and strong borders are more subdued, while feedback and
+  focus colors remain distinct.
+- Toggle, Toggle Group, and segmented Tabs now share a higher-contrast selected
+  surface in both color modes.
+- Bubble documentation now uses the same outgoing primary treatment as Message.
 - Storybook motion settings can be changed repeatedly without reloading. Popup
   closing transitions now respect reduced-motion settings as well.
 - Interactive controls now use consistent motion timings for hover, selection,
@@ -26,10 +72,6 @@
   its title. Select and Combobox separators use valid token-based spacing.
 - Carousel callback changes no longer restart selection subscriptions. Button
   Group styles direct Nuee buttons or custom components that forward `xstyle`.
-
-## Version v0.5.0
-
-Released on 2026-09-04.
 
 - Components generated with `nuee new`, Table, and Button Group now keep
   styling on the StyleX `xstyle` path. Replace native CSS overrides with
