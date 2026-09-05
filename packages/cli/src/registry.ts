@@ -1,94 +1,57 @@
-import { dependencyVersions, getRegistryItem, type RegistryItem } from "@nuee/registry";
+import {
+  dependencyVersions,
+  getRegistryItem,
+  isRegistryItem,
+  type RegistryItem,
+} from "@nuee/registry";
 
-type RegistryFile = RegistryItem["files"][number];
-
-export async function resolveComponent(name: string) {
-  if (URL.canParse(name)) return resolveRemoteComponent(name);
-
-  const components = new Set<string>();
-  const externalDependencies = new Set<string>();
-  const files = new Map<string, RegistryFile>();
-
-  async function visit(componentName: string) {
-    if (components.has(componentName)) return;
-    const item = await getRegistryItem(componentName);
-
-    components.add(componentName);
-    for (const file of item.files) files.set(file.path, file);
-    for (const dependency of item.dependencies) externalDependencies.add(dependency);
-    for (const dependency of item.registryDependencies) {
-      await visit(dependency);
-    }
+async function readRegistryItem(name: string): Promise<RegistryItem> {
+  if (!URL.canParse(name)) return getRegistryItem(name);
+  const response = await fetch(name);
+  if (!response.ok) throw new Error(`Could not load the registry: ${response.status}`);
+  const value: unknown = await response.json();
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    throw new Error("This is not a valid Nuee registry item.");
   }
-
-  await visit(name);
-
-  return {
-    components: [...components],
-    files: [...files.values()],
-    externalDependencies: [...externalDependencies].map(
-      (dependency) =>
-        `${dependency}@${(dependencyVersions as Record<string, string>)[dependency] ?? "latest"}`,
-    ),
-    primaryExport: (await getRegistryItem(name)).primaryExport,
+  const candidate = value as Record<string, unknown>;
+  const item = {
+    ...candidate,
+    name: candidate.name === undefined ? name : candidate.name,
+    primaryExport:
+      candidate.primaryExport === undefined
+        ? (candidate.name ?? "Component")
+        : candidate.primaryExport,
+    registryDependencies:
+      candidate.registryDependencies === undefined ? [] : candidate.registryDependencies,
   };
+  if (!isRegistryItem(item)) throw new Error("This is not a valid Nuee registry item.");
+  return item;
 }
 
-async function resolveRemoteComponent(url: string) {
+export async function resolveComponent(name: string) {
+  const visited = new Set<string>();
   const components = new Set<string>();
-  const externalDependencies = new Set<string>();
-  const files = new Map<string, RegistryFile>();
+  const dependencies = new Set<string>();
+  const files = new Map<string, RegistryItem["files"][number]>();
+  const root = await readRegistryItem(name);
 
-  async function visitLocal(name: string) {
-    if (components.has(name)) return;
-    const item = await getRegistryItem(name);
-    components.add(name);
-    for (const file of item.files) files.set(file.path, file);
-    for (const dependency of item.dependencies) externalDependencies.add(dependency);
-    for (const dependency of item.registryDependencies) await visitLocal(dependency);
+  async function visit(key: string, item?: RegistryItem) {
+    if (visited.has(key)) return;
+    visited.add(key);
+    const current = item ?? (await readRegistryItem(key));
+    components.add(current.name);
+    for (const file of current.files) files.set(file.path, file);
+    for (const dependency of current.dependencies) dependencies.add(dependency);
+    for (const dependency of current.registryDependencies) await visit(dependency);
   }
-
-  async function visitRemote(itemUrl: string) {
-    const response = await fetch(itemUrl);
-    if (!response.ok) throw new Error(`Could not load the registry: ${response.status}`);
-
-    const item = (await response.json()) as Partial<RegistryItem>;
-    if (
-      !Array.isArray(item.files) ||
-      !Array.isArray(item.dependencies) ||
-      !item.files.every(
-        (file) =>
-          typeof file === "object" &&
-          file !== null &&
-          typeof file.path === "string" &&
-          typeof file.content === "string",
-      )
-    ) {
-      throw new Error("This is not a valid Nuee registry item.");
-    }
-
-    const itemName = item.name ?? itemUrl;
-    if (components.has(itemName)) return;
-    components.add(itemName);
-    for (const file of item.files) files.set(file.path, file);
-    for (const dependency of item.dependencies) externalDependencies.add(dependency);
-    for (const dependency of item.registryDependencies ?? []) {
-      if (URL.canParse(dependency)) await visitRemote(dependency);
-      else await visitLocal(dependency);
-    }
-
-    return item.primaryExport ?? item.name ?? "Component";
-  }
-
-  const primaryExport = (await visitRemote(url)) ?? "Component";
-
+  await visit(name, root);
   return {
     components: [...components],
-    externalDependencies: [...externalDependencies].map(
+    files: [...files.values()],
+    externalDependencies: [...dependencies].map(
       (dependency) =>
         `${dependency}@${(dependencyVersions as Record<string, string>)[dependency] ?? "latest"}`,
     ),
-    files: [...files.values()],
-    primaryExport,
+    primaryExport: root.primaryExport,
   };
 }

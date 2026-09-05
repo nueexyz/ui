@@ -29,7 +29,10 @@
     "typecheck": "tsc --noEmit && pnpm build && tsc -p tsconfig.test.json"
   },
   "dependencies": {
+    "@babel/parser": "7.29.8",
+    "@babel/types": "7.29.8",
     "@nuee/registry": "workspace:*",
+    "get-tsconfig": "^4.14.3",
     "jsonc-parser": "^3.3.1"
   },
   "devDependencies": {

@@ -25,16 +25,20 @@ export type FoundationFile = {
   name: string;
 };
 
-function isRegistryItem(value: unknown): value is RegistryItem {
+export function isRegistryItem(value: unknown): value is RegistryItem {
   if (typeof value !== "object" || value === null) return false;
 
   const item = value as Partial<RegistryItem>;
   return (
     typeof item.name === "string" &&
+    item.name.length > 0 &&
     typeof item.primaryExport === "string" &&
+    item.primaryExport.length > 0 &&
     Array.isArray(item.dependencies) &&
+    item.dependencies.every((entry) => typeof entry === "string" && entry.length > 0) &&
     Array.isArray(item.files) &&
     Array.isArray(item.registryDependencies) &&
+    item.registryDependencies.every((entry) => typeof entry === "string" && entry.length > 0) &&
     item.files.every(
       (file) =>
         typeof file === "object" &&

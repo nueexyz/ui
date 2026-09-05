@@ -1,4 +1,6 @@
-export type CliOptions = Record<string, boolean | string | undefined> & {
+import { parseArgs } from "node:util";
+
+export type CliOptions = {
   cwd?: string;
   defaults?: boolean;
   framework?: string;
@@ -11,27 +13,21 @@ export type CliOptions = Record<string, boolean | string | undefined> & {
 };
 
 export function parseArguments(arguments_: readonly string[]) {
-  const [command, ...rest] = arguments_;
-  const options: CliOptions = {};
-  const positionals: string[] = [];
-
-  for (let index = 0; index < rest.length; index += 1) {
-    const argument = rest[index];
-    if (!argument.startsWith("--")) {
-      positionals.push(argument);
-      continue;
-    }
-
-    const name = argument.slice(2);
-    const nextArgument = rest[index + 1];
-    if (!nextArgument || nextArgument.startsWith("--")) {
-      options[name] = true;
-      continue;
-    }
-
-    options[name] = nextArgument;
-    index += 1;
-  }
-
+  const [command, ...args] = arguments_;
+  const { values: options, positionals } = parseArgs({
+    args,
+    allowPositionals: true,
+    options: {
+      cwd: { type: "string" },
+      defaults: { type: "boolean" },
+      framework: { type: "string" },
+      "dry-run": { type: "boolean" },
+      force: { type: "boolean" },
+      "skip-dependencies": { type: "boolean" },
+      styles: { type: "string" },
+      tokens: { type: "string" },
+      ui: { type: "string" },
+    },
+  });
   return { command, options, positionals };
 }

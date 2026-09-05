@@ -1,9 +1,10 @@
-import { access, mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, relative, sep } from "node:path";
 import { createInterface } from "node:readline/promises";
 
 import { defaultConfig, hasConfig, resolveConfigAlias, writeConfig } from "./config.js";
-import { installDependencies } from "./dependencies.js";
+import { configureVite } from "./source.js";
+import { getMissingDependencies, installDependencies } from "./dependencies.js";
 import type { CliOptions } from "./arguments.js";
 import { getFoundationFiles } from "@nuee/registry";
 
@@ -27,7 +28,6 @@ async function readViteConfig(projectDirectory: string) {
   for (const fileName of configFileNames) {
     const path = join(projectDirectory, fileName);
     try {
-      await access(path);
       return { path, source: await readFile(path, "utf8") };
     } catch (error) {
       if (
@@ -45,101 +45,67 @@ async function readViteConfig(projectDirectory: string) {
   throw new Error("Could not find a Vite config file.");
 }
 
-function configureVite(source: string) {
-  const importLine = 'import stylex from "@stylexjs/unplugin";';
-  const pluginPattern = /plugins:\s*\[([^\]]*)\]/s;
-  const stylexPlugin = 'stylex.vite({ unstable_moduleResolution: { type: "commonJS" } })';
-
-  if (!source.includes("stylex.vite(") && !pluginPattern.test(source)) {
-    throw new Error("Could not safely update the Vite plugins array. Add stylex.vite() manually.");
-  }
-
-  if (source.includes("stylex.vite(")) return source;
-
-  return (source.includes(importLine) ? source : `${importLine}\n${source}`).replace(
-    pluginPattern,
-    (_, plugins: string) => {
-      const prefix = plugins.trim() ? `${stylexPlugin}, ${plugins}` : stylexPlugin;
-      return `plugins: [${prefix}]`;
-    },
-  );
-}
-
-async function writeViteFiles(
-  projectDirectory: string,
-  tokenDirectory: string,
-  refreshLegacyTokens: boolean,
-) {
-  const { path: configPath, source: configSource } = await readViteConfig(projectDirectory);
-  const configuredVite = configureVite(configSource);
-  await writeNueeFiles(projectDirectory, tokenDirectory, refreshLegacyTokens);
-  await addResetImport(projectDirectory, tokenDirectory);
-  await writeFile(configPath, configuredVite, "utf8");
-}
-
 function getRelativeImportPath(from: string, to: string) {
   const path = relative(dirname(from), to).split(sep).join("/");
   return path.startsWith(".") ? path : `./${path}`;
 }
 
-async function addResetImport(projectDirectory: string, tokenDirectory: string) {
-  const cssPath = join(projectDirectory, "src/index.css");
-  const resetImport = `@import "${getRelativeImportPath(cssPath, join(tokenDirectory, "reset.css"))}";`;
+type PlannedFile = { path: string; source: string; flag: "w" | "wx" };
 
-  try {
-    const source = await readFile(cssPath, "utf8");
-    if (source.includes(resetImport)) return;
-    await writeFile(cssPath, `${resetImport}\n\n${source}`, "utf8");
-  } catch (error) {
-    if (typeof error === "object" && error !== null && "code" in error && error.code === "ENOENT") {
-      await writeFile(cssPath, `${resetImport}\n`, "utf8");
-      return;
+async function prepareFoundationFiles(tokenDirectory: string, refreshLegacyTokens: boolean) {
+  const files: PlannedFile[] = [];
+  for (const file of await getFoundationFiles()) {
+    const path = join(tokenDirectory, file.name);
+    let currentSource: string;
+    try {
+      currentSource = await readFile(path, "utf8");
+    } catch (error) {
+      if (
+        typeof error !== "object" ||
+        error === null ||
+        !("code" in error) ||
+        error.code !== "ENOENT"
+      )
+        throw error;
+      files.push({ path, source: file.content, flag: "wx" });
+      continue;
     }
-    throw error;
+    if (
+      refreshLegacyTokens &&
+      file.name === "semantic.stylex.ts" &&
+      currentSource.includes('bgCanvas: "initial"') &&
+      currentSource.includes('overlay: "initial"')
+    ) {
+      files.push({ path, source: file.content, flag: "w" });
+    }
   }
+  return files;
 }
 
-async function writeNueeFiles(
+async function prepareResetImport(
   projectDirectory: string,
   tokenDirectory: string,
-  refreshLegacyTokens = false,
-) {
-  await mkdir(tokenDirectory, { recursive: true });
-  for (const file of await getFoundationFiles()) {
-    await writeTokenFile(
-      join(tokenDirectory, file.name),
-      file.content,
-      refreshLegacyTokens,
-      file.name,
-    );
-  }
-}
-
-function isLegacySemanticSource(fileName: string, source: string) {
-  return (
-    fileName === "semantic.stylex.ts" &&
-    source.includes('bgCanvas: "initial"') &&
-    source.includes('overlay: "initial"')
-  );
-}
-
-async function writeTokenFile(
-  path: string,
-  source: string,
-  shouldRefreshLegacySources: boolean,
-  fileName: string,
-) {
+): Promise<PlannedFile | undefined> {
+  const path = join(projectDirectory, "src/index.css");
+  const resetImport = `@import "${getRelativeImportPath(path, join(tokenDirectory, "reset.css"))}";`;
+  let source: string;
   try {
-    const currentSource = await readFile(path, "utf8");
-    if (shouldRefreshLegacySources && isLegacySemanticSource(fileName, currentSource)) {
-      await writeFile(path, source, "utf8");
-    }
-  } catch {
-    await writeFile(path, source, "utf8");
+    source = await readFile(path, "utf8");
+  } catch (error) {
+    if (
+      typeof error !== "object" ||
+      error === null ||
+      !("code" in error) ||
+      error.code !== "ENOENT"
+    )
+      throw error;
+    return { path, source: `${resetImport}\n`, flag: "wx" };
   }
+  if (source.includes(resetImport)) return undefined;
+  return { path, source: `${resetImport}\n\n${source}`, flag: "w" };
 }
 
-export async function init(projectDirectory: string, options: CliOptions, shouldLog = true) {
+export async function prepareInitialization(projectDirectory: string, options: CliOptions) {
   if ((await hasConfig(projectDirectory)) && !options.force) {
     throw new Error("nuee.json already exists. Use --force to create it again.");
   }
@@ -170,24 +136,51 @@ export async function init(projectDirectory: string, options: CliOptions, should
       "aliases.styles",
     );
     await resolveConfigAlias(projectDirectory, uiAlias, "aliases.ui");
-    if (!options["skip-dependencies"]) {
-      await installDependencies(projectDirectory, ["@stylexjs/stylex"]);
-      if (options.framework === "vite") {
-        await installDependencies(projectDirectory, ["@stylexjs/unplugin"], true);
-      }
+    const viteConfig =
+      options.framework === "vite" ? await readViteConfig(projectDirectory) : undefined;
+    const configuredVite = viteConfig ? configureVite(viteConfig.source) : undefined;
+    const files = await prepareFoundationFiles(tokenDirectory, Boolean(options.force));
+    if (viteConfig && configuredVite !== undefined) {
+      const resetFile = await prepareResetImport(projectDirectory, tokenDirectory);
+      if (resetFile) files.push(resetFile);
+      files.push({ path: viteConfig.path, source: configuredVite, flag: "w" });
     }
-    if (options.framework === "vite") {
-      await writeViteFiles(projectDirectory, tokenDirectory, Boolean(options.force));
-    } else {
-      await writeNueeFiles(projectDirectory, tokenDirectory, Boolean(options.force));
-    }
-    await writeConfig(projectDirectory, {
-      accessibility: defaultConfig.accessibility,
-      aliases: { ui: uiAlias, styles: stylesAlias },
-    });
+    const runtimeDependencies = await getMissingDependencies(projectDirectory, [
+      "@stylexjs/stylex",
+    ]);
+    const buildDependencies = await getMissingDependencies(projectDirectory, [
+      "@stylexjs/unplugin",
+    ]);
+    return {
+      files,
+      runtimeDependencies: options["skip-dependencies"] ? [] : runtimeDependencies,
+      buildDependencies:
+        options["skip-dependencies"] || options.framework !== "vite" ? [] : buildDependencies,
+      config: {
+        accessibility: defaultConfig.accessibility,
+        aliases: { ui: uiAlias, styles: stylesAlias },
+      },
+    };
   } finally {
     readline?.close();
   }
+}
 
+export async function applyInitialization(
+  projectDirectory: string,
+  plan: Awaited<ReturnType<typeof prepareInitialization>>,
+) {
+  await installDependencies(projectDirectory, plan.runtimeDependencies);
+  await installDependencies(projectDirectory, plan.buildDependencies, true);
+  for (const file of plan.files) {
+    await mkdir(dirname(file.path), { recursive: true });
+    await writeFile(file.path, file.source, { encoding: "utf8", flag: file.flag });
+  }
+  await writeConfig(projectDirectory, plan.config);
+}
+
+export async function init(projectDirectory: string, options: CliOptions, shouldLog = true) {
+  const plan = await prepareInitialization(projectDirectory, options);
+  await applyInitialization(projectDirectory, plan);
   if (shouldLog) console.log("✔ Initialized Nuee.");
 }

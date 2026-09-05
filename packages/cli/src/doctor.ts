@@ -1,6 +1,7 @@
 import { access, readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
+import { inspectViteConfig } from "./source.js";
 import { hasConfig, readConfig, resolveConfigAlias } from "./config.js";
 
 type PackageJson = {
@@ -19,7 +20,14 @@ async function readPackageJson(projectDirectory: string) {
     return JSON.parse(
       await readFile(resolve(projectDirectory, "package.json"), "utf8"),
     ) as PackageJson;
-  } catch {
+  } catch (error) {
+    if (
+      typeof error !== "object" ||
+      error === null ||
+      !("code" in error) ||
+      error.code !== "ENOENT"
+    )
+      throw error;
     return undefined;
   }
 }
@@ -27,7 +35,14 @@ async function readPackageJson(projectDirectory: string) {
 async function readProjectFile(projectDirectory: string, fileName: string) {
   try {
     return await readFile(resolve(projectDirectory, fileName), "utf8");
-  } catch {
+  } catch (error) {
+    if (
+      typeof error !== "object" ||
+      error === null ||
+      !("code" in error) ||
+      error.code !== "ENOENT"
+    )
+      throw error;
     return undefined;
   }
 }
@@ -49,7 +64,7 @@ const entryFileNames = [
 
 async function readEntrySources(projectDirectory: string) {
   const sources = await Promise.all(
-    entryFileNames.map(async (fileName) => readProjectFile(projectDirectory, fileName)),
+    entryFileNames.map((fileName) => readProjectFile(projectDirectory, fileName)),
   );
   return sources.filter((source): source is string => source !== undefined);
 }
@@ -60,27 +75,12 @@ async function hasStylexCompiler(projectDirectory: string) {
     "vite.config.mts",
     "vite.config.js",
     "vite.config.mjs",
-    "next.config.ts",
-    "next.config.mjs",
-    "next.config.js",
-    "webpack.config.ts",
-    "webpack.config.mjs",
-    "webpack.config.js",
-    "rsbuild.config.ts",
-    "rsbuild.config.mjs",
-    "rsbuild.config.js",
-    "rspack.config.ts",
-    "rspack.config.mjs",
-    "rspack.config.js",
   ];
   const sources = await Promise.all(
-    configFileNames.map(async (fileName) => readProjectFile(projectDirectory, fileName)),
+    configFileNames.map((fileName) => readProjectFile(projectDirectory, fileName)),
   );
 
-  return sources.some(
-    (source) =>
-      source?.includes("@stylexjs/unplugin") && /\b(?:stylex|unplugin)\.vite\(/.test(source),
-  );
+  return sources.some((source) => source !== undefined && inspectViteConfig(source)?.hasCompiler);
 }
 
 function hasDependency(packageJson: PackageJson | undefined, dependency: string) {
@@ -124,7 +124,14 @@ export async function doctor(projectDirectory: string) {
           try {
             await access(resolve(tokenDirectory, fileName));
             return true;
-          } catch {
+          } catch (error) {
+            if (
+              typeof error !== "object" ||
+              error === null ||
+              !("code" in error) ||
+              error.code !== "ENOENT"
+            )
+              throw error;
             return false;
           }
         }),
@@ -164,13 +171,13 @@ export async function doctor(projectDirectory: string) {
   checks.push(
     (await hasStylexCompiler(projectDirectory))
       ? {
-          detail: "A supported config enables the StyleX compiler.",
+          detail: "A Vite plugins array enables the StyleX compiler.",
           name: "StyleX compiler",
           status: "pass",
         }
       : {
           detail:
-            "Configure the StyleX compiler for your bundler. Vite users can run `nuee init --framework vite`.",
+            "Could not verify a Vite StyleX compiler. Other bundlers require manual verification. Vite users can run `nuee init --framework vite`.",
           name: "StyleX compiler",
           status: "warn",
         },

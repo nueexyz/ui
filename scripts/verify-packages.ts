@@ -73,12 +73,10 @@ async function verifyPackage(directory: string) {
   ]);
   const manifest = JSON.parse(stdout) as PackageManifest;
   const targets = getExportTargets(manifest.exports);
-  const binTargets =
-    typeof manifest.bin === "string"
-      ? [manifest.bin]
-      : typeof manifest.bin === "object" && manifest.bin !== null
-        ? Object.values(manifest.bin)
-        : [];
+  let binTargets: string[] = [];
+  if (typeof manifest.bin === "string") binTargets = [manifest.bin];
+  else if (typeof manifest.bin === "object" && manifest.bin !== null)
+    binTargets = Object.values(manifest.bin);
 
   for (const target of targets) verifyEntry(entries, target, manifest.name);
   for (const target of binTargets) verifyEntry(entries, target, manifest.name, false);

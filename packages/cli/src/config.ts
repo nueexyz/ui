@@ -1,6 +1,7 @@
 import { access, readFile, writeFile } from "node:fs/promises";
 import { isAbsolute, join, relative, resolve } from "node:path";
-import { parse } from "jsonc-parser";
+import { parse, type ParseError } from "jsonc-parser";
+import { createPathsMatcher, parseTsconfig } from "get-tsconfig";
 
 export const configFileName = "nuee.json";
 
@@ -28,7 +29,8 @@ export async function hasConfig(projectDirectory: string) {
   try {
     await access(resolve(projectDirectory, configFileName));
     return true;
-  } catch {
+  } catch (error) {
+    if (!isNotFoundError(error)) throw error;
     return false;
   }
 }
@@ -42,6 +44,9 @@ function ensureRelativePath(projectDirectory: string, path: string, name: string
 }
 
 export function validateConfig(config: unknown): NueeConfig {
+  if (typeof config !== "object" || config === null || Array.isArray(config)) {
+    throw new Error("Configure nuee.json as an object.");
+  }
   const candidate = config as {
     accessibility?: { respectReducedMotion?: unknown };
     aliases?: unknown;
@@ -65,7 +70,8 @@ export function validateConfig(config: unknown): NueeConfig {
   }
   if (
     candidate.accessibility !== undefined &&
-    (typeof candidate.accessibility !== "object" ||
+    (candidate.accessibility === null ||
+      typeof candidate.accessibility !== "object" ||
       typeof candidate.accessibility.respectReducedMotion !== "boolean")
   ) {
     throw new Error("Configure accessibility.respectReducedMotion as a boolean.");
@@ -116,64 +122,44 @@ export function resolveConfigPath(projectDirectory: string, path: string, name: 
   return resolve(projectDirectory, path);
 }
 
-type TsConfig = {
-  compilerOptions?: {
-    baseUrl?: string;
-    paths?: Record<string, string[]>;
-  };
-};
-
 async function readTsConfig(projectDirectory: string) {
   for (const fileName of ["tsconfig.json", "jsconfig.json"]) {
+    const path = resolve(projectDirectory, fileName);
     try {
-      return parse(await readFile(resolve(projectDirectory, fileName), "utf8")) as TsConfig;
-    } catch (error) {
-      if (!isNotFoundError(error)) {
-        continue;
+      const source = await readFile(path, "utf8");
+      const errors: ParseError[] = [];
+      const value: unknown = parse(source, errors, { allowTrailingComma: true });
+      if (errors.length || !value || typeof value !== "object" || Array.isArray(value)) {
+        throw new Error(`Invalid configuration: ${fileName}`);
       }
+      return { path, config: parseTsconfig(path) };
+    } catch (error) {
+      if (!isNotFoundError(error)) throw error;
     }
   }
-
-  return undefined;
-}
-
-function resolvePathAlias(alias: string, paths: Record<string, string[]>) {
-  for (const [pattern, targets] of Object.entries(paths)) {
-    const wildcardIndex = pattern.indexOf("*");
-    if (wildcardIndex === -1) {
-      if (pattern === alias) return targets[0];
-      continue;
-    }
-
-    const prefix = pattern.slice(0, wildcardIndex);
-    const suffix = pattern.slice(wildcardIndex + 1);
-    if (!alias.startsWith(prefix) || !alias.endsWith(suffix)) continue;
-
-    const wildcard = alias.slice(prefix.length, alias.length - suffix.length);
-    return targets[0]?.replace("*", wildcard);
-  }
-
   return undefined;
 }
 
 export async function resolveConfigAlias(projectDirectory: string, alias: string, name: string) {
-  if (alias.startsWith("@/")) {
+  const tsConfig = await readTsConfig(projectDirectory);
+  const paths = tsConfig?.config.compilerOptions?.paths;
+  // Only explicit paths mappings override the conventional @/src fallback.
+  const matched =
+    paths &&
+    Object.keys(paths).some((pattern) => {
+      const wildcard = pattern.indexOf("*");
+      if (wildcard === -1) return pattern === alias;
+      return (
+        alias.startsWith(pattern.slice(0, wildcard)) && alias.endsWith(pattern.slice(wildcard + 1))
+      );
+    });
+  if (tsConfig && matched) {
+    const targets = createPathsMatcher(tsConfig)?.(alias);
+    if (targets?.[0]) return resolveConfigPath(projectDirectory, targets[0], name);
+  } else if (alias.startsWith("@/")) {
     return resolveConfigPath(projectDirectory, join("src", alias.slice(2)), name);
   }
-
-  const tsConfig = await readTsConfig(projectDirectory);
-  const target = tsConfig?.compilerOptions?.paths
-    ? resolvePathAlias(alias, tsConfig.compilerOptions.paths)
-    : undefined;
-  if (!target) {
-    throw new Error(
-      `Could not resolve ${name} (${alias}). Add it to tsconfig.json or jsconfig.json compilerOptions.paths.`,
-    );
-  }
-
-  return resolveConfigPath(
-    projectDirectory,
-    join(tsConfig?.compilerOptions?.baseUrl ?? ".", target),
-    name,
+  throw new Error(
+    `Could not resolve ${name} (${alias}). Add it to tsconfig.json or jsconfig.json compilerOptions.paths.`,
   );
 }

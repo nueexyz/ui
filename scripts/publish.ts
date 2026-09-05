@@ -37,11 +37,26 @@ async function isPublished(package_: Package) {
       "view",
       `${package_.name}@${package_.version}`,
       "version",
+      "--json",
       `--registry=${registryUrl}`,
     ]);
     return true;
-  } catch {
-    return false;
+  } catch (error) {
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "stdout" in error &&
+      typeof error.stdout === "string"
+    ) {
+      let response: { error?: { code?: string } } | undefined;
+      try {
+        response = JSON.parse(error.stdout);
+      } catch {
+        /* Preserve the original npm failure. */
+      }
+      if (response?.error?.code === "E404") return false;
+    }
+    throw error;
   }
 }
 
