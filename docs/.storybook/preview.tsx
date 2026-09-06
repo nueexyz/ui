@@ -4,16 +4,27 @@ import {
   lightColorTheme,
   lightShadowTheme,
 } from "@nuee/tokens/themes.stylex";
-import { colorVars, typographyVars } from "@nuee/tokens/tokens.stylex";
+import { colorVars, spacingVars, typographyVars } from "@nuee/tokens/tokens.stylex";
+import {
+  DocsContainer,
+  TableOfContents,
+  type DocsContainerProps,
+} from "@storybook/addon-docs/blocks";
+import type { Preview } from "@storybook/react-vite";
 
 import "@nuee/ui/global.css";
-import type { Preview } from "@storybook/react-vite";
+import "./preview.css";
 import * as stylex from "@stylexjs/stylex";
-import { type ReactNode, useLayoutEffect } from "react";
+import { type ReactNode, useLayoutEffect, useEffect, useState } from "react";
+import { themes } from "storybook/theming";
 
-import { StoryColorModeProvider } from "../src/components/story-layout/story-color-mode-context";
+import { documentationComponents } from "../src/documentation/components";
+import { LocaleContext, ui } from "../src/documentation/locale";
+import { useColorMode } from "../src/documentation/useColorMode";
+import type { DocumentationGlobals } from "../src/documentation/useDocumentationGlobals";
+import { useDocumentationGlobals } from "../src/documentation/useDocumentationGlobals";
 
-type ColorMode = "light" | "dark";
+type ColorMode = "system" | "light" | "dark";
 type MotionPreference = "system" | "reduce" | "no-preference";
 
 const originalMotionMediaQueries = new WeakMap<CSSMediaRule, string>();
@@ -62,11 +73,28 @@ function setMotionPreference(preference: MotionPreference) {
 }
 
 const styles = stylex.create({
+  document: {
+    display: "grid",
+    gridTemplateColumns: "minmax(0, 1fr) 12rem",
+    gap: spacingVars.space8,
+    "@media (max-width: 60rem)": { gridTemplateColumns: "minmax(0, 1fr)" },
+  },
+  article: { minWidth: 0 },
+  toc: {
+    alignSelf: "start",
+    position: "sticky",
+    top: spacingVars.space6,
+    "@media (max-width: 60rem)": { display: "none" },
+  },
+  compact: { minHeight: 0, display: "block" },
   root: {
-    backgroundColor: colorVars.bgCanvas,
+    backgroundColor: colorVars.bgSurface,
     color: colorVars.fgPrimary,
     fontFamily: typographyVars.fontFamily,
-    minHeight: "100vh",
+    minHeight: `calc(100vh - ${spacingVars.space4} * 2)`,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
   },
 });
 
@@ -77,9 +105,18 @@ function handlePreviewClick(event: MouseEvent) {
   if (placeholderLink) event.preventDefault();
 }
 
-function ThemeScope({ children, mode }: { children: ReactNode; mode: ColorMode }) {
-  const colorTheme = mode === "dark" ? darkColorTheme : lightColorTheme;
-  const shadowTheme = mode === "dark" ? darkShadowTheme : lightShadowTheme;
+function ThemeScope({
+  children,
+  mode,
+  compact,
+}: {
+  children: ReactNode;
+  mode: ColorMode;
+  compact: boolean;
+}) {
+  const colorMode = useColorMode(mode);
+  const colorTheme = colorMode === "dark" ? darkColorTheme : lightColorTheme;
+  const shadowTheme = colorMode === "dark" ? darkShadowTheme : lightShadowTheme;
   const themeClassName = stylex.props(colorTheme, shadowTheme).className ?? "";
 
   useLayoutEffect(() => {
@@ -94,7 +131,7 @@ function ThemeScope({ children, mode }: { children: ReactNode; mode: ColorMode }
   }, [themeClassName]);
 
   return (
-    <div key={mode} {...stylex.props(styles.root, colorTheme, shadowTheme)}>
+    <div {...stylex.props(styles.root, compact && styles.compact, colorTheme, shadowTheme)}>
       {children}
     </div>
   );
@@ -125,53 +162,118 @@ function MotionPreferenceScope({
   return children;
 }
 
+function DocumentationContainer({
+  children,
+  context,
+}: DocsContainerProps & { children?: ReactNode }) {
+  const { colorMode, motionPreference, locale } = useDocumentationGlobals(context);
+  const mode = useColorMode(colorMode);
+
+  return (
+    <LocaleContext.Provider value={locale}>
+      <ThemeScope mode={mode} compact>
+        <MotionPreferenceScope preference={motionPreference}>
+          <DocsContainer
+            context={context}
+            theme={{ ...themes[mode], appContentBg: "transparent", colorSecondary: "currentColor" }}
+          >
+            <div {...stylex.props(styles.document)}>
+              <div
+                className={`sb-unstyled ${stylex.props(styles.article).className}`}
+                data-document-locale={locale}
+                lang={locale}
+              >
+                {children}
+              </div>
+              <aside {...stylex.props(styles.toc)}>
+                <TableOfContents
+                  contentsSelector={`[data-document-locale="${locale}"]`}
+                  title={ui.onThisPage}
+                  channel={context.channel}
+                  headingSelector="h2, h3"
+                  ignoreSelector=".nuee-example h2, .nuee-example h3, #table-of-contents"
+                />
+              </aside>
+            </div>
+          </DocsContainer>
+        </MotionPreferenceScope>
+      </ThemeScope>
+    </LocaleContext.Provider>
+  );
+}
+
+function StoryPreview({
+  children,
+  globals,
+  isolated,
+}: {
+  children: ReactNode;
+  globals: DocumentationGlobals;
+  isolated: boolean;
+}) {
+  const [settings, setSettings] = useState<DocumentationGlobals | null>(null);
+  useEffect(() => {
+    if (!isolated) return;
+    const update = (event: MessageEvent) => {
+      if (
+        event.origin !== window.location.origin ||
+        event.source !== window.parent ||
+        event.data?.type !== "nuee-preview-globals"
+      )
+        return;
+      const { colorMode, motionPreference, locale } = event.data.globals ?? {};
+      if (
+        !["system", "light", "dark"].includes(colorMode) ||
+        !["system", "reduce", "no-preference"].includes(motionPreference) ||
+        !["ko", "en"].includes(locale)
+      )
+        return;
+      setSettings({ colorMode, motionPreference, locale });
+    };
+    window.addEventListener("message", update);
+    window.parent.postMessage({ type: "nuee-preview-ready" }, window.location.origin);
+    return () => window.removeEventListener("message", update);
+  }, [isolated]);
+  const current = settings ?? globals;
+  return (
+    <LocaleContext.Provider value={current.locale}>
+      <MotionPreferenceScope preference={current.motionPreference}>
+        <ThemeScope mode={current.colorMode} compact={isolated}>
+          {children}
+        </ThemeScope>
+      </MotionPreferenceScope>
+    </LocaleContext.Provider>
+  );
+}
+
 const preview: Preview = {
   decorators: [
-    (Story, context) => {
-      const mode = context.globals.colorMode as ColorMode;
-      const motionPreference = context.globals.motionPreference as MotionPreference;
-
-      return (
-        <StoryColorModeProvider colorMode={mode}>
-          <MotionPreferenceScope preference={motionPreference}>
-            <ThemeScope mode={mode}>
-              <Story />
-            </ThemeScope>
-          </MotionPreferenceScope>
-        </StoryColorModeProvider>
-      );
-    },
+    (Story, context) => (
+      <StoryPreview
+        globals={context.globals as DocumentationGlobals}
+        isolated={context.id === "internal-preview--example"}
+      >
+        <Story />
+      </StoryPreview>
+    ),
   ],
   globalTypes: {
-    colorMode: {
-      description: "색상 모드",
-      toolbar: {
-        icon: "mirror",
-        items: [
-          { title: "라이트", value: "light" },
-          { title: "다크", value: "dark" },
-        ],
-        dynamicTitle: true,
-      },
-    },
-    motionPreference: {
-      description: "모션 설정",
-      toolbar: {
-        icon: "play",
-        items: [
-          { title: "시스템 설정", value: "system" },
-          { title: "모션 줄임", value: "reduce" },
-          { title: "모션 허용", value: "no-preference" },
-        ],
-        dynamicTitle: true,
-      },
-    },
+    locale: { description: "Language" },
+    colorMode: { description: "Color mode" },
+    motionPreference: { description: "Motion" },
   },
   initialGlobals: {
+    locale: "ko",
     colorMode: "light",
     motionPreference: "no-preference",
   },
   parameters: {
+    docs: {
+      renderer: async () => (await import("../src/documentation/renderer")).renderer,
+      container: DocumentationContainer,
+      components: documentationComponents,
+      toc: false,
+    },
     a11y: {
       config: {
         rules: [{ id: "color-contrast", enabled: true }],
@@ -182,7 +284,31 @@ const preview: Preview = {
       storySort: {
         includeNames: true,
         method: "alphabetical",
-        order: ["시작하기", "Foundations", "Components"],
+        order: [
+          "Getting Started",
+          "Foundations",
+          [
+            "Overview",
+            "Design Token",
+            "Color",
+            "Typography",
+            "Iconography",
+            "Layout",
+            "Spacing",
+            "Radius",
+            "Elevation",
+            "Gradient",
+            "State",
+            "Motion",
+            "Feedback",
+            "Inclusive Design",
+            "International Design",
+            "Voice and Tone",
+            "Writing",
+            "Tokens",
+          ],
+          "Components",
+        ],
       },
     },
   },

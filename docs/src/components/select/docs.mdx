@@ -1,0 +1,39 @@
+import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
+import { CodeBlock } from "../../documentation/CodeBlock";
+import DefaultSource from "./Default.tsx?raw";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ComponentPreview } from "../../documentation/ComponentPreview";
+
+<Meta title="Components/Select" />
+
+# Select
+
+<LocalizedMarkdown text={"Choose one option from a defined list."} />
+
+<ComponentPreview name="select--Default" source={DefaultSource} isolated height={360} />
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add select" language="bash" />
+
+<LocalizedMarkdown text={"## Usage"} />
+
+```tsx
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+<Select defaultValue="design">
+  <SelectTrigger aria-label="Select team">
+    <SelectValue />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem value="design">Design</SelectItem>
+    <SelectItem value="development">Development</SelectItem>
+  </SelectContent>
+</Select>;
+```

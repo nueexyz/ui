@@ -1,0 +1,35 @@
+import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
+import { CodeBlock } from "../../documentation/CodeBlock";
+import DefaultSource from "./Default.tsx?raw";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ComponentPreview } from "../../documentation/ComponentPreview";
+
+<Meta title="Components/Collapsible" />
+
+# Collapsible
+
+<LocalizedMarkdown text={"Expand and collapse supporting information within one area."} />
+
+<ComponentPreview name="collapsible--Default" source={DefaultSource} />
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add collapsible" language="bash" />
+
+<LocalizedMarkdown text={"## Usage"} />
+
+```tsx
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+
+<Collapsible>
+  <div>
+    <strong>Order #4189</strong>
+    <CollapsibleTrigger aria-label="Show order details" />
+  </div>
+  <p>Status: Delivered</p>
+  <CollapsibleContent>
+    <p>Shipping address: 18 Seongsui-ro, Seongdong-gu, Seoul</p>
+    <p>Items: 2 studio headphones</p>
+  </CollapsibleContent>
+</Collapsible>;
+```

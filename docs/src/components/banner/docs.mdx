@@ -1,0 +1,51 @@
+import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
+import { CodeBlock } from "../../documentation/CodeBlock";
+import SizesSource from "./Sizes.tsx?raw";
+import MessagesSource from "./Messages.tsx?raw";
+import CompactGuidanceSource from "./CompactGuidance.tsx?raw";
+import DefaultSource from "./Default.tsx?raw";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ComponentPreview } from "../../documentation/ComponentPreview";
+
+<Meta title="Components/Banner" />
+
+# Banner
+
+<LocalizedMarkdown text={"Communicate the current state and next action within the page."} />
+
+<LocalizedMarkdown text={"**Meaning**"} />
+
+<LocalizedMarkdown text={"Use colors that match the message’s importance and intent."} />
+
+<ComponentPreview name="banner--Default" source={DefaultSource} />
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add banner" language="bash" />
+
+<LocalizedMarkdown text={"## Usage"} />
+
+```tsx
+import { Banner } from "@/components/ui/banner";
+import { Link } from "@/components/ui/link";
+```
+
+<LocalizedMarkdown text={"## Examples"} />
+
+<LocalizedMarkdown text={"### Compact guidance"} />
+
+<LocalizedMarkdown text={"Show only the essential message and action on narrow screens."} />
+
+<ComponentPreview name="banner--CompactGuidance" source={CompactGuidanceSource} />
+
+<LocalizedMarkdown text={"### Messages"} />
+
+<LocalizedMarkdown text={"Keep the message focused on the current state and the next action."} />
+
+<ComponentPreview name="banner--Messages" source={MessagesSource} />
+
+<LocalizedMarkdown text={"### Sizes"} />
+
+<LocalizedMarkdown text={"Use the compact size when a page needs to preserve vertical space."} />
+
+<ComponentPreview name="banner--Sizes" source={SizesSource} />

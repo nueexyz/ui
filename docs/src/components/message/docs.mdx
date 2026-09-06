@@ -1,0 +1,43 @@
+import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
+import { CodeBlock } from "../../documentation/CodeBlock";
+import DefaultSource from "./Default.tsx?raw";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ComponentPreview } from "../../documentation/ComponentPreview";
+
+<Meta title="Components/Message" />
+
+# Message
+
+<LocalizedMarkdown
+  text={"Group the sender, message content, and sent time into one conversation unit."}
+/>
+
+<LocalizedMarkdown
+  text={"Present information outside the bubble at a lower hierarchy than the message."}
+/>
+
+<ComponentPreview name="message--Default" source={DefaultSource} />
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add message" language="bash" />
+
+<LocalizedMarkdown text={"## Usage"} />
+
+```tsx
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Bubble } from "@/components/ui/bubble";
+import { Message, MessageAvatar, MessageContent, MessageFooter } from "@/components/ui/message";
+
+<Message>
+  <MessageAvatar>
+    <Avatar size="lg">
+      <AvatarFallback>MY</AvatarFallback>
+    </Avatar>
+  </MessageAvatar>
+  <MessageContent>
+    <Bubble>How can I help you today?</Bubble>
+    <MessageFooter>2:18 PM</MessageFooter>
+  </MessageContent>
+</Message>;
+```

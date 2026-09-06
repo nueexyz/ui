@@ -1,0 +1,57 @@
+import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
+import { CodeBlock } from "../../documentation/CodeBlock";
+import StatesSource from "./States.tsx?raw";
+import SizesSource from "./Sizes.tsx?raw";
+import VariantsSource from "./Variants.tsx?raw";
+import DefaultSource from "./Default.tsx?raw";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ComponentPreview } from "../../documentation/ComponentPreview";
+
+<Meta title="Components/Toggle" />
+
+# Toggle
+
+<LocalizedMarkdown text={"Toggle view or editing modes that apply optionally."} />
+
+<ComponentPreview name="toggle--Default" source={DefaultSource} />
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add toggle" language="bash" />
+
+<LocalizedMarkdown text={"## Usage"} />
+
+```tsx
+import { Toggle } from "@/components/ui/toggle";
+
+<div>
+  <Toggle defaultPressed>Bold</Toggle>
+  <Toggle variant="outline">Italic</Toggle>
+</div>;
+```
+
+<LocalizedMarkdown text={"## Examples"} />
+
+<LocalizedMarkdown text={"### Variants"} />
+
+<LocalizedMarkdown
+  text={"Use an outline when the toggle should have less emphasis than the default treatment."}
+/>
+
+<ComponentPreview name="toggle--Variants" source={VariantsSource} />
+
+<LocalizedMarkdown text={"### Sizes"} />
+
+<LocalizedMarkdown
+  text={"Choose a size that matches the density of the editing controls around it."}
+/>
+
+<ComponentPreview name="toggle--Sizes" source={SizesSource} />
+
+<LocalizedMarkdown text={"### States"} />
+
+<LocalizedMarkdown
+  text={"Show selected and unavailable modes clearly before a person takes action."}
+/>
+
+<ComponentPreview name="toggle--States" source={StatesSource} />

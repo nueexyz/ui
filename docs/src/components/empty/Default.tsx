@@ -1,0 +1,53 @@
+import { typographyVars, spacingVars } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+
+import { Button } from "@/components/ui/button";
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@/components/ui/empty";
+import { Icon } from "@/components/ui/icon";
+const layout = stylex.create({
+  preview: {
+    alignItems: "center",
+    display: "flex",
+    flexWrap: "wrap",
+    fontSize: typographyVars.fontSizeSm,
+    gap: spacingVars.space3,
+    lineHeight: typographyVars.lineHeightNormal,
+    justifyContent: "center",
+    width: "100%",
+  },
+});
+const styles = stylex.create({
+  full: {
+    width: "100%",
+  },
+  content: {
+    gap: spacingVars.space4,
+  },
+});
+export default function Default() {
+  return (
+    <div {...stylex.props(layout.preview)}>
+      <Empty xstyle={styles.full}>
+        <EmptyHeader>
+          <EmptyMedia>
+            <Icon aria-hidden="true" name="folder" />
+          </EmptyMedia>
+          <EmptyTitle>No saved projects</EmptyTitle>
+          <EmptyDescription>
+            Save projects you visit often to open them here quickly.
+          </EmptyDescription>
+        </EmptyHeader>
+        <EmptyContent xstyle={styles.content}>
+          <Button>Save project</Button>
+        </EmptyContent>
+      </Empty>
+    </div>
+  );
+}

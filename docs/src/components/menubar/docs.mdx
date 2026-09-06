@@ -1,0 +1,51 @@
+import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
+import { CodeBlock } from "../../documentation/CodeBlock";
+import DefaultSource from "./Default.tsx?raw";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ComponentPreview } from "../../documentation/ComponentPreview";
+
+<Meta title="Components/Menubar" />
+
+# Menubar
+
+<LocalizedMarkdown
+  text={"Keep frequently used command groups in a consistent location, like an editor."}
+/>
+
+<ComponentPreview name="menubar--Default" source={DefaultSource} isolated height={360} />
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add menubar" language="bash" />
+
+<LocalizedMarkdown text={"## Usage"} />
+
+```tsx
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarTrigger,
+} from "@/components/ui/menubar";
+
+<Menubar>
+  <MenubarMenu>
+    <MenubarTrigger>File</MenubarTrigger>
+    <MenubarContent>
+      <MenubarItem>
+        New document<MenubarShortcut>⌘N</MenubarShortcut>
+      </MenubarItem>
+      <MenubarItem>
+        Open<MenubarShortcut>⌘O</MenubarShortcut>
+      </MenubarItem>
+      <MenubarSeparator />
+      <MenubarItem>
+        Save<MenubarShortcut>⌘S</MenubarShortcut>
+      </MenubarItem>
+    </MenubarContent>
+  </MenubarMenu>
+</Menubar>;
+```

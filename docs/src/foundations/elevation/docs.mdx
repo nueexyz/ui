@@ -1,0 +1,42 @@
+import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
+import { Guideline } from "../../documentation/Guideline";
+import guidelines from "./guidelines.md?raw";
+import english from "./guidelines.en.md?raw";
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Reference from "./Reference";
+
+<Meta title="Foundations/Elevation" />
+
+<Guideline content={guidelines} english={english} />
+
+<LocalizedMarkdown text={"## Reference"} />
+
+<LocalizedMarkdown text={"## Global levels"} />
+
+<LocalizedMarkdown
+  text={
+    "Distinguish content levels across the screen. Express elevation with background, shadow, and border together."
+  }
+/>
+
+<Reference.GlobalLevels />
+
+<LocalizedMarkdown text={"## Local levels"} />
+
+<LocalizedMarkdown
+  text={
+    "Distinguish relationships between content and actions on the same screen. Adding a shadow does not necessarily create a higher global layer."
+  }
+/>
+
+<Reference.LocalLevels />
+
+<LocalizedMarkdown text={"## Shadow"} />
+
+<LocalizedMarkdown
+  text={
+    "Use shadows when the background alone does not establish enough separation. In dark mode, pair a fine light ring with wider shadows to preserve depth."
+  }
+/>
+
+<Reference.Shadow />

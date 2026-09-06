@@ -1,0 +1,40 @@
+import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
+import { CodeBlock } from "../../documentation/CodeBlock";
+import DefaultSource from "./Default.tsx?raw";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ComponentPreview } from "../../documentation/ComponentPreview";
+
+<Meta title="Components/Combobox" />
+
+# Combobox
+
+<LocalizedMarkdown text={"Narrow a long list with search before choosing an option."} />
+
+<ComponentPreview name="combobox--Default" source={DefaultSource} isolated height={360} />
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add combobox" language="bash" />
+
+<LocalizedMarkdown text={"## Usage"} />
+
+```tsx
+import { Combobox, ComboboxCollection, ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem } from "@/components/ui/combobox"
+import { Field, FieldDescription, FieldLabel } from "@/components/ui/field"
+
+const frameworks = ["React", "Vue", "Svelte"]
+
+<Field>
+  <FieldLabel>Framework</FieldLabel>
+  <Combobox items={frameworks}>
+    <ComboboxInput placeholder="Search frameworks" />
+    <ComboboxContent>
+      <ComboboxEmpty>No matching frameworks.</ComboboxEmpty>
+      <ComboboxCollection>
+        {(framework) => <ComboboxItem key={framework} value={framework}>{framework}</ComboboxItem>}
+      </ComboboxCollection>
+    </ComboboxContent>
+  </Combobox>
+  <FieldDescription>Select the framework used in your project.</FieldDescription>
+</Field>
+```

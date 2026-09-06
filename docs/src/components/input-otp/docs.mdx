@@ -1,0 +1,37 @@
+import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
+import { CodeBlock } from "../../documentation/CodeBlock";
+import DefaultSource from "./Default.tsx?raw";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ComponentPreview } from "../../documentation/ComponentPreview";
+
+<Meta title="Components/Input OTP" />
+
+# Input OTP
+
+<LocalizedMarkdown
+  text={"Enter a one-time code from a text message or authenticator app one digit at a time."}
+/>
+
+<LocalizedMarkdown text={"**6-digit verification code**"} />
+
+<LocalizedMarkdown text={"Pasting a code distributes it across the slots automatically."} />
+
+<ComponentPreview name="input-otp--Default" source={DefaultSource} />
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add input-otp" language="bash" />
+
+<LocalizedMarkdown text={"## Usage"} />
+
+```tsx
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+
+<InputOTP aria-label="6-digit verification code" length={6}>
+  <InputOTPGroup>
+    {Array.from({ length: 6 }, (_, index) => (
+      <InputOTPSlot key={index} />
+    ))}
+  </InputOTPGroup>
+</InputOTP>;
+```

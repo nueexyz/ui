@@ -1,0 +1,50 @@
+import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
+import { CodeBlock } from "../../documentation/CodeBlock";
+import StatesSource from "./States.tsx?raw";
+import DefaultSource from "./Default.tsx?raw";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ComponentPreview } from "../../documentation/ComponentPreview";
+
+<Meta title="Components/Radio Group" />
+
+# Radio Group
+
+<LocalizedMarkdown text={"Use it when exactly one option must be selected."} />
+
+<ComponentPreview name="radio-group--Default" source={DefaultSource} />
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add radio-group" language="bash" />
+
+<LocalizedMarkdown text={"## Usage"} />
+
+```tsx
+import { Field, FieldLabel } from "@/components/ui/field";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+
+<Field>
+  <FieldLabel>Notification frequency</FieldLabel>
+  <RadioGroup defaultValue="daily">
+    <Label>
+      <RadioGroupItem value="daily" />
+      Daily
+    </Label>
+    <Label>
+      <RadioGroupItem value="weekly" />
+      Weekly
+    </Label>
+  </RadioGroup>
+</Field>;
+```
+
+<LocalizedMarkdown text={"## Examples"} />
+
+<LocalizedMarkdown text={"### States"} />
+
+<LocalizedMarkdown
+  text={"Clearly show the selected option and any choice that is not currently available."}
+/>
+
+<ComponentPreview name="radio-group--States" source={StatesSource} />

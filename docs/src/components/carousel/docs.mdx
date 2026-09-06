@@ -1,0 +1,38 @@
+import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
+import { CodeBlock } from "../../documentation/CodeBlock";
+import DefaultSource from "./Default.tsx?raw";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ComponentPreview } from "../../documentation/ComponentPreview";
+
+<Meta title="Components/Carousel" />
+
+# Carousel
+
+<LocalizedMarkdown text={"Browse a sequence of related content with buttons or a swipe."} />
+
+<ComponentPreview name="carousel--Default" source={DefaultSource} />
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add carousel" language="bash" />
+
+<LocalizedMarkdown text={"## Usage"} />
+
+```tsx
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
+<Carousel>
+  <CarouselContent>
+    <CarouselItem>First slide</CarouselItem>
+    <CarouselItem>Second slide</CarouselItem>
+  </CarouselContent>
+  <CarouselPrevious />
+  <CarouselNext />
+</Carousel>;
+```

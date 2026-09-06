@@ -1,0 +1,36 @@
+import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
+import { CodeBlock } from "../../documentation/CodeBlock";
+import RangeSelectionSource from "./RangeSelection.tsx?raw";
+import DefaultSource from "./Default.tsx?raw";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ComponentPreview } from "../../documentation/ComponentPreview";
+
+<Meta title="Components/Calendar" />
+
+# Calendar
+
+<LocalizedMarkdown text={"Display a calendar for selecting one or more dates."} />
+
+<ComponentPreview name="calendar--Default" source={DefaultSource} />
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add calendar" language="bash" />
+
+<LocalizedMarkdown text={"## Usage"} />
+
+```tsx
+import { Calendar } from "@/components/ui/calendar";
+
+<Calendar mode="single" selected={date} onSelect={setDate} />;
+```
+
+<LocalizedMarkdown text={"## Examples"} />
+
+<LocalizedMarkdown text={"### Range selection"} />
+
+<LocalizedMarkdown
+  text={"Set the selection mode to range when a start and end date belong together."}
+/>
+
+<ComponentPreview name="calendar--RangeSelection" source={RangeSelectionSource} />

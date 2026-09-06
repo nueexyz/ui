@@ -1,0 +1,43 @@
+import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
+import { CodeBlock } from "../../documentation/CodeBlock";
+import StatesSource from "./States.tsx?raw";
+import InputTypesSource from "./InputTypes.tsx?raw";
+import DefaultSource from "./Default.tsx?raw";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ComponentPreview } from "../../documentation/ComponentPreview";
+
+<Meta title="Components/Input" />
+
+# Input
+
+<LocalizedMarkdown text={"Compare treatments by value, input type, and state."} />
+
+<LocalizedMarkdown text={"Compare the default treatment before and after entry."} />
+
+<ComponentPreview name="input--Default" source={DefaultSource} />
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add input" language="bash" />
+
+<LocalizedMarkdown text={"## Usage"} />
+
+```tsx
+import { Input } from "@/components/ui/input";
+
+<Input aria-label="Email" placeholder="name@example.com" type="email" />;
+```
+
+<LocalizedMarkdown text={"## Examples"} />
+
+<LocalizedMarkdown text={"### Input types"} />
+
+<LocalizedMarkdown text={"Keep the same size and state rules across input types."} />
+
+<ComponentPreview name="input--InputTypes" source={InputTypesSource} />
+
+<LocalizedMarkdown text={"### States"} />
+
+<LocalizedMarkdown text={"Clearly distinguish error and disabled states from the default input."} />
+
+<ComponentPreview name="input--States" source={StatesSource} />

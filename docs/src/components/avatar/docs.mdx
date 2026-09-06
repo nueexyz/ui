@@ -1,0 +1,40 @@
+import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
+import { CodeBlock } from "../../documentation/CodeBlock";
+import SizesSource from "./Sizes.tsx?raw";
+import DefaultSource from "./Default.tsx?raw";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ComponentPreview } from "../../documentation/ComponentPreview";
+
+<Meta title="Components/Avatar" />
+
+# Avatar
+
+<LocalizedMarkdown text={"Represent a person or team with an image or brief fallback text."} />
+
+<LocalizedMarkdown text={"**Group**"} />
+
+<LocalizedMarkdown text={"Show people who participated together as a group."} />
+
+<ComponentPreview name="avatar--Default" source={DefaultSource} />
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add avatar" language="bash" />
+
+<LocalizedMarkdown text={"## Usage"} />
+
+```tsx
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+
+<Avatar>
+  <AvatarFallback>MY</AvatarFallback>
+</Avatar>;
+```
+
+<LocalizedMarkdown text={"## Examples"} />
+
+<LocalizedMarkdown text={"### Sizes"} />
+
+<LocalizedMarkdown text={"Choose a size that matches the surrounding content and importance."} />
+
+<ComponentPreview name="avatar--Sizes" source={SizesSource} />

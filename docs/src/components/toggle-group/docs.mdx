@@ -1,0 +1,56 @@
+import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
+import { CodeBlock } from "../../documentation/CodeBlock";
+import StatesSource from "./States.tsx?raw";
+import SizesSource from "./Sizes.tsx?raw";
+import VariantsSource from "./Variants.tsx?raw";
+import DefaultSource from "./Default.tsx?raw";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ComponentPreview } from "../../documentation/ComponentPreview";
+
+<Meta title="Components/Toggle Group" />
+
+# Toggle Group
+
+<LocalizedMarkdown text={"Navigate and select related view options with the arrow keys."} />
+
+<ComponentPreview name="toggle-group--Default" source={DefaultSource} />
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add toggle-group" language="bash" />
+
+<LocalizedMarkdown text={"## Usage"} />
+
+```tsx
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+
+<ToggleGroup aria-label="Text alignment" defaultValue={["left"]} variant="outline">
+  <ToggleGroupItem value="left">Left</ToggleGroupItem>
+  <ToggleGroupItem value="center">Center</ToggleGroupItem>
+  <ToggleGroupItem value="right">Right</ToggleGroupItem>
+</ToggleGroup>;
+```
+
+<LocalizedMarkdown text={"## Examples"} />
+
+<LocalizedMarkdown text={"### Variants"} />
+
+<LocalizedMarkdown
+  text={"Use an outline group when it should recede beside a more prominent control."}
+/>
+
+<ComponentPreview name="toggle-group--Variants" source={VariantsSource} />
+
+<LocalizedMarkdown text={"### Sizes"} />
+
+<LocalizedMarkdown text={"Match the group’s control size to the editing surface it belongs to."} />
+
+<ComponentPreview name="toggle-group--Sizes" source={SizesSource} />
+
+<LocalizedMarkdown text={"### States"} />
+
+<LocalizedMarkdown
+  text={"Keep selected and unavailable options distinguishable within the same group."}
+/>
+
+<ComponentPreview name="toggle-group--States" source={StatesSource} />

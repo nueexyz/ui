@@ -1,0 +1,32 @@
+import { spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
+const layout = stylex.create({
+  preview: {
+    alignItems: "center",
+    display: "flex",
+    flexWrap: "wrap",
+    fontSize: typographyVars.fontSizeSm,
+    gap: spacingVars.space3,
+    lineHeight: typographyVars.lineHeightNormal,
+    justifyContent: "center",
+    width: "100%",
+  },
+  column: {
+    alignItems: "stretch",
+    flexDirection: "column",
+  },
+});
+export default function Sizes() {
+  return (
+    <div {...stylex.props(layout.preview, layout.column)}>
+      <NativeSelect size="sm" defaultValue="ko">
+        <NativeSelectOption value="ko">Small select</NativeSelectOption>
+      </NativeSelect>
+      <NativeSelect defaultValue="ko">
+        <NativeSelectOption value="ko">Default select</NativeSelectOption>
+      </NativeSelect>
+    </div>
+  );
+}

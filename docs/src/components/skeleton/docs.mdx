@@ -1,0 +1,34 @@
+import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
+import { CodeBlock } from "../../documentation/CodeBlock";
+import DefaultSource from "./Default.tsx?raw";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ComponentPreview } from "../../documentation/ComponentPreview";
+
+<Meta title="Components/Skeleton" />
+
+# Skeleton
+
+<LocalizedMarkdown text={"Show a loading state while preserving the content structure."} />
+
+<ComponentPreview name="skeleton--Default" source={DefaultSource} />
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add skeleton" language="bash" />
+
+<LocalizedMarkdown text={"## Usage"} />
+
+```tsx
+import * as stylex from "@stylexjs/stylex"
+import { Skeleton } from "@/components/ui/skeleton"
+
+const styles = stylex.create({
+  title: { height: "1rem", width: "45%" },
+  body: { height: "2.25rem", width: "100%" },
+})
+
+<div>
+  <Skeleton xstyle={styles.title} />
+  <Skeleton xstyle={styles.body} />
+</div>
+```

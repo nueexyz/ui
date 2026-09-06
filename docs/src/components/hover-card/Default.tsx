@@ -1,0 +1,41 @@
+import { spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
+import * as stylex from "@stylexjs/stylex";
+
+import {
+  ContentRow,
+  ContentRowContent,
+  ContentRowDescription,
+  ContentRowTitle,
+} from "@/components/ui/content-row";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+const layout = stylex.create({
+  preview: {
+    alignItems: "center",
+    display: "flex",
+    flexWrap: "wrap",
+    fontSize: typographyVars.fontSizeSm,
+    gap: spacingVars.space3,
+    lineHeight: typographyVars.lineHeightNormal,
+    justifyContent: "center",
+    width: "100%",
+  },
+});
+export default function Default() {
+  return (
+    <div {...stylex.props(layout.preview)}>
+      <HoverCard>
+        <HoverCardTrigger href="#">@nuee</HoverCardTrigger>
+        <HoverCardContent align="start">
+          <ContentRow size="sm">
+            <ContentRowContent>
+              <ContentRowTitle>nuée</ContentRowTitle>
+              <ContentRowDescription>
+                A calm, consistent design system for product experiences
+              </ContentRowDescription>
+            </ContentRowContent>
+          </ContentRow>
+        </HoverCardContent>
+      </HoverCard>
+    </div>
+  );
+}

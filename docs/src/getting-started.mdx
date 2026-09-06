@@ -1,0 +1,68 @@
+import { LocalizedMarkdown } from "./documentation/LocalizedMarkdown";
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Getting Started" />
+
+<LocalizedMarkdown text={"# Getting Started"} />
+
+<LocalizedMarkdown text={"Add the components your project needs as local files."} />
+
+<LocalizedMarkdown text={"## 1. Initialize"} />
+
+<LocalizedMarkdown text={"Run this once from the project root."} />
+
+```bash
+pnpm dlx @nuee/ui init --vite
+```
+
+<LocalizedMarkdown text={"## 2. Import alias"} />
+
+<LocalizedMarkdown
+  text={"The component and local style aliases entered during init are saved to `nuee.json`."}
+/>
+
+```json
+{
+  "accessibility": {
+    "respectReducedMotion": true
+  },
+  "aliases": {
+    "ui": "@/components/ui",
+    "styles": "@/styles"
+  }
+}
+```
+
+<LocalizedMarkdown
+  text={
+    "| Setting                              | Purpose                                                                                                                          |\n| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |\n| `aliases.ui` / `aliases.styles`      | The aliases used to import added components and their local StyleX tokens.                                                       |\n| `accessibility.respectReducedMotion` | Keeps reduced-motion media queries in copied components. Set it to `false` before adding components to always keep their motion. |"
+  }
+/>
+
+<LocalizedMarkdown
+  text={"Define the actual file locations in `tsconfig.json` or `jsconfig.json`."}
+/>
+
+<LocalizedMarkdown text={"## 3. File location"} />
+
+<LocalizedMarkdown
+  text={"The add command reads the import alias and paths to find where to save components."}
+/>
+
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+<LocalizedMarkdown text={"`@/components/ui` → `src/components/ui`"} />
+
+<LocalizedMarkdown
+  text={
+    "When changing an alias, also update `tsconfig.json` or `jsconfig.json`.\nExisting files are not moved automatically."
+  }
+/>

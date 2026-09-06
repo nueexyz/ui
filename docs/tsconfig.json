@@ -1,5 +1,10 @@
 {
   "extends": "../tsconfig.json",
-  "compilerOptions": { "types": ["vite/client"] },
+  "compilerOptions": {
+    "types": ["vite/client"],
+    "paths": {
+      "@/components/ui/*": ["../packages/ui/src/*"]
+    }
+  },
   "include": [".storybook/**/*.ts", ".storybook/**/*.tsx", "src"]
 }

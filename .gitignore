@@ -27,3 +27,10 @@ pnpm-debug.log*
 .vscode/
 .idea/
 .DS_Store
+
+# Generated from canonical foundation guidelines
+docs/public/guidelines/
+docs/public/llms.txt
+docs/public/llms-full.txt
+
+/docs/public/llms-full.en.txt

@@ -1,0 +1,54 @@
+import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
+import { CodeBlock } from "../../documentation/CodeBlock";
+import DefaultSource from "./Default.tsx?raw";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ComponentPreview } from "../../documentation/ComponentPreview";
+
+<Meta title="Components/Hover Card" />
+
+# Hover Card
+
+<LocalizedMarkdown text={"Preview essential information before opening a link."} />
+
+<LocalizedMarkdown text={"**Profile preview**"} />
+
+<LocalizedMarkdown text={"View details by hovering or moving keyboard focus."} />
+
+<ComponentPreview name="hover-card--Default" source={DefaultSource} isolated height={360} />
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add hover-card" language="bash" />
+
+<LocalizedMarkdown text={"## Usage"} />
+
+```tsx
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  ContentRow,
+  ContentRowContent,
+  ContentRowDescription,
+  ContentRowMedia,
+  ContentRowTitle,
+} from "@/components/ui/content-row";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+
+<HoverCard>
+  <HoverCardTrigger href="#">@nuee</HoverCardTrigger>
+  <HoverCardContent align="start">
+    <ContentRow size="sm">
+      <ContentRowMedia variant="avatar">
+        <Avatar>
+          <AvatarFallback>CA</AvatarFallback>
+        </Avatar>
+      </ContentRowMedia>
+      <ContentRowContent>
+        <ContentRowTitle>nuée</ContentRowTitle>
+        <ContentRowDescription>
+          A calm, consistent design system for product experiences
+        </ContentRowDescription>
+      </ContentRowContent>
+    </ContentRow>
+  </HoverCardContent>
+</HoverCard>;
+```

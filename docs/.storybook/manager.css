@@ -1,0 +1,41 @@
+/* Storybook 10 document nodes: hide only the built-in direct-child icon. */
+.sidebar-item[data-nodetype="document"] > a > div:has(> svg[type="document"]) {
+  display: none;
+}
+.nuee-sidebar-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.nuee-sidebar-label > svg {
+  flex-shrink: 0;
+  color: currentColor;
+}
+
+.nuee-doc-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-inline: 8px;
+}
+
+.nuee-doc-tools select {
+  height: 32px;
+  padding-inline: 10px;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #171717;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.nuee-doc-tools select:hover {
+  background-color: #f5f5f5;
+}
+.nuee-doc-tools select:focus-visible {
+  outline: 2px solid #737373;
+  outline-offset: 2px;
+}

@@ -1,0 +1,51 @@
+import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
+import { CodeBlock } from "../../documentation/CodeBlock";
+import StatesSource from "./States.tsx?raw";
+import SizesSource from "./Sizes.tsx?raw";
+import DefaultSource from "./Default.tsx?raw";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ComponentPreview } from "../../documentation/ComponentPreview";
+
+<Meta title="Components/Native Select" />
+
+# Native Select
+
+<LocalizedMarkdown
+  text={"Use it when the operating system’s familiar selection interface is appropriate."}
+/>
+
+<ComponentPreview name="native-select--Default" source={DefaultSource} />
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add native-select" language="bash" />
+
+<LocalizedMarkdown text={"## Usage"} />
+
+```tsx
+import { Field, FieldLabel } from "@/components/ui/field";
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
+
+<Field>
+  <FieldLabel>Language</FieldLabel>
+  <NativeSelect defaultValue="ko">
+    <NativeSelectOption value="ko">Korean</NativeSelectOption>
+    <NativeSelectOption value="en">English</NativeSelectOption>
+    <NativeSelectOption value="ja">Japanese</NativeSelectOption>
+  </NativeSelect>
+</Field>;
+```
+
+<LocalizedMarkdown text={"## Examples"} />
+
+<LocalizedMarkdown text={"### Sizes"} />
+
+<LocalizedMarkdown text={"Match the control height to the density of the surrounding form."} />
+
+<ComponentPreview name="native-select--Sizes" source={SizesSource} />
+
+<LocalizedMarkdown text={"### States"} />
+
+<LocalizedMarkdown text={"Keep unavailable choices visibly distinct from interactive controls."} />
+
+<ComponentPreview name="native-select--States" source={StatesSource} />
