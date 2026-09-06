@@ -22,17 +22,6 @@ const styles = stylex.create({
     maxWidth: "72rem",
     padding: 0,
   },
-  heading: {
-    fontSize: typographyVars.fontSizeXl,
-    lineHeight: typographyVars.lineHeightTight,
-    margin: 0,
-  },
-  introduction: {
-    color: colorVars.fgSecondary,
-    fontSize: typographyVars.fontSizeSm,
-    lineHeight: typographyVars.lineHeightNormal,
-    margin: 0,
-  },
   section: {
     display: "flex",
     flexDirection: "column",

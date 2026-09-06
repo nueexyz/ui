@@ -16,16 +16,6 @@ const styles = stylex.create({
     gap: spacingVars.space6,
     padding: 0,
   },
-  heading: {
-    fontSize: typographyVars.fontSizeXl,
-    margin: 0,
-  },
-  introduction: {
-    color: colorVars.fgSecondary,
-    fontSize: typographyVars.fontSizeSm,
-    lineHeight: typographyVars.lineHeightNormal,
-    margin: 0,
-  },
   grid: {
     display: "grid",
     gap: spacingVars.space3,

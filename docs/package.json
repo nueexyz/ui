@@ -17,11 +17,9 @@
     "react-dom": "catalog:2026-08-27-stable"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "5.3.1",
     "@mdx-js/react": "3.1.1",
     "@storybook/addon-a11y": "10.6.0",
     "@storybook/addon-docs": "10.6.0",
-    "@storybook/addon-vitest": "10.6.0",
     "@storybook/react-vite": "10.6.0",
     "@stylexjs/unplugin": "catalog:2026-08-27-stable",
     "@types/react": "catalog:2026-08-27-stable",
@@ -31,7 +29,6 @@
     "rehype-slug": "6.0.0",
     "remark-gfm": "4.0.1",
     "storybook": "10.6.0",
-    "storybook-addon-pseudo-states": "10.6.0",
     "typescript": "catalog:2026-08-27-stable",
     "vite": "catalog:2026-08-27-stable"
   }

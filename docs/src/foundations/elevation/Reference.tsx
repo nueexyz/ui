@@ -22,22 +22,6 @@ const styles = stylex.create({
     maxWidth: "72rem",
     padding: 0,
   },
-  header: {
-    display: "flex",
-    flexDirection: "column",
-    gap: spacingVars.space2,
-  },
-  heading: {
-    fontSize: typographyVars.fontSizeXl,
-    lineHeight: typographyVars.lineHeightTight,
-    margin: 0,
-  },
-  introduction: {
-    color: colorVars.fgSecondary,
-    fontSize: typographyVars.fontSizeSm,
-    lineHeight: typographyVars.lineHeightNormal,
-    margin: 0,
-  },
   grid: {
     display: "grid",
     gap: spacingVars.space4,
@@ -63,10 +47,6 @@ const styles = stylex.create({
   },
   defaultLayer: {
     backgroundColor: colorVars.bgSurface,
-  },
-  floatingLayer: {
-    backgroundColor: colorVars.bgRaised,
-    boxShadow: shadowVars.floating,
   },
   overlayLayer: {
     backgroundColor: colorVars.bgRaised,

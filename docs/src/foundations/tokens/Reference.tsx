@@ -29,30 +29,6 @@ const move = stylex.keyframes({
 });
 const translations: Record<string, string> = korean;
 const styles = stylex.create({
-  page: {
-    display: "flex",
-    flexDirection: "column",
-    gap: spacingVars.space8,
-    marginInline: "auto",
-    maxWidth: "64rem",
-    padding: 0,
-  },
-  header: {
-    display: "flex",
-    flexDirection: "column",
-    gap: spacingVars.space2,
-  },
-  heading: {
-    fontSize: typographyVars.fontSizeXl,
-    lineHeight: typographyVars.lineHeightTight,
-    margin: 0,
-  },
-  introduction: {
-    color: colorVars.fgSecondary,
-    fontSize: typographyVars.fontSizeSm,
-    lineHeight: typographyVars.lineHeightNormal,
-    margin: 0,
-  },
   list: {
     borderBlockStartColor: colorVars.strokeDefault,
     borderBlockStartStyle: "solid",
