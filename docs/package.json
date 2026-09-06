@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build-storybook": "pnpm --filter @nuee/ui build && storybook build",
-    "storybook": "pnpm --filter @nuee/ui build && storybook dev -p 6006",
+    "build-storybook": "node scripts/build-guidelines.mjs && pnpm --filter @nuee/ui build && storybook build",
+    "storybook": "node scripts/build-guidelines.mjs && pnpm --filter @nuee/ui build && storybook dev -p 6006",
     "typecheck": "pnpm --filter @nuee/ui build && tsc --noEmit"
   },
   "dependencies": {
@@ -17,14 +17,21 @@
     "react-dom": "catalog:2026-08-27-stable"
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "10.5.10",
-    "@storybook/react-vite": "catalog:2026-08-27-stable",
+    "@chromatic-com/storybook": "5.3.1",
+    "@mdx-js/react": "3.1.1",
+    "@storybook/addon-a11y": "10.6.0",
+    "@storybook/addon-docs": "10.6.0",
+    "@storybook/addon-vitest": "10.6.0",
+    "@storybook/react-vite": "10.6.0",
     "@stylexjs/unplugin": "catalog:2026-08-27-stable",
     "@types/react": "catalog:2026-08-27-stable",
     "@types/react-dom": "catalog:2026-08-27-stable",
     "babel-plugin-react-compiler": "catalog:2026-08-27-stable",
-    "shiki": "catalog:2026-08-27-stable",
-    "storybook": "catalog:2026-08-27-stable",
+    "react-markdown": "10.1.0",
+    "rehype-slug": "6.0.0",
+    "remark-gfm": "4.0.1",
+    "storybook": "10.6.0",
+    "storybook-addon-pseudo-states": "10.6.0",
     "typescript": "catalog:2026-08-27-stable",
     "vite": "catalog:2026-08-27-stable"
   }
