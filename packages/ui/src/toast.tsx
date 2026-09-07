@@ -16,6 +16,7 @@ import * as stylex from "@stylexjs/stylex";
 import { useEffect, useLayoutEffect, useRef, useState, type ComponentProps } from "react";
 
 import { toastViewportVars } from "./toast.stylex";
+import { typographyStyles } from "./typography";
 
 const spin = stylex.keyframes({ to: { transform: "rotate(360deg)" } });
 
@@ -168,15 +169,10 @@ const styles = stylex.create({
     minWidth: 0,
   },
   title: {
-    fontSize: typographyVars.fontSizeSm,
-    fontWeight: typographyVars.fontWeightMedium,
-    lineHeight: typographyVars.lineHeightTight,
     margin: 0,
   },
   description: {
     color: colorVars.fgSecondary,
-    fontSize: typographyVars.fontSizeSm,
-    lineHeight: typographyVars.lineHeightNormal,
     margin: 0,
   },
   statusIcon: {
@@ -462,8 +458,10 @@ function ToastStack({
           <ToastPrimitive.Content {...stylex.props(styles.content)}>
             <ToastStatusIcon type={item.type} />
             <div {...stylex.props(styles.message)}>
-              <ToastPrimitive.Title {...stylex.props(styles.title)} />
-              <ToastPrimitive.Description {...stylex.props(styles.description)} />
+              <ToastPrimitive.Title {...stylex.props(typographyStyles.title, styles.title)} />
+              <ToastPrimitive.Description
+                {...stylex.props(typographyStyles.description, styles.description)}
+              />
             </div>
             {item.actionProps ? <ToastPrimitive.Action {...stylex.props(styles.action)} /> : null}
             <ToastPrimitive.Close aria-label="Close toast" {...stylex.props(styles.close)}>

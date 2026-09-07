@@ -194,6 +194,9 @@ importers:
       '@types/react':
         specifier: catalog:2026-08-27-stable
         version: 19.2.18
+      '@types/react-dom':
+        specifier: catalog:2026-08-27-stable
+        version: 19.2.5(@types/react@19.2.18)
       babel-plugin-react-compiler:
         specifier: catalog:2026-08-27-stable
         version: 1.0.0

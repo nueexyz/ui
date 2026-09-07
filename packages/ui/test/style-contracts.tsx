@@ -143,3 +143,22 @@ export const invalidButtonShape: ComponentProps<typeof Button> = {
 export const toasterWithCustomClearContent: import("../dist/toast.js").ToasterProps = {
   clearAllProps: { children: <span>모두 지우기</span>, "aria-label": "Clear all" },
 };
+
+export const headingSection: import("../dist/heading.js").HeadingProps = {
+  level: 2,
+  size: "section",
+};
+// @ts-expect-error A heading must declare its document level.
+export const headingWithoutLevel: import("../dist/heading.js").HeadingProps = { size: "page" };
+// @ts-expect-error HTML has six heading levels.
+export const headingInvalidLevel: import("../dist/heading.js").HeadingProps = { level: 7 };
+export const headingInvalidSize: import("../dist/heading.js").HeadingProps = {
+  level: 2,
+  // @ts-expect-error Heading sizes are role names, not free-form token sizes.
+  size: "xl",
+};
+export const headingLineHeight: import("../dist/heading.js").HeadingProps = {
+  level: 2,
+  // @ts-expect-error Individual line-height overrides bypass the typography contract.
+  lineHeight: 2,
+};

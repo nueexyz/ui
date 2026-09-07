@@ -1,12 +1,8 @@
-import {
-  colorVars,
-  radiusVars,
-  sizeVars,
-  spacingVars,
-  typographyVars,
-} from "@nuee/tokens/semantic.stylex";
+import { colorVars, radiusVars, sizeVars, spacingVars } from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
+
+import { typographyStyles } from "./typography";
 
 const styles = stylex.create({
   root: {
@@ -55,15 +51,8 @@ const styles = stylex.create({
     gap: spacingVars.space1,
     minWidth: 0,
   },
-  title: {
-    fontSize: typographyVars.fontSizeSm,
-    fontWeight: typographyVars.fontWeightMedium,
-    lineHeight: typographyVars.lineHeightTight,
-  },
   description: {
     color: colorVars.fgSecondary,
-    fontSize: typographyVars.fontSizeSm,
-    lineHeight: typographyVars.lineHeightNormal,
     margin: 0,
   },
   actions: {
@@ -122,13 +111,13 @@ export function ContentRowContent({
 }
 
 export function ContentRowTitle({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
-  return <div {...props} {...stylex.props(styles.title)} />;
+  return <div {...props} {...stylex.props(typographyStyles.title)} />;
 }
 
 export function ContentRowDescription({
   ...props
 }: Omit<ComponentProps<"p">, "className" | "style">) {
-  return <p {...props} {...stylex.props(styles.description)} />;
+  return <p {...props} {...stylex.props(typographyStyles.description, styles.description)} />;
 }
 
 export function ContentRowActions({

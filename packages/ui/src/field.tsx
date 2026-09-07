@@ -5,6 +5,8 @@ import { colorVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.st
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import { typographyStyles } from "./typography";
+
 const styles = stylex.create({
   root: { display: "flex", gap: spacingVars.space2, width: "100%" },
   vertical: { flexDirection: "column" },
@@ -12,20 +14,13 @@ const styles = stylex.create({
   label: {
     color: colorVars.fgPrimary,
     cursor: "default",
-    fontSize: typographyVars.fontSizeSm,
-    fontWeight: typographyVars.fontWeightMedium,
-    lineHeight: typographyVars.lineHeightNormal,
   },
   description: {
     color: colorVars.fgSecondary,
-    fontSize: typographyVars.fontSizeSm,
-    lineHeight: typographyVars.lineHeightNormal,
     margin: 0,
   },
   error: {
     color: colorVars.fgFeedbackError,
-    fontSize: typographyVars.fontSizeSm,
-    lineHeight: typographyVars.lineHeightNormal,
   },
   set: {
     borderStyle: "none",
@@ -54,9 +49,6 @@ const styles = stylex.create({
   },
   title: {
     color: colorVars.fgPrimary,
-    fontSize: typographyVars.fontSizeSm,
-    fontWeight: typographyVars.fontWeightMedium,
-    lineHeight: typographyVars.lineHeightNormal,
   },
 });
 
@@ -80,21 +72,36 @@ export function FieldLabel({
   xstyle,
   ...props
 }: Omit<ComponentProps<typeof FieldPrimitive.Label>, "className" | "style"> & StyleProps) {
-  return <FieldPrimitive.Label {...props} {...stylex.props(styles.label, xstyle)} />;
+  return (
+    <FieldPrimitive.Label
+      {...props}
+      {...stylex.props(typographyStyles.label, styles.label, xstyle)}
+    />
+  );
 }
 
 export function FieldDescription({
   xstyle,
   ...props
 }: Omit<ComponentProps<typeof FieldPrimitive.Description>, "className" | "style"> & StyleProps) {
-  return <FieldPrimitive.Description {...props} {...stylex.props(styles.description, xstyle)} />;
+  return (
+    <FieldPrimitive.Description
+      {...props}
+      {...stylex.props(typographyStyles.description, styles.description, xstyle)}
+    />
+  );
 }
 
 export function FieldError({
   xstyle,
   ...props
 }: Omit<ComponentProps<typeof FieldPrimitive.Error>, "className" | "style"> & StyleProps) {
-  return <FieldPrimitive.Error {...props} {...stylex.props(styles.error, xstyle)} />;
+  return (
+    <FieldPrimitive.Error
+      {...props}
+      {...stylex.props(typographyStyles.description, styles.error, xstyle)}
+    />
+  );
 }
 
 export function FieldSet({
@@ -129,5 +136,5 @@ export function FieldTitle({
   xstyle,
   ...props
 }: Omit<ComponentProps<"div">, "className" | "style"> & StyleProps) {
-  return <div {...props} {...stylex.props(styles.title, xstyle)} />;
+  return <div {...props} {...stylex.props(typographyStyles.label, styles.title, xstyle)} />;
 }

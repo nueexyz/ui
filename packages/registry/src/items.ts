@@ -1,4 +1,9 @@
 export const registryItems = {
+  heading: {
+    files: ["heading.tsx", "typography.ts"],
+    dependencies: ["@nuee/tokens", "@stylexjs/stylex"],
+    registryDependencies: [],
+  },
   accordion: {
     files: ["accordion.tsx"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
@@ -120,7 +125,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   field: {
-    files: ["field.tsx"],
+    files: ["field.tsx", "typography.ts"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: ["checkbox", "input"],
   },
@@ -145,7 +150,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   "content-row": {
-    files: ["content-row.tsx"],
+    files: ["content-row.tsx", "typography.ts"],
     dependencies: ["@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -155,7 +160,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   label: {
-    files: ["label.tsx"],
+    files: ["label.tsx", "typography.ts"],
     dependencies: ["@nuee/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -265,7 +270,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   toast: {
-    files: ["toast.tsx", "toast.stylex.ts"],
+    files: ["toast.tsx", "toast.stylex.ts", "typography.ts"],
     dependencies: ["@base-ui/react", "@nuee/tokens", "@phosphor-icons/react", "@stylexjs/stylex"],
     registryDependencies: [],
   },

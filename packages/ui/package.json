@@ -74,7 +74,8 @@
     "./toast": "./dist/toast.js",
     "./toggle": "./dist/toggle.js",
     "./toggle-group": "./dist/toggle-group.js",
-    "./tooltip": "./dist/tooltip.js"
+    "./tooltip": "./dist/tooltip.js",
+    "./heading": "./dist/heading.js"
   },
   "publishConfig": {
     "access": "public"
@@ -97,6 +98,7 @@
     "@stylexjs/unplugin": "catalog:2026-08-27-stable",
     "@types/node": "catalog:2026-08-27-stable",
     "@types/react": "catalog:2026-08-27-stable",
+    "@types/react-dom": "catalog:2026-08-27-stable",
     "babel-plugin-react-compiler": "catalog:2026-08-27-stable",
     "embla-carousel-react": "^8.6.0",
     "esbuild": "0.28.2",
