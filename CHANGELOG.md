@@ -2,6 +2,32 @@
 
 Not yet released.
 
+- Add an optional nuée agent skill that consults design guidance and local
+    component APIs without adding documentation to initialized projects.
+- Use Heading to select title typography by role while keeping HTML heading
+    levels independent of visual size. Field, Label, Content Row, and Toast now
+    share typography definitions.
+- Component guides introduce examples and composition before detailed usage
+    guidance. Korean and English documentation includes concrete recommendations,
+    code, and contextual callouts; API names appear as inline code.
+- Find token previews beside the relevant Typography, Spacing, Layout, Radius,
+    State, and Motion guidance. Color presents semantic roles before the palette.
+    Selection tables use consistent column widths with more room for code.
+- Accessibility replaces Inclusive Design and covers keyboard, contrast,
+    text-spacing, and assistive-technology checks. Remove the unimplemented
+    Gradient topic, International Design, and the separate Tokens page.
+- State and Typography include working examples with copyable source. The State
+    opacity preview distinguishes layer opacity from a disabled control and keeps
+    disabled labels legible in both themes.
+- A search-and-filter pattern demonstrates draft and applied criteria. Component
+    guides explain action emphasis, control selection, feedback, validation, and
+    recovery. Downloadable AI guidance includes components and patterns.
+- Documentation uses locally hosted LINE Seed for interface text and Geist Mono
+    for code and token references, shared by the sidebar and previews.
+- Getting Started walks through adding and checking a component. Voice and Tone
+    includes concrete copy revisions, and Feedback distinguishes input response
+    from task results.
+
 - Read documentation in Korean or English while keeping examples in English.
     Document controls and sidebar names stay in English. Language, theme, and
     motion menus use native controls styled to match nuée.
