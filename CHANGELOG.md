@@ -2,8 +2,6 @@
 
 Not yet released.
 
-- Add an optional nuée agent skill that consults design guidance and local
-    component APIs without adding documentation to initialized projects.
 - Use Heading to select title typography by role while keeping HTML heading
     levels independent of visual size. Field, Label, Content Row, and Toast now
     share typography definitions.

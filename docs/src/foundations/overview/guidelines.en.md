@@ -24,15 +24,6 @@ For notification preferences, first decide when a change takes effect. Consider 
 | Access with different abilities and input methods | Accessibility                      |
 | Interface wording                                 | Voice and Tone, Writing            |
 
-## Principles, components, and patterns
-
-Foundations explain decisions that apply across screens. Component pages help you choose a control and inspect its supported examples. Patterns explain how controls work together to complete a task.
-
-- Start with [Button](?path=/docs/components-button--docs) when choosing action emphasis, size, and placement.
-- Follow [Field](?path=/docs/components-field--docs) for input errors and submission.
-- Follow [Alert Dialog](?path=/docs/components-alert-dialog--docs) for consequences, cancellation, and recovery.
-- Follow [Search and Filter](?path=/docs/patterns-search-and-filter--docs) for queries and changing result sets.
-
 ## Resolve competing priorities
 
 Keep the task possible before reducing visual density. If labels or actions no longer fit, reflow the layout before shrinking text or hiding the main action. Prefer proximity and spacing to extra containers; add a border or surface only when the grouping remains unclear.
