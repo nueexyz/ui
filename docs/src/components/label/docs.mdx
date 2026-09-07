@@ -1,3 +1,8 @@
+import guidelines from "./guidelines.md?raw";
+import usageEnglish from "./guidelines.en.md?raw";
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import DefaultSource from "./Default.tsx?raw";
@@ -6,19 +11,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Label" />
 
-# Label
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown
-  text={"Clearly describe the relationship between information and its control."}
-/>
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="label--Default" source={DefaultSource} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add label" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import { Input } from "@/components/ui/input";
@@ -29,3 +28,9 @@ import { Label } from "@/components/ui/label";
   <Input id="display-name" placeholder="Jordan Lee" />
 </div>;
 ```
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add label" language="bash" />
+
+<Guideline content={guidelines} english={usageEnglish} />

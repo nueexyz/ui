@@ -1,28 +1,52 @@
 # nuée documentation
 
-컴포넌트 문서는 `src/components/{component}/docs.mdx`에 작성합니다.
-같은 폴더의 `Default.tsx`, `Sizes.tsx` 등은 일반 React 예제입니다.
-`ComponentPreview`는 이 파일을 실행하고 `?raw`로 가져온 원본을 코드 탭에 표시합니다.
-예제를 추가할 때 별도의 스토리 메타데이터나 소스 변환은 필요하지 않습니다.
+## Component examples
 
-미리보기는 콘텐츠와 기본 여백에 맞춰 높이를 계산하며 오른쪽 아래 모서리로
-세로 크기를 조절할 수 있습니다. 팝업이나 토스트 예제에는
-`isolated height={360}`처럼 격리 여부와 펼쳐질 공간을 명시합니다.
-일반 예제는 문서에서 직접 렌더링합니다. 격리한 예제는 프레임을 유지한 채
-메시지로 테마와 모션 설정만 갱신합니다. 문서 렌더러는 같은 React 루트를
-갱신하여 테마 변경 때 입력값이나 열린 예제가 초기화되지 않게 합니다.
+Keep `docs.mdx` and React examples together in `src/components/{component}/`.
+Pass the example's `?raw` import to `ComponentPreview` to display its source.
+Use `isolated height={360}` for examples that need an overlay boundary.
 
-사용 기준은 `src/foundations/{topic}/guidelines.md`가 원본입니다.
-MDX 문서와 LLM용 자료가 이 원본을 함께 사용합니다.
-`node scripts/build-guidelines.mjs`로 `public/llms.txt`, `public/llms-full.txt`,
-주제별 Markdown을 생성합니다. 개발 서버와 문서 빌드 시작 시에도 생성합니다.
-개발 중 기준을 수정했다면 이 명령을 다시 실행해 LLM 자료를 갱신합니다.
+## Foundations
 
-다른 프로젝트의 LLM 요청에는 배포된 `llms-full.txt` 주소 또는 원본 파일을
-명시하고, 필요한 컴포넌트의 실제 소스와 함께 읽도록 안내합니다.
-예: “nuée 사용 기준을 먼저 읽고 계정 설정 화면을 만들어 줘.
-Field와 Switch의 실제 API를 확인하고 로딩·오류·키보드 상태도 처리해 줘.”
+Edit `src/foundations/{topic}/guidelines.md` and `guidelines.en.md` together.
+These files supply both the documentation and LLM guidance.
 
-## Storybook 도구 모음
+The development and build scripts generate `public/llms.txt`, `llms-full.txt`,
+`llms-full.en.txt`, and per-topic Markdown. To regenerate them during development,
+run this from `docs/`:
 
-manager의 도구 모음은 기본 HTML select를 사용하고, nuée와 비슷한 글자·테두리·포커스 스타일을 적용합니다. 별도 React 호환 빌드는 사용하지 않습니다.
+```sh
+node scripts/build-guidelines.mjs
+```
+
+See [translation conventions](src/documentation/locales/README.md).
+
+## Page structure and tables
+
+Foundation selection guides follow: introduction → Selection guidelines → Examples
+→ Token reference. Keep topic-specific rules under the guidelines and place cautions
+beside the decision they qualify. Accessibility uses Design guidelines; writing
+pages use Writing guidelines. Getting Started remains a numbered walkthrough.
+
+Component pages follow: introduction → Basic example → Composition →
+Installation → Usage guidelines → More examples. Omit sections that have no additional content.
+Keep detailed usage guidance after the example and composition.
+
+Use consistent headings for tables with the same purpose:
+
+| Purpose                     | English columns                            | Korean columns                    |
+| --------------------------- | ------------------------------------------ | --------------------------------- |
+| Select a token or component | Situation / Recommended choice / Code      | 사용 상황 / 권장 선택 / 적용 코드 |
+| Compare alternatives        | Situation / Recommended choice / Rationale | 사용 상황 / 권장 선택 / 선택 이유 |
+| Check accessibility         | Interaction / Verification                 | 확인할 동작 / 확인 방법           |
+| Revise copy                 | Before / After / Rationale                 | 수정 전 / 수정 후 / 수정 이유     |
+
+API, token-value, and typography-specification tables name the properties they
+actually describe. Do not force them into the selection-table format. Code cells
+show a real property assignment or component usage, not a bare token name.
+
+Wrap component identifiers, prop names, and token references in inline code, such
+as `AlertDialogTitle`, `aria-describedby`, and `colorVars.fgPrimary`. Keep ordinary
+prose and section titles as text. Explain what content belongs in a slot only when
+it affects a decision, accessibility, or recovery; omit sentences that merely
+repeat the slot name.

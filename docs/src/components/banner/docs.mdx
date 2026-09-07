@@ -1,3 +1,8 @@
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
+import guidelines from "./guidelines.md?raw";
+import english from "./guidelines.en.md?raw";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import SizesSource from "./Sizes.tsx?raw";
@@ -9,28 +14,29 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Banner" />
 
-# Banner
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown text={"Communicate the current state and next action within the page."} />
-
-<LocalizedMarkdown text={"**Meaning**"} />
-
-<LocalizedMarkdown text={"Use colors that match the message’s importance and intent."} />
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="banner--Default" source={DefaultSource} />
+
+<LocalizedMarkdown text={"## Composition"} />
+
+<LocalizedMarkdown text={"Display a persistent notice with a title and supporting description."} />
+
+```tsx
+import { Banner } from "@/components/ui/banner";
+
+<Banner title="Update available" description="A new version is ready to install." />;
+```
 
 <LocalizedMarkdown text={"## Installation"} />
 
 <CodeBlock code="pnpm dlx @nuee/ui add banner" language="bash" />
 
-<LocalizedMarkdown text={"## Usage"} />
+<Guideline content={guidelines} english={english} />
 
-```tsx
-import { Banner } from "@/components/ui/banner";
-import { Link } from "@/components/ui/link";
-```
-
-<LocalizedMarkdown text={"## Examples"} />
+<LocalizedMarkdown text={"## More examples"} />
 
 <LocalizedMarkdown text={"### Compact guidance"} />
 

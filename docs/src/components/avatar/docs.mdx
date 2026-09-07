@@ -1,3 +1,8 @@
+import guidelines from "./guidelines.md?raw";
+import usageEnglish from "./guidelines.en.md?raw";
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import SizesSource from "./Sizes.tsx?raw";
@@ -7,21 +12,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Avatar" />
 
-# Avatar
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown text={"Represent a person or team with an image or brief fallback text."} />
-
-<LocalizedMarkdown text={"**Group**"} />
-
-<LocalizedMarkdown text={"Show people who participated together as a group."} />
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="avatar--Default" source={DefaultSource} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add avatar" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -31,7 +28,13 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 </Avatar>;
 ```
 
-<LocalizedMarkdown text={"## Examples"} />
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add avatar" language="bash" />
+
+<Guideline content={guidelines} english={usageEnglish} />
+
+<LocalizedMarkdown text={"## More examples"} />
 
 <LocalizedMarkdown text={"### Sizes"} />
 

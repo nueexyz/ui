@@ -1,3 +1,8 @@
+import guidelines from "./guidelines.md?raw";
+import usageEnglish from "./guidelines.en.md?raw";
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import DefaultSource from "./Default.tsx?raw";
@@ -6,21 +11,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Input Group" />
 
-# Input Group
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown text={"Place input context and supporting actions on one control surface."} />
-
-<LocalizedMarkdown text={"**Address input**"} />
-
-<LocalizedMarkdown text={"Separate fixed prefixes from the entered value."} />
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="input-group--Default" source={DefaultSource} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add input-group" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import {
@@ -41,3 +38,9 @@ import {
   </InputGroupAddon>
 </InputGroup>;
 ```
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add input-group" language="bash" />
+
+<Guideline content={guidelines} english={usageEnglish} />

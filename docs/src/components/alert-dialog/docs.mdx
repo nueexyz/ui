@@ -1,3 +1,8 @@
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
+import guidelines from "./guidelines.md?raw";
+import english from "./guidelines.en.md?raw";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import DefaultSource from "./Default.tsx?raw";
@@ -6,19 +11,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Alert Dialog" />
 
-# Alert Dialog
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown
-  text={"Ask for explicit confirmation before an important or irreversible action."}
-/>
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="alert-dialog--Default" source={DefaultSource} isolated height={360} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add alert-dialog" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import {
@@ -47,3 +46,9 @@ import {
   </AlertDialogContent>
 </AlertDialog>;
 ```
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add alert-dialog" language="bash" />
+
+<Guideline content={guidelines} english={english} />

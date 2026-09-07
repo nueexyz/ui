@@ -1,22 +1,26 @@
-# 움직임
+# 모션
 
-모션은 입력이 전달되었는지, 무엇이 바뀌었는지 설명할 때 사용합니다. 장식 때문에 작업 완료를 늦추지 않습니다.
+변화의 시작과 끝을 연결하면 사용자는 무엇이 바뀌었는지 놓치지 않고 작업을 이어 갈 수 있습니다. 작은 입력 반응과 큰 표면 전환을 구분해 움직임의 시간과 가감속을 선택합니다.
 
 ## 선택 기준
 
-| 변화                           | 토큰                                                      |
-| ------------------------------ | --------------------------------------------------------- |
-| 호버·누름 같은 작은 변화       | `motionVars.durationFast`                                 |
-| 표면과 일반 상태 전환          | `motionVars.durationNormal`                               |
-| Dialog·Drawer처럼 큰 영역 변화 | `motionVars.durationSlow`                                 |
-| 반복 로딩                      | `durationLoading`, 모션 줄임에는 `durationLoadingReduced` |
+| 사용 상황                          | 권장 선택                                                 | 적용 코드                                       |
+| ---------------------------------- | --------------------------------------------------------- | ----------------------------------------------- |
+| 호버·누름 같은 작은 변화           | `motionVars.durationFast`                                 | `transitionDuration: motionVars.durationFast`   |
+| 표면과 일반 상태 전환              | `motionVars.durationNormal`                               | `transitionDuration: motionVars.durationNormal` |
+| `Dialog`·`Drawer`처럼 큰 영역 변화 | `motionVars.durationSlow`                                 | `transitionDuration: motionVars.durationSlow`   |
+| 반복 로딩                          | `durationLoading`, 모션 줄임에는 `durationLoadingReduced` | `animationDuration: motionVars.durationLoading` |
 
-일반 상태 전환은 `easingStandard`, 들어옴·나감은 `easingEnter`와 `easingExit`를 검토합니다. 컴포넌트의 기존 모션 속성과 미디어 쿼리를 우선 유지합니다.
+일반적인 상태 변화에는 `easingStandard`, 요소의 등장과 퇴장에는 각각 `easingEnter`와 `easingExit`를 사용합니다. 컴포넌트의 기존 모션 속성과 미디어 쿼리를 우선 유지합니다.
 
-## 모션 줄임
+### 모션 줄임
 
-`prefers-reduced-motion`을 존중합니다. 회전이나 이동을 줄여도 진행 중이라는 텍스트와 상태는 남깁니다. 모션 줄임 설정을 끄는 설치 옵션은 제품에서 의도적으로 결정할 때만 사용합니다.
+사용자의 `prefers-reduced-motion` 설정에 맞춰 움직임을 줄입니다. 회전이나 이동을 줄여도 진행 중이라는 텍스트와 상태는 남깁니다. 모션 줄임을 적용하지 않는 설치 옵션은 제품 요구사항을 확인한 뒤 선택합니다.
 
-## 피할 것
+> 단순한 강조를 위해 반복 애니메이션을 붙이지 않습니다. 크기 변환 때문에 텍스트와 테두리가 흐려지면 이동·영역 크기·불투명도 등 더 적절한 표현을 검토합니다. 로딩이 끝난 뒤 장식 애니메이션을 기다리게 하지 않습니다.
 
-단순한 강조를 위해 반복 애니메이션을 붙이지 않습니다. 크기 변환 때문에 텍스트와 테두리가 흐려지면 이동·영역 크기·불투명도 등 더 적절한 표현을 검토합니다. 로딩이 끝난 뒤 장식 애니메이션을 기다리게 하지 않습니다.
+## 적용 예시
+
+### 패널을 열고 닫을 때
+
+패널이 나타날 때는 `easingEnter`, 사라질 때는 `easingExit`를 검토합니다. 버튼의 짧은 색상 변화에는 `durationFast`를 사용합니다. 움직임을 줄인 환경에서도 열린 패널과 처리 중 상태는 분명하게 보여야 합니다.

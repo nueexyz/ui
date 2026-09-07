@@ -83,7 +83,13 @@ export function CodeBlock({
         </Button>
       </div>
       <div {...stylex.props(styles.content)}>
-        <ThemeProvider theme={convert(themes[colorMode])}>
+        <ThemeProvider
+          theme={convert({
+            ...themes[colorMode],
+            fontBase: "var(--nuee-font-body)",
+            fontCode: "var(--nuee-font-code)",
+          })}
+        >
           <SyntaxHighlighter language={language} copyable={false} format={false}>
             {code}
           </SyntaxHighlighter>

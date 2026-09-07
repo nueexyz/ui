@@ -1,3 +1,8 @@
+import guidelines from "./guidelines.md?raw";
+import usageEnglish from "./guidelines.en.md?raw";
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import OpenMultipleItemsSource from "./OpenMultipleItems.tsx?raw";
@@ -7,21 +12,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Accordion" />
 
-# Accordion
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown text={"Collapse related information into headings to focus on what matters."} />
-
-<LocalizedMarkdown text={"**Open one at a time**"} />
-
-<LocalizedMarkdown text={"Show one answer at a time."} />
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="accordion--Default" source={DefaultSource} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add accordion" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import {
@@ -39,7 +36,13 @@ import {
 </Accordion>;
 ```
 
-<LocalizedMarkdown text={"## Examples"} />
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add accordion" language="bash" />
+
+<Guideline content={guidelines} english={usageEnglish} />
+
+<LocalizedMarkdown text={"## More examples"} />
 
 <LocalizedMarkdown text={"### Open multiple items"} />
 

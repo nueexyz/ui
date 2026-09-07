@@ -86,6 +86,7 @@ addons.setConfig({
     appContentBg: "#ffffff",
     appBorderColor: "#e5e5e5",
     appBorderRadius: 8,
-    fontBase: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    fontBase: "var(--nuee-font-body)",
+    fontCode: "var(--nuee-font-code)",
   }),
 });

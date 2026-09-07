@@ -1,3 +1,8 @@
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
+import guidelines from "./guidelines.md?raw";
+import english from "./guidelines.en.md?raw";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import StatesSource from "./States.tsx?raw";
@@ -7,17 +12,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Checkbox" />
 
-# Checkbox
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown text={"Use to select one or more independent options."} />
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="checkbox--Default" source={DefaultSource} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add checkbox" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import { Checkbox } from "@/components/ui/checkbox";
@@ -25,7 +26,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 <Checkbox aria-label="Agree to terms" />;
 ```
 
-<LocalizedMarkdown text={"## Examples"} />
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add checkbox" language="bash" />
+
+<Guideline content={guidelines} english={english} />
+
+<LocalizedMarkdown text={"## More examples"} />
 
 <LocalizedMarkdown text={"### States"} />
 

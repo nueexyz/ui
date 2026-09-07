@@ -5,7 +5,11 @@ import { type ComponentType, lazy, Suspense } from "react";
 
 import { ui } from "./locale";
 
-const modules = import.meta.glob<{ default: ComponentType }>("../components/*/*.tsx");
+const modules = import.meta.glob<{ default: ComponentType }>([
+  "../components/*/*.tsx",
+  "../patterns/*/*.tsx",
+  "../foundations/*/*Example.tsx",
+]);
 const examples = Object.fromEntries(
   Object.entries(modules).map(([path, load]) => [
     path.split("/").slice(-2).join("--").replace(".tsx", ""),
@@ -17,7 +21,7 @@ const styles = stylex.create({ content: { padding: spacingVars.space6, width: "1
 function ExampleCanvas({ example }: { example: string }) {
   const Component = examples[example];
   return (
-    <div data-preview-content {...stylex.props(styles.content)}>
+    <div {...stylex.props(styles.content)}>
       {Component ? (
         <Suspense fallback={<p>{ui.loading}</p>}>
           <Component />

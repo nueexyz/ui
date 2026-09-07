@@ -1,3 +1,8 @@
+import guidelines from "./guidelines.md?raw";
+import usageEnglish from "./guidelines.en.md?raw";
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import VariantsSource from "./Variants.tsx?raw";
@@ -7,19 +12,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Marker" />
 
-# Marker
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown
-  text={"Mark points and sections where state changes in a conversation or activity flow."}
-/>
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="marker--Default" source={DefaultSource} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add marker" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import { Marker, MarkerContent, MarkerIcon } from "@/components/ui/marker";
@@ -33,7 +32,13 @@ import { Spinner } from "@/components/ui/spinner";
 </Marker>;
 ```
 
-<LocalizedMarkdown text={"## Examples"} />
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add marker" language="bash" />
+
+<Guideline content={guidelines} english={usageEnglish} />
+
+<LocalizedMarkdown text={"## More examples"} />
 
 <LocalizedMarkdown text={"### Variants"} />
 

@@ -6,12 +6,15 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
+import { DocsContext } from "@storybook/addon-docs/blocks";
 import * as stylex from "@stylexjs/stylex";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useContext, useLayoutEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 
 import { useLocale } from "../../documentation/locale";
 import korean from "../../documentation/locales/reference.ko.json";
+import { useColorMode } from "../../documentation/useColorMode";
+import { useDocumentationGlobals } from "../../documentation/useDocumentationGlobals";
 const translations: Record<string, string> = korean;
 const styles = stylex.create({
   page: {
@@ -71,6 +74,7 @@ const styles = stylex.create({
     borderWidth: sizeVars.focusRing,
     height: "6rem",
   }),
+  layerBase: (backgroundColor: string) => ({ backgroundColor }),
   label: {
     display: "flex",
     flexDirection: "column",
@@ -89,7 +93,7 @@ const styles = stylex.create({
   },
   value: {
     color: colorVars.fgSecondary,
-    fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+    fontFamily: "var(--nuee-font-code)",
   },
 });
 type TokenCardProps = {
@@ -116,6 +120,8 @@ function TokenCard({ children, name, usage, value }: TokenCardProps) {
   );
 }
 function TokenValue({ token }: { token: string }) {
+  const globals = useDocumentationGlobals(useContext(DocsContext));
+  const colorMode = useColorMode(globals.colorMode);
   const elementRef = useRef<HTMLSpanElement>(null);
   const [value, setValue] = useState(token);
   useLayoutEffect(() => {
@@ -127,7 +133,7 @@ function TokenValue({ token }: { token: string }) {
         : "";
     const nextValue = resolvedValue || token;
     setValue((currentValue) => (currentValue === nextValue ? currentValue : nextValue));
-  }, [token]);
+  }, [token, colorMode]);
   return (
     <span ref={elementRef} {...stylex.props(styles.value)}>
       {value}
@@ -147,9 +153,9 @@ function Section({
   return (
     <section {...stylex.props(styles.section)}>
       <div>
-        <h2 {...stylex.props(styles.sectionTitle)}>
+        <h4 {...stylex.props(styles.sectionTitle)}>
           {locale === "ko" ? (translations[title] ?? title) : title}
-        </h2>
+        </h4>
         {description ? (
           <p {...stylex.props(styles.sectionDescription)}>
             {locale === "ko" ? (translations[description] ?? description) : description}
@@ -160,9 +166,9 @@ function Section({
     </section>
   );
 }
-function PrimitiveStory() {
+export function Primitive() {
   return (
-    <main {...stylex.props(styles.page)}>
+    <div {...stylex.props(styles.page)}>
       {Object.entries(colorPaletteGroups).map(([family, colors]) => (
         <Section key={family} title={family}>
           {Object.entries(colors).map(([step, value]) => (
@@ -172,10 +178,18 @@ function PrimitiveStory() {
           ))}
         </Section>
       ))}
-    </main>
+    </div>
   );
 }
 const backgroundTokens = [
+  ["bgInverse", colorVars.bgInverse, colorVars.fgInverse, "Inverse surface"],
+  ["bgOverlay", colorVars.bgOverlay, colorVars.fgPrimary, "Modal backdrop"],
+  [
+    "bgMessageOutgoing",
+    colorVars.bgMessageOutgoing,
+    colorVars.fgOnMessageOutgoing,
+    "Outgoing message background",
+  ],
   ["bgCanvas", colorVars.bgCanvas, colorVars.fgPrimary, "Lowest screen background"],
   ["bgSurface", colorVars.bgSurface, colorVars.fgPrimary, "Default content background"],
   ["bgSurfacePressed", colorVars.bgSurfacePressed, colorVars.fgPrimary, "Pressed default surface"],
@@ -184,7 +198,12 @@ const backgroundTokens = [
   ["bgRaisedPressed", colorVars.bgRaisedPressed, colorVars.fgPrimary, "Pressed floating surface"],
   ["bgCurrent", colorVars.bgCurrent, colorVars.fgPrimary, "Current item indicator"],
   ["bgSkeleton", colorVars.bgSkeleton, colorVars.fgPrimary, "Loading placeholder"],
-  ["bgActionPrimary", colorVars.bgActionPrimary, colorVars.fgInverse, "Primary action background"],
+  [
+    "bgActionPrimary",
+    colorVars.bgActionPrimary,
+    colorVars.fgOnActionPrimary,
+    "Primary action background",
+  ],
   [
     "bgActionDestructive",
     colorVars.bgActionDestructive,
@@ -212,6 +231,12 @@ const backgroundTokens = [
   ],
 ] as const;
 const foregroundTokens = [
+  [
+    "fgOnMessageOutgoing",
+    colorVars.fgOnMessageOutgoing,
+    colorVars.bgMessageOutgoing,
+    "Outgoing message content",
+  ],
   ["fgPrimary", colorVars.fgPrimary, colorVars.bgSurface, "Primary text and icons"],
   ["fgSecondary", colorVars.fgSecondary, colorVars.bgSurface, "Secondary text and icons"],
   ["fgTertiary", colorVars.fgTertiary, colorVars.bgSurface, "Placeholders and subtle information"],
@@ -285,9 +310,9 @@ const interactionTokens = [
   ["interactionDisabled", colorVars.interactionDisabled, colorVars.fgPrimary, "Unavailable state"],
   ["interactionFocus", colorVars.interactionFocus, colorVars.fgInverse, "Keyboard focus state"],
 ] as const;
-function SemanticStory() {
+export function Semantic() {
   return (
-    <main {...stylex.props(styles.page)}>
+    <div {...stylex.props(styles.page)}>
       <Section title="Background" description="Used for layers and message backgrounds.">
         {backgroundTokens.map(([name, token, foreground, usage]) => (
           <TokenCard key={name} name={name} usage={usage} value={token}>
@@ -309,19 +334,63 @@ function SemanticStory() {
           </TokenCard>
         ))}
       </Section>
-      <Section title="Interaction" description="Layers transient states caused by interaction.">
-        {interactionTokens.map(([name, token, foreground, usage]) => (
-          <TokenCard key={name} name={name} usage={usage} value={token}>
-            <div {...stylex.props(styles.semanticSwatch(token, foreground))} />
-          </TokenCard>
-        ))}
-      </Section>
-    </main>
+      <Interaction />
+    </div>
   );
 }
-export function Primitive() {
-  return <PrimitiveStory />;
+
+export function Interaction() {
+  return (
+    <Section title="Interaction" description="Layers transient states caused by interaction.">
+      {interactionTokens.map(([name, token, foreground, usage]) => (
+        <TokenCard key={name} name={name} usage={usage} value={token}>
+          <div
+            {...stylex.props(
+              styles.layerBase(
+                name.startsWith("interactionSolid")
+                  ? colorVars.bgActionPrimary
+                  : colorVars.bgSurface,
+              ),
+            )}
+          >
+            <div {...stylex.props(styles.semanticSwatch(token, foreground))} />
+          </div>
+        </TokenCard>
+      ))}
+    </Section>
+  );
 }
-export function Semantic() {
-  return <SemanticStory />;
+
+export function FeedbackColors() {
+  return (
+    <div {...stylex.props(styles.page)}>
+      <Section title="Background">
+        {backgroundTokens
+          .filter(([name]) => name.startsWith("bgFeedback"))
+          .map(([name, token, foreground, usage]) => (
+            <TokenCard key={name} name={name} usage={usage} value={token}>
+              <div {...stylex.props(styles.semanticSwatch(token, foreground))}>Aa Bb</div>
+            </TokenCard>
+          ))}
+      </Section>
+      <Section title="Foreground">
+        {foregroundTokens
+          .filter(([name]) => name.startsWith("fgFeedback"))
+          .map(([name, token, background, usage]) => (
+            <TokenCard key={name} name={name} usage={usage} value={token}>
+              <div {...stylex.props(styles.semanticSwatch(background, token))}>Aa Bb</div>
+            </TokenCard>
+          ))}
+      </Section>
+      <Section title="Stroke">
+        {strokeTokens
+          .filter(([name]) => name.startsWith("strokeFeedback"))
+          .map(([name, token, usage]) => (
+            <TokenCard key={name} name={name} usage={usage} value={token}>
+              <div {...stylex.props(styles.strokeSwatch(token))} />
+            </TokenCard>
+          ))}
+      </Section>
+    </div>
+  );
 }

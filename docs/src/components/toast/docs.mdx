@@ -1,3 +1,8 @@
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
+import guidelines from "./guidelines.md?raw";
+import english from "./guidelines.en.md?raw";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import StatesSource from "./States.tsx?raw";
@@ -9,23 +14,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Toast" />
 
-# Toast
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown
-  text={
-    "Notify people about results or state changes without blocking their flow.\nMount one `Toaster` in your application and call `toast.add()` where work completes."
-  }
-/>
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="toast--Default" source={DefaultSource} isolated height={420} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add toast" language="bash" />
-
-<LocalizedMarkdown text={"Mount one `Toaster` near the root of your application."} />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import { Button } from "@/components/ui/button";
@@ -41,7 +36,15 @@ export function ToastDemo() {
 }
 ```
 
-<LocalizedMarkdown text={"## Examples"} />
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add toast" language="bash" />
+
+<LocalizedMarkdown text={"Mount one `Toaster` near the root of your application."} />
+
+<Guideline content={guidelines} english={english} />
+
+<LocalizedMarkdown text={"## More examples"} />
 
 <LocalizedMarkdown text={"### Actions"} />
 

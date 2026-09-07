@@ -1,3 +1,8 @@
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
+import guidelines from "./guidelines.md?raw";
+import english from "./guidelines.en.md?raw";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import DefaultSource from "./Default.tsx?raw";
@@ -6,23 +11,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Message" />
 
-# Message
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown
-  text={"Group the sender, message content, and sent time into one conversation unit."}
-/>
-
-<LocalizedMarkdown
-  text={"Present information outside the bubble at a lower hierarchy than the message."}
-/>
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="message--Default" source={DefaultSource} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add message" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -41,3 +36,9 @@ import { Message, MessageAvatar, MessageContent, MessageFooter } from "@/compone
   </MessageContent>
 </Message>;
 ```
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add message" language="bash" />
+
+<Guideline content={guidelines} english={english} />

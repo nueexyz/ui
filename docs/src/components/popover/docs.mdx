@@ -1,3 +1,8 @@
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
+import guidelines from "./guidelines.md?raw";
+import english from "./guidelines.en.md?raw";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import DefaultSource from "./Default.tsx?raw";
@@ -6,25 +11,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Popover" />
 
-# Popover
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown
-  text={"Provide supporting information or simple controls without leaving the current screen."}
-/>
-
-<LocalizedMarkdown text={"**Alignment**"} />
-
-<LocalizedMarkdown
-  text={"Align to the trigger’s left edge by default, or center and right as needed."}
-/>
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="popover--Default" source={DefaultSource} isolated height={360} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add popover" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import { Button } from "@/components/ui/button";
@@ -47,3 +40,9 @@ import {
   </PopoverContent>
 </Popover>;
 ```
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add popover" language="bash" />
+
+<Guideline content={guidelines} english={english} />

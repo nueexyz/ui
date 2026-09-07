@@ -1,3 +1,8 @@
+import guidelines from "./guidelines.md?raw";
+import usageEnglish from "./guidelines.en.md?raw";
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import VariantsSource from "./Variants.tsx?raw";
@@ -7,29 +12,25 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Link" />
 
-# Link
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown
-  text={"A text action that navigates within the current screen or to an external location."}
-/>
-
-<LocalizedMarkdown text={"**External navigation**"} />
-
-<LocalizedMarkdown text={"Use an icon to distinguish destinations outside the current site."} />
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="link--Default" source={DefaultSource} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add link" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import { Link } from "@/components/ui/link";
 ```
 
-<LocalizedMarkdown text={"## Examples"} />
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add link" language="bash" />
+
+<Guideline content={guidelines} english={usageEnglish} />
+
+<LocalizedMarkdown text={"## More examples"} />
 
 <LocalizedMarkdown text={"### Variants"} />
 

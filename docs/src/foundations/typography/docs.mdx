@@ -1,3 +1,6 @@
+import { ComponentPreview } from "../../documentation/ComponentPreview";
+import source from "./TypographyExample.tsx?raw";
+import { Typography } from "./Reference";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { Meta } from "@storybook/addon-docs/blocks";
 import { Guideline } from "../../documentation/Guideline";
@@ -7,3 +10,9 @@ import english from "./guidelines.en.md?raw";
 <Meta title="Foundations/Typography" />
 
 <Guideline content={guidelines} english={english} />
+
+<ComponentPreview name="typography--TypographyExample" source={source} />
+
+<LocalizedMarkdown text={"## Token reference"} />
+
+<Typography />

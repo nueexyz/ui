@@ -1,3 +1,8 @@
+import guidelines from "./guidelines.md?raw";
+import usageEnglish from "./guidelines.en.md?raw";
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import AccountCreationFormSource from "./AccountCreationForm.tsx?raw";
@@ -7,21 +12,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Card" />
 
-# Card
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown text={"Group the information and actions needed for one task."} />
-
-<LocalizedMarkdown text={"**Basic structure**"} />
-
-<LocalizedMarkdown text={"Combine a title, description, content, and actions to fit the task."} />
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="card--Default" source={DefaultSource} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add card" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -34,7 +31,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 </Card>;
 ```
 
-<LocalizedMarkdown text={"## Examples"} />
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add card" language="bash" />
+
+<Guideline content={guidelines} english={usageEnglish} />
+
+<LocalizedMarkdown text={"## More examples"} />
 
 <LocalizedMarkdown text={"### Account creation form"} />
 

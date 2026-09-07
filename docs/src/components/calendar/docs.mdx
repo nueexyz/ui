@@ -1,3 +1,8 @@
+import guidelines from "./guidelines.md?raw";
+import usageEnglish from "./guidelines.en.md?raw";
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import RangeSelectionSource from "./RangeSelection.tsx?raw";
@@ -7,17 +12,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Calendar" />
 
-# Calendar
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown text={"Display a calendar for selecting one or more dates."} />
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="calendar--Default" source={DefaultSource} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add calendar" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import { Calendar } from "@/components/ui/calendar";
@@ -25,7 +26,13 @@ import { Calendar } from "@/components/ui/calendar";
 <Calendar mode="single" selected={date} onSelect={setDate} />;
 ```
 
-<LocalizedMarkdown text={"## Examples"} />
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add calendar" language="bash" />
+
+<Guideline content={guidelines} english={usageEnglish} />
+
+<LocalizedMarkdown text={"## More examples"} />
 
 <LocalizedMarkdown text={"### Range selection"} />
 

@@ -72,6 +72,12 @@ function setMotionPreference(preference: MotionPreference) {
   }
 }
 
+const typographyTheme = stylex.createTheme(typographyVars, {
+  fontFamily: "var(--nuee-font-body)",
+  fontFamilyBody: "var(--nuee-font-body)",
+  fontFamilyHeading: "var(--nuee-font-body)",
+});
+
 const styles = stylex.create({
   document: {
     display: "grid",
@@ -90,7 +96,7 @@ const styles = stylex.create({
   root: {
     backgroundColor: colorVars.bgSurface,
     color: colorVars.fgPrimary,
-    fontFamily: typographyVars.fontFamily,
+    fontFamily: typographyVars.fontFamilyBody,
     minHeight: `calc(100vh - ${spacingVars.space4} * 2)`,
     display: "flex",
     flexDirection: "column",
@@ -117,7 +123,7 @@ function ThemeScope({
   const colorMode = useColorMode(mode);
   const colorTheme = colorMode === "dark" ? darkColorTheme : lightColorTheme;
   const shadowTheme = colorMode === "dark" ? darkShadowTheme : lightShadowTheme;
-  const themeClassName = stylex.props(colorTheme, shadowTheme).className ?? "";
+  const themeClassName = stylex.props(colorTheme, shadowTheme, typographyTheme).className ?? "";
 
   useLayoutEffect(() => {
     const themeClassList = themeClassName.split(" ").filter(Boolean);
@@ -131,7 +137,15 @@ function ThemeScope({
   }, [themeClassName]);
 
   return (
-    <div {...stylex.props(styles.root, compact && styles.compact, colorTheme, shadowTheme)}>
+    <div
+      {...stylex.props(
+        styles.root,
+        compact && styles.compact,
+        colorTheme,
+        shadowTheme,
+        typographyTheme,
+      )}
+    >
       {children}
     </div>
   );
@@ -175,7 +189,13 @@ function DocumentationContainer({
         <MotionPreferenceScope preference={motionPreference}>
           <DocsContainer
             context={context}
-            theme={{ ...themes[mode], appContentBg: "transparent", colorSecondary: "currentColor" }}
+            theme={{
+              ...themes[mode],
+              appContentBg: "transparent",
+              colorSecondary: "currentColor",
+              fontBase: "var(--nuee-font-body)",
+              fontCode: "var(--nuee-font-code)",
+            }}
           >
             <div {...stylex.props(styles.document)}>
               <div
@@ -289,6 +309,7 @@ const preview: Preview = {
           "Foundations",
           [
             "Overview",
+            "Accessibility",
             "Design Token",
             "Color",
             "Typography",
@@ -297,17 +318,15 @@ const preview: Preview = {
             "Spacing",
             "Radius",
             "Elevation",
-            "Gradient",
             "State",
             "Motion",
             "Feedback",
-            "Inclusive Design",
-            "International Design",
             "Voice and Tone",
             "Writing",
-            "Tokens",
           ],
           "Components",
+          "Patterns",
+          ["Search and Filter"],
         ],
       },
     },

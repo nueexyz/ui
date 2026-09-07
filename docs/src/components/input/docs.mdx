@@ -1,3 +1,8 @@
+import guidelines from "./guidelines.md?raw";
+import usageEnglish from "./guidelines.en.md?raw";
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import StatesSource from "./States.tsx?raw";
@@ -8,19 +13,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Input" />
 
-# Input
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown text={"Compare treatments by value, input type, and state."} />
-
-<LocalizedMarkdown text={"Compare the default treatment before and after entry."} />
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="input--Default" source={DefaultSource} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add input" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import { Input } from "@/components/ui/input";
@@ -28,7 +27,13 @@ import { Input } from "@/components/ui/input";
 <Input aria-label="Email" placeholder="name@example.com" type="email" />;
 ```
 
-<LocalizedMarkdown text={"## Examples"} />
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add input" language="bash" />
+
+<Guideline content={guidelines} english={usageEnglish} />
+
+<LocalizedMarkdown text={"## More examples"} />
 
 <LocalizedMarkdown text={"### Input types"} />
 

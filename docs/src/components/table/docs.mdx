@@ -1,3 +1,8 @@
+import guidelines from "./guidelines.md?raw";
+import usageEnglish from "./guidelines.en.md?raw";
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import DefaultSource from "./Default.tsx?raw";
@@ -6,25 +11,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Table" />
 
-# Table
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown
-  text={"Compare the same attributes across multiple items in rows and columns."}
-/>
-
-<LocalizedMarkdown text={"**Projects**"} />
-
-<LocalizedMarkdown
-  text={"Keep column titles short and clear, and align similar values in the same column."}
-/>
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="table--Default" source={DefaultSource} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add table" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import {
@@ -72,3 +65,9 @@ const rows = [
   </TableFooter>
 </Table>
 ```
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add table" language="bash" />
+
+<Guideline content={guidelines} english={usageEnglish} />

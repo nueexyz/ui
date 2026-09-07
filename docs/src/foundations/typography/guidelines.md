@@ -1,23 +1,39 @@
 # 글자
 
-글자 크기는 장식보다 정보의 위계와 읽는 길이에 맞춰 정합니다. 본문에는 `fontFamilyBody`, 제목에는 `fontFamilyHeading`을 사용합니다.
+글자의 크기·굵기·행간을 역할에 맞게 조합하면 사용자는 제목을 훑고 필요한 본문을 편하게 읽을 수 있습니다. 정보의 중요도와 읽을 분량을 먼저 정한 뒤 글꼴과 크기를 선택합니다.
 
 ## 선택 기준
 
-| 용도                     | 권장 시작점                         |
-| ------------------------ | ----------------------------------- |
-| 페이지 제목              | `fontSizeXl` + `fontWeightSemibold` |
-| 섹션 제목                | `fontSizeLg` + `fontWeightSemibold` |
-| 긴 설명·읽기 중심 본문   | `fontSizeMd` + `lineHeightNormal`   |
-| 컨트롤·밀도 높은 UI 설명 | `fontSizeSm` + `lineHeightNormal`   |
-| 보조적인 메타 정보       | `fontSizeXs`                        |
+| 사용 상황              | 권장 선택                           | 적용 코드                                       |
+| ---------------------- | ----------------------------------- | ----------------------------------------------- |
+| 페이지 제목            | `fontSizeXl` + `fontWeightSemibold` | `<Heading level={1} size="page">…</Heading>`    |
+| 섹션 제목              | `fontSizeLg` + `fontWeightSemibold` | `<Heading level={2} size="section">…</Heading>` |
+| 긴 설명·읽기 중심 본문 | `fontSizeMd` + `lineHeightNormal`   | `fontSize: typographyVars.fontSizeMd`           |
+| 컨트롤 주변 설명       | `fontSizeSm` + `lineHeightNormal`   | `fontSize: typographyVars.fontSizeSm`           |
+| 보조 정보              | `fontSizeXs`                        | `fontSize: typographyVars.fontSizeXs`           |
 
-짧은 제목은 `lineHeightTight`, 여러 줄을 읽는 본문은 `lineHeightNormal`을 기본으로 합니다. 위 조합은 새 화면의 시작점이며 기존 Button, Toast, Field의 내부 글자 크기를 일괄 변경하는 규칙이 아닙니다.
+짧은 제목은 `lineHeightTight`, 여러 줄을 읽는 본문은 `lineHeightNormal`을 기본으로 합니다. 위 조합은 새 화면의 시작점이며 기존 `Button`, Toast, `Field`의 내부 글자 크기를 일괄 변경하는 규칙이 아닙니다.
 
-## 정렬 기준
+### 정렬 기준
 
 제목과 버튼 글자를 나란히 놓을 때는 제목의 첫 줄 기준선에 맞춥니다. 제목의 높이를 버튼 높이로 고정하지 않습니다. 체크박스와 설명이 함께 있으면 체크박스를 첫 줄에 맞추고, 줄이 늘어나도 가운데로 이동하지 않게 합니다.
 
-## 피할 것
+> 필수 안내를 작게 줄여 공간에 맞추거나 글꼴 크기를 줄여 긴 번역을 숨기지 않습니다. 텍스트 영역의 높이를 고정하지 않고 줄바꿈에 따라 늘어나게 합니다. 200% 확대와 긴 한국어·영문 문장으로 확인합니다.
 
-필수 안내를 작게 줄여 공간에 맞추거나 글꼴 크기를 줄여 긴 번역을 숨기지 않습니다. 고정 높이 텍스트 박스보다 줄바꿈과 콘텐츠에 따른 높이를 허용합니다. 200% 확대와 긴 한국어·영문 문장으로 확인합니다.
+### 자간과 행간
+
+현재 `typographyVars`에는 자간 토큰이 없습니다. 기본 자간은 글꼴과 브라우저 설정을 따릅니다. 문서를 촘촘하게 보이게 하려고 본문 자간을 일괄 축소하지 않습니다.
+
+행간은 짧은 제목의 `lineHeightTight`(1.25)와 여러 줄 본문의 `lineHeightNormal`(1.5)을 구분합니다. 이 값은 글자 크기에 곱해지는 비율입니다. 정보 밀도는 먼저 항목 간 간격과 배치로 조정하고, 사용자가 자간·행간을 넓혀도 내용이 잘리지 않게 합니다. 확인 방법은 [Accessibility](?path=/docs/foundations-accessibility--docs)를 참고합니다.
+
+## 적용 예시
+
+### 제목 아래 설명이 두 줄이 될 때
+
+짧은 제목에는 `lineHeightTight`, 여러 줄 설명에는 `lineHeightNormal`을 사용합니다. 옆에 버튼이 있으면 제목 첫 줄을 기준으로 정렬하고 설명은 아래로 늘어나게 합니다. 제목 높이를 버튼 높이에 맞추면 줄바꿈에 따라 관계가 흔들릴 수 있습니다.
+
+### 태그에 스타일 적용하기
+
+본문과 설명은 `p`나 `span`에 필요한 스타일을 적용합니다. 아래 예제처럼 `fontSize`, `fontWeight`, `lineHeight`에 토큰을 지정하고 색상은 정보의 역할에 맞게 별도로 정합니다. 컴포넌트 내부에서 반복되는 조합은 공통 타이포 스타일로 관리합니다.
+
+제목은 [Heading](?path=/docs/components-heading--docs)을 사용해 HTML 단계와 시각적 크기를 따로 정할 수 있습니다.

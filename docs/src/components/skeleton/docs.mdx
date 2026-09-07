@@ -1,3 +1,8 @@
+import guidelines from "./guidelines.md?raw";
+import usageEnglish from "./guidelines.en.md?raw";
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import DefaultSource from "./Default.tsx?raw";
@@ -6,17 +11,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Skeleton" />
 
-# Skeleton
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown text={"Show a loading state while preserving the content structure."} />
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="skeleton--Default" source={DefaultSource} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add skeleton" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import * as stylex from "@stylexjs/stylex"
@@ -32,3 +33,9 @@ const styles = stylex.create({
   <Skeleton xstyle={styles.body} />
 </div>
 ```
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add skeleton" language="bash" />
+
+<Guideline content={guidelines} english={usageEnglish} />

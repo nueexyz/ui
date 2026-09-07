@@ -1,3 +1,8 @@
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
+import guidelines from "./guidelines.md?raw";
+import english from "./guidelines.en.md?raw";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import StatesSource from "./States.tsx?raw";
@@ -7,17 +12,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Radio Group" />
 
-# Radio Group
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown text={"Use it when exactly one option must be selected."} />
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="radio-group--Default" source={DefaultSource} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add radio-group" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import { Field, FieldLabel } from "@/components/ui/field";
@@ -39,7 +40,13 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 </Field>;
 ```
 
-<LocalizedMarkdown text={"## Examples"} />
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add radio-group" language="bash" />
+
+<Guideline content={guidelines} english={english} />
+
+<LocalizedMarkdown text={"## More examples"} />
 
 <LocalizedMarkdown text={"### States"} />
 

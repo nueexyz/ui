@@ -1,0 +1,33 @@
+@font-face {
+  font-family: "LINE Seed KR";
+  src: url("./line-seed-kr/LINESeedKR-Th.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+}
+@font-face {
+  font-family: "LINE Seed KR";
+  src: url("./line-seed-kr/LINESeedKR-Rg.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "LINE Seed KR";
+  src: url("./line-seed-kr/LINESeedKR-Bd.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist Mono";
+  src: url("./geist-mono/GeistMono-Medium.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+:root {
+  --nuee-font-body: "LINE Seed KR", sans-serif;
+  --nuee-font-code: "Geist Mono", "LINE Seed KR", monospace;
+  font-family: var(--nuee-font-body);
+}

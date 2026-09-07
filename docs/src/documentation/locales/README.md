@@ -1,12 +1,17 @@
-# 문서 번역
+# Documentation translations
 
-기본 언어는 한국어입니다. 문서 본문을 한국어·영어로 제공하며, 문서 조작 UI와 실행 예제, 복사되는 코드는 영어로 유지합니다. 사이드바 문서 이름, 컴포넌트 이름, API, 토큰, 패키지 이름은 번역하지 않습니다. 브랜드 표기는 **nuée**입니다.
+Document prose and reference descriptions support Korean and English. Navigation,
+controls, and example code stay in English. Korean is the default locale.
 
-컴포넌트 문서는 `LocalizedMarkdown`에 원문을 전달하고 `content.ko.json`에 같은 원문을 키로 등록합니다. 원문을 수정하면 번역 키와 문장도 함께 수정합니다. 사용 조건과 예외를 생략하지 않습니다.
+- `content.ko.json`: Korean translations keyed by the Markdown passed to
+  `LocalizedMarkdown`. Update the key and translation when the source changes.
+- `reference.ko.json`: descriptions in token reference tables.
+- `guidelines.md` and `guidelines.en.md` beside foundation, component, and pattern
+  pages: paired guidance rendered from the same files used for AI exports.
 
-기본 원칙은 주제별 `guidelines.md`와 `guidelines.en.md`를 함께 수정합니다. 설명표의 문구는 `reference.ko.json`, 문서 조작 UI는 `locale.tsx`에서 관리합니다.
+## Terminology
 
-| English      | 한국어         |
+| English      | Korean         |
 | ------------ | -------------- |
 | Foundations  | 기본 원칙      |
 | Design token | 디자인 토큰    |
@@ -15,4 +20,13 @@
 | Motion       | 움직임         |
 | Disabled     | 사용할 수 없음 |
 
-문장은 사용자가 할 일부터 설명합니다. 오류 문구에는 다시 시도할 방법을 적습니다. 예제 안의 영어와 API 이름을 번역 누락으로 처리하지 않습니다.
+## Editing guidance
+
+Keep Foundations focused on shared decisions, component pages on choosing and
+using the component, and Patterns on a working combination with explicit tradeoffs.
+Put a rule in one place and link to it when another page needs the detail.
+
+In Korean, use direct sentences with a clear subject or action. Prefer concrete
+conditions over general advice, and explain a restriction only when it affects a
+choice. Use “초점” consistently for focus and preserve API identifiers verbatim.
+Keep the meaning aligned between languages; sentence structure need not match.

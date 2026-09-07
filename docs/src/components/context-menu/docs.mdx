@@ -1,3 +1,8 @@
+import guidelines from "./guidelines.md?raw";
+import usageEnglish from "./guidelines.en.md?raw";
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import DefaultSource from "./Default.tsx?raw";
@@ -6,17 +11,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Context Menu" />
 
-# Context Menu
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown text={"Open actions directly related to a selection with a secondary click."} />
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="context-menu--Default" source={DefaultSource} isolated height={360} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add context-menu" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import {
@@ -44,3 +45,9 @@ import {
   </ContextMenuContent>
 </ContextMenu>;
 ```
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add context-menu" language="bash" />
+
+<Guideline content={guidelines} english={usageEnglish} />

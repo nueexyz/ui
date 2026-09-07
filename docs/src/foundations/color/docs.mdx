@@ -9,17 +9,9 @@ import * as Reference from "./Reference";
 
 <Guideline content={guidelines} english={english} />
 
-<LocalizedMarkdown text={"## Reference"} />
+<LocalizedMarkdown text={"## Token reference"} />
 
-<LocalizedMarkdown text={"## Primitive"} />
-
-<LocalizedMarkdown
-  text={"Source colors used to create semantic tokens. Do not use them directly in product UI."}
-/>
-
-<Reference.Primitive />
-
-<LocalizedMarkdown text={"## Semantic"} />
+<LocalizedMarkdown text={"### Semantic"} />
 
 <LocalizedMarkdown
   text={
@@ -28,3 +20,11 @@ import * as Reference from "./Reference";
 />
 
 <Reference.Semantic />
+
+<LocalizedMarkdown text={"### Palette"} />
+
+<LocalizedMarkdown
+  text={"Source colors used to create semantic tokens. Do not use them directly in product UI."}
+/>
+
+<Reference.Primitive />

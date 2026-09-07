@@ -1,3 +1,8 @@
+import guidelines from "./guidelines.md?raw";
+import usageEnglish from "./guidelines.en.md?raw";
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import StatesSource from "./States.tsx?raw";
@@ -9,17 +14,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Toggle Group" />
 
-# Toggle Group
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown text={"Navigate and select related view options with the arrow keys."} />
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="toggle-group--Default" source={DefaultSource} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add toggle-group" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
@@ -31,7 +32,13 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 </ToggleGroup>;
 ```
 
-<LocalizedMarkdown text={"## Examples"} />
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add toggle-group" language="bash" />
+
+<Guideline content={guidelines} english={usageEnglish} />
+
+<LocalizedMarkdown text={"## More examples"} />
 
 <LocalizedMarkdown text={"### Variants"} />
 

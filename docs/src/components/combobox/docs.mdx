@@ -1,3 +1,8 @@
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
+import guidelines from "./guidelines.md?raw";
+import english from "./guidelines.en.md?raw";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import DefaultSource from "./Default.tsx?raw";
@@ -6,17 +11,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Combobox" />
 
-# Combobox
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown text={"Narrow a long list with search before choosing an option."} />
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="combobox--Default" source={DefaultSource} isolated height={360} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add combobox" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import { Combobox, ComboboxCollection, ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem } from "@/components/ui/combobox"
@@ -38,3 +39,9 @@ const frameworks = ["React", "Vue", "Svelte"]
   <FieldDescription>Select the framework used in your project.</FieldDescription>
 </Field>
 ```
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add combobox" language="bash" />
+
+<Guideline content={guidelines} english={english} />

@@ -1,3 +1,8 @@
+import guidelines from "./guidelines.md?raw";
+import usageEnglish from "./guidelines.en.md?raw";
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import SizesSource from "./Sizes.tsx?raw";
@@ -9,23 +14,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Content Row" />
 
-# Content Row
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown
-  text={"Group information, supporting text, and related actions into a repeatable row."}
-/>
-
-<LocalizedMarkdown text={"**List**"} />
-
-<LocalizedMarkdown text={"Present related items with consistent spacing and alignment."} />
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="content-row--Default" source={DefaultSource} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add content-row" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import { DotsThreeIcon, FolderIcon } from "@phosphor-icons/react";
@@ -58,7 +53,13 @@ import {
 </ContentRowGroup>;
 ```
 
-<LocalizedMarkdown text={"## Examples"} />
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add content-row" language="bash" />
+
+<Guideline content={guidelines} english={usageEnglish} />
+
+<LocalizedMarkdown text={"## More examples"} />
 
 <LocalizedMarkdown text={"### Action alignment"} />
 

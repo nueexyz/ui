@@ -109,5 +109,20 @@
   "Large surface transitions, such as Dialog and Toast": "Dialog와 Toast 등 큰 표면의 전환",
   "Default easing for state changes": "상태 전환의 기본 가속도 곡선",
   "When a new element appears": "새 요소가 나타날 때",
-  "When an element disappears": "요소가 사라질 때"
+  "When an element disappears": "요소가 사라질 때",
+  "Inverse surface": "반전된 배경",
+  "Modal backdrop": "모달 뒤의 배경",
+  "Outgoing message background": "보낸 메시지 배경",
+  "Outgoing message content": "보낸 메시지 본문",
+  "Fine boundary adjustment": "경계 위치의 미세 조정",
+  "Large rounded panels": "큰 둥근 패널",
+  "Compact content width": "좁은 콘텐츠 폭",
+  "Extra-small icon controls": "가장 작은 아이콘 컨트롤",
+  "Extra-small icons": "가장 작은 아이콘",
+  "Large icons": "큰 아이콘",
+  "Small progress and slider tracks": "작은 진행률·슬라이더 트랙",
+  "Default progress and slider tracks": "기본 진행률·슬라이더 트랙",
+  "Loading animation cycle": "로딩 애니메이션 주기",
+  "Reduced loading animation cycle": "모션 줄임 시 로딩 애니메이션 주기",
+  "Opacity of a layer; not a complete disabled state": "레이어의 불투명도. 비활성 상태는 색상과 동작을 함께 적용합니다."
 }

@@ -65,7 +65,12 @@ const styles = stylex.create({
     fontSize: typographyVars.fontSizeSm,
     lineHeight: typographyVars.lineHeightNormal,
   },
+  selectionTable: { tableLayout: "fixed" },
+  situationColumn: { width: "30%" },
+  choiceColumn: { width: "30%" },
+  codeColumn: { width: "40%" },
   cell: {
+    overflowWrap: "anywhere",
     borderBottom: `${sizeVars.stroke} solid ${colorVars.strokeDefault}`,
     color: colorVars.fgPrimary,
     paddingBlock: spacingVars.space3,
@@ -75,6 +80,7 @@ const styles = stylex.create({
   },
   th: { backgroundColor: colorVars.bgSubtle, fontWeight: typographyVars.fontWeightSemibold },
   code: {
+    fontFamily: "var(--nuee-font-code)",
     backgroundColor: colorVars.bgSubtle,
     color: colorVars.fgPrimary,
     borderRadius: radiusVars.sm,
@@ -84,7 +90,11 @@ const styles = stylex.create({
   quote: {
     borderInlineStart: `${sizeVars.focusRing} solid ${colorVars.strokeStrong}`,
     color: colorVars.fgSecondary,
-    paddingInlineStart: spacingVars.space4,
+    backgroundColor: colorVars.bgSubtle,
+    borderRadius: radiusVars.sm,
+    paddingInline: spacingVars.space4,
+    paddingBlock: spacingVars.space1,
+    marginBlock: spacingVars.space4,
     marginInline: 0,
   },
 });
@@ -118,17 +128,53 @@ export const documentationComponents: Components = {
       {children}
     </a>
   ),
-  table: ({ node: _node, ...props }) => (
-    <div {...stylex.props(styles.scroll)}>
-      <table {...props} {...stylex.props(styles.table)} />
-    </div>
-  ),
+  table: ({ node, children, ...props }) => {
+    const head = node?.children.find(
+      (child) => child.type === "element" && child.tagName === "thead",
+    );
+    const row =
+      head?.type === "element"
+        ? head.children.find((child) => child.type === "element" && child.tagName === "tr")
+        : undefined;
+    const headers =
+      row?.type === "element"
+        ? row.children
+            .filter((child) => child.type === "element" && child.tagName === "th")
+            .map((cell) =>
+              cell.type === "element"
+                ? cell.children
+                    .filter((child) => child.type === "text")
+                    .map((child) => child.value)
+                    .join("")
+                : "",
+            )
+        : [];
+    const isSelectionTable =
+      headers.join("|") === "사용 상황|권장 선택|적용 코드" ||
+      headers.join("|") === "Situation|Recommended choice|Code";
+
+    return (
+      <div {...stylex.props(styles.scroll)}>
+        <table
+          {...props}
+          {...stylex.props(styles.table, isSelectionTable && styles.selectionTable)}
+        >
+          {isSelectionTable ? (
+            <colgroup>
+              <col {...stylex.props(styles.situationColumn)} />
+              <col {...stylex.props(styles.choiceColumn)} />
+              <col {...stylex.props(styles.codeColumn)} />
+            </colgroup>
+          ) : null}
+          {children}
+        </table>
+      </div>
+    );
+  },
   th: ({ node: _node, ...props }) => <th {...props} {...stylex.props(styles.cell, styles.th)} />,
   td: ({ node: _node, ...props }) => <td {...props} {...stylex.props(styles.cell)} />,
   code: ({ node: _node, ...props }) => <code {...props} {...stylex.props(styles.code)} />,
-  blockquote: ({ node: _node, ...props }) => (
-    <blockquote {...props} {...stylex.props(styles.quote)} />
-  ),
+  blockquote: ({ node: _node, ...props }) => <aside {...props} {...stylex.props(styles.quote)} />,
   pre: ({ children }) => {
     if (!isValidElement<{ children?: ReactNode; className?: string }>(children))
       return <pre>{children}</pre>;

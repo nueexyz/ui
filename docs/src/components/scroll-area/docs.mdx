@@ -1,3 +1,8 @@
+import guidelines from "./guidelines.md?raw";
+import usageEnglish from "./guidelines.en.md?raw";
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import DefaultSource from "./Default.tsx?raw";
@@ -6,21 +11,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Scroll Area" />
 
-# Scroll Area
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown text={"Explore long content by scrolling within a defined area."} />
-
-<LocalizedMarkdown text={"**Activity**"} />
-
-<LocalizedMarkdown text={"The scrollbar appears when needed without changing the content width."} />
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="scroll-area--Default" source={DefaultSource} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add scroll-area" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -41,3 +38,9 @@ const activities = [
   ))}
 </ScrollArea>
 ```
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add scroll-area" language="bash" />
+
+<Guideline content={guidelines} english={usageEnglish} />

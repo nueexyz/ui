@@ -1,3 +1,8 @@
+import guidelines from "./guidelines.md?raw";
+import usageEnglish from "./guidelines.en.md?raw";
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import DefaultSource from "./Default.tsx?raw";
@@ -6,17 +11,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Progress" />
 
-# Progress
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown text={"Show the progress of work with a measurable completion state."} />
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="progress--Default" source={DefaultSource} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add progress" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import { Progress } from "@/components/ui/progress";
@@ -26,3 +27,9 @@ import { Progress } from "@/components/ui/progress";
   <Progress aria-label="In progress" value={null} />
 </>;
 ```
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add progress" language="bash" />
+
+<Guideline content={guidelines} english={usageEnglish} />

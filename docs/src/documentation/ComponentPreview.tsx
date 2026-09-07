@@ -8,7 +8,11 @@ import { CodeBlock } from "./CodeBlock";
 import { ui } from "./locale";
 import { useDocumentationGlobals } from "./useDocumentationGlobals";
 
-const modules = import.meta.glob<{ default: ComponentType }>("../components/*/*.tsx");
+const modules = import.meta.glob<{ default: ComponentType }>([
+  "../components/*/*.tsx",
+  "../patterns/*/*.tsx",
+  "../foundations/*/*Example.tsx",
+]);
 const examples = Object.fromEntries(
   Object.entries(modules).map(([path, load]) => [
     path.split("/").slice(-2).join("--").replace(".tsx", ""),

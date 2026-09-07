@@ -1,3 +1,8 @@
+import guidelines from "./guidelines.md?raw";
+import usageEnglish from "./guidelines.en.md?raw";
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import DefaultSource from "./Default.tsx?raw";
@@ -6,17 +11,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Dropdown Menu" />
 
-# Dropdown Menu
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown text={"Open actions and settings for the current target from a button."} />
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="dropdown-menu--Default" source={DefaultSource} isolated height={360} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add dropdown-menu" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import { Button } from "@/components/ui/button";
@@ -51,3 +52,9 @@ import {
   </DropdownMenuContent>
 </DropdownMenu>;
 ```
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add dropdown-menu" language="bash" />
+
+<Guideline content={guidelines} english={usageEnglish} />

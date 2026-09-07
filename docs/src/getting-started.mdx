@@ -5,7 +5,11 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 <LocalizedMarkdown text={"# Getting Started"} />
 
-<LocalizedMarkdown text={"Add the components your project needs as local files."} />
+<LocalizedMarkdown
+  text={
+    "This guide adds a Button to an existing React project. Use `init --vite` for Vite; for other build tools, use `init` and configure StyleX for that build tool."
+  }
+/>
 
 <LocalizedMarkdown text={"## 1. Initialize"} />
 
@@ -63,6 +67,32 @@ pnpm dlx @nuee/ui init --vite
 
 <LocalizedMarkdown
   text={
-    "When changing an alias, also update `tsconfig.json` or `jsconfig.json`.\nExisting files are not moved automatically."
+    "> When changing an alias, also update `tsconfig.json` or `jsconfig.json`. Existing files are not moved automatically."
+  }
+/>
+
+<LocalizedMarkdown text={"## 4. Add a component"} />
+
+<LocalizedMarkdown text={"Add Button using the paths configured above."} />
+
+```bash
+pnpm dlx @nuee/ui add button
+```
+
+<LocalizedMarkdown
+  text={"Import the generated component into a page. This example uses the alias from step 2."}
+/>
+
+```tsx
+import { Button } from "@/components/ui/button";
+
+export function SaveButton() {
+  return <Button>Save</Button>;
+}
+```
+
+<LocalizedMarkdown
+  text={
+    "Start your application with its existing development command. Confirm that the button appears with nuée styling and shows a focus indicator when reached with Tab. If it appears unstyled, check the StyleX build integration and reset stylesheet import."
   }
 />

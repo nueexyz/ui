@@ -81,7 +81,7 @@ const styles = stylex.create({
   },
   token: {
     color: colorVars.fgSecondary,
-    fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+    fontFamily: "var(--nuee-font-code)",
     fontSize: typographyVars.fontSizeXs,
   },
   shadowPreview: (boxShadow: string) => ({

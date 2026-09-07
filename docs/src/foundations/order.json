@@ -4,6 +4,10 @@
     "title": "Overview"
   },
   {
+    "slug": "accessibility",
+    "title": "Accessibility"
+  },
+  {
     "slug": "design-token",
     "title": "Design Token"
   },
@@ -36,10 +40,6 @@
     "title": "Elevation"
   },
   {
-    "slug": "gradient",
-    "title": "Gradient"
-  },
-  {
     "slug": "state",
     "title": "State"
   },
@@ -52,23 +52,11 @@
     "title": "Feedback"
   },
   {
-    "slug": "inclusive-design",
-    "title": "Inclusive Design"
-  },
-  {
-    "slug": "international-design",
-    "title": "International Design"
-  },
-  {
     "slug": "voice-and-tone",
     "title": "Voice and Tone"
   },
   {
     "slug": "writing",
     "title": "Writing"
-  },
-  {
-    "slug": "tokens",
-    "title": "Tokens"
   }
 ]

@@ -1,3 +1,8 @@
+import guidelines from "./guidelines.md?raw";
+import usageEnglish from "./guidelines.en.md?raw";
+import overview from "./overview.md?raw";
+import overviewEnglish from "./overview.en.md?raw";
+import { Guideline } from "../../documentation/Guideline";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
 import DefaultSource from "./Default.tsx?raw";
@@ -6,23 +11,13 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <Meta title="Components/Input OTP" />
 
-# Input OTP
+<Guideline content={overview} english={overviewEnglish} />
 
-<LocalizedMarkdown
-  text={"Enter a one-time code from a text message or authenticator app one digit at a time."}
-/>
-
-<LocalizedMarkdown text={"**6-digit verification code**"} />
-
-<LocalizedMarkdown text={"Pasting a code distributes it across the slots automatically."} />
+<LocalizedMarkdown text={"## Basic example"} />
 
 <ComponentPreview name="input-otp--Default" source={DefaultSource} />
 
-<LocalizedMarkdown text={"## Installation"} />
-
-<CodeBlock code="pnpm dlx @nuee/ui add input-otp" language="bash" />
-
-<LocalizedMarkdown text={"## Usage"} />
+<LocalizedMarkdown text={"## Composition"} />
 
 ```tsx
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
@@ -35,3 +30,9 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp
   </InputOTPGroup>
 </InputOTP>;
 ```
+
+<LocalizedMarkdown text={"## Installation"} />
+
+<CodeBlock code="pnpm dlx @nuee/ui add input-otp" language="bash" />
+
+<Guideline content={guidelines} english={usageEnglish} />
