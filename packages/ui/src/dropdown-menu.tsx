@@ -129,8 +129,8 @@ export function DropdownMenuContent({
   function getPopupStyles(state: MenuPrimitive.Popup.State) {
     return stylex.props(
       styles.popup,
-      state.transitionStatus === "starting" && styles.popupTransitioning,
-      state.transitionStatus === "ending" && styles.popupTransitioning,
+      (state.transitionStatus === "starting" || state.transitionStatus === "ending") &&
+        styles.popupTransitioning,
       state.transitionStatus === "ending" && styles.popupEnding,
     );
   }
@@ -242,8 +242,9 @@ export function DropdownMenuLabel({
 }: Omit<ComponentProps<typeof MenuPrimitive.GroupLabel>, "className" | "style"> & {
   inset?: boolean;
 }) {
-  const sx = stylex.props(styles.label, inset && styles.inset);
-  return <MenuPrimitive.GroupLabel {...props} className={sx.className} style={sx.style} />;
+  return (
+    <MenuPrimitive.GroupLabel {...props} {...stylex.props(styles.label, inset && styles.inset)} />
+  );
 }
 
 export function DropdownMenuSeparator(

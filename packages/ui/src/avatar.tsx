@@ -85,32 +85,19 @@ export type AvatarProps = Omit<
 };
 
 export function Avatar({ size = "md", ...props }: AvatarProps) {
-  const stylexProps = stylex.props(styles.root, styles[size]);
-  return (
-    <AvatarPrimitive.Root {...props} className={stylexProps.className} style={stylexProps.style} />
-  );
+  return <AvatarPrimitive.Root {...props} {...stylex.props(styles.root, styles[size])} />;
 }
 
 export function AvatarImage({
   ...props
 }: Omit<ComponentProps<typeof AvatarPrimitive.Image>, "className" | "style">) {
-  const stylexProps = stylex.props(styles.image);
-  return (
-    <AvatarPrimitive.Image {...props} className={stylexProps.className} style={stylexProps.style} />
-  );
+  return <AvatarPrimitive.Image {...props} {...stylex.props(styles.image)} />;
 }
 
 export function AvatarFallback({
   ...props
 }: Omit<ComponentProps<typeof AvatarPrimitive.Fallback>, "className" | "style">) {
-  const stylexProps = stylex.props(styles.fallback);
-  return (
-    <AvatarPrimitive.Fallback
-      {...props}
-      className={stylexProps.className}
-      style={stylexProps.style}
-    />
-  );
+  return <AvatarPrimitive.Fallback {...props} {...stylex.props(styles.fallback)} />;
 }
 
 export function AvatarBadge({ ...props }: Omit<ComponentProps<"span">, "className" | "style">) {

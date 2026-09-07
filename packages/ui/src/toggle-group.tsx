@@ -112,9 +112,8 @@ export function ToggleGroup({
   xstyle,
   ...props
 }: ToggleGroupProps) {
-  const stylexProps = stylex.props(styles.root, styles[variant], xstyle);
   return (
-    <ToggleGroupPrimitive {...props} className={stylexProps.className} style={stylexProps.style}>
+    <ToggleGroupPrimitive {...props} {...stylex.props(styles.root, styles[variant], xstyle)}>
       <ToggleGroupContext value={{ size, variant }}>{children}</ToggleGroupContext>
     </ToggleGroupPrimitive>
   );

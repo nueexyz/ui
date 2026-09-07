@@ -59,10 +59,7 @@ export type RadioGroupProps = Omit<
 };
 
 export function RadioGroup({ xstyle, ...props }: RadioGroupProps) {
-  const stylexProps = stylex.props(styles.group, xstyle);
-  return (
-    <RadioGroupPrimitive {...props} className={stylexProps.className} style={stylexProps.style} />
-  );
+  return <RadioGroupPrimitive {...props} {...stylex.props(styles.group, xstyle)} />;
 }
 
 export type RadioGroupItemProps = Omit<

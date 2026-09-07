@@ -86,14 +86,7 @@ const styles = stylex.create({
 export function Collapsible({
   ...props
 }: Omit<ComponentProps<typeof CollapsiblePrimitive.Root>, "className" | "style">) {
-  const stylexProps = stylex.props(styles.root);
-  return (
-    <CollapsiblePrimitive.Root
-      {...props}
-      className={stylexProps.className}
-      style={stylexProps.style}
-    />
-  );
+  return <CollapsiblePrimitive.Root {...props} {...stylex.props(styles.root)} />;
 }
 
 export function CollapsibleTrigger({
@@ -124,8 +117,8 @@ export function CollapsibleContent({
   function getPanelStyles(state: CollapsiblePrimitive.Panel.State) {
     return stylex.props(
       styles.panel,
-      state.transitionStatus === "starting" && styles.panelTransitioning,
-      state.transitionStatus === "ending" && styles.panelTransitioning,
+      (state.transitionStatus === "starting" || state.transitionStatus === "ending") &&
+        styles.panelTransitioning,
     );
   }
   return (

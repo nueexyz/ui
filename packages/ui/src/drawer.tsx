@@ -293,25 +293,9 @@ type DrawerContentProps = Omit<
   xstyle?: stylex.StyleXStyles;
 };
 
-function getDrawerPopupStylexProps(
-  swipeDirection: DrawerSwipeDirection,
-  xstyle?: stylex.StyleXStyles,
-) {
-  if (swipeDirection === "right") {
-    return stylex.props(styles.popup, styles.horizontalPopup, styles.rightPopup, xstyle);
-  }
-  if (swipeDirection === "left") {
-    return stylex.props(styles.popup, styles.horizontalPopup, styles.leftPopup, xstyle);
-  }
-  if (swipeDirection === "up") {
-    return stylex.props(styles.popup, styles.verticalPopup, styles.upPopup, xstyle);
-  }
-
-  return stylex.props(styles.popup, styles.verticalPopup, styles.downPopup, xstyle);
-}
-
 export function DrawerContent({ children, xstyle, ...props }: DrawerContentProps) {
   const { overlay, showSwipeHandle, swipeDirection } = useContext(DrawerContext);
+  const isHorizontal = swipeDirection === "left" || swipeDirection === "right";
 
   return (
     <DrawerPortal>
@@ -322,7 +306,12 @@ export function DrawerContent({ children, xstyle, ...props }: DrawerContentProps
         <DrawerPrimitive.Popup
           {...props}
           data-slot="drawer-popup"
-          {...getDrawerPopupStylexProps(swipeDirection, xstyle)}
+          {...stylex.props(
+            styles.popup,
+            isHorizontal ? styles.horizontalPopup : styles.verticalPopup,
+            styles[`${swipeDirection}Popup`],
+            xstyle,
+          )}
         >
           {showSwipeHandle ? <DrawerSwipeHandle /> : null}
           <DrawerPrimitive.Content {...stylex.props(styles.content)}>
@@ -356,21 +345,11 @@ export function DrawerFooter({
 export function DrawerTitle({
   ...props
 }: Omit<ComponentProps<typeof DrawerPrimitive.Title>, "className" | "style">) {
-  const stylexProps = stylex.props(styles.title);
-  return (
-    <DrawerPrimitive.Title {...props} className={stylexProps.className} style={stylexProps.style} />
-  );
+  return <DrawerPrimitive.Title {...props} {...stylex.props(styles.title)} />;
 }
 
 export function DrawerDescription({
   ...props
 }: Omit<ComponentProps<typeof DrawerPrimitive.Description>, "className" | "style">) {
-  const stylexProps = stylex.props(styles.description);
-  return (
-    <DrawerPrimitive.Description
-      {...props}
-      className={stylexProps.className}
-      style={stylexProps.style}
-    />
-  );
+  return <DrawerPrimitive.Description {...props} {...stylex.props(styles.description)} />;
 }

@@ -171,6 +171,10 @@ export function ComboboxInput({
   function getInputStyles(state: ComboboxPrimitive.Input.State) {
     return stylex.props(styles.input, state.disabled && styles.inputDisabled);
   }
+  function getTriggerStyles(state: ComboboxPrimitive.Trigger.State) {
+    return stylex.props(styles.trigger, state.disabled && styles.triggerDisabled);
+  }
+
   return (
     <ComboboxPrimitive.InputGroup {...stylex.props(styles.inputGroup)}>
       <MagnifyingGlassIcon aria-hidden="true" {...stylex.props(styles.searchIcon)} />
@@ -181,12 +185,8 @@ export function ComboboxInput({
       />
       <ComboboxPrimitive.Trigger
         aria-label="Open options"
-        className={(state) =>
-          stylex.props(styles.trigger, state.disabled && styles.triggerDisabled).className ?? ""
-        }
-        style={(state) =>
-          stylex.props(styles.trigger, state.disabled && styles.triggerDisabled).style
-        }
+        className={(state) => getTriggerStyles(state).className ?? ""}
+        style={(state) => getTriggerStyles(state).style}
       >
         <CaretDownIcon aria-hidden="true" />
       </ComboboxPrimitive.Trigger>
@@ -212,8 +212,8 @@ export function ComboboxContent({
   function getPopupStyles(state: ComboboxPrimitive.Popup.State) {
     return stylex.props(
       styles.popup,
-      state.transitionStatus === "starting" && styles.popupTransitioning,
-      state.transitionStatus === "ending" && styles.popupTransitioning,
+      (state.transitionStatus === "starting" || state.transitionStatus === "ending") &&
+        styles.popupTransitioning,
       state.transitionStatus === "ending" && styles.popupEnding,
     );
   }

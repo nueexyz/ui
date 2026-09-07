@@ -87,9 +87,6 @@ const styles = stylex.create({
     // Give icon-only buttons a text baseline without adding visible content.
     "::before": { content: '"\\200b"' },
   },
-  primaryContent: { color: colorVars.fgOnActionPrimary },
-  destructiveContent: { color: colorVars.fgOnActionDestructive },
-  disabledContent: { color: colorVars.fgDisabled },
   primary: {
     backgroundColor: colorVars.bgActionPrimary,
     borderColor: colorVars.bgActionPrimary,
@@ -114,13 +111,11 @@ const styles = stylex.create({
     backgroundColor: colorVars.interactionDisabled,
     borderColor: colorVars.strokeDefault,
     color: colorVars.fgDisabled,
+    "::before": { backgroundColor: colorVars.interactionDefault },
   },
   disabledGhost: {
     backgroundColor: colorVars.interactionDefault,
     borderColor: colorVars.interactionDefault,
-  },
-  disabledInteraction: {
-    "::before": { backgroundColor: colorVars.interactionDefault },
   },
   sm: {
     borderRadius: radiusVars.sm,
@@ -189,7 +184,6 @@ export function Button({
   xstyle,
   ...props
 }: ButtonProps) {
-  const isDisabled = Boolean(disabled);
   const isIconSize = size.startsWith("icon");
   const hasSolidBackground = variant === "primary" || variant === "destructive";
 
@@ -206,23 +200,12 @@ export function Button({
         !isIconSize && shape !== "default" && size === "md" && styles.iconMd,
         !isIconSize && shape !== "default" && size === "lg" && styles.iconLg,
         hasSolidBackground ? styles.solidInteraction : styles.surfaceInteraction,
-        isDisabled && styles.disabled,
-        isDisabled && variant === "ghost" && styles.disabledGhost,
-        isDisabled && styles.disabledInteraction,
+        disabled && styles.disabled,
+        disabled && variant === "ghost" && styles.disabledGhost,
         xstyle,
       )}
     >
-      <span
-        {...stylex.props(
-          styles.content,
-          isIconSize && styles.iconContent,
-          variant === "primary" && styles.primaryContent,
-          variant === "destructive" && styles.destructiveContent,
-          isDisabled && styles.disabledContent,
-        )}
-      >
-        {children}
-      </span>
+      <span {...stylex.props(styles.content, isIconSize && styles.iconContent)}>{children}</span>
     </ButtonPrimitive>
   );
 }

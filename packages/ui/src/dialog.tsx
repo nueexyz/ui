@@ -157,16 +157,11 @@ export function DialogContent({
   xstyle,
   ...props
 }: DialogContentProps) {
-  const stylexProps = stylex.props(styles.popup, xstyle);
   return (
     <DialogPrimitive.Portal>
       <DialogPrimitive.Backdrop {...stylex.props(styles.backdrop)} />
       <DialogPrimitive.Viewport {...stylex.props(styles.viewport)}>
-        <DialogPrimitive.Popup
-          {...props}
-          className={stylexProps.className}
-          style={stylexProps.style}
-        >
+        <DialogPrimitive.Popup {...props} {...stylex.props(styles.popup, xstyle)}>
           {children}
           {showCloseButton ? (
             <DialogPrimitive.Close aria-label={closeLabel} {...stylex.props(styles.close)}>
@@ -196,21 +191,11 @@ export function DialogFooter({
 export function DialogTitle({
   ...props
 }: Omit<ComponentProps<typeof DialogPrimitive.Title>, "className" | "style">) {
-  const stylexProps = stylex.props(styles.title);
-  return (
-    <DialogPrimitive.Title {...props} className={stylexProps.className} style={stylexProps.style} />
-  );
+  return <DialogPrimitive.Title {...props} {...stylex.props(styles.title)} />;
 }
 
 export function DialogDescription({
   ...props
 }: Omit<ComponentProps<typeof DialogPrimitive.Description>, "className" | "style">) {
-  const stylexProps = stylex.props(styles.description);
-  return (
-    <DialogPrimitive.Description
-      {...props}
-      className={stylexProps.className}
-      style={stylexProps.style}
-    />
-  );
+  return <DialogPrimitive.Description {...props} {...stylex.props(styles.description)} />;
 }

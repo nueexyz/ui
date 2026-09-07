@@ -83,8 +83,8 @@ export function PopoverContent({
   function getPopupStyles(state: PopoverPrimitive.Popup.State) {
     return stylex.props(
       styles.popup,
-      state.transitionStatus === "starting" && styles.popupTransitioning,
-      state.transitionStatus === "ending" && styles.popupTransitioning,
+      (state.transitionStatus === "starting" || state.transitionStatus === "ending") &&
+        styles.popupTransitioning,
       state.transitionStatus === "ending" && styles.popupEnding,
       xstyle,
     );

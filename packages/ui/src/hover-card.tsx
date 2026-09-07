@@ -82,27 +82,22 @@ export function HoverCardContent({
   xstyle,
   ...props
 }: HoverCardContentProps) {
+  function getPopupStyles(state: PreviewCard.Popup.State) {
+    return stylex.props(
+      styles.popup,
+      xstyle,
+      (state.transitionStatus === "starting" || state.transitionStatus === "ending") &&
+        styles.transitioning,
+    );
+  }
+
   return (
     <PreviewCard.Portal>
       <PreviewCard.Positioner align={align} side={side} sideOffset={sideOffset}>
         <PreviewCard.Popup
           {...props}
-          className={(state) =>
-            stylex.props(
-              styles.popup,
-              xstyle,
-              state.transitionStatus === "starting" && styles.transitioning,
-              state.transitionStatus === "ending" && styles.transitioning,
-            ).className
-          }
-          style={(state) =>
-            stylex.props(
-              styles.popup,
-              xstyle,
-              state.transitionStatus === "starting" && styles.transitioning,
-              state.transitionStatus === "ending" && styles.transitioning,
-            ).style
-          }
+          className={(state) => getPopupStyles(state).className}
+          style={(state) => getPopupStyles(state).style}
         />
       </PreviewCard.Positioner>
     </PreviewCard.Portal>

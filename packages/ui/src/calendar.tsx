@@ -190,16 +190,13 @@ export type CalendarProps = CalendarDayPickerProps & {
 };
 
 export function Calendar({ navLayout = "around", xstyle, ...props }: CalendarProps) {
-  const root = stylex.props(styles.root, xstyle);
-
   return (
     <DayPicker
       {...props}
-      className={root.className}
+      {...stylex.props(styles.root, xstyle)}
       classNames={classNames}
       components={{ DayButton: CalendarDayButton }}
       navLayout={navLayout}
-      style={root.style}
     />
   );
 }

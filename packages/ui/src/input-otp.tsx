@@ -60,8 +60,7 @@ export type InputOTPProps = Omit<ComponentProps<typeof OTPField.Root>, "classNam
 };
 
 export function InputOTP({ xstyle, ...props }: InputOTPProps) {
-  const resolved = stylex.props(styles.root, xstyle);
-  return <OTPField.Root {...props} className={resolved.className} style={resolved.style} />;
+  return <OTPField.Root {...props} {...stylex.props(styles.root, xstyle)} />;
 }
 
 export function InputOTPGroup({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
@@ -71,8 +70,7 @@ export function InputOTPGroup({ ...props }: Omit<ComponentProps<"div">, "classNa
 export function InputOTPSlot({
   ...props
 }: Omit<ComponentProps<typeof OTPField.Input>, "className" | "style">) {
-  const resolved = stylex.props(styles.slot);
-  return <OTPField.Input {...props} className={resolved.className} style={resolved.style} />;
+  return <OTPField.Input {...props} {...stylex.props(styles.slot)} />;
 }
 
 export function InputOTPSeparator({

@@ -135,11 +135,9 @@ export type TabsProps = Omit<ComponentProps<typeof TabsPrimitive.Root>, "classNa
 const TabsVariantContext = createContext<TabsVariant>("segmented");
 
 export function Tabs({ variant = "segmented", ...props }: TabsProps) {
-  const stylexProps = stylex.props(styles.root);
-
   return (
     <TabsVariantContext.Provider value={variant}>
-      <TabsPrimitive.Root {...props} className={stylexProps.className} style={stylexProps.style} />
+      <TabsPrimitive.Root {...props} {...stylex.props(styles.root)} />
     </TabsVariantContext.Provider>
   );
 }

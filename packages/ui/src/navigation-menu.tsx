@@ -228,8 +228,7 @@ export function NavigationMenuTrigger({
 export function NavigationMenuLink({
   ...props
 }: Omit<ComponentProps<typeof NavigationMenuPrimitive.Link>, "className" | "style">) {
-  const sx = stylex.props(styles.link);
-  return <NavigationMenuPrimitive.Link {...props} className={sx.className} style={sx.style} />;
+  return <NavigationMenuPrimitive.Link {...props} {...stylex.props(styles.link)} />;
 }
 
 type NavigationMenuViewportProps = Omit<
@@ -247,8 +246,8 @@ export function NavigationMenuViewport({
   function getPopupStyles(state: NavigationMenuPrimitive.Popup.State) {
     return stylex.props(
       styles.popup,
-      state.transitionStatus === "starting" && styles.popupTransitioning,
-      state.transitionStatus === "ending" && styles.popupTransitioning,
+      (state.transitionStatus === "starting" || state.transitionStatus === "ending") &&
+        styles.popupTransitioning,
     );
   }
   return (

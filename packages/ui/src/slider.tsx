@@ -71,14 +71,12 @@ export type SliderProps = Omit<
 export function Slider({ defaultValue, getAriaLabel, value, xstyle, ...props }: SliderProps) {
   const currentValue = value ?? defaultValue;
   const thumbCount = Array.isArray(currentValue) ? currentValue.length : 1;
-  const stylexProps = stylex.props(styles.root, xstyle);
   return (
     <SliderPrimitive.Root
       {...props}
       defaultValue={defaultValue}
       value={value}
-      className={stylexProps.className}
-      style={stylexProps.style}
+      {...stylex.props(styles.root, xstyle)}
     >
       <SliderPrimitive.Control {...stylex.props(styles.control)}>
         <SliderPrimitive.Track {...stylex.props(styles.track)}>

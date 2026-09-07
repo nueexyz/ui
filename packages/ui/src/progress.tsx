@@ -35,9 +35,8 @@ export type ProgressProps = Omit<
 };
 
 export function Progress({ xstyle, ...props }: ProgressProps) {
-  const stylexProps = stylex.props(styles.root, xstyle);
   return (
-    <ProgressPrimitive.Root {...props} className={stylexProps.className} style={stylexProps.style}>
+    <ProgressPrimitive.Root {...props} {...stylex.props(styles.root, xstyle)}>
       <ProgressPrimitive.Indicator {...stylex.props(styles.indicator)} />
     </ProgressPrimitive.Root>
   );

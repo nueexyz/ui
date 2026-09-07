@@ -55,13 +55,11 @@ const LinkBase = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
   { render, variant = "inline", ...props },
   ref,
 ) {
-  const stylexProps = stylex.props(styles.root, styles[variant]);
-
   return useRender({
     defaultTagName: "a",
     props: {
       ...props,
-      ...stylexProps,
+      ...stylex.props(styles.root, styles[variant]),
     },
     ref,
     render,

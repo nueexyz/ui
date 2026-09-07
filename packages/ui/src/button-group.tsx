@@ -100,17 +100,10 @@ function getItemPositionStyle(
   isFirst: boolean,
   isLast: boolean,
 ) {
-  if (orientation === "horizontal") {
-    if (isFirst && isLast) return styles.horizontalOnlyItem;
-    if (isFirst) return styles.horizontalFirstItemRadius;
-    if (isLast) return styles.horizontalLastItem;
-    return styles.horizontalMiddleItem;
-  }
-
-  if (isFirst && isLast) return styles.verticalOnlyItem;
-  if (isFirst) return styles.verticalFirstItemRadius;
-  if (isLast) return styles.verticalLastItem;
-  return styles.verticalMiddleItem;
+  if (isFirst && isLast) return styles[`${orientation}OnlyItem`];
+  if (isFirst) return styles[`${orientation}FirstItemRadius`];
+  if (isLast) return styles[`${orientation}LastItem`];
+  return styles[`${orientation}MiddleItem`];
 }
 
 /** Direct children must be Nuee buttons or components that forward xstyle. Fragments and native elements are not styled as group items. */
@@ -138,17 +131,16 @@ export function ButtonGroup({
     position += 1;
     const isFirst = position === 0;
     const isLast = position === groupItems.length - 1;
-    const positionStyle = getItemPositionStyle(orientation, isFirst, isLast);
-    const itemStyles = [
-      styles.item,
-      styles[`${orientation}Item`],
-      isFirst && styles[`${orientation}FirstItem`],
-      positionStyle,
-    ];
 
     content.push(
       cloneElement(child, {
-        xstyle: [...itemStyles, child.props.xstyle],
+        xstyle: [
+          styles.item,
+          styles[`${orientation}Item`],
+          isFirst && styles[`${orientation}FirstItem`],
+          getItemPositionStyle(orientation, isFirst, isLast),
+          child.props.xstyle,
+        ],
       }),
     );
   }

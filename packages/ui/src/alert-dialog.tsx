@@ -115,17 +115,11 @@ type AlertDialogContentProps = Omit<
 };
 
 export function AlertDialogContent({ children, xstyle, ...props }: AlertDialogContentProps) {
-  const stylexProps = stylex.props(styles.popup, xstyle);
-
   return (
     <AlertDialogPrimitive.Portal>
       <AlertDialogPrimitive.Backdrop {...stylex.props(styles.backdrop)} />
       <AlertDialogPrimitive.Viewport {...stylex.props(styles.viewport)}>
-        <AlertDialogPrimitive.Popup
-          {...props}
-          className={stylexProps.className}
-          style={stylexProps.style}
-        >
+        <AlertDialogPrimitive.Popup {...props} {...stylex.props(styles.popup, xstyle)}>
           {children}
         </AlertDialogPrimitive.Popup>
       </AlertDialogPrimitive.Viewport>
@@ -150,27 +144,13 @@ export function AlertDialogFooter({
 export function AlertDialogTitle({
   ...props
 }: Omit<ComponentProps<typeof AlertDialogPrimitive.Title>, "className" | "style">) {
-  const stylexProps = stylex.props(styles.title);
-  return (
-    <AlertDialogPrimitive.Title
-      {...props}
-      className={stylexProps.className}
-      style={stylexProps.style}
-    />
-  );
+  return <AlertDialogPrimitive.Title {...props} {...stylex.props(styles.title)} />;
 }
 
 export function AlertDialogDescription({
   ...props
 }: Omit<ComponentProps<typeof AlertDialogPrimitive.Description>, "className" | "style">) {
-  const stylexProps = stylex.props(styles.description);
-  return (
-    <AlertDialogPrimitive.Description
-      {...props}
-      className={stylexProps.className}
-      style={stylexProps.style}
-    />
-  );
+  return <AlertDialogPrimitive.Description {...props} {...stylex.props(styles.description)} />;
 }
 
 type AlertDialogButtonProps = Omit<

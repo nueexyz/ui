@@ -93,27 +93,13 @@ const styles = stylex.create({
 export function Accordion({
   ...props
 }: Omit<ComponentProps<typeof AccordionPrimitive.Root>, "className" | "style">) {
-  const stylexProps = stylex.props(styles.root);
-  return (
-    <AccordionPrimitive.Root
-      {...props}
-      className={stylexProps.className}
-      style={stylexProps.style}
-    />
-  );
+  return <AccordionPrimitive.Root {...props} {...stylex.props(styles.root)} />;
 }
 
 export function AccordionItem({
   ...props
 }: Omit<ComponentProps<typeof AccordionPrimitive.Item>, "className" | "style">) {
-  const stylexProps = stylex.props(styles.item);
-  return (
-    <AccordionPrimitive.Item
-      {...props}
-      className={stylexProps.className}
-      style={stylexProps.style}
-    />
-  );
+  return <AccordionPrimitive.Item {...props} {...stylex.props(styles.item)} />;
 }
 
 export function AccordionTrigger({
@@ -146,8 +132,8 @@ export function AccordionContent({
   function getPanelStyles(state: AccordionPrimitive.Panel.State) {
     return stylex.props(
       styles.panel,
-      state.transitionStatus === "starting" && styles.panelTransitioning,
-      state.transitionStatus === "ending" && styles.panelTransitioning,
+      (state.transitionStatus === "starting" || state.transitionStatus === "ending") &&
+        styles.panelTransitioning,
     );
   }
   return (

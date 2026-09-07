@@ -49,9 +49,8 @@ export function ScrollArea({
   xstyle,
   ...props
 }: ScrollAreaProps) {
-  const root = stylex.props(styles.root, xstyle);
   return (
-    <ScrollAreaPrimitive.Root {...props} className={root.className} style={root.style}>
+    <ScrollAreaPrimitive.Root {...props} {...stylex.props(styles.root, xstyle)}>
       <ScrollAreaPrimitive.Viewport {...stylex.props(styles.viewport)}>
         <ScrollAreaPrimitive.Content {...stylex.props(styles.content)}>
           {children}
@@ -72,13 +71,11 @@ export function ScrollBar({
   orientation = "vertical",
   ...props
 }: Omit<ComponentProps<typeof ScrollAreaPrimitive.Scrollbar>, "className" | "style">) {
-  const resolved = stylex.props(styles.scrollbar, styles[orientation]);
   return (
     <ScrollAreaPrimitive.Scrollbar
       {...props}
-      className={resolved.className}
+      {...stylex.props(styles.scrollbar, styles[orientation])}
       orientation={orientation}
-      style={resolved.style}
     >
       <ScrollAreaPrimitive.Thumb {...stylex.props(styles.thumb)} />
     </ScrollAreaPrimitive.Scrollbar>

@@ -182,8 +182,8 @@ export function SelectContent({
   function getPopupStyles(state: SelectPrimitive.Popup.State) {
     return stylex.props(
       styles.popup,
-      state.transitionStatus === "starting" && styles.popupTransitioning,
-      state.transitionStatus === "ending" && styles.popupTransitioning,
+      (state.transitionStatus === "starting" || state.transitionStatus === "ending") &&
+        styles.popupTransitioning,
       state.transitionStatus === "ending" && styles.popupEnding,
     );
   }
