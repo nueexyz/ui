@@ -1,4 +1,5 @@
 import { typographyVars, spacingVars } from "@nuee/tokens/semantic.stylex";
+import { FolderIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 
 import { Button } from "@/components/ui/button";
@@ -10,7 +11,6 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty";
-import { Icon } from "@/components/ui/icon";
 const layout = stylex.create({
   preview: {
     alignItems: "center",
@@ -37,7 +37,7 @@ export default function Default() {
       <Empty xstyle={styles.full}>
         <EmptyHeader>
           <EmptyMedia>
-            <Icon aria-hidden="true" name="folder" />
+            <FolderIcon aria-hidden="true" />
           </EmptyMedia>
           <EmptyTitle>No saved projects</EmptyTitle>
           <EmptyDescription>

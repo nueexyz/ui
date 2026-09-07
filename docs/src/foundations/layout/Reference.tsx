@@ -6,8 +6,8 @@ import {
   radiusVars,
 } from "@nuee/tokens/semantic.stylex";
 import { Button } from "@nuee/ui/button";
-import { Icon } from "@nuee/ui/icon";
 import { Input } from "@nuee/ui/input";
+import { InfoIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 
 import { TokenRow } from "../../documentation/TokenRow";
@@ -96,22 +96,14 @@ export function Size() {
         value={sizeVars.controlXs}
       >
         <Button size="icon-xs" variant="secondary" aria-label="Information">
-          <Icon name="info" aria-hidden="true" />
+          <InfoIcon aria-hidden="true" />
         </Button>
       </TokenRow>
       <TokenRow name="sizeVars.iconXs" usage="Extra-small icons" value={sizeVars.iconXs}>
-        <Icon
-          name="info"
-          aria-hidden="true"
-          {...stylex.props(styles.iconSample(sizeVars.iconXs))}
-        />
+        <InfoIcon aria-hidden="true" {...stylex.props(styles.iconSample(sizeVars.iconXs))} />
       </TokenRow>
       <TokenRow name="sizeVars.iconLg" usage="Large icons" value={sizeVars.iconLg}>
-        <Icon
-          name="info"
-          aria-hidden="true"
-          {...stylex.props(styles.iconSample(sizeVars.iconLg))}
-        />
+        <InfoIcon aria-hidden="true" {...stylex.props(styles.iconSample(sizeVars.iconLg))} />
       </TokenRow>
       <TokenRow
         name="sizeVars.trackSm"
@@ -158,16 +150,16 @@ export function Size() {
         usage="Supporting icon in a small control"
         value={sizeVars.iconSm}
       >
-        <Icon
+        <InfoIcon
           aria-label="Small information icon"
-          name="info"
+
           {...stylex.props(styles.iconSample(sizeVars.iconSm))}
         />
       </TokenRow>
       <TokenRow name="sizeVars.iconMd" usage="Icon in a default control" value={sizeVars.iconMd}>
-        <Icon
+        <InfoIcon
           aria-label="Default information icon"
-          name="info"
+
           {...stylex.props(styles.iconSample(sizeVars.iconMd))}
         />
       </TokenRow>
@@ -177,9 +169,9 @@ export function Size() {
         value={sizeVars.touchTarget}
       >
         <span {...stylex.props(styles.touchTarget)}>
-          <Icon
+          <InfoIcon
             aria-hidden="true"
-            name="info"
+
             {...stylex.props(styles.iconSample(sizeVars.iconMd))}
           />
         </span>

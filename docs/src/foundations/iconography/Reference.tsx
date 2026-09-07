@@ -5,10 +5,81 @@ import {
   spacingVars,
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
-import { Icon, iconRegistry } from "@nuee/ui/icon";
-import type { IconName } from "@nuee/ui/icon";
+import {
+  XIcon,
+  CaretDownIcon,
+  CaretLeftIcon,
+  CaretRightIcon,
+  CaretUpIcon,
+  CaretDoubleLeftIcon,
+  CaretDoubleRightIcon,
+  CaretUpDownIcon,
+  CheckIcon,
+  CheckCircleIcon,
+  XCircleIcon,
+  WarningIcon,
+  InfoIcon,
+  CalendarIcon,
+  ClockIcon,
+  ArrowSquareOutIcon,
+  ListIcon,
+  DotsThreeIcon,
+  MagnifyingGlassIcon,
+  ArrowUpIcon,
+  ArrowDownIcon,
+  ArrowsDownUpIcon,
+  FunnelIcon,
+  EyeSlashIcon,
+  ColumnsIcon,
+  CopyIcon,
+  ChecksIcon,
+  WrenchIcon,
+  StopIcon,
+  MicrophoneIcon,
+  FolderIcon,
+  FileIcon,
+  PaperclipIcon,
+  DownloadSimpleIcon,
+  GitBranchIcon,
+} from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
-const iconNames = Object.keys(iconRegistry) as IconName[];
+const icons = {
+  XIcon,
+  CaretDownIcon,
+  CaretLeftIcon,
+  CaretRightIcon,
+  CaretUpIcon,
+  CaretDoubleLeftIcon,
+  CaretDoubleRightIcon,
+  CaretUpDownIcon,
+  CheckIcon,
+  CheckCircleIcon,
+  XCircleIcon,
+  WarningIcon,
+  InfoIcon,
+  CalendarIcon,
+  ClockIcon,
+  ArrowSquareOutIcon,
+  ListIcon,
+  DotsThreeIcon,
+  MagnifyingGlassIcon,
+  ArrowUpIcon,
+  ArrowDownIcon,
+  ArrowsDownUpIcon,
+  FunnelIcon,
+  EyeSlashIcon,
+  ColumnsIcon,
+  CopyIcon,
+  ChecksIcon,
+  WrenchIcon,
+  StopIcon,
+  MicrophoneIcon,
+  FolderIcon,
+  FileIcon,
+  PaperclipIcon,
+  DownloadSimpleIcon,
+  GitBranchIcon,
+};
 const styles = stylex.create({
   page: {
     display: "flex",
@@ -38,13 +109,13 @@ const styles = stylex.create({
     fontSize: typographyVars.fontSizeXs,
   },
 });
-export function Registry() {
+export function Icons() {
   return (
     <main {...stylex.props(styles.page)}>
       <div {...stylex.props(styles.grid)}>
-        {iconNames.map((name) => (
+        {Object.entries(icons).map(([name, Icon]) => (
           <div key={name} {...stylex.props(styles.item)}>
-            <Icon aria-hidden="true" name={name} size={24} />
+            <Icon aria-hidden="true" size={24} />
             <span {...stylex.props(styles.name)}>{name}</span>
           </div>
         ))}

@@ -4,7 +4,7 @@ import { useRender } from "@base-ui/react/use-render";
 import { colorVars, motionVars, sizeVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 import { ArrowSquareOutIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
-import { forwardRef, type ComponentProps } from "react";
+import type { ComponentProps } from "react";
 
 const styles = stylex.create({
   root: {
@@ -51,10 +51,7 @@ export type LinkProps = Omit<useRender.ComponentProps<"a">, "className" | "style
   variant?: LinkVariant;
 };
 
-const LinkBase = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
-  { render, variant = "inline", ...props },
-  ref,
-) {
+function LinkBase({ ref, render, variant = "inline", ...props }: LinkProps) {
   return useRender({
     defaultTagName: "a",
     props: {
@@ -64,7 +61,7 @@ const LinkBase = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
     ref,
     render,
   });
-});
+}
 
 function ExternalIcon(
   props: Omit<ComponentProps<typeof ArrowSquareOutIcon>, "className" | "style">,

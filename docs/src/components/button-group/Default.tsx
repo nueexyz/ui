@@ -1,9 +1,9 @@
 import { spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
+import { CaretLeftIcon, DotsThreeIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
-import { Icon } from "@/components/ui/icon";
 const layout = stylex.create({
   preview: {
     alignItems: "center",
@@ -21,7 +21,7 @@ export default function Default() {
     <div {...stylex.props(layout.preview)}>
       <ButtonGroup aria-label="Navigate back">
         <Button size="icon-sm" variant="secondary" aria-label="Go back">
-          <Icon aria-hidden="true" name="chevronLeft" />
+          <CaretLeftIcon aria-hidden="true" />
         </Button>
       </ButtonGroup>
       <ButtonGroup aria-label="Message actions">
@@ -37,7 +37,7 @@ export default function Default() {
           Snooze
         </Button>
         <Button size="icon-sm" variant="secondary" aria-label="More actions">
-          <Icon aria-hidden="true" name="moreHorizontal" />
+          <DotsThreeIcon aria-hidden="true" />
         </Button>
       </ButtonGroup>
     </div>

@@ -6,7 +6,7 @@ import {
   typographyVars,
 } from "@nuee/tokens/semantic.stylex";
 import { Button } from "@nuee/ui/button";
-import { Icon } from "@nuee/ui/icon";
+import { CheckIcon, CopyIcon } from "@phosphor-icons/react";
 import { DocsContext } from "@storybook/addon-docs/blocks";
 import * as stylex from "@stylexjs/stylex";
 import { type ComponentProps, useEffect, useState, useContext } from "react";
@@ -79,7 +79,7 @@ export function CodeBlock({
             }
           }}
         >
-          <Icon name={status === "copied" ? "check" : "copy"} aria-hidden="true" />
+          {status === "copied" ? <CheckIcon aria-hidden="true" /> : <CopyIcon aria-hidden="true" />}
         </Button>
       </div>
       <div {...stylex.props(styles.content)}>

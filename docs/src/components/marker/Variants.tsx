@@ -1,7 +1,7 @@
 import { spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
+import { GitBranchIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 
-import { Icon } from "@/components/ui/icon";
 import { Marker, MarkerContent, MarkerIcon } from "@/components/ui/marker";
 import { Spinner } from "@/components/ui/spinner";
 const layout = stylex.create({
@@ -31,7 +31,7 @@ export default function Variants() {
       </Marker>
       <Marker variant="border">
         <MarkerIcon>
-          <Icon name="branch" />
+          <GitBranchIcon />
         </MarkerIcon>
         <MarkerContent>Started a new task flow.</MarkerContent>
       </Marker>

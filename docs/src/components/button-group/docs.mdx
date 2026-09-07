@@ -22,12 +22,12 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 ```tsx
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
-import { Icon } from "@/components/ui/icon";
+import { CaretLeftIcon, DotsThreeIcon } from "@phosphor-icons/react";
 
 <div>
   <ButtonGroup aria-label="Navigate back">
     <Button size="icon-sm" variant="secondary" aria-label="Go back">
-      <Icon aria-hidden="true" name="chevronLeft" />
+      <CaretLeftIcon aria-hidden="true" />
     </Button>
   </ButtonGroup>
 
@@ -45,7 +45,7 @@ import { Icon } from "@/components/ui/icon";
       Snooze
     </Button>
     <Button size="icon-sm" variant="secondary" aria-label="More actions">
-      <Icon aria-hidden="true" name="moreHorizontal" />
+      <DotsThreeIcon aria-hidden="true" />
     </Button>
   </ButtonGroup>
 </div>;

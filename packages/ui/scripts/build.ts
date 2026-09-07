@@ -28,7 +28,6 @@ const stylexCompilerOptions: StylexCompilerOptions = {
 
 async function getEntryPoints() {
   const entries: Record<string, string> = {
-    Icon: join(sourceDirectory, "Icon.tsx"),
     cli: join("bin", "cli.ts"),
     index: join(sourceDirectory, "index.ts"),
     primitives: join(sourceDirectory, "primitives.ts"),
@@ -36,7 +35,7 @@ async function getEntryPoints() {
   const files = await readdir(sourceDirectory, { withFileTypes: true });
 
   for (const file of files) {
-    if (!file.isFile() || !file.name.endsWith(".tsx") || file.name === "Icon.tsx") continue;
+    if (!file.isFile() || !file.name.endsWith(".tsx")) continue;
     entries[file.name.replace(/\.tsx$/, "")] = join(sourceDirectory, file.name);
   }
 

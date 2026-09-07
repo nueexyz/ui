@@ -120,8 +120,6 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "./dropdown-menu";
-export { Icon, iconRegistry } from "./Icon";
-export type { IconName, IconProps } from "./Icon";
 export { HoverCard, HoverCardContent, HoverCardTrigger } from "./hover-card";
 export type { HoverCardContentProps } from "./hover-card";
 export { Input } from "./input";
