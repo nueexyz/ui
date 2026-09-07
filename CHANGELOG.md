@@ -1,6 +1,18 @@
-## Version v0.5.0
+## Version v0.5.1
 
 Not yet released.
+
+- Removed the `Icon` wrapper and `@nuee/ui/icon` export. Import icons directly
+    from `@phosphor-icons/react` instead.
+
+- Typography token previews now use their own line height and align consistently
+    within token rows, so tight and normal line spacing remain distinguishable.
+- Component source is easier to read and customize, with fewer redundant
+    styling steps. Component appearance is unchanged.
+
+## Version v0.5.0
+
+Released on 2026-09-07.
 
 - Use Heading to select title typography by role while keeping HTML heading
     levels independent of visual size. Field, Label, Content Row, and Toast now
