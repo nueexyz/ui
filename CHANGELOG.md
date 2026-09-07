@@ -1,6 +1,4 @@
-## Version v0.5.1
-
-Not yet released.
+## 0.5.1 (September 7, 2026)
 
 ### Breaking Changes
 
@@ -18,9 +16,7 @@ Not yet released.
 - Fixed Typography token preview line heights and row alignment so tight and
     normal line spacing remain distinguishable.
 
-## Version v0.5.0
-
-Released on 2026-09-07.
+## 0.5.0 (September 7, 2026)
 
 ### Breaking Changes
 
@@ -92,9 +88,7 @@ Released on 2026-09-07.
     Phosphor sidebar icons, and native language, theme, and motion controls.
 - Aligned Bubble examples with Message's outgoing primary treatment.
 
-## Version v0.4.2
-
-Released on 2026-09-04.
+## 0.4.2 (September 4, 2026)
 
 - Added Calendar, Date Picker, and Carousel components. Install only the
     packages you need with `nuee add calendar`, `date-picker`, or `carousel`.
@@ -122,26 +116,20 @@ Released on 2026-09-04.
 - Attachment content now keeps equal visual space on both sides of its media and
     text.
 
-## Version v0.4.1
-
-Released on 2026-09-03.
+## 0.4.1 (September 3, 2026)
 
 - `nuee init --framework vite` no longer adds `@nuee/ui` to your project. The
     reset stylesheet is generated locally, so component imports continue to
     resolve through your configured UI alias.
 
-## Version v0.4.0
-
-Released on 2026-09-03.
+## 0.4.0 (September 3, 2026)
 
 - Components now accept StyleX `xstyle` customisation only. Replace native
     `className` and inline `style` overrides with `xstyle` when upgrading.
 - Removed the generated StyleX-to-native style bridge, so installed components
     use one consistent StyleX styling path.
 
-## Version v0.3.2
-
-Released on 2026-09-03.
+## 0.3.2 (September 3, 2026)
 
 - Components that need shared StyleX helpers now install every required local
     file, preventing Vite import-resolution failures.
