@@ -33,7 +33,3 @@ Emphasis follows the task, not the number of available controls. A page can have
 ## Guidelines and implementation
 
 These recommendations are starting points for new screens. Preserve the typography and alignment already defined by components. Document the reason and scope of any exception.
-
-## Build with an LLM
-
-Provide the [complete guidelines](llms-full.en.txt) and relevant component source when asking an LLM to build a screen. This repository's `AGENTS.md` points to the guidelines. In other projects, include the guideline path in the request.
