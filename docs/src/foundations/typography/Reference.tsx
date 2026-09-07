@@ -11,9 +11,11 @@ const styles = stylex.create({
     flexDirection: "column",
   },
   fontFamilySample: (fontFamily: string) => ({
+    display: "block",
     fontFamily,
   }),
   typeSample: (fontSize: string, fontWeight: string, lineHeight: string) => ({
+    display: "block",
     fontSize,
     fontWeight,
     lineHeight,
