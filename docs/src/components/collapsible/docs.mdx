@@ -19,21 +19,7 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <LocalizedMarkdown text={"## Composition"} />
 
-```tsx
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-
-<Collapsible>
-  <div>
-    <strong>Order #4189</strong>
-    <CollapsibleTrigger aria-label="Show order details" />
-  </div>
-  <p>Status: Delivered</p>
-  <CollapsibleContent>
-    <p>Shipping address: 18 Seongsui-ro, Seongdong-gu, Seoul</p>
-    <p>Items: 2 studio headphones</p>
-  </CollapsibleContent>
-</Collapsible>;
-```
+<CodeBlock code={DefaultSource} language="tsx" />
 
 <LocalizedMarkdown text={"## Installation"} />
 

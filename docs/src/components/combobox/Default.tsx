@@ -4,7 +4,8 @@ import * as stylex from "@stylexjs/stylex";
 import {
   Combobox,
   ComboboxCollection,
-  ComboboxContent,
+  ComboboxPopup,
+  ComboboxList,
   ComboboxEmpty,
   ComboboxInput,
   ComboboxItem,
@@ -30,16 +31,18 @@ export default function Default() {
         <FieldLabel>Framework</FieldLabel>
         <Combobox items={frameworks}>
           <ComboboxInput placeholder="Search frameworks" />
-          <ComboboxContent>
-            <ComboboxEmpty>No matching frameworks.</ComboboxEmpty>
-            <ComboboxCollection>
-              {(framework: string) => (
-                <ComboboxItem key={framework} value={framework}>
-                  {framework}
-                </ComboboxItem>
-              )}
-            </ComboboxCollection>
-          </ComboboxContent>
+          <ComboboxPopup>
+            <ComboboxList>
+              <ComboboxEmpty>No matching frameworks.</ComboboxEmpty>
+              <ComboboxCollection>
+                {(framework: string) => (
+                  <ComboboxItem key={framework} value={framework}>
+                    {framework}
+                  </ComboboxItem>
+                )}
+              </ComboboxCollection>
+            </ComboboxList>
+          </ComboboxPopup>
         </Combobox>
         <FieldDescription>Select the framework used in your project.</FieldDescription>
       </Field>

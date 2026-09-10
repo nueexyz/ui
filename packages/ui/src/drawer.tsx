@@ -15,6 +15,8 @@ import * as stylex from "@stylexjs/stylex";
 import { createContext, useContext } from "react";
 import type { ComponentProps } from "react";
 
+import type { ControlPlacementStyles } from "./control-layout";
+
 const styles = stylex.create({
   overlay: {
     backdropFilter: "blur(4px)",
@@ -241,8 +243,22 @@ export function Drawer({
   );
 }
 
-export const DrawerTrigger = DrawerPrimitive.Trigger;
-export const DrawerClose = DrawerPrimitive.Close;
+export function DrawerTrigger({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof DrawerPrimitive.Trigger>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <DrawerPrimitive.Trigger {...props} {...stylex.props(xstyle)} />;
+}
+export function DrawerClose({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof DrawerPrimitive.Close>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <DrawerPrimitive.Close {...props} {...stylex.props(xstyle)} />;
+}
 export const DrawerPortal = DrawerPrimitive.Portal;
 
 type DrawerOverlayProps = Omit<
@@ -286,14 +302,14 @@ export function DrawerSwipeHandle({ xstyle, ...props }: DrawerSwipeHandleProps) 
   );
 }
 
-type DrawerContentProps = Omit<
+type DrawerPopupProps = Omit<
   ComponentProps<typeof DrawerPrimitive.Popup>,
   "className" | "style"
 > & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function DrawerContent({ children, xstyle, ...props }: DrawerContentProps) {
+export function DrawerPopup({ children, xstyle, ...props }: DrawerPopupProps) {
   const { overlay, showSwipeHandle, swipeDirection } = useContext(DrawerContext);
   const isHorizontal = swipeDirection === "left" || swipeDirection === "right";
 
@@ -314,9 +330,7 @@ export function DrawerContent({ children, xstyle, ...props }: DrawerContentProps
           )}
         >
           {showSwipeHandle ? <DrawerSwipeHandle /> : null}
-          <DrawerPrimitive.Content {...stylex.props(styles.content)}>
-            {children}
-          </DrawerPrimitive.Content>
+          {children}
         </DrawerPrimitive.Popup>
       </DrawerPrimitive.Viewport>
     </DrawerPortal>
@@ -343,13 +357,28 @@ export function DrawerFooter({
 }
 
 export function DrawerTitle({
+  xstyle,
   ...props
-}: Omit<ComponentProps<typeof DrawerPrimitive.Title>, "className" | "style">) {
-  return <DrawerPrimitive.Title {...props} {...stylex.props(styles.title)} />;
+}: Omit<ComponentProps<typeof DrawerPrimitive.Title>, "className" | "style"> & {
+  xstyle?: ControlPlacementStyles;
+}) {
+  return <DrawerPrimitive.Title {...props} {...stylex.props(styles.title, xstyle)} />;
 }
 
 export function DrawerDescription({
+  xstyle,
   ...props
-}: Omit<ComponentProps<typeof DrawerPrimitive.Description>, "className" | "style">) {
-  return <DrawerPrimitive.Description {...props} {...stylex.props(styles.description)} />;
+}: Omit<ComponentProps<typeof DrawerPrimitive.Description>, "className" | "style"> & {
+  xstyle?: ControlPlacementStyles;
+}) {
+  return <DrawerPrimitive.Description {...props} {...stylex.props(styles.description, xstyle)} />;
+}
+
+export function DrawerContent({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof DrawerPrimitive.Content>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <DrawerPrimitive.Content {...props} {...stylex.props(styles.content, xstyle)} />;
 }

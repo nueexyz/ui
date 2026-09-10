@@ -15,6 +15,8 @@ import { CaretDownIcon, CheckIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, ReactNode } from "react";
 
+import type { ControlLayoutStyles, ControlPlacementStyles } from "./control-layout";
+
 const styles = stylex.create({
   trigger: {
     alignItems: "center",
@@ -138,15 +140,32 @@ const styles = stylex.create({
 });
 
 export const Select = SelectPrimitive.Root;
-export const SelectValue = SelectPrimitive.Value;
-export const SelectGroup = SelectPrimitive.Group;
+export function SelectValue({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof SelectPrimitive.Value>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <SelectPrimitive.Value {...props} {...stylex.props(xstyle)} />;
+}
+export function SelectGroup({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof SelectPrimitive.Group>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <SelectPrimitive.Group {...props} {...stylex.props(xstyle)} />;
+}
 
 export function SelectTrigger({
+  xstyle,
   children,
   ...props
-}: Omit<ComponentProps<typeof SelectPrimitive.Trigger>, "className" | "style">) {
+}: Omit<ComponentProps<typeof SelectPrimitive.Trigger>, "className" | "style"> & {
+  xstyle?: ControlLayoutStyles;
+}) {
   function getTriggerStyles(state: SelectPrimitive.Trigger.State) {
-    return stylex.props(styles.trigger, state.disabled && styles.triggerDisabled);
+    return stylex.props(styles.trigger, state.disabled && styles.triggerDisabled, xstyle);
   }
   return (
     <SelectPrimitive.Trigger
@@ -162,29 +181,30 @@ export function SelectTrigger({
   );
 }
 
-type SelectContentProps = Omit<
-  ComponentProps<typeof SelectPrimitive.Popup>,
-  "className" | "style"
-> &
+type SelectPopupProps = Omit<ComponentProps<typeof SelectPrimitive.Popup>, "className" | "style"> &
   Pick<
     ComponentProps<typeof SelectPrimitive.Positioner>,
     "align" | "alignItemWithTrigger" | "side" | "sideOffset"
-  > & { children: ReactNode };
+  > & { children: ReactNode } & {
+    xstyle?: stylex.StyleXStyles;
+  };
 
-export function SelectContent({
+export function SelectPopup({
+  xstyle,
   align = "start",
   alignItemWithTrigger = false,
   children,
   side = "bottom",
   sideOffset = 4,
   ...props
-}: SelectContentProps) {
+}: SelectPopupProps) {
   function getPopupStyles(state: SelectPrimitive.Popup.State) {
     return stylex.props(
       styles.popup,
       (state.transitionStatus === "starting" || state.transitionStatus === "ending") &&
         styles.popupTransitioning,
       state.transitionStatus === "ending" && styles.popupEnding,
+      xstyle,
     );
   }
   return (
@@ -201,7 +221,7 @@ export function SelectContent({
           className={(state) => getPopupStyles(state).className}
           style={(state) => getPopupStyles(state).style}
         >
-          <SelectPrimitive.List {...stylex.props(styles.list)}>{children}</SelectPrimitive.List>
+          {children}
         </SelectPrimitive.Popup>
       </SelectPrimitive.Positioner>
     </SelectPrimitive.Portal>
@@ -209,14 +229,18 @@ export function SelectContent({
 }
 
 export function SelectItem({
+  xstyle,
   children,
   ...props
-}: Omit<ComponentProps<typeof SelectPrimitive.Item>, "className" | "style">) {
+}: Omit<ComponentProps<typeof SelectPrimitive.Item>, "className" | "style"> & {
+  xstyle?: ControlLayoutStyles;
+}) {
   function getItemStyles(state: SelectPrimitive.Item.State) {
     return stylex.props(
       styles.item,
       state.highlighted && styles.itemHighlighted,
       state.disabled && styles.itemDisabled,
+      xstyle,
     );
   }
   return (
@@ -233,14 +257,29 @@ export function SelectItem({
   );
 }
 
-export function SelectLabel(
-  props: Omit<ComponentProps<typeof SelectPrimitive.GroupLabel>, "className" | "style">,
-) {
-  return <SelectPrimitive.GroupLabel {...props} {...stylex.props(styles.label)} />;
+export function SelectLabel({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof SelectPrimitive.GroupLabel>, "className" | "style"> & {
+  xstyle?: ControlPlacementStyles;
+}) {
+  return <SelectPrimitive.GroupLabel {...props} {...stylex.props(styles.label, xstyle)} />;
 }
 
-export function SelectSeparator(
-  props: Omit<ComponentProps<typeof SelectPrimitive.Separator>, "className" | "style">,
-) {
-  return <SelectPrimitive.Separator {...props} {...stylex.props(styles.separator)} />;
+export function SelectSeparator({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof SelectPrimitive.Separator>, "className" | "style"> & {
+  xstyle?: ControlPlacementStyles;
+}) {
+  return <SelectPrimitive.Separator {...props} {...stylex.props(styles.separator, xstyle)} />;
+}
+
+export function SelectList({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof SelectPrimitive.List>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <SelectPrimitive.List {...props} {...stylex.props(styles.list, xstyle)} />;
 }

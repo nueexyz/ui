@@ -1,6 +1,6 @@
 import { colorVars, radiusVars, spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps } from "react";
 
 const styles = stylex.create({
   root: {
@@ -44,25 +44,12 @@ type StyleProps = { xstyle?: stylex.StyleXStyles };
 
 export type BannerProps = Omit<ComponentProps<"div">, "title" | "className" | "style"> &
   StyleProps & {
-    action?: ReactNode;
     /** Announces a Banner that is added or updated after the initial page render. */
     announce?: BannerAnnounce;
-    description?: ReactNode;
     size?: BannerSize;
-    title?: ReactNode;
   };
 
-export function Banner({
-  action,
-  announce,
-  children,
-  description,
-  role,
-  size = "md",
-  title,
-  xstyle,
-  ...props
-}: BannerProps) {
+export function Banner({ announce, children, role, size = "md", xstyle, ...props }: BannerProps) {
   let liveRole: "alert" | "status" | undefined;
   if (announce === "assertive") {
     liveRole = "alert";
@@ -72,12 +59,7 @@ export function Banner({
 
   return (
     <div {...props} role={role ?? liveRole} {...stylex.props(styles.root, styles[size], xstyle)}>
-      <div {...stylex.props(styles.content)}>
-        {title ? <BannerTitle>{title}</BannerTitle> : null}
-        {description ? <BannerDescription>{description}</BannerDescription> : null}
-        {children}
-      </div>
-      {action ? <div {...stylex.props(styles.action)}>{action}</div> : null}
+      {children}
     </div>
   );
 }
@@ -94,4 +76,18 @@ export function BannerDescription({
   ...props
 }: Omit<ComponentProps<"div">, "className" | "style"> & StyleProps) {
   return <div {...props} {...stylex.props(styles.description, xstyle)} />;
+}
+
+export function BannerContent({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & StyleProps) {
+  return <div {...props} {...stylex.props(styles.content, xstyle)} />;
+}
+
+export function BannerActions({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & StyleProps) {
+  return <div {...props} {...stylex.props(styles.action, xstyle)} />;
 }

@@ -1,7 +1,7 @@
 import { typographyVars, spacingVars } from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollAreaViewport, ScrollAreaContent } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 const layout = stylex.create({
   preview: {
@@ -42,12 +42,16 @@ export default function Default() {
   return (
     <div {...stylex.props(layout.preview)}>
       <ScrollArea xstyle={styles.viewport}>
-        {activities.map((activity, index) => (
-          <div key={index}>
-            <div {...stylex.props(styles.item)}>{activity}</div>
-            {index < 11 ? <Separator /> : null}
-          </div>
-        ))}
+        <ScrollAreaViewport>
+          <ScrollAreaContent>
+            {activities.map((activity, index) => (
+              <div key={index}>
+                <div {...stylex.props(styles.item)}>{activity}</div>
+                {index < 11 ? <Separator /> : null}
+              </div>
+            ))}
+          </ScrollAreaContent>
+        </ScrollAreaViewport>
       </ScrollArea>
     </div>
   );

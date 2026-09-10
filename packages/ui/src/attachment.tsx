@@ -12,6 +12,7 @@ import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
 import { Button, type ButtonProps } from "./button";
+import type { ControlPlacementStyles } from "./control-layout";
 
 const styles = stylex.create({
   root: {
@@ -149,32 +150,39 @@ export function Attachment({
 
 export type AttachmentMediaProps = Omit<ComponentProps<"div">, "className" | "style"> & {
   variant?: "icon" | "image";
+  xstyle?: stylex.StyleXStyles;
 };
 
-export function AttachmentMedia({ variant = "icon", ...props }: AttachmentMediaProps) {
-  return <div {...props} {...stylex.props(styles.media, styles[`media${variant}`])} />;
+export function AttachmentMedia({ xstyle, variant = "icon", ...props }: AttachmentMediaProps) {
+  return <div {...props} {...stylex.props(styles.media, styles[`media${variant}`], xstyle)} />;
 }
 
 export function AttachmentContent({
+  xstyle,
   ...props
-}: Omit<ComponentProps<"div">, "className" | "style">) {
-  return <div {...props} {...stylex.props(styles.content)} />;
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <div {...props} {...stylex.props(styles.content, xstyle)} />;
 }
 
-export function AttachmentTitle({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
-  return <div {...props} {...stylex.props(styles.title)} />;
+export function AttachmentTitle({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: ControlPlacementStyles }) {
+  return <div {...props} {...stylex.props(styles.title, xstyle)} />;
 }
 
 export function AttachmentDescription({
+  xstyle,
   ...props
-}: Omit<ComponentProps<"p">, "className" | "style">) {
-  return <p {...props} {...stylex.props(styles.description)} />;
+}: Omit<ComponentProps<"p">, "className" | "style"> & { xstyle?: ControlPlacementStyles }) {
+  return <p {...props} {...stylex.props(styles.description, xstyle)} />;
 }
 
 export function AttachmentActions({
+  xstyle,
   ...props
-}: Omit<ComponentProps<"div">, "className" | "style">) {
-  return <div {...props} {...stylex.props(styles.actions)} />;
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <div {...props} {...stylex.props(styles.actions, xstyle)} />;
 }
 
 export type AttachmentActionProps = Omit<ButtonProps, "size" | "variant">;
@@ -184,12 +192,16 @@ export function AttachmentAction({ xstyle, ...props }: AttachmentActionProps) {
 }
 
 export function AttachmentTrigger({
+  xstyle,
   type = "button",
   ...props
-}: Omit<ComponentProps<"button">, "className" | "style">) {
-  return <button {...props} type={type} {...stylex.props(styles.trigger)} />;
+}: Omit<ComponentProps<"button">, "className" | "style"> & { xstyle?: ControlPlacementStyles }) {
+  return <button {...props} type={type} {...stylex.props(styles.trigger, xstyle)} />;
 }
 
-export function AttachmentGroup({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
-  return <div {...props} {...stylex.props(styles.group)} />;
+export function AttachmentGroup({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <div {...props} {...stylex.props(styles.group, xstyle)} />;
 }

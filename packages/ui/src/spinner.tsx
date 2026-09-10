@@ -2,6 +2,8 @@ import { colorVars, motionVars, radiusVars, sizeVars } from "@nuee/tokens/semant
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import type { ControlPlacementStyles } from "./control-layout";
+
 const spin = stylex.keyframes({ to: { transform: "rotate(360deg)" } });
 
 const styles = stylex.create({
@@ -26,8 +28,9 @@ const styles = stylex.create({
 
 export type SpinnerProps = Omit<ComponentProps<"output">, "className" | "style"> & {
   label?: string;
+  xstyle?: ControlPlacementStyles;
 };
 
-export function Spinner({ label = "Loading", ...props }: SpinnerProps) {
-  return <output {...props} aria-label={label} {...stylex.props(styles.root)} />;
+export function Spinner({ xstyle, label = "Loading", ...props }: SpinnerProps) {
+  return <output {...props} aria-label={label} {...stylex.props(styles.root, xstyle)} />;
 }

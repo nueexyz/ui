@@ -321,6 +321,7 @@ export type ToasterProps = Omit<
   position?: ToastPosition;
   /** Content and accessible label for the action that dismisses all toasts. */
   clearAllProps?: Pick<ComponentProps<"button">, "children" | "aria-label">;
+  xstyle?: stylex.StyleXStyles;
 };
 
 export const toast = ToastPrimitive.createToastManager();
@@ -485,6 +486,7 @@ function ToastStack({
 }
 
 export function Toaster({
+  xstyle,
   limit = 3,
   position = "bottom-right",
   clearAllProps,
@@ -505,6 +507,7 @@ export function Toaster({
             horizontalPosition === "left" && styles.viewportLeft,
             horizontalPosition === "center" && styles.viewportCenter,
             horizontalPosition === "right" && styles.viewportRight,
+            xstyle,
           )}
         >
           <ToastStack position={position} clearAllProps={clearAllProps} />

@@ -20,16 +20,7 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <LocalizedMarkdown text={"## Composition"} />
 
-```tsx
-import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
-
-<Drawer showSwipeHandle swipeDirection="down">
-  <DrawerTrigger>Open drawer</DrawerTrigger>
-  <DrawerContent>
-    <DrawerTitle>Move to folder</DrawerTitle>
-  </DrawerContent>
-</Drawer>;
-```
+<CodeBlock code={DefaultSource} language="tsx" />
 
 <LocalizedMarkdown text={"## Installation"} />
 
@@ -65,7 +56,9 @@ import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from "@/components/
 
 ```tsx
 <Drawer showSwipeHandle defaultSnapPoint={0.5} snapPoints={[0.5, 1]}>
-  <DrawerContent>...</DrawerContent>
+  <DrawerPopup>
+    <DrawerContent>...</DrawerContent>
+  </DrawerPopup>
 </Drawer>
 ```
 
@@ -79,7 +72,9 @@ import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from "@/components/
 
 ```tsx
 <Drawer modal={false} overlay="none" disablePointerDismissal>
-  <DrawerContent>...</DrawerContent>
+  <DrawerPopup>
+    <DrawerContent>...</DrawerContent>
+  </DrawerPopup>
 </Drawer>
 ```
 
@@ -100,7 +95,7 @@ const [open, setOpen] = useState(false)
   </main>
 
   <Drawer open={open} onOpenChange={setOpen} swipeDirection="left">
-    <DrawerContent>...</DrawerContent>
+    <DrawerPopup><DrawerContent>...</DrawerContent></DrawerPopup>
   </Drawer>
 </>
 ```

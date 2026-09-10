@@ -12,6 +12,8 @@ import { CaretDownIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import type { ControlLayoutStyles } from "./control-layout";
+
 const styles = stylex.create({
   root: { minWidth: 0, width: "100%" },
   item: {
@@ -91,49 +93,60 @@ const styles = stylex.create({
 });
 
 export function Accordion({
+  xstyle,
   ...props
-}: Omit<ComponentProps<typeof AccordionPrimitive.Root>, "className" | "style">) {
-  return <AccordionPrimitive.Root {...props} {...stylex.props(styles.root)} />;
+}: Omit<ComponentProps<typeof AccordionPrimitive.Root>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <AccordionPrimitive.Root {...props} {...stylex.props(styles.root, xstyle)} />;
 }
 
 export function AccordionItem({
+  xstyle,
   ...props
-}: Omit<ComponentProps<typeof AccordionPrimitive.Item>, "className" | "style">) {
-  return <AccordionPrimitive.Item {...props} {...stylex.props(styles.item)} />;
+}: Omit<ComponentProps<typeof AccordionPrimitive.Item>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <AccordionPrimitive.Item {...props} {...stylex.props(styles.item, xstyle)} />;
 }
 
 export function AccordionTrigger({
+  xstyle,
   children,
   ...props
-}: Omit<ComponentProps<typeof AccordionPrimitive.Trigger>, "className" | "style">) {
+}: Omit<ComponentProps<typeof AccordionPrimitive.Trigger>, "className" | "style"> & {
+  xstyle?: ControlLayoutStyles;
+}) {
   function getTriggerStyles(state: AccordionPrimitive.Trigger.State) {
-    return stylex.props(styles.trigger, state.disabled && styles.triggerDisabled);
+    return stylex.props(styles.trigger, state.disabled && styles.triggerDisabled, xstyle);
   }
   return (
-    <AccordionPrimitive.Header {...stylex.props(styles.header)}>
-      <AccordionPrimitive.Trigger
-        {...props}
-        className={(state) => getTriggerStyles(state).className}
-        style={(state) => getTriggerStyles(state).style}
-      >
-        {children}
-        <span aria-hidden="true" {...stylex.props(styles.icon)}>
-          <CaretDownIcon />
-        </span>
-      </AccordionPrimitive.Trigger>
-    </AccordionPrimitive.Header>
+    <AccordionPrimitive.Trigger
+      {...props}
+      className={(state) => getTriggerStyles(state).className}
+      style={(state) => getTriggerStyles(state).style}
+    >
+      {children}
+      <span aria-hidden="true" {...stylex.props(styles.icon)}>
+        <CaretDownIcon />
+      </span>
+    </AccordionPrimitive.Trigger>
   );
 }
 
-export function AccordionContent({
+export function AccordionPanel({
+  xstyle,
   children,
   ...props
-}: Omit<ComponentProps<typeof AccordionPrimitive.Panel>, "className" | "style">) {
+}: Omit<ComponentProps<typeof AccordionPrimitive.Panel>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
   function getPanelStyles(state: AccordionPrimitive.Panel.State) {
     return stylex.props(
       styles.panel,
       (state.transitionStatus === "starting" || state.transitionStatus === "ending") &&
         styles.panelTransitioning,
+      xstyle,
     );
   }
   return (
@@ -142,7 +155,23 @@ export function AccordionContent({
       className={(state) => getPanelStyles(state).className}
       style={(state) => getPanelStyles(state).style}
     >
-      <div {...stylex.props(styles.panelContent)}>{children}</div>
+      {children}
     </AccordionPrimitive.Panel>
   );
+}
+
+export function AccordionContent({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <div {...props} {...stylex.props(styles.panelContent, xstyle)} />;
+}
+
+export function AccordionHeader({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof AccordionPrimitive.Header>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <AccordionPrimitive.Header {...props} {...stylex.props(styles.header, xstyle)} />;
 }

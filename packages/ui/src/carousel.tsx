@@ -126,16 +126,16 @@ export type CarouselContentProps = Omit<ComponentProps<"div">, "className" | "st
   xstyle?: stylex.StyleXStyles;
 };
 
-export function CarouselContent({ children, xstyle, ...props }: CarouselContentProps) {
+export function CarouselViewport({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style" | "ref"> & { xstyle?: stylex.StyleXStyles }) {
   const { viewportRef } = useCarousel();
+  return <div ref={viewportRef} {...props} {...stylex.props(styles.viewport, xstyle)} />;
+}
 
-  return (
-    <div ref={viewportRef} {...stylex.props(styles.viewport)}>
-      <div {...props} {...stylex.props(styles.content, xstyle)}>
-        {children}
-      </div>
-    </div>
-  );
+export function CarouselContent({ xstyle, ...props }: CarouselContentProps) {
+  return <div {...props} {...stylex.props(styles.content, xstyle)} />;
 }
 
 export type CarouselItemProps = Omit<ComponentProps<"div">, "className" | "style"> & {

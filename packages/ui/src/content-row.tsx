@@ -2,6 +2,7 @@ import { colorVars, radiusVars, sizeVars, spacingVars } from "@nuee/tokens/seman
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import type { ControlPlacementStyles } from "./control-layout";
 import { typographyStyles } from "./typography";
 
 const styles = stylex.create({
@@ -92,36 +93,48 @@ export function ContentRow({
   );
 }
 
-export function ContentRowGroup({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
-  return <div {...props} {...stylex.props(styles.group)} />;
+export function ContentRowGroup({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <div {...props} {...stylex.props(styles.group, xstyle)} />;
 }
 
 export type ContentRowMediaProps = Omit<ComponentProps<"div">, "className" | "style"> & {
   variant?: "avatar" | "icon" | "image";
+  xstyle?: stylex.StyleXStyles;
 };
 
-export function ContentRowMedia({ variant = "icon", ...props }: ContentRowMediaProps) {
-  return <div {...props} {...stylex.props(styles.media, styles[`media${variant}`])} />;
+export function ContentRowMedia({ xstyle, variant = "icon", ...props }: ContentRowMediaProps) {
+  return <div {...props} {...stylex.props(styles.media, styles[`media${variant}`], xstyle)} />;
 }
 
 export function ContentRowContent({
+  xstyle,
   ...props
-}: Omit<ComponentProps<"div">, "className" | "style">) {
-  return <div {...props} {...stylex.props(styles.content)} />;
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <div {...props} {...stylex.props(styles.content, xstyle)} />;
 }
 
-export function ContentRowTitle({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
-  return <div {...props} {...stylex.props(typographyStyles.title)} />;
+export function ContentRowTitle({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: ControlPlacementStyles }) {
+  return <div {...props} {...stylex.props(typographyStyles.title, xstyle)} />;
 }
 
 export function ContentRowDescription({
+  xstyle,
   ...props
-}: Omit<ComponentProps<"p">, "className" | "style">) {
-  return <p {...props} {...stylex.props(typographyStyles.description, styles.description)} />;
+}: Omit<ComponentProps<"p">, "className" | "style"> & { xstyle?: ControlPlacementStyles }) {
+  return (
+    <p {...props} {...stylex.props(typographyStyles.description, styles.description, xstyle)} />
+  );
 }
 
 export function ContentRowActions({
+  xstyle,
   ...props
-}: Omit<ComponentProps<"div">, "className" | "style">) {
-  return <div {...props} {...stylex.props(styles.actions)} />;
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <div {...props} {...stylex.props(styles.actions, xstyle)} />;
 }

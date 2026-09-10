@@ -19,26 +19,7 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <LocalizedMarkdown text={"## Composition"} />
 
-```tsx
-import { Combobox, ComboboxCollection, ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem } from "@/components/ui/combobox"
-import { Field, FieldDescription, FieldLabel } from "@/components/ui/field"
-
-const frameworks = ["React", "Vue", "Svelte"]
-
-<Field>
-  <FieldLabel>Framework</FieldLabel>
-  <Combobox items={frameworks}>
-    <ComboboxInput placeholder="Search frameworks" />
-    <ComboboxContent>
-      <ComboboxEmpty>No matching frameworks.</ComboboxEmpty>
-      <ComboboxCollection>
-        {(framework) => <ComboboxItem key={framework} value={framework}>{framework}</ComboboxItem>}
-      </ComboboxCollection>
-    </ComboboxContent>
-  </Combobox>
-  <FieldDescription>Select the framework used in your project.</FieldDescription>
-</Field>
-```
+<CodeBlock code={DefaultSource} language="tsx" />
 
 <LocalizedMarkdown text={"## Installation"} />
 

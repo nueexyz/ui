@@ -13,7 +13,7 @@ import {
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import type { ControlLayoutStyles } from "./control-layout";
+import type { ControlLayoutStyles, ControlPlacementStyles } from "./control-layout";
 
 const styles = stylex.create({
   root: { alignItems: "center", display: "flex", gap: spacingVars.space2 },
@@ -63,21 +63,28 @@ export function InputOTP({ xstyle, ...props }: InputOTPProps) {
   return <OTPField.Root {...props} {...stylex.props(styles.root, xstyle)} />;
 }
 
-export function InputOTPGroup({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
-  return <div {...props} {...stylex.props(styles.group)} />;
+export function InputOTPGroup({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <div {...props} {...stylex.props(styles.group, xstyle)} />;
 }
 
 export function InputOTPSlot({
+  xstyle,
   ...props
-}: Omit<ComponentProps<typeof OTPField.Input>, "className" | "style">) {
-  return <OTPField.Input {...props} {...stylex.props(styles.slot)} />;
+}: Omit<ComponentProps<typeof OTPField.Input>, "className" | "style"> & {
+  xstyle?: ControlPlacementStyles;
+}) {
+  return <OTPField.Input {...props} {...stylex.props(styles.slot, xstyle)} />;
 }
 
 export function InputOTPSeparator({
+  xstyle,
   ...props
-}: Omit<ComponentProps<"span">, "className" | "style">) {
+}: Omit<ComponentProps<"span">, "className" | "style"> & { xstyle?: ControlPlacementStyles }) {
   return (
-    <span aria-hidden="true" {...props} {...stylex.props(styles.separator)}>
+    <span aria-hidden="true" {...props} {...stylex.props(styles.separator, xstyle)}>
       {props.children ?? "–"}
     </span>
   );

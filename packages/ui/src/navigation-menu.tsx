@@ -15,6 +15,8 @@ import { CaretDownIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import type { ControlLayoutStyles } from "./control-layout";
+
 const styles = stylex.create({
   root: {
     alignItems: "center",
@@ -157,27 +159,39 @@ const styles = stylex.create({
   },
 });
 
-export function NavigationMenu(
-  props: Omit<ComponentProps<typeof NavigationMenuPrimitive.Root>, "className" | "style">,
-) {
-  return <NavigationMenuPrimitive.Root {...props} {...stylex.props(styles.root)} />;
+export function NavigationMenu({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof NavigationMenuPrimitive.Root>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <NavigationMenuPrimitive.Root {...props} {...stylex.props(styles.root, xstyle)} />;
 }
 
-export function NavigationMenuList(
-  props: Omit<ComponentProps<typeof NavigationMenuPrimitive.List>, "className" | "style">,
-) {
-  return <NavigationMenuPrimitive.List {...props} {...stylex.props(styles.list)} />;
+export function NavigationMenuList({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof NavigationMenuPrimitive.List>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <NavigationMenuPrimitive.List {...props} {...stylex.props(styles.list, xstyle)} />;
 }
 
-export function NavigationMenuItem(
-  props: Omit<ComponentProps<typeof NavigationMenuPrimitive.Item>, "className" | "style">,
-) {
-  return <NavigationMenuPrimitive.Item {...props} {...stylex.props(styles.item)} />;
+export function NavigationMenuItem({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof NavigationMenuPrimitive.Item>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <NavigationMenuPrimitive.Item {...props} {...stylex.props(styles.item, xstyle)} />;
 }
 
 export function NavigationMenuContent({
+  xstyle,
   ...props
-}: Omit<ComponentProps<typeof NavigationMenuPrimitive.Content>, "className" | "style">) {
+}: Omit<ComponentProps<typeof NavigationMenuPrimitive.Content>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
   function getContentStyles(state: NavigationMenuPrimitive.Content.State) {
     return stylex.props(
       styles.content,
@@ -193,6 +207,7 @@ export function NavigationMenuContent({
       state.transitionStatus === "ending" &&
         state.activationDirection === "right" &&
         styles.contentEndingToLeft,
+      xstyle,
     );
   }
   return (
@@ -205,11 +220,14 @@ export function NavigationMenuContent({
 }
 
 export function NavigationMenuTrigger({
+  xstyle,
   children,
   ...props
-}: Omit<ComponentProps<typeof NavigationMenuPrimitive.Trigger>, "className" | "style">) {
+}: Omit<ComponentProps<typeof NavigationMenuPrimitive.Trigger>, "className" | "style"> & {
+  xstyle?: ControlLayoutStyles;
+}) {
   function getTriggerStyles(state: NavigationMenuPrimitive.Trigger.State) {
-    return stylex.props(styles.trigger, state.open && styles.triggerOpen);
+    return stylex.props(styles.trigger, state.open && styles.triggerOpen, xstyle);
   }
   return (
     <NavigationMenuPrimitive.Trigger
@@ -226,18 +244,25 @@ export function NavigationMenuTrigger({
 }
 
 export function NavigationMenuLink({
+  xstyle,
   ...props
-}: Omit<ComponentProps<typeof NavigationMenuPrimitive.Link>, "className" | "style">) {
-  return <NavigationMenuPrimitive.Link {...props} {...stylex.props(styles.link)} />;
+}: Omit<ComponentProps<typeof NavigationMenuPrimitive.Link>, "className" | "style"> & {
+  xstyle?: ControlLayoutStyles;
+}) {
+  return <NavigationMenuPrimitive.Link {...props} {...stylex.props(styles.link, xstyle)} />;
 }
 
 type NavigationMenuViewportProps = Omit<
   ComponentProps<typeof NavigationMenuPrimitive.Popup>,
   "className" | "style"
 > &
-  Pick<ComponentProps<typeof NavigationMenuPrimitive.Positioner>, "align" | "side" | "sideOffset">;
+  Pick<
+    ComponentProps<typeof NavigationMenuPrimitive.Positioner>,
+    "align" | "side" | "sideOffset"
+  > & { xstyle?: stylex.StyleXStyles };
 
 export function NavigationMenuViewport({
+  xstyle,
   align = "start",
   side = "bottom",
   sideOffset = 8,
@@ -248,6 +273,7 @@ export function NavigationMenuViewport({
       styles.popup,
       (state.transitionStatus === "starting" || state.transitionStatus === "ending") &&
         styles.popupTransitioning,
+      xstyle,
     );
   }
   return (

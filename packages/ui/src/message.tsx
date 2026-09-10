@@ -8,6 +8,8 @@ import {
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import type { ControlPlacementStyles } from "./control-layout";
+
 const styles = stylex.create({
   group: { display: "flex", flexDirection: "column", gap: spacingVars.space2, minWidth: 0 },
   root: { display: "flex", gap: spacingVars.space2, minWidth: 0, width: "100%" },
@@ -73,22 +75,37 @@ export function Message({ align = "start", xstyle, ...props }: MessageProps) {
   );
 }
 
-export function MessageGroup({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
-  return <div {...props} {...stylex.props(styles.group)} />;
+export function MessageGroup({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <div {...props} {...stylex.props(styles.group, xstyle)} />;
 }
 
-export function MessageAvatar({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
-  return <div {...props} {...stylex.props(styles.avatar)} />;
+export function MessageAvatar({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: ControlPlacementStyles }) {
+  return <div {...props} {...stylex.props(styles.avatar, xstyle)} />;
 }
 
-export function MessageHeader({ ...props }: Omit<ComponentProps<"header">, "className" | "style">) {
-  return <header {...props} {...stylex.props(styles.header)} />;
+export function MessageHeader({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"header">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <header {...props} {...stylex.props(styles.header, xstyle)} />;
 }
 
-export function MessageContent({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
-  return <div {...props} {...stylex.props(styles.content)} />;
+export function MessageContent({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <div {...props} {...stylex.props(styles.content, xstyle)} />;
 }
 
-export function MessageFooter({ ...props }: Omit<ComponentProps<"footer">, "className" | "style">) {
-  return <footer {...props} {...stylex.props(styles.footer)} />;
+export function MessageFooter({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"footer">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <footer {...props} {...stylex.props(styles.footer, xstyle)} />;
 }

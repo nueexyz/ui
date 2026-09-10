@@ -13,6 +13,8 @@ import {
 import * as stylex from "@stylexjs/stylex";
 import { createContext, type ComponentProps, useContext } from "react";
 
+import type { ControlLayoutStyles } from "./control-layout";
+
 const styles = stylex.create({
   root: { minWidth: 0, width: "100%" },
   list: {
@@ -130,26 +132,30 @@ const styles = stylex.create({
 export type TabsVariant = "segmented" | "underline";
 export type TabsProps = Omit<ComponentProps<typeof TabsPrimitive.Root>, "className" | "style"> & {
   variant?: TabsVariant;
+  xstyle?: stylex.StyleXStyles;
 };
 
 const TabsVariantContext = createContext<TabsVariant>("segmented");
 
-export function Tabs({ variant = "segmented", ...props }: TabsProps) {
+export function Tabs({ xstyle, variant = "segmented", ...props }: TabsProps) {
   return (
     <TabsVariantContext.Provider value={variant}>
-      <TabsPrimitive.Root {...props} {...stylex.props(styles.root)} />
+      <TabsPrimitive.Root {...props} {...stylex.props(styles.root, xstyle)} />
     </TabsVariantContext.Provider>
   );
 }
 
 export function TabsList({
+  xstyle,
   children,
   ...props
-}: Omit<ComponentProps<typeof TabsPrimitive.List>, "className" | "style">) {
+}: Omit<ComponentProps<typeof TabsPrimitive.List>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
   const variant = useContext(TabsVariantContext);
 
   return (
-    <TabsPrimitive.List {...props} {...stylex.props(styles.list, styles[`${variant}List`])}>
+    <TabsPrimitive.List {...props} {...stylex.props(styles.list, styles[`${variant}List`], xstyle)}>
       {children}
       <TabsPrimitive.Indicator {...stylex.props(styles.indicator, styles[`${variant}Indicator`])} />
     </TabsPrimitive.List>
@@ -157,8 +163,11 @@ export function TabsList({
 }
 
 export function TabsTrigger({
+  xstyle,
   ...props
-}: Omit<ComponentProps<typeof TabsPrimitive.Tab>, "className" | "style">) {
+}: Omit<ComponentProps<typeof TabsPrimitive.Tab>, "className" | "style"> & {
+  xstyle?: ControlLayoutStyles;
+}) {
   const variant = useContext(TabsVariantContext);
 
   function getTabStyles(state: TabsPrimitive.Tab.State) {
@@ -167,6 +176,7 @@ export function TabsTrigger({
       styles[`${variant}Trigger`],
       state.active && styles.triggerActive,
       state.disabled && styles.triggerDisabled,
+      xstyle,
     );
   }
   return (
@@ -179,7 +189,10 @@ export function TabsTrigger({
 }
 
 export function TabsContent({
+  xstyle,
   ...props
-}: Omit<ComponentProps<typeof TabsPrimitive.Panel>, "className" | "style">) {
-  return <TabsPrimitive.Panel {...props} {...stylex.props(styles.panel)} />;
+}: Omit<ComponentProps<typeof TabsPrimitive.Panel>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <TabsPrimitive.Panel {...props} {...stylex.props(styles.panel, xstyle)} />;
 }

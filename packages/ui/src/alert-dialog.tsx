@@ -15,6 +15,7 @@ import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, ReactNode } from "react";
 
 import { Button } from "./button";
+import type { ControlPlacementStyles } from "./control-layout";
 
 const styles = stylex.create({
   backdrop: {
@@ -104,7 +105,14 @@ const styles = stylex.create({
 });
 
 export const AlertDialog = AlertDialogPrimitive.Root;
-export const AlertDialogTrigger = AlertDialogPrimitive.Trigger;
+export function AlertDialogTrigger({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof AlertDialogPrimitive.Trigger>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <AlertDialogPrimitive.Trigger {...props} {...stylex.props(xstyle)} />;
+}
 
 type AlertDialogContentProps = Omit<
   ComponentProps<typeof AlertDialogPrimitive.Popup>,
@@ -142,15 +150,23 @@ export function AlertDialogFooter({
 }
 
 export function AlertDialogTitle({
+  xstyle,
   ...props
-}: Omit<ComponentProps<typeof AlertDialogPrimitive.Title>, "className" | "style">) {
-  return <AlertDialogPrimitive.Title {...props} {...stylex.props(styles.title)} />;
+}: Omit<ComponentProps<typeof AlertDialogPrimitive.Title>, "className" | "style"> & {
+  xstyle?: ControlPlacementStyles;
+}) {
+  return <AlertDialogPrimitive.Title {...props} {...stylex.props(styles.title, xstyle)} />;
 }
 
 export function AlertDialogDescription({
+  xstyle,
   ...props
-}: Omit<ComponentProps<typeof AlertDialogPrimitive.Description>, "className" | "style">) {
-  return <AlertDialogPrimitive.Description {...props} {...stylex.props(styles.description)} />;
+}: Omit<ComponentProps<typeof AlertDialogPrimitive.Description>, "className" | "style"> & {
+  xstyle?: ControlPlacementStyles;
+}) {
+  return (
+    <AlertDialogPrimitive.Description {...props} {...stylex.props(styles.description, xstyle)} />
+  );
 }
 
 type AlertDialogButtonProps = Omit<

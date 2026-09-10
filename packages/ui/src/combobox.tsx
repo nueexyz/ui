@@ -15,6 +15,8 @@ import { CaretDownIcon, CheckIcon, MagnifyingGlassIcon } from "@phosphor-icons/r
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, ReactNode } from "react";
 
+import type { ControlLayoutStyles, ControlPlacementStyles } from "./control-layout";
+
 const styles = stylex.create({
   inputGroup: {
     alignItems: "center",
@@ -163,11 +165,21 @@ const styles = stylex.create({
 
 export const Combobox = ComboboxPrimitive.Root;
 export const ComboboxCollection = ComboboxPrimitive.Collection;
-export const ComboboxGroup = ComboboxPrimitive.Group;
+export function ComboboxGroup({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof ComboboxPrimitive.Group>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <ComboboxPrimitive.Group {...props} {...stylex.props(xstyle)} />;
+}
 
 export function ComboboxInput({
+  xstyle,
   ...props
-}: Omit<ComponentProps<typeof ComboboxPrimitive.Input>, "className" | "style">) {
+}: Omit<ComponentProps<typeof ComboboxPrimitive.Input>, "className" | "style"> & {
+  xstyle?: ControlLayoutStyles;
+}) {
   function getInputStyles(state: ComboboxPrimitive.Input.State) {
     return stylex.props(styles.input, state.disabled && styles.inputDisabled);
   }
@@ -176,7 +188,7 @@ export function ComboboxInput({
   }
 
   return (
-    <ComboboxPrimitive.InputGroup {...stylex.props(styles.inputGroup)}>
+    <ComboboxPrimitive.InputGroup {...stylex.props(styles.inputGroup, xstyle)}>
       <MagnifyingGlassIcon aria-hidden="true" {...stylex.props(styles.searchIcon)} />
       <ComboboxPrimitive.Input
         {...props}
@@ -194,27 +206,30 @@ export function ComboboxInput({
   );
 }
 
-type ComboboxContentProps = Omit<
+type ComboboxPopupProps = Omit<
   ComponentProps<typeof ComboboxPrimitive.Popup>,
   "className" | "style"
 > &
   Pick<ComponentProps<typeof ComboboxPrimitive.Positioner>, "align" | "side" | "sideOffset"> & {
     children: ReactNode;
+    xstyle?: stylex.StyleXStyles;
   };
 
-export function ComboboxContent({
+export function ComboboxPopup({
+  xstyle,
   align = "start",
   children,
   side = "bottom",
   sideOffset = 4,
   ...props
-}: ComboboxContentProps) {
+}: ComboboxPopupProps) {
   function getPopupStyles(state: ComboboxPrimitive.Popup.State) {
     return stylex.props(
       styles.popup,
       (state.transitionStatus === "starting" || state.transitionStatus === "ending") &&
         styles.popupTransitioning,
       state.transitionStatus === "ending" && styles.popupEnding,
+      xstyle,
     );
   }
   return (
@@ -230,7 +245,7 @@ export function ComboboxContent({
           className={(state) => getPopupStyles(state).className}
           style={(state) => getPopupStyles(state).style}
         >
-          <ComboboxPrimitive.List {...stylex.props(styles.list)}>{children}</ComboboxPrimitive.List>
+          {children}
         </ComboboxPrimitive.Popup>
       </ComboboxPrimitive.Positioner>
     </ComboboxPrimitive.Portal>
@@ -238,14 +253,18 @@ export function ComboboxContent({
 }
 
 export function ComboboxItem({
+  xstyle,
   children,
   ...props
-}: Omit<ComponentProps<typeof ComboboxPrimitive.Item>, "className" | "style">) {
+}: Omit<ComponentProps<typeof ComboboxPrimitive.Item>, "className" | "style"> & {
+  xstyle?: ControlLayoutStyles;
+}) {
   function getItemStyles(state: ComboboxPrimitive.Item.State) {
     return stylex.props(
       styles.item,
       state.highlighted && styles.itemHighlighted,
       state.disabled && styles.itemDisabled,
+      xstyle,
     );
   }
   return (
@@ -262,20 +281,38 @@ export function ComboboxItem({
   );
 }
 
-export function ComboboxEmpty(
-  props: Omit<ComponentProps<typeof ComboboxPrimitive.Empty>, "className" | "style">,
-) {
-  return <ComboboxPrimitive.Empty {...props} {...stylex.props(styles.empty)} />;
+export function ComboboxEmpty({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof ComboboxPrimitive.Empty>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <ComboboxPrimitive.Empty {...props} {...stylex.props(styles.empty, xstyle)} />;
 }
 
-export function ComboboxLabel(
-  props: Omit<ComponentProps<typeof ComboboxPrimitive.GroupLabel>, "className" | "style">,
-) {
-  return <ComboboxPrimitive.GroupLabel {...props} {...stylex.props(styles.label)} />;
+export function ComboboxLabel({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof ComboboxPrimitive.GroupLabel>, "className" | "style"> & {
+  xstyle?: ControlPlacementStyles;
+}) {
+  return <ComboboxPrimitive.GroupLabel {...props} {...stylex.props(styles.label, xstyle)} />;
 }
 
-export function ComboboxSeparator(
-  props: Omit<ComponentProps<typeof ComboboxPrimitive.Separator>, "className" | "style">,
-) {
-  return <ComboboxPrimitive.Separator {...props} {...stylex.props(styles.separator)} />;
+export function ComboboxSeparator({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof ComboboxPrimitive.Separator>, "className" | "style"> & {
+  xstyle?: ControlPlacementStyles;
+}) {
+  return <ComboboxPrimitive.Separator {...props} {...stylex.props(styles.separator, xstyle)} />;
+}
+
+export function ComboboxList({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof ComboboxPrimitive.List>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <ComboboxPrimitive.List {...props} {...stylex.props(styles.list, xstyle)} />;
 }

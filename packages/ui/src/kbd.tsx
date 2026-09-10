@@ -8,6 +8,8 @@ import {
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import type { ControlPlacementStyles } from "./control-layout";
+
 const styles = stylex.create({
   root: {
     alignItems: "center",
@@ -30,10 +32,16 @@ const styles = stylex.create({
   group: { alignItems: "center", display: "inline-flex", gap: spacingVars.space1 },
 });
 
-export function Kbd(props: Omit<ComponentProps<"kbd">, "className" | "style">) {
-  return <kbd {...props} {...stylex.props(styles.root)} />;
+export function Kbd({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"kbd">, "className" | "style"> & { xstyle?: ControlPlacementStyles }) {
+  return <kbd {...props} {...stylex.props(styles.root, xstyle)} />;
 }
 
-export function KbdGroup(props: Omit<ComponentProps<"span">, "className" | "style">) {
-  return <span {...props} {...stylex.props(styles.group)} />;
+export function KbdGroup({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"span">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <span {...props} {...stylex.props(styles.group, xstyle)} />;
 }

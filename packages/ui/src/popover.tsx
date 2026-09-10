@@ -14,6 +14,8 @@ import {
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import type { ControlPlacementStyles } from "./control-layout";
+
 const styles = stylex.create({
   positioner: { zIndex: layerVars.popup },
   popup: {
@@ -62,8 +64,22 @@ const styles = stylex.create({
 });
 
 export const Popover = PopoverPrimitive.Root;
-export const PopoverTrigger = PopoverPrimitive.Trigger;
-export const PopoverClose = PopoverPrimitive.Close;
+export function PopoverTrigger({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof PopoverPrimitive.Trigger>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <PopoverPrimitive.Trigger {...props} {...stylex.props(xstyle)} />;
+}
+export function PopoverClose({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof PopoverPrimitive.Close>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <PopoverPrimitive.Close {...props} {...stylex.props(xstyle)} />;
+}
 
 type PopoverContentProps = Omit<
   ComponentProps<typeof PopoverPrimitive.Popup>,
@@ -107,19 +123,26 @@ export function PopoverContent({
   );
 }
 
-export function PopoverHeader({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
-  return <div {...props} {...stylex.props(styles.header)} />;
+export function PopoverHeader({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <div {...props} {...stylex.props(styles.header, xstyle)} />;
 }
 export function PopoverTitle({
+  xstyle,
   children,
   ...props
-}: Omit<ComponentProps<"h2">, "className" | "style">) {
+}: Omit<ComponentProps<"h2">, "className" | "style"> & { xstyle?: ControlPlacementStyles }) {
   return (
-    <h2 {...props} {...stylex.props(styles.title)}>
+    <h2 {...props} {...stylex.props(styles.title, xstyle)}>
       {children}
     </h2>
   );
 }
-export function PopoverDescription({ ...props }: Omit<ComponentProps<"p">, "className" | "style">) {
-  return <p {...props} {...stylex.props(styles.description)} />;
+export function PopoverDescription({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"p">, "className" | "style"> & { xstyle?: ControlPlacementStyles }) {
+  return <p {...props} {...stylex.props(styles.description, xstyle)} />;
 }

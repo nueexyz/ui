@@ -18,15 +18,15 @@
 
 색상 토큰은 `colorVars`에 정의되어 있습니다. 누름 반응을 성공 안내로 사용하지 않습니다. nuée `Button`에는 공통 눌림 축소 효과가 없으므로 임의의 크기 변환을 기본 동작처럼 추가하지 않습니다. 실제 색상은 [State](?path=/docs/foundations-state--docs)에서 비교합니다.
 
-| 사용 상황                              | 권장 선택                       | 적용 코드                                                 |
-| -------------------------------------- | ------------------------------- | --------------------------------------------------------- |
-| 입력값을 고쳐야 함                     | `FieldError`와 입력 가까운 설명 | `<FieldError>Enter a valid email address.</FieldError>`   |
-| 흐름을 막지 않는 작업 완료             | Toast                           | `toast.add({ title: "Changes saved." })`                  |
-| 되돌릴 수 있는 작업                    | Toast의 Undo 버튼과 데이터 복원 | `actionProps: { children: "Undo", onClick: restoreItem }` |
-| 계속 보여야 하는 화면 수준 안내        | `Banner`                        | `<Banner title="Update available" />`                     |
-| 짧은 비동기 작업                       | `Spinner`와 상태 문장           | `<Spinner />`                                             |
-| 진행률을 계산할 수 있는 작업           | `Progress`                      | `<Progress value={50} />`                                 |
-| 결정 후에만 진행할 수 있는 위험한 행동 | Alert `Dialog`                  | `<AlertDialog>…</AlertDialog>`                            |
+| 사용 상황                              | 권장 선택                       | 적용 코드                                                                                     |
+| -------------------------------------- | ------------------------------- | --------------------------------------------------------------------------------------------- |
+| 입력값을 고쳐야 함                     | `FieldError`와 입력 가까운 설명 | `<FieldError>Enter a valid email address.</FieldError>`                                       |
+| 흐름을 막지 않는 작업 완료             | Toast                           | `toast.add({ title: "Changes saved." })`                                                      |
+| 되돌릴 수 있는 작업                    | Toast의 Undo 버튼과 데이터 복원 | `actionProps: { children: "Undo", onClick: restoreItem }`                                     |
+| 계속 보여야 하는 화면 수준 안내        | `Banner`                        | `<Banner><BannerContent><BannerTitle>Update available</BannerTitle></BannerContent></Banner>` |
+| 짧은 비동기 작업                       | `Spinner`와 상태 문장           | `<Spinner />`                                                                                 |
+| 진행률을 계산할 수 있는 작업           | `Progress`                      | `<Progress value={50} />`                                                                     |
+| 결정 후에만 진행할 수 있는 위험한 행동 | Alert `Dialog`                  | `<AlertDialog>…</AlertDialog>`                                                                |
 
 사용자가 반드시 읽어야 하는 조건은 금방 사라지는 Toast에만 표시하지 않습니다.
 

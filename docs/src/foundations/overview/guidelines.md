@@ -33,3 +33,47 @@ nuée는 반복되는 화면 결정을 공유해 사용자가 다음 행동을 �
 ## 기준과 구현의 관계
 
 권장 배치는 새 화면을 설계할 때의 출발점입니다. 컴포넌트가 이미 정한 글자 크기와 정렬을 화면마다 덮어쓰지 않습니다. 예외가 필요하면 이유와 적용 범위를 먼저 적습니다.
+
+## 외부 스타일
+
+DOM 요소를 렌더링하는 컴포넌트의 외부 스타일은 `xstyle`로 전달합니다.
+여러 스타일은 `xstyle={[styles.layout, styles.spacing]}`처럼 배열로 합칩니다.
+`className`과 `style` 대신 이 인터페이스를 사용합니다.
+상태나 컨텍스트만 제공하는 Root, Provider, Portal에는 스타일을 전달하지 않습니다.
+
+콘텐츠 컨테이너는 폭넓은 스타일을 허용합니다. 컨트롤은 외형과 상호작용 상태를
+보호하며 배치와 너비를, 제목·배지·아바타 등은 배치 속성만 허용합니다.
+각 컴포넌트의 `xstyle` 타입이 허용 범위를 나타냅니다.
+
+각 컴포넌트는 자신이 렌더링하는 요소에 `xstyle`을 적용합니다. 패널과 콘텐츠처럼
+스타일 대상이 다르면 컴포넌트를 나누어 조합합니다. 내부 요소로 스타일을 전달하는
+별도 속성을 사용하지 않습니다.
+
+| 바깥 영역                        | 내부 영역                            | 역할                           |
+| -------------------------------- | ------------------------------------ | ------------------------------ |
+| DrawerPopup                      | DrawerContent                        | 패널 크기·배경 / 자식 배치     |
+| AccordionPanel, CollapsiblePanel | AccordionContent, CollapsibleContent | 높이 애니메이션 / 콘텐츠 간격  |
+| SelectPopup, ComboboxPopup       | SelectList, ComboboxList             | 팝업 / 선택 목록               |
+| ScrollArea → ScrollAreaViewport  | ScrollAreaContent                    | 영역 크기·스크롤 / 콘텐츠 배치 |
+| Banner                           | BannerContent, BannerActions         | 배너 / 메시지·행동 묶음        |
+| TableContainer                   | Table                                | 가로 스크롤 / 테이블           |
+| CarouselViewport                 | CarouselContent                      | 스크롤 뷰포트 / 슬라이드 트랙  |
+| AccordionHeader                  | AccordionTrigger                     | 제목 배치 / 조작 버튼          |
+
+```tsx
+<DrawerPopup xstyle={styles.panel}>
+  <DrawerContent xstyle={styles.content}>
+    <DrawerTitle>설정</DrawerTitle>
+    <Separator />
+    <ThemeSelect />
+  </DrawerContent>
+</DrawerPopup>
+```
+
+`gap`은 자식들을 감싼 요소에 지정합니다. Flex나 Grid가 기본값이 아닌 콘텐츠에는
+`display`와 배치 방향도 함께 지정합니다. 팝업 위치 계산, 패널 높이 애니메이션,
+스크롤 및 스와이프에 필요한 바깥 영역은 해당 컴포넌트에 맡깁니다.
+
+버튼의 아이콘·로딩 표시처럼 독립적인 사용자 배치 영역이 아닌 내부 구조는
+컴포넌트가 관리합니다. NativeSelect와 ComboboxInput의 `xstyle`은 아이콘을 포함한
+입력 전체의 배치를 조절합니다.

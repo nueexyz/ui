@@ -12,6 +12,8 @@ import { CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import type { ControlLayoutStyles, ControlPlacementStyles } from "./control-layout";
+
 const styles = stylex.create({
   root: { display: "flex", justifyContent: "center", width: "100%" },
   content: {
@@ -71,24 +73,35 @@ const styles = stylex.create({
   },
 });
 
-export function Pagination({ ...props }: Omit<ComponentProps<"nav">, "className" | "style">) {
-  return <nav aria-label="Pagination" {...props} {...stylex.props(styles.root)} />;
+export function Pagination({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"nav">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <nav aria-label="Pagination" {...props} {...stylex.props(styles.root, xstyle)} />;
 }
 
-export function PaginationContent({ ...props }: Omit<ComponentProps<"ul">, "className" | "style">) {
-  return <ul {...props} {...stylex.props(styles.content)} />;
+export function PaginationContent({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"ul">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <ul {...props} {...stylex.props(styles.content, xstyle)} />;
 }
 
-export function PaginationItem({ ...props }: Omit<ComponentProps<"li">, "className" | "style">) {
-  return <li {...props} {...stylex.props(styles.item)} />;
+export function PaginationItem({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"li">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <li {...props} {...stylex.props(styles.item, xstyle)} />;
 }
 
 export type PaginationLinkProps = Omit<ComponentProps<"a">, "className" | "style"> & {
   isActive?: boolean;
   size?: "default" | "icon";
+  xstyle?: ControlLayoutStyles;
 };
 
 export function PaginationLink({
+  xstyle,
   children,
   isActive = false,
   size = "icon",
@@ -98,7 +111,7 @@ export function PaginationLink({
     <a
       aria-current={isActive ? "page" : undefined}
       {...props}
-      {...stylex.props(styles.link, styles[size], isActive && styles.active)}
+      {...stylex.props(styles.link, styles[size], isActive && styles.active, xstyle)}
     >
       {children}
     </a>
@@ -124,10 +137,11 @@ export function PaginationNext({ children, ...props }: PaginationLinkProps) {
 }
 
 export function PaginationEllipsis({
+  xstyle,
   ...props
-}: Omit<ComponentProps<"span">, "className" | "style">) {
+}: Omit<ComponentProps<"span">, "className" | "style"> & { xstyle?: ControlPlacementStyles }) {
   return (
-    <span aria-hidden="true" {...props} {...stylex.props(styles.ellipsis)}>
+    <span aria-hidden="true" {...props} {...stylex.props(styles.ellipsis, xstyle)}>
       …
     </span>
   );

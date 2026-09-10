@@ -1,7 +1,7 @@
 import { spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 
-import { Banner } from "@/components/ui/banner";
+import { BannerDescription, BannerTitle, BannerContent, Banner } from "@/components/ui/banner";
 const layout = stylex.create({
   preview: {
     alignItems: "center",
@@ -21,8 +21,18 @@ const layout = stylex.create({
 export default function Sizes() {
   return (
     <div {...stylex.props(layout.preview, layout.column)}>
-      <Banner description="A standard page-level message." title="Default" />
-      <Banner description="A compact inline message." size="sm" title="Compact" />
+      <Banner>
+        <BannerContent>
+          <BannerTitle>Default</BannerTitle>
+          <BannerDescription>A standard page-level message.</BannerDescription>
+        </BannerContent>
+      </Banner>
+      <Banner size="sm">
+        <BannerContent>
+          <BannerTitle>Compact</BannerTitle>
+          <BannerDescription>A compact inline message.</BannerDescription>
+        </BannerContent>
+      </Banner>
     </div>
   );
 }

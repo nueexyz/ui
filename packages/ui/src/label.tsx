@@ -3,6 +3,7 @@ import { colorVars, spacingVars } from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import type { ControlPlacementStyles } from "./control-layout";
 import { typographyStyles } from "./typography";
 
 const styles = stylex.create({
@@ -16,8 +17,10 @@ const styles = stylex.create({
   },
 });
 
-export type LabelProps = Omit<ComponentProps<"label">, "className" | "style">;
+export type LabelProps = Omit<ComponentProps<"label">, "className" | "style"> & {
+  xstyle?: ControlPlacementStyles;
+};
 
-export function Label(props: LabelProps) {
-  return <label {...props} {...stylex.props(typographyStyles.title, styles.root)} />;
+export function Label({ xstyle, ...props }: LabelProps) {
+  return <label {...props} {...stylex.props(typographyStyles.title, styles.root, xstyle)} />;
 }

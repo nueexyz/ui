@@ -68,8 +68,8 @@ export type NativeSelectProps = Omit<ComponentProps<"select">, "size" | "classNa
 
 export function NativeSelect({ children, size = "md", xstyle, ...props }: NativeSelectProps) {
   return (
-    <span {...stylex.props(styles.root)}>
-      <select {...props} {...stylex.props(styles.select, styles[size], xstyle)}>
+    <span {...stylex.props(styles.root, xstyle)}>
+      <select {...props} {...stylex.props(styles.select, styles[size])}>
         {children}
       </select>
       <CaretDownIcon aria-hidden="true" {...stylex.props(styles.icon)} />
@@ -77,11 +77,15 @@ export function NativeSelect({ children, size = "md", xstyle, ...props }: Native
   );
 }
 
-export function NativeSelectOption(props: Omit<ComponentProps<"option">, "className" | "style">) {
-  return <option {...props} />;
+export function NativeSelectOption({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"option">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <option {...props} {...stylex.props(xstyle)} />;
 }
-export function NativeSelectOptGroup(
-  props: Omit<ComponentProps<"optgroup">, "className" | "style">,
-) {
-  return <optgroup {...props} />;
+export function NativeSelectOptGroup({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"optgroup">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <optgroup {...props} {...stylex.props(xstyle)} />;
 }

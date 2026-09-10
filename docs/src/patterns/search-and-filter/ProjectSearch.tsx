@@ -7,7 +7,8 @@ import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import {
   Select,
-  SelectContent,
+  SelectPopup,
+  SelectList,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -100,11 +101,13 @@ export default function ProjectSearch() {
               <SelectTrigger id={`${id}-status`}>
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All statuses</SelectItem>
-                <SelectItem value="active">Active</SelectItem>
-                <SelectItem value="archived">Archived</SelectItem>
-              </SelectContent>
+              <SelectPopup>
+                <SelectList>
+                  <SelectItem value="all">All statuses</SelectItem>
+                  <SelectItem value="active">Active</SelectItem>
+                  <SelectItem value="archived">Archived</SelectItem>
+                </SelectList>
+              </SelectPopup>
             </Select>
           </Field>
         </div>

@@ -9,6 +9,8 @@ import {
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import type { ControlPlacementStyles } from "./control-layout";
+
 const styles = stylex.create({
   root: {
     display: "flex",
@@ -115,9 +117,14 @@ export function TimelineItem({ xstyle, ...props }: TimelineItemProps) {
 
 export type TimelineIndicatorProps = Omit<ComponentProps<"span">, "className" | "style"> & {
   variant?: TimelineIndicatorVariant;
+  xstyle?: ControlPlacementStyles;
 };
 
-export function TimelineIndicator({ variant = "default", ...props }: TimelineIndicatorProps) {
+export function TimelineIndicator({
+  xstyle,
+  variant = "default",
+  ...props
+}: TimelineIndicatorProps) {
   return (
     <span
       aria-hidden={props["aria-label"] === undefined ? true : undefined}
@@ -127,25 +134,36 @@ export function TimelineIndicator({ variant = "default", ...props }: TimelineInd
         variant === "active" && styles.indicatorActive,
         variant === "complete" && styles.indicatorComplete,
         variant === "error" && styles.indicatorError,
+        xstyle,
       )}
     />
   );
 }
 
-export function TimelineContent({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
-  return <div {...props} {...stylex.props(styles.content)} />;
+export function TimelineContent({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <div {...props} {...stylex.props(styles.content, xstyle)} />;
 }
 
-export function TimelineTitle({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
-  return <div {...props} {...stylex.props(styles.title)} />;
+export function TimelineTitle({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: ControlPlacementStyles }) {
+  return <div {...props} {...stylex.props(styles.title, xstyle)} />;
 }
 
 export function TimelineDescription({
+  xstyle,
   ...props
-}: Omit<ComponentProps<"p">, "className" | "style">) {
-  return <p {...props} {...stylex.props(styles.description)} />;
+}: Omit<ComponentProps<"p">, "className" | "style"> & { xstyle?: ControlPlacementStyles }) {
+  return <p {...props} {...stylex.props(styles.description, xstyle)} />;
 }
 
-export function TimelineTime({ ...props }: Omit<ComponentProps<"time">, "className" | "style">) {
-  return <time {...props} {...stylex.props(styles.time)} />;
+export function TimelineTime({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"time">, "className" | "style"> & { xstyle?: ControlPlacementStyles }) {
+  return <time {...props} {...stylex.props(styles.time, xstyle)} />;
 }

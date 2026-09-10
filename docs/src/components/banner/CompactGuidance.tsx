@@ -1,7 +1,7 @@
 import { spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 
-import { Banner } from "@/components/ui/banner";
+import { BannerActions, BannerDescription, BannerContent, Banner } from "@/components/ui/banner";
 import { Link } from "@/components/ui/link";
 const layout = stylex.create({
   preview: {
@@ -22,15 +22,18 @@ const layout = stylex.create({
 export default function CompactGuidance() {
   return (
     <div {...stylex.props(layout.preview, layout.column)}>
-      <Banner
-        action={
-          <Link href="#" variant="current">
-            Manage DNS
-          </Link>
-        }
-        description="A DNS record with this name already exists."
-        size="sm"
-      />
+      <Banner size="sm">
+        <BannerContent>
+          <BannerDescription>A DNS record with this name already exists.</BannerDescription>
+        </BannerContent>
+        <BannerActions>
+          {
+            <Link href="#" variant="current">
+              Manage DNS
+            </Link>
+          }
+        </BannerActions>
+      </Banner>
     </div>
   );
 }

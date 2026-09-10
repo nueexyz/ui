@@ -1,6 +1,8 @@
 "use client";
 
 import { ContextMenu as ContextMenuPrimitive } from "@base-ui/react/context-menu";
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps } from "react";
 
 export {
   DropdownMenuCheckboxItem as ContextMenuCheckboxItem,
@@ -18,4 +20,11 @@ export {
 } from "./dropdown-menu";
 
 export const ContextMenu = ContextMenuPrimitive.Root;
-export const ContextMenuTrigger = ContextMenuPrimitive.Trigger;
+export function ContextMenuTrigger({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof ContextMenuPrimitive.Trigger>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <ContextMenuPrimitive.Trigger {...props} {...stylex.props(xstyle)} />;
+}

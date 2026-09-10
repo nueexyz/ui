@@ -1,3 +1,21 @@
+## Unreleased
+
+- Styled components consistently accept `xstyle`. Controls and text elements
+    retain typed limits that protect their appearance and interaction states.
+- Compose panels and content explicitly: use DrawerPopup with DrawerContent,
+    AccordionPanel with AccordionContent, and CollapsiblePanel with
+    CollapsibleContent. Each part accepts its own `xstyle`.
+- Replace SelectContent and ComboboxContent with SelectPopup / SelectList and
+    ComboboxPopup / ComboboxList. Place ScrollAreaViewport and ScrollAreaContent
+    inside ScrollArea, Table inside TableContainer, and CarouselContent inside
+    CarouselViewport to preserve scrolling behavior.
+- Wrap AccordionTrigger in AccordionHeader. Compose Banner messages using
+    BannerContent, BannerTitle, BannerDescription, and BannerActions instead of
+    the title, description, and action props.
+- NativeSelect and ComboboxInput apply layout overrides to the whole control,
+    including icons. Trigger, close, and group components use `xstyle` instead
+    of native `className` and `style` overrides.
+
 ## 0.5.1 (September 7, 2026)
 
 ### Breaking Changes

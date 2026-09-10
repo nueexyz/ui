@@ -8,6 +8,8 @@ import {
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import type { ControlPlacementStyles } from "./control-layout";
+
 const styles = stylex.create({
   root: {
     alignItems: "center",
@@ -56,8 +58,9 @@ type BadgeVariant = "primary" | "secondary" | "destructive" | "outline" | "ghost
 
 export type BadgeProps = Omit<ComponentProps<"span">, "className" | "style"> & {
   variant?: BadgeVariant;
+  xstyle?: ControlPlacementStyles;
 };
 
-export function Badge({ variant = "primary", ...props }: BadgeProps) {
-  return <span {...props} {...stylex.props(styles.root, styles[variant])} />;
+export function Badge({ xstyle, variant = "primary", ...props }: BadgeProps) {
+  return <span {...props} {...stylex.props(styles.root, styles[variant], xstyle)} />;
 }

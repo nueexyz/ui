@@ -13,6 +13,8 @@ import { ArrowsDownUpIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import type { ControlLayoutStyles } from "./control-layout";
+
 const styles = stylex.create({
   root: {
     display: "flex",
@@ -84,17 +86,23 @@ const styles = stylex.create({
 });
 
 export function Collapsible({
+  xstyle,
   ...props
-}: Omit<ComponentProps<typeof CollapsiblePrimitive.Root>, "className" | "style">) {
-  return <CollapsiblePrimitive.Root {...props} {...stylex.props(styles.root)} />;
+}: Omit<ComponentProps<typeof CollapsiblePrimitive.Root>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <CollapsiblePrimitive.Root {...props} {...stylex.props(styles.root, xstyle)} />;
 }
 
 export function CollapsibleTrigger({
+  xstyle,
   children,
   ...props
-}: Omit<ComponentProps<typeof CollapsiblePrimitive.Trigger>, "className" | "style">) {
+}: Omit<ComponentProps<typeof CollapsiblePrimitive.Trigger>, "className" | "style"> & {
+  xstyle?: ControlLayoutStyles;
+}) {
   function getTriggerStyles(state: CollapsiblePrimitive.Trigger.State) {
-    return stylex.props(styles.trigger, state.disabled && styles.triggerDisabled);
+    return stylex.props(styles.trigger, state.disabled && styles.triggerDisabled, xstyle);
   }
   return (
     <CollapsiblePrimitive.Trigger
@@ -110,15 +118,19 @@ export function CollapsibleTrigger({
   );
 }
 
-export function CollapsibleContent({
+export function CollapsiblePanel({
+  xstyle,
   children,
   ...props
-}: Omit<ComponentProps<typeof CollapsiblePrimitive.Panel>, "className" | "style">) {
+}: Omit<ComponentProps<typeof CollapsiblePrimitive.Panel>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
   function getPanelStyles(state: CollapsiblePrimitive.Panel.State) {
     return stylex.props(
       styles.panel,
       (state.transitionStatus === "starting" || state.transitionStatus === "ending") &&
         styles.panelTransitioning,
+      xstyle,
     );
   }
   return (
@@ -127,7 +139,14 @@ export function CollapsibleContent({
       className={(state) => getPanelStyles(state).className}
       style={(state) => getPanelStyles(state).style}
     >
-      <div {...stylex.props(styles.panelContent)}>{children}</div>
+      {children}
     </CollapsiblePrimitive.Panel>
   );
+}
+
+export function CollapsibleContent({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <div {...props} {...stylex.props(styles.panelContent, xstyle)} />;
 }

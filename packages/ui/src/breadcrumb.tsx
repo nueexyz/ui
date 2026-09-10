@@ -12,6 +12,8 @@ import { CaretRightIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, ReactNode } from "react";
 
+import type { ControlPlacementStyles } from "./control-layout";
+
 const styles = stylex.create({
   root: { minWidth: 0 },
   list: {
@@ -55,49 +57,71 @@ const styles = stylex.create({
   },
 });
 
-export function Breadcrumb({ ...props }: Omit<ComponentProps<"nav">, "className" | "style">) {
-  return <nav aria-label="Breadcrumb" {...props} {...stylex.props(styles.root)} />;
+export function Breadcrumb({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"nav">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <nav aria-label="Breadcrumb" {...props} {...stylex.props(styles.root, xstyle)} />;
 }
 
-export function BreadcrumbList({ ...props }: Omit<ComponentProps<"ol">, "className" | "style">) {
-  return <ol {...props} {...stylex.props(styles.list)} />;
+export function BreadcrumbList({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"ol">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <ol {...props} {...stylex.props(styles.list, xstyle)} />;
 }
 
-export function BreadcrumbItem({ ...props }: Omit<ComponentProps<"li">, "className" | "style">) {
-  return <li {...props} {...stylex.props(styles.item)} />;
+export function BreadcrumbItem({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"li">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <li {...props} {...stylex.props(styles.item, xstyle)} />;
 }
 
 export function BreadcrumbLink({
+  xstyle,
   children,
   ...props
-}: Omit<ComponentProps<"a">, "className" | "style">) {
+}: Omit<ComponentProps<"a">, "className" | "style"> & { xstyle?: ControlPlacementStyles }) {
   return (
-    <a {...props} {...stylex.props(styles.link)}>
+    <a {...props} {...stylex.props(styles.link, xstyle)}>
       {children}
     </a>
   );
 }
 
-export function BreadcrumbPage({ ...props }: Omit<ComponentProps<"span">, "className" | "style">) {
-  return <span aria-current="page" {...props} {...stylex.props(styles.page)} />;
+export function BreadcrumbPage({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"span">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <span aria-current="page" {...props} {...stylex.props(styles.page, xstyle)} />;
 }
 
 export function BreadcrumbSeparator({
+  xstyle,
   children,
   ...props
-}: Omit<ComponentProps<"li">, "className" | "style"> & { children?: ReactNode }) {
+}: Omit<ComponentProps<"li">, "className" | "style"> & { children?: ReactNode } & {
+  xstyle?: ControlPlacementStyles;
+}) {
   return (
-    <li aria-hidden="true" role="presentation" {...props} {...stylex.props(styles.separator)}>
+    <li
+      aria-hidden="true"
+      role="presentation"
+      {...props}
+      {...stylex.props(styles.separator, xstyle)}
+    >
       {children ?? <CaretRightIcon />}
     </li>
   );
 }
 
 export function BreadcrumbEllipsis({
+  xstyle,
   ...props
-}: Omit<ComponentProps<"span">, "className" | "style">) {
+}: Omit<ComponentProps<"span">, "className" | "style"> & { xstyle?: ControlPlacementStyles }) {
   return (
-    <span aria-hidden="true" {...props} {...stylex.props(styles.ellipsis)}>
+    <span aria-hidden="true" {...props} {...stylex.props(styles.ellipsis, xstyle)}>
       …
     </span>
   );

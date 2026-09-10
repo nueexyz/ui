@@ -37,6 +37,7 @@ export { Calendar } from "./calendar";
 export type { CalendarProps } from "./calendar";
 export {
   Carousel,
+  CarouselViewport,
   CarouselContent,
   CarouselItem,
   CarouselNext,
@@ -63,6 +64,7 @@ export {
 export {
   Drawer,
   DrawerClose,
+  DrawerPopup,
   DrawerContent,
   DrawerDescription,
   DrawerFooter,
@@ -76,11 +78,17 @@ export {
 export type { DrawerOverlayMode, DrawerProps, DrawerSwipeDirection } from "./drawer";
 export { Checkbox } from "./checkbox";
 export type { CheckboxProps } from "./checkbox";
-export { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./collapsible";
+export {
+  Collapsible,
+  CollapsiblePanel,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "./collapsible";
 export {
   Combobox,
   ComboboxCollection,
-  ComboboxContent,
+  ComboboxPopup,
+  ComboboxList,
   ComboboxEmpty,
   ComboboxGroup,
   ComboboxInput,
@@ -215,13 +223,14 @@ export { Progress } from "./progress";
 export type { ProgressProps } from "./progress";
 export { RadioGroup, RadioGroupItem } from "./radio-group";
 export type { RadioGroupItemProps, RadioGroupProps } from "./radio-group";
-export { ScrollArea, ScrollBar } from "./scroll-area";
+export { ScrollArea, ScrollAreaViewport, ScrollAreaContent, ScrollBar } from "./scroll-area";
 export type { ScrollAreaProps } from "./scroll-area";
 export { Separator } from "./separator";
 export type { SeparatorProps } from "./separator";
 export {
   Select,
-  SelectContent,
+  SelectPopup,
+  SelectList,
   SelectGroup,
   SelectItem,
   SelectLabel,
@@ -253,6 +262,7 @@ export type {
   TimelineProps,
 } from "./timeline";
 export {
+  TableContainer,
   Table,
   TableBody,
   TableCaption,
@@ -264,7 +274,7 @@ export {
 } from "./table";
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
 export type { TabsProps, TabsVariant } from "./tabs";
-export { Banner, BannerDescription, BannerTitle } from "./banner";
+export { Banner, BannerContent, BannerActions, BannerDescription, BannerTitle } from "./banner";
 export type { BannerProps, BannerSize } from "./banner";
 export {
   AlertDialog,
@@ -310,7 +320,14 @@ export {
   EmptyTitle,
 } from "./empty";
 export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
-export { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";
+export {
+  Accordion,
+  AccordionPanel,
+  AccordionHeader,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "./accordion";
 
 export { Heading } from "./heading";
 export type { HeadingProps } from "./heading";

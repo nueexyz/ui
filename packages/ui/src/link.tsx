@@ -6,6 +6,8 @@ import { ArrowSquareOutIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import type { ControlPlacementStyles } from "./control-layout";
+
 const styles = stylex.create({
   root: {
     alignItems: "center",
@@ -49,24 +51,28 @@ export type LinkVariant = "current" | "inline" | "plain";
 
 export type LinkProps = Omit<useRender.ComponentProps<"a">, "className" | "style"> & {
   variant?: LinkVariant;
+  xstyle?: ControlPlacementStyles;
 };
 
-function LinkBase({ ref, render, variant = "inline", ...props }: LinkProps) {
+function LinkBase({ xstyle, ref, render, variant = "inline", ...props }: LinkProps) {
   return useRender({
     defaultTagName: "a",
     props: {
       ...props,
-      ...stylex.props(styles.root, styles[variant]),
+      ...stylex.props(styles.root, styles[variant], xstyle),
     },
     ref,
     render,
   });
 }
 
-function ExternalIcon(
-  props: Omit<ComponentProps<typeof ArrowSquareOutIcon>, "className" | "style">,
-) {
-  return <ArrowSquareOutIcon aria-hidden="true" size="1em" {...props} />;
+function ExternalIcon({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof ArrowSquareOutIcon>, "className" | "style"> & {
+  xstyle?: ControlPlacementStyles;
+}) {
+  return <ArrowSquareOutIcon aria-hidden="true" size="1em" {...props} {...stylex.props(xstyle)} />;
 }
 
 export const Link = Object.assign(LinkBase, { ExternalIcon });

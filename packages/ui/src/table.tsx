@@ -72,37 +72,61 @@ export type TableProps = Omit<ComponentProps<"table">, "className" | "style"> & 
 };
 
 export function Table({ xstyle, ...props }: TableProps) {
-  return (
-    <div {...stylex.props(styles.container)}>
-      <table {...props} {...stylex.props(styles.table, xstyle)} />
-    </div>
-  );
+  return <table {...props} {...stylex.props(styles.table, xstyle)} />;
 }
 
-export function TableHeader({ ...props }: Omit<ComponentProps<"thead">, "className" | "style">) {
-  return <thead {...props} {...stylex.props(styles.header)} />;
+export function TableHeader({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"thead">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <thead {...props} {...stylex.props(styles.header, xstyle)} />;
 }
 
-export function TableBody({ ...props }: Omit<ComponentProps<"tbody">, "className" | "style">) {
-  return <tbody {...props} {...stylex.props(styles.body)} />;
+export function TableBody({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"tbody">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <tbody {...props} {...stylex.props(styles.body, xstyle)} />;
 }
 
-export function TableFooter({ ...props }: Omit<ComponentProps<"tfoot">, "className" | "style">) {
-  return <tfoot {...props} {...stylex.props(styles.footer)} />;
+export function TableFooter({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"tfoot">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <tfoot {...props} {...stylex.props(styles.footer, xstyle)} />;
 }
 
-export function TableRow({ ...props }: Omit<ComponentProps<"tr">, "className" | "style">) {
-  return <tr {...props} {...stylex.props(styles.row)} />;
+export function TableRow({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"tr">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <tr {...props} {...stylex.props(styles.row, xstyle)} />;
 }
 
-export function TableHead({ ...props }: Omit<ComponentProps<"th">, "className" | "style">) {
-  return <th {...props} {...stylex.props(styles.head)} />;
+export function TableHead({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"th">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <th {...props} {...stylex.props(styles.head, xstyle)} />;
 }
 
-export function TableCell({ ...props }: Omit<ComponentProps<"td">, "className" | "style">) {
-  return <td {...props} {...stylex.props(styles.cell)} />;
+export function TableCell({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"td">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <td {...props} {...stylex.props(styles.cell, xstyle)} />;
 }
 
-export function TableCaption({ ...props }: Omit<ComponentProps<"caption">, "className" | "style">) {
-  return <caption {...props} {...stylex.props(styles.caption)} />;
+export function TableCaption({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"caption">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <caption {...props} {...stylex.props(styles.caption, xstyle)} />;
+}
+
+export function TableContainer({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <div {...props} {...stylex.props(styles.container, xstyle)} />;
 }

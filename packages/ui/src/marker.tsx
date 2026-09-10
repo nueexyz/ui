@@ -2,6 +2,8 @@ import { colorVars, sizeVars, spacingVars, typographyVars } from "@nuee/tokens/s
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import type { ControlPlacementStyles } from "./control-layout";
+
 const styles = stylex.create({
   root: {
     alignItems: "center",
@@ -58,10 +60,16 @@ export function Marker({ variant = "default", xstyle, ...props }: MarkerProps) {
   );
 }
 
-export function MarkerIcon({ ...props }: Omit<ComponentProps<"span">, "className" | "style">) {
-  return <span aria-hidden="true" {...props} {...stylex.props(styles.icon)} />;
+export function MarkerIcon({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"span">, "className" | "style"> & { xstyle?: ControlPlacementStyles }) {
+  return <span aria-hidden="true" {...props} {...stylex.props(styles.icon, xstyle)} />;
 }
 
-export function MarkerContent({ ...props }: Omit<ComponentProps<"span">, "className" | "style">) {
-  return <span {...props} {...stylex.props(styles.content)} />;
+export function MarkerContent({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"span">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <span {...props} {...stylex.props(styles.content, xstyle)} />;
 }

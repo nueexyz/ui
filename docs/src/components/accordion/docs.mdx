@@ -20,21 +20,7 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <LocalizedMarkdown text={"## Composition"} />
 
-```tsx
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-
-<Accordion defaultValue={["item-1"]}>
-  <AccordionItem value="item-1">
-    <AccordionTrigger>Account settings</AccordionTrigger>
-    <AccordionContent>Update your profile and notification settings.</AccordionContent>
-  </AccordionItem>
-</Accordion>;
-```
+<CodeBlock code={DefaultSource} language="tsx" />
 
 <LocalizedMarkdown text={"## Installation"} />
 

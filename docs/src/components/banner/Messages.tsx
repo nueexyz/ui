@@ -1,7 +1,7 @@
 import { spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 
-import { Banner } from "@/components/ui/banner";
+import { BannerDescription, BannerTitle, BannerContent, Banner } from "@/components/ui/banner";
 const layout = stylex.create({
   preview: {
     alignItems: "center",
@@ -21,10 +21,30 @@ const layout = stylex.create({
 export default function Messages() {
   return (
     <div {...stylex.props(layout.preview, layout.column)}>
-      <Banner description="An update is ready." title="Information" />
-      <Banner description="Review this before continuing." title="Review needed" />
-      <Banner description="Your changes could not be saved." title="Couldn’t save changes" />
-      <Banner description="No action is required." title="All caught up" />
+      <Banner>
+        <BannerContent>
+          <BannerTitle>Information</BannerTitle>
+          <BannerDescription>An update is ready.</BannerDescription>
+        </BannerContent>
+      </Banner>
+      <Banner>
+        <BannerContent>
+          <BannerTitle>Review needed</BannerTitle>
+          <BannerDescription>Review this before continuing.</BannerDescription>
+        </BannerContent>
+      </Banner>
+      <Banner>
+        <BannerContent>
+          <BannerTitle>Couldn’t save changes</BannerTitle>
+          <BannerDescription>Your changes could not be saved.</BannerDescription>
+        </BannerContent>
+      </Banner>
+      <Banner>
+        <BannerContent>
+          <BannerTitle>All caught up</BannerTitle>
+          <BannerDescription>No action is required.</BannerDescription>
+        </BannerContent>
+      </Banner>
     </div>
   );
 }

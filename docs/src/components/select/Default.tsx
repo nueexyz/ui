@@ -4,7 +4,8 @@ import * as stylex from "@stylexjs/stylex";
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import {
   Select,
-  SelectContent,
+  SelectPopup,
+  SelectList,
   SelectGroup,
   SelectItem,
   SelectLabel,
@@ -40,18 +41,20 @@ export default function Default() {
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Display mode</SelectLabel>
-              <SelectItem value="light">Light</SelectItem>
-              <SelectItem value="dark">Dark</SelectItem>
-              <SelectItem value="system">System setting</SelectItem>
-            </SelectGroup>
-            <SelectSeparator />
-            <SelectItem disabled value="contrast">
-              High contrast
-            </SelectItem>
-          </SelectContent>
+          <SelectPopup>
+            <SelectList>
+              <SelectGroup>
+                <SelectLabel>Display mode</SelectLabel>
+                <SelectItem value="light">Light</SelectItem>
+                <SelectItem value="dark">Dark</SelectItem>
+                <SelectItem value="system">System setting</SelectItem>
+              </SelectGroup>
+              <SelectSeparator />
+              <SelectItem disabled value="contrast">
+                High contrast
+              </SelectItem>
+            </SelectList>
+          </SelectPopup>
         </Select>
         <FieldDescription>The selected theme is saved on this device.</FieldDescription>
       </Field>

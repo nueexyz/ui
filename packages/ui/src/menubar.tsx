@@ -13,6 +13,7 @@ import {
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import type { ControlLayoutStyles } from "./control-layout";
 import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
@@ -75,22 +76,29 @@ const styles = stylex.create({
   },
 });
 
-export function Menubar(
-  props: Omit<ComponentProps<typeof MenubarPrimitive>, "className" | "style">,
-) {
-  return <MenubarPrimitive {...props} {...stylex.props(styles.root)} />;
+export function Menubar({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof MenubarPrimitive>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <MenubarPrimitive {...props} {...stylex.props(styles.root, xstyle)} />;
 }
 
 export const MenubarMenu = MenuPrimitive.Root;
 
 export function MenubarTrigger({
+  xstyle,
   ...props
-}: Omit<ComponentProps<typeof MenuPrimitive.Trigger>, "className" | "style">) {
+}: Omit<ComponentProps<typeof MenuPrimitive.Trigger>, "className" | "style"> & {
+  xstyle?: ControlLayoutStyles;
+}) {
   function getTriggerStyles(state: MenuPrimitive.Trigger.State) {
     return stylex.props(
       styles.trigger,
       state.open && styles.triggerOpen,
       state.disabled && styles.triggerDisabled,
+      xstyle,
     );
   }
   return (

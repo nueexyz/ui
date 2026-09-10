@@ -3,6 +3,7 @@ import * as stylex from "@stylexjs/stylex";
 
 import {
   Carousel,
+  CarouselViewport,
   CarouselContent,
   CarouselItem,
   CarouselNext,
@@ -39,13 +40,15 @@ export default function Default() {
   return (
     <div {...stylex.props(layout.preview)}>
       <Carousel xstyle={styles.carousel}>
-        <CarouselContent>
-          {["1", "2", "3", "4", "5"].map((item) => (
-            <CarouselItem key={item} xstyle={styles.slide}>
-              Slide {item}
-            </CarouselItem>
-          ))}
-        </CarouselContent>
+        <CarouselViewport>
+          <CarouselContent>
+            {["1", "2", "3", "4", "5"].map((item) => (
+              <CarouselItem key={item} xstyle={styles.slide}>
+                Slide {item}
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </CarouselViewport>
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>

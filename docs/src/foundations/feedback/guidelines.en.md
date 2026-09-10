@@ -18,15 +18,15 @@ Pressing a button and completing a save need feedback at different times. Show t
 
 The color tokens belong to `colorVars`. A pressed response does not mean success. nuée `Button` has no shared pressed-scale effect; do not introduce one as if it were the default. Compare actual colors in [State](?path=/docs/foundations-state--docs).
 
-| Situation                                | Recommended choice                         | Code                                                      |
-| ---------------------------------------- | ------------------------------------------ | --------------------------------------------------------- |
-| An input needs correction                | `FieldError` and a nearby explanation      | `<FieldError>Enter a valid email address.</FieldError>`   |
-| Work completed without blocking the flow | Toast                                      | `toast.add({ title: "Changes saved." })`                  |
-| Work can be undone                       | A Toast action and actual data restoration | `actionProps: { children: "Undo", onClick: restoreItem }` |
-| Page guidance must remain visible        | `Banner`                                   | `<Banner title="Update available" />`                     |
-| A short asynchronous operation           | `Spinner` and a status message             | `<Spinner />`                                             |
-| Progress is measurable                   | `Progress`                                 | `<Progress value={50} />`                                 |
-| A risky action needs a decision first    | Alert `Dialog`                             | `<AlertDialog>…</AlertDialog>`                            |
+| Situation                                | Recommended choice                         | Code                                                                                          |
+| ---------------------------------------- | ------------------------------------------ | --------------------------------------------------------------------------------------------- |
+| An input needs correction                | `FieldError` and a nearby explanation      | `<FieldError>Enter a valid email address.</FieldError>`                                       |
+| Work completed without blocking the flow | Toast                                      | `toast.add({ title: "Changes saved." })`                                                      |
+| Work can be undone                       | A Toast action and actual data restoration | `actionProps: { children: "Undo", onClick: restoreItem }`                                     |
+| Page guidance must remain visible        | `Banner`                                   | `<Banner><BannerContent><BannerTitle>Update available</BannerTitle></BannerContent></Banner>` |
+| A short asynchronous operation           | `Spinner` and a status message             | `<Spinner />`                                                                                 |
+| Progress is measurable                   | `Progress`                                 | `<Progress value={50} />`                                                                     |
+| A risky action needs a decision first    | Alert `Dialog`                             | `<AlertDialog>…</AlertDialog>`                                                                |
 
 Keep essential conditions visible in the page rather than only in a toast that quickly disappears.
 

@@ -11,6 +11,8 @@ import {
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
+import type { ControlPlacementStyles } from "./control-layout";
+
 const styles = stylex.create({
   root: {
     backgroundColor: colorVars.bgSubtle,
@@ -82,34 +84,48 @@ export type AvatarProps = Omit<
   "className" | "style"
 > & {
   size?: AvatarSize;
+  xstyle?: ControlPlacementStyles;
 };
 
-export function Avatar({ size = "md", ...props }: AvatarProps) {
-  return <AvatarPrimitive.Root {...props} {...stylex.props(styles.root, styles[size])} />;
+export function Avatar({ xstyle, size = "md", ...props }: AvatarProps) {
+  return <AvatarPrimitive.Root {...props} {...stylex.props(styles.root, styles[size], xstyle)} />;
 }
 
 export function AvatarImage({
+  xstyle,
   ...props
-}: Omit<ComponentProps<typeof AvatarPrimitive.Image>, "className" | "style">) {
-  return <AvatarPrimitive.Image {...props} {...stylex.props(styles.image)} />;
+}: Omit<ComponentProps<typeof AvatarPrimitive.Image>, "className" | "style"> & {
+  xstyle?: ControlPlacementStyles;
+}) {
+  return <AvatarPrimitive.Image {...props} {...stylex.props(styles.image, xstyle)} />;
 }
 
 export function AvatarFallback({
+  xstyle,
   ...props
-}: Omit<ComponentProps<typeof AvatarPrimitive.Fallback>, "className" | "style">) {
-  return <AvatarPrimitive.Fallback {...props} {...stylex.props(styles.fallback)} />;
+}: Omit<ComponentProps<typeof AvatarPrimitive.Fallback>, "className" | "style"> & {
+  xstyle?: ControlPlacementStyles;
+}) {
+  return <AvatarPrimitive.Fallback {...props} {...stylex.props(styles.fallback, xstyle)} />;
 }
 
-export function AvatarBadge({ ...props }: Omit<ComponentProps<"span">, "className" | "style">) {
-  return <span {...props} {...stylex.props(styles.badge)} />;
+export function AvatarBadge({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"span">, "className" | "style"> & { xstyle?: ControlPlacementStyles }) {
+  return <span {...props} {...stylex.props(styles.badge, xstyle)} />;
 }
 
-export function AvatarGroup({ ...props }: Omit<ComponentProps<"div">, "className" | "style">) {
-  return <div {...props} {...stylex.props(styles.group)} />;
+export function AvatarGroup({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
+  return <div {...props} {...stylex.props(styles.group, xstyle)} />;
 }
 
 export function AvatarGroupCount({
+  xstyle,
   ...props
-}: Omit<ComponentProps<"span">, "className" | "style">) {
-  return <span {...props} {...stylex.props(styles.groupCount)} />;
+}: Omit<ComponentProps<"span">, "className" | "style"> & { xstyle?: ControlPlacementStyles }) {
+  return <span {...props} {...stylex.props(styles.groupCount, xstyle)} />;
 }

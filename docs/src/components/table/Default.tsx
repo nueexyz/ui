@@ -2,6 +2,7 @@ import { spacingVars, typographyVars } from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 
 import {
+  TableContainer,
   Table,
   TableBody,
   TableCaption,
@@ -46,33 +47,35 @@ const rows = [
 export default function Default() {
   return (
     <div {...stylex.props(layout.preview)}>
-      <Table>
-        <TableCaption>Three recently updated projects</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Project</TableHead>
-            <TableHead>Owner</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Updated</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.owner}</TableCell>
-              <TableCell>{row.status}</TableCell>
-              <TableCell>{row.updated}</TableCell>
+      <TableContainer>
+        <Table>
+          <TableCaption>Three recently updated projects</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Project</TableHead>
+              <TableHead>Owner</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Updated</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TableCell colSpan={3}>All projects</TableCell>
-            <TableCell>3</TableCell>
-          </TableRow>
-        </TableFooter>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.name}>
+                <TableCell>{row.name}</TableCell>
+                <TableCell>{row.owner}</TableCell>
+                <TableCell>{row.status}</TableCell>
+                <TableCell>{row.updated}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TableCell colSpan={3}>All projects</TableCell>
+              <TableCell>3</TableCell>
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </TableContainer>
     </div>
   );
 }

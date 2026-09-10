@@ -7,7 +7,12 @@ import {
 } from "@nuee/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import {
+  Collapsible,
+  CollapsiblePanel,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 const layout = stylex.create({
   preview: {
     alignItems: "center",
@@ -74,16 +79,18 @@ export default function Default() {
           <span {...stylex.props(styles.detailLabel)}>Status</span>
           <span {...stylex.props(styles.detailValue)}>Delivered</span>
         </div>
-        <CollapsibleContent>
-          <div {...stylex.props(styles.detailGroup, styles.detail)}>
-            <span {...stylex.props(styles.detailValue)}>Shipping address</span>
-            <span {...stylex.props(styles.detailLabel)}>18 Seongsui-ro, Seongdong-gu, Seoul</span>
-          </div>
-          <div {...stylex.props(styles.detailGroup, styles.detail)}>
-            <span {...stylex.props(styles.detailValue)}>Items</span>
-            <span {...stylex.props(styles.detailLabel)}>2 studio headphones</span>
-          </div>
-        </CollapsibleContent>
+        <CollapsiblePanel>
+          <CollapsibleContent>
+            <div {...stylex.props(styles.detailGroup, styles.detail)}>
+              <span {...stylex.props(styles.detailValue)}>Shipping address</span>
+              <span {...stylex.props(styles.detailLabel)}>18 Seongsui-ro, Seongdong-gu, Seoul</span>
+            </div>
+            <div {...stylex.props(styles.detailGroup, styles.detail)}>
+              <span {...stylex.props(styles.detailValue)}>Items</span>
+              <span {...stylex.props(styles.detailLabel)}>2 studio headphones</span>
+            </div>
+          </CollapsibleContent>
+        </CollapsiblePanel>
       </Collapsible>
     </div>
   );

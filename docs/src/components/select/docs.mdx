@@ -19,25 +19,7 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <LocalizedMarkdown text={"## Composition"} />
 
-```tsx
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
-<Select defaultValue="design">
-  <SelectTrigger aria-label="Select team">
-    <SelectValue />
-  </SelectTrigger>
-  <SelectContent>
-    <SelectItem value="design">Design</SelectItem>
-    <SelectItem value="development">Development</SelectItem>
-  </SelectContent>
-</Select>;
-```
+<CodeBlock code={DefaultSource} language="tsx" />
 
 <LocalizedMarkdown text={"## Installation"} />
 

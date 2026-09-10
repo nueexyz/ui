@@ -15,6 +15,8 @@ import { XIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, ReactNode } from "react";
 
+import type { ControlPlacementStyles } from "./control-layout";
+
 const styles = stylex.create({
   backdrop: {
     backdropFilter: "blur(4px)",
@@ -136,8 +138,22 @@ const styles = stylex.create({
 });
 
 export const Dialog = DialogPrimitive.Root;
-export const DialogTrigger = DialogPrimitive.Trigger;
-export const DialogClose = DialogPrimitive.Close;
+export function DialogTrigger({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof DialogPrimitive.Trigger>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <DialogPrimitive.Trigger {...props} {...stylex.props(xstyle)} />;
+}
+export function DialogClose({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof DialogPrimitive.Close>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <DialogPrimitive.Close {...props} {...stylex.props(xstyle)} />;
+}
 
 type DialogContentProps = Omit<
   ComponentProps<typeof DialogPrimitive.Popup>,
@@ -189,13 +205,19 @@ export function DialogFooter({
 }
 
 export function DialogTitle({
+  xstyle,
   ...props
-}: Omit<ComponentProps<typeof DialogPrimitive.Title>, "className" | "style">) {
-  return <DialogPrimitive.Title {...props} {...stylex.props(styles.title)} />;
+}: Omit<ComponentProps<typeof DialogPrimitive.Title>, "className" | "style"> & {
+  xstyle?: ControlPlacementStyles;
+}) {
+  return <DialogPrimitive.Title {...props} {...stylex.props(styles.title, xstyle)} />;
 }
 
 export function DialogDescription({
+  xstyle,
   ...props
-}: Omit<ComponentProps<typeof DialogPrimitive.Description>, "className" | "style">) {
-  return <DialogPrimitive.Description {...props} {...stylex.props(styles.description)} />;
+}: Omit<ComponentProps<typeof DialogPrimitive.Description>, "className" | "style"> & {
+  xstyle?: ControlPlacementStyles;
+}) {
+  return <DialogPrimitive.Description {...props} {...stylex.props(styles.description, xstyle)} />;
 }

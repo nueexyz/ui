@@ -30,7 +30,7 @@ import type { Toggle } from "../dist/toggle.js";
 type Assert<Value extends true> = Value;
 type HasOnlyStylex<Props> =
   Extract<keyof Props, "className" | "style"> extends never ? true : false;
-type HasNoXstyle<Props> = Extract<keyof Props, "xstyle"> extends never ? true : false;
+type HasXstyle<Props> = "xstyle" extends keyof Props ? true : false;
 export type ButtonContract = Assert<HasOnlyStylex<ComponentProps<typeof Button>>>;
 export type CardContract = Assert<HasOnlyStylex<ComponentProps<typeof Card>>>;
 export type AccordionContract = Assert<HasOnlyStylex<ComponentProps<typeof AccordionTrigger>>>;
@@ -41,17 +41,17 @@ export type TableContract = Assert<HasOnlyStylex<ComponentProps<typeof Table>>>;
 export type CarouselContract = Assert<HasOnlyStylex<ComponentProps<typeof Carousel>>>;
 export type CalendarContract = Assert<HasOnlyStylex<ComponentProps<typeof Calendar>>>;
 export type BannerContract = Assert<HasOnlyStylex<BannerProps>>;
-export type LabelContract = Assert<HasNoXstyle<ComponentProps<typeof Label>>>;
-export type BadgeContract = Assert<HasNoXstyle<ComponentProps<typeof Badge>>>;
-export type KbdContract = Assert<HasNoXstyle<ComponentProps<typeof Kbd>>>;
-export type SpinnerContract = Assert<HasNoXstyle<ComponentProps<typeof Spinner>>>;
-export type AvatarContract = Assert<HasNoXstyle<ComponentProps<typeof Avatar>>>;
-export type LinkContract = Assert<HasNoXstyle<ComponentProps<typeof Link>>>;
+export type LabelContract = Assert<HasXstyle<ComponentProps<typeof Label>>>;
+export type BadgeContract = Assert<HasXstyle<ComponentProps<typeof Badge>>>;
+export type KbdContract = Assert<HasXstyle<ComponentProps<typeof Kbd>>>;
+export type SpinnerContract = Assert<HasXstyle<ComponentProps<typeof Spinner>>>;
+export type AvatarContract = Assert<HasXstyle<ComponentProps<typeof Avatar>>>;
+export type LinkContract = Assert<HasXstyle<ComponentProps<typeof Link>>>;
 export type AvatarStyleOnlyContract = Assert<HasOnlyStylex<ComponentProps<typeof Avatar>>>;
 export type LinkStyleOnlyContract = Assert<HasOnlyStylex<ComponentProps<typeof Link>>>;
 export type TimelineContract = Assert<HasOnlyStylex<ComponentProps<typeof Timeline>>>;
 export type TimelineItemContract = Assert<HasOnlyStylex<ComponentProps<typeof TimelineItem>>>;
-export const bannerWithReactTitle: BannerProps = { title: <strong>Notice</strong> };
+export const bannerWithReactChildren: BannerProps = { children: <strong>Notice</strong> };
 
 const styles = stylex.create({
   layout: { width: "100%", marginBlockStart: 8 },
@@ -82,18 +82,12 @@ export const toggleLayout: ComponentProps<typeof Toggle> = { xstyle: styles.layo
 export const inputOTPLayout: ComponentProps<typeof InputOTP> = { length: 6, xstyle: styles.layout };
 export const timelineLayout: ComponentProps<typeof Timeline> = { xstyle: styles.layout };
 export const timelineItemLayout: ComponentProps<typeof TimelineItem> = { xstyle: styles.layout };
-// @ts-expect-error Label owns its typography and spacing.
-export const labelLayout: ComponentProps<typeof Label> = { xstyle: styles.layout };
-// @ts-expect-error Badge visual treatment is selected with its variant.
-export const badgeLayout: ComponentProps<typeof Badge> = { xstyle: styles.layout };
-// @ts-expect-error Kbd visual treatment is not externally extensible.
-export const kbdLayout: ComponentProps<typeof Kbd> = { xstyle: styles.layout };
-// @ts-expect-error Spinner visual treatment is not externally extensible.
-export const spinnerLayout: ComponentProps<typeof Spinner> = { xstyle: styles.layout };
-// @ts-expect-error Avatar dimensions are selected with its size.
-export const avatarLayout: ComponentProps<typeof Avatar> = { xstyle: styles.layout };
-// @ts-expect-error Link appearance is selected with its variant.
-export const linkLayout: ComponentProps<typeof Link> = { xstyle: styles.layout };
+export const labelLayout: ComponentProps<typeof Label> = { xstyle: styles.placement };
+export const badgeLayout: ComponentProps<typeof Badge> = { xstyle: styles.placement };
+export const kbdLayout: ComponentProps<typeof Kbd> = { xstyle: styles.placement };
+export const spinnerLayout: ComponentProps<typeof Spinner> = { xstyle: styles.placement };
+export const avatarLayout: ComponentProps<typeof Avatar> = { xstyle: styles.placement };
+export const linkLayout: ComponentProps<typeof Link> = { xstyle: styles.placement };
 export const buttonPaint: ComponentProps<typeof Button> = {
   children: "Save",
   // @ts-expect-error Button colors are selected with variant or a theme.
@@ -161,4 +155,30 @@ export const headingLineHeight: import("../dist/heading.js").HeadingProps = {
   level: 2,
   // @ts-expect-error Individual line-height overrides bypass the typography contract.
   lineHeight: 2,
+};
+
+// @ts-expect-error Avatar size remains controlled by its size prop.
+export const avatarWidth: ComponentProps<typeof Avatar> = { xstyle: styles.layout };
+// @ts-expect-error Label typography and paint remain owned by the component.
+export const labelPaint: ComponentProps<typeof Label> = { xstyle: styles.paint };
+export const accordionLayout: ComponentProps<typeof AccordionTrigger> = { xstyle: styles.layout };
+// @ts-expect-error Accordion interaction colors remain owned by the component.
+export const accordionPaint: ComponentProps<typeof AccordionTrigger> = { xstyle: styles.paint };
+export const selectLayout: ComponentProps<typeof SelectTrigger> = { xstyle: styles.layout };
+
+export const drawerPopupStyle: import("react").ComponentProps<
+  typeof import("../dist/drawer.js").DrawerPopup
+> = { xstyle: styles.paint };
+export const drawerContentStyle: import("react").ComponentProps<
+  typeof import("../dist/drawer.js").DrawerContent
+> = { xstyle: styles.layout };
+export const removedContentStyle: import("react").ComponentProps<
+  typeof import("../dist/drawer.js").DrawerPopup
+> = {
+  // @ts-expect-error Each part accepts its own xstyle.
+  contentXstyle: styles.layout,
+};
+export const removedContainerStyle: ComponentProps<typeof Table> = {
+  // @ts-expect-error The container is a separate component.
+  containerXstyle: styles.layout,
 };

@@ -51,11 +51,7 @@ export function ScrollArea({
 }: ScrollAreaProps) {
   return (
     <ScrollAreaPrimitive.Root {...props} {...stylex.props(styles.root, xstyle)}>
-      <ScrollAreaPrimitive.Viewport {...stylex.props(styles.viewport)}>
-        <ScrollAreaPrimitive.Content {...stylex.props(styles.content)}>
-          {children}
-        </ScrollAreaPrimitive.Content>
-      </ScrollAreaPrimitive.Viewport>
+      {children}
       {scrollbars === "vertical" || scrollbars === "both" ? (
         <ScrollBar orientation="vertical" />
       ) : null}
@@ -68,16 +64,37 @@ export function ScrollArea({
 }
 
 export function ScrollBar({
+  xstyle,
   orientation = "vertical",
   ...props
-}: Omit<ComponentProps<typeof ScrollAreaPrimitive.Scrollbar>, "className" | "style">) {
+}: Omit<ComponentProps<typeof ScrollAreaPrimitive.Scrollbar>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
   return (
     <ScrollAreaPrimitive.Scrollbar
       {...props}
-      {...stylex.props(styles.scrollbar, styles[orientation])}
+      {...stylex.props(styles.scrollbar, styles[orientation], xstyle)}
       orientation={orientation}
     >
       <ScrollAreaPrimitive.Thumb {...stylex.props(styles.thumb)} />
     </ScrollAreaPrimitive.Scrollbar>
   );
+}
+
+export function ScrollAreaViewport({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof ScrollAreaPrimitive.Viewport>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <ScrollAreaPrimitive.Viewport {...props} {...stylex.props(styles.viewport, xstyle)} />;
+}
+
+export function ScrollAreaContent({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof ScrollAreaPrimitive.Content>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <ScrollAreaPrimitive.Content {...props} {...stylex.props(styles.content, xstyle)} />;
 }

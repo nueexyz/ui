@@ -19,25 +19,7 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <LocalizedMarkdown text={"## Composition"} />
 
-```tsx
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
-
-const activities = [
-  "Completed the deployment checklist.",
-  "Sent a design review request.",
-  "Updated the sign-in screen.",
-]
-
-<ScrollArea style={{ height: "14rem", width: "20rem" }}>
-  {activities.map((activity, index) => (
-    <div key={activity}>
-      <div style={{ paddingBlock: "0.75rem" }}>{activity}</div>
-      {index < activities.length - 1 ? <Separator /> : null}
-    </div>
-  ))}
-</ScrollArea>
-```
+<CodeBlock code={DefaultSource} language="tsx" />
 
 <LocalizedMarkdown text={"## Installation"} />
 

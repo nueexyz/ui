@@ -49,7 +49,14 @@ const styles = stylex.create({
 
 export const Tooltip = TooltipPrimitive.Root;
 export const TooltipProvider = TooltipPrimitive.Provider;
-export const TooltipTrigger = TooltipPrimitive.Trigger;
+export function TooltipTrigger({
+  xstyle,
+  ...props
+}: Omit<ComponentProps<typeof TooltipPrimitive.Trigger>, "className" | "style"> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return <TooltipPrimitive.Trigger {...props} {...stylex.props(xstyle)} />;
+}
 
 type TooltipContentProps = Omit<
   ComponentProps<typeof TooltipPrimitive.Popup>,
