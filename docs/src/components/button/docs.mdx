@@ -5,6 +5,7 @@ import guidelines from "./guidelines.md?raw";
 import english from "./guidelines.en.md?raw";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import { CodeBlock } from "../../documentation/CodeBlock";
+import AlignmentSource from "./Alignment.tsx?raw";
 import StatesSource from "./States.tsx?raw";
 import IconButtonsSource from "./IconButtons.tsx?raw";
 import SizesSource from "./Sizes.tsx?raw";
@@ -56,6 +57,10 @@ import { Button } from "@/components/ui/button";
 />
 
 <ComponentPreview name="button--IconButtons" source={IconButtonsSource} />
+
+<LocalizedMarkdown text={"### Content alignment"} />
+
+<ComponentPreview name="button--Alignment" source={AlignmentSource} />
 
 <LocalizedMarkdown text={"### States"} />
 

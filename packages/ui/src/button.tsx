@@ -26,7 +26,6 @@ const styles = stylex.create({
     fontWeight: typographyVars.fontWeightMedium,
     gap: spacingVars.space2,
     isolation: "isolate",
-    justifyContent: "center",
     lineHeight: typographyVars.lineHeightTight,
     outline: "none",
     overflow: "hidden",
@@ -91,6 +90,13 @@ const styles = stylex.create({
     backgroundColor: colorVars.interactionDefault,
     borderColor: colorVars.interactionDefault,
   },
+});
+
+const alignStyles = stylex.create({
+  start: { justifyContent: "flex-start" },
+  center: { justifyContent: "center" },
+  end: { justifyContent: "flex-end" },
+  "space-between": { justifyContent: "space-between" },
 });
 
 const sizeStyles = stylex.create({
@@ -174,6 +180,7 @@ type ButtonVariant = "primary" | "secondary" | "ghost" | "destructive";
 type ButtonSize = "sm" | "md" | "lg" | "icon-xs" | "icon-sm" | "icon" | "icon-lg";
 
 export type ButtonProps = Omit<ComponentProps<typeof ButtonPrimitive>, "className" | "style"> & {
+  align?: "start" | "center" | "end" | "space-between";
   children: ReactNode;
   size?: ButtonSize;
   /** Use an icon size for icon-only buttons, and add an accessible name. */
@@ -183,6 +190,7 @@ export type ButtonProps = Omit<ComponentProps<typeof ButtonPrimitive>, "classNam
 };
 
 export function Button({
+  align = "center",
   children,
   disabled,
   size = "md",
@@ -201,6 +209,7 @@ export function Button({
       disabled={disabled}
       {...stylex.props(
         styles.root,
+        alignStyles[align],
         variantStyles[variant],
         sizeStyles[size],
         !isStandardSize && styles.iconContent,

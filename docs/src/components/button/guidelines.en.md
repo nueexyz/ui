@@ -28,3 +28,10 @@ Keep actions beside the content they affect and use the same order across simila
 Name the action with a verb and, when needed, its object: “Save changes” or “Delete project”. In a form, set `type="submit"` for submission and `type="button"` for other actions explicitly.
 
 > `Button` does not provide a `loading` prop. Manage the pending state in the application, prevent duplicate submission, and show a processing label or `Spinner` with a text status. Do not use a disabled button as the only explanation for why an action is unavailable.
+
+### Content alignment
+
+Use `align` to position button content: `start`, `center` (default), `end`, or
+`space-between`. Start and end follow the writing direction. Give the button
+more width than its content to make alignment visible. Use `space-between`
+to place a label and trailing icon at opposite ends.
