@@ -75,7 +75,9 @@ const styles = stylex.create({
     lineHeight: typographyVars.lineHeightNormal,
     minWidth: 0,
     opacity: 1,
-    overflow: "hidden",
+    overflow: "clip",
+    // Leave room for control focus outlines without exposing collapsed content.
+    overflowClipMargin: `calc(${sizeVars.focusRing} * 2)`,
     transitionDuration: motionVars.durationNormal,
     transitionProperty: "height, opacity",
     transitionTimingFunction: motionVars.easingStandard,
