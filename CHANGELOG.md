@@ -1,4 +1,6 @@
-## Unreleased
+## Version v0.6.0
+
+Released on September 10, 2026.
 
 - Button renders children directly without an extra span, preserving icon spacing
     and interaction backgrounds.
