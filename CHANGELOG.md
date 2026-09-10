@@ -1,3 +1,21 @@
+## Version v0.6.1
+
+Released on September 10, 2026.
+
+- Record the installed foundation and component versions in `nuee.json`.
+    Existing configuration files remain supported; unknown source versions
+    are not reported as the current release.
+
+- Simplify Accordion composition to Accordion, AccordionItem, AccordionTrigger,
+    and AccordionContent. Remove explicit AccordionHeader and AccordionPanel
+    wrappers; AccordionContent applies `xstyle` directly around its children.
+
+- Accordion and Collapsible panels leave room for focus outlines on controls
+    at content edges while preserving their expand and collapse animations.
+
+- Button supports `align="start"`, `"center"`, `"end"`, and `"space-between"`
+    to position its content. The default remains centered.
+
 ## Version v0.6.0
 
 Released on September 10, 2026.
