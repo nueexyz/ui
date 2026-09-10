@@ -80,26 +80,7 @@ const styles = stylex.create({
     // Give icon-only buttons a text baseline without adding visible content.
     "::before": { content: '"\\200b"' },
   },
-  primary: {
-    backgroundColor: colorVars.bgActionPrimary,
-    borderColor: colorVars.bgActionPrimary,
-    color: colorVars.fgOnActionPrimary,
-  },
-  secondary: {
-    backgroundColor: colorVars.interactionDefault,
-    borderColor: colorVars.strokeDefault,
-    color: colorVars.fgPrimary,
-  },
-  ghost: {
-    backgroundColor: colorVars.interactionDefault,
-    borderColor: colorVars.interactionDefault,
-    color: colorVars.fgPrimary,
-  },
-  destructive: {
-    backgroundColor: colorVars.bgActionDestructive,
-    borderColor: colorVars.bgActionDestructive,
-    color: colorVars.fgOnActionDestructive,
-  },
+
   disabled: {
     backgroundColor: colorVars.interactionDisabled,
     borderColor: colorVars.strokeDefault,
@@ -110,6 +91,9 @@ const styles = stylex.create({
     backgroundColor: colorVars.interactionDefault,
     borderColor: colorVars.interactionDefault,
   },
+});
+
+const sizeStyles = stylex.create({
   sm: {
     borderRadius: radiusVars.sm,
     height: sizeVars.controlSm,
@@ -149,11 +133,41 @@ const styles = stylex.create({
     paddingInline: 0,
     width: sizeVars.controlLg,
   },
+});
+
+const variantStyles = stylex.create({
+  primary: {
+    backgroundColor: colorVars.bgActionPrimary,
+    borderColor: colorVars.bgActionPrimary,
+    color: colorVars.fgOnActionPrimary,
+  },
+  secondary: {
+    backgroundColor: colorVars.interactionDefault,
+    borderColor: colorVars.strokeDefault,
+    color: colorVars.fgPrimary,
+  },
+  ghost: {
+    backgroundColor: colorVars.interactionDefault,
+    borderColor: colorVars.interactionDefault,
+    color: colorVars.fgPrimary,
+  },
+  destructive: {
+    backgroundColor: colorVars.bgActionDestructive,
+    borderColor: colorVars.bgActionDestructive,
+    color: colorVars.fgOnActionDestructive,
+  },
+});
+
+const shapeStyles = stylex.create({
+  default: {},
   square: { paddingInline: 0 },
   circle: { borderRadius: radiusVars.full, paddingInline: 0 },
-  iconSm: { width: sizeVars.controlSm },
-  iconMd: { width: sizeVars.controlMd },
-  iconLg: { width: sizeVars.controlLg },
+});
+
+const squareStyles = stylex.create({
+  sm: { width: sizeVars.controlSm },
+  md: { width: sizeVars.controlMd },
+  lg: { width: sizeVars.controlLg },
 });
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "destructive";
@@ -177,7 +191,8 @@ export function Button({
   xstyle,
   ...props
 }: ButtonProps) {
-  const isIconSize = size.startsWith("icon");
+  const isStandardSize = size === "sm" || size === "md" || size === "lg";
+  const shapeWidth = isStandardSize && shape !== "default" && squareStyles[size];
   const hasSolidBackground = variant === "primary" || variant === "destructive";
 
   return (
@@ -186,13 +201,11 @@ export function Button({
       disabled={disabled}
       {...stylex.props(
         styles.root,
-        styles[variant],
-        styles[size],
-        isIconSize && styles.iconContent,
-        shape !== "default" && styles[shape],
-        !isIconSize && shape !== "default" && size === "sm" && styles.iconSm,
-        !isIconSize && shape !== "default" && size === "md" && styles.iconMd,
-        !isIconSize && shape !== "default" && size === "lg" && styles.iconLg,
+        variantStyles[variant],
+        sizeStyles[size],
+        !isStandardSize && styles.iconContent,
+        shapeStyles[shape],
+        shapeWidth,
         hasSolidBackground ? styles.solidInteraction : styles.surfaceInteraction,
         disabled && styles.disabled,
         disabled && variant === "ghost" && styles.disabledGhost,

@@ -49,8 +49,7 @@ const styles = stylex.create({
       ":hover": { borderColor: colorVars.strokeDefault },
     },
   },
-  sm: { height: sizeVars.controlSm },
-  md: { height: sizeVars.controlMd },
+
   icon: {
     color: colorVars.fgSecondary,
     pointerEvents: "none",
@@ -61,6 +60,11 @@ const styles = stylex.create({
   },
 });
 
+const sizeStyles = stylex.create({
+  sm: { height: sizeVars.controlSm },
+  md: { height: sizeVars.controlMd },
+});
+
 export type NativeSelectProps = Omit<ComponentProps<"select">, "size" | "className" | "style"> & {
   size?: "md" | "sm";
   xstyle?: ControlLayoutStyles;
@@ -69,7 +73,7 @@ export type NativeSelectProps = Omit<ComponentProps<"select">, "size" | "classNa
 export function NativeSelect({ children, size = "md", xstyle, ...props }: NativeSelectProps) {
   return (
     <span {...stylex.props(styles.root, xstyle)}>
-      <select {...props} {...stylex.props(styles.select, styles[size])}>
+      <select {...props} {...stylex.props(styles.select, sizeStyles[size])}>
         {children}
       </select>
       <CaretDownIcon aria-hidden="true" {...stylex.props(styles.icon)} />

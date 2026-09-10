@@ -26,6 +26,9 @@ const styles = stylex.create({
       outlineWidth: sizeVars.focusRing,
     },
   },
+});
+
+const variantStyles = stylex.create({
   inline: {
     color: colorVars.fgAction,
     textDecorationLine: "underline",
@@ -59,7 +62,7 @@ function LinkBase({ xstyle, ref, render, variant = "inline", ...props }: LinkPro
     defaultTagName: "a",
     props: {
       ...props,
-      ...stylex.props(styles.root, styles[variant], xstyle),
+      ...stylex.props(styles.root, variantStyles[variant], xstyle),
     },
     ref,
     render,

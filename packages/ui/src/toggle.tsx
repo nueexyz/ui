@@ -41,6 +41,18 @@ const styles = stylex.create({
     },
     ":disabled": { cursor: "not-allowed" },
   },
+
+  pressed: { backgroundColor: colorVars.interactionSelected, color: colorVars.fgPrimary },
+  disabled: {
+    backgroundColor: colorVars.interactionDisabled,
+    borderColor: colorVars.strokeDefault,
+    color: colorVars.fgDisabled,
+    cursor: "not-allowed",
+    ":hover": { backgroundColor: colorVars.interactionDisabled },
+  },
+});
+
+const sizeStyles = stylex.create({
   sm: {
     height: sizeVars.controlSm,
     minWidth: sizeVars.controlSm,
@@ -56,16 +68,11 @@ const styles = stylex.create({
     minWidth: sizeVars.controlLg,
     paddingInline: spacingVars.space4,
   },
+});
+
+const variantStyles = stylex.create({
   default: { backgroundColor: "transparent" },
   outline: { backgroundColor: colorVars.bgSurface, borderColor: colorVars.strokeDefault },
-  pressed: { backgroundColor: colorVars.interactionSelected, color: colorVars.fgPrimary },
-  disabled: {
-    backgroundColor: colorVars.interactionDisabled,
-    borderColor: colorVars.strokeDefault,
-    color: colorVars.fgDisabled,
-    cursor: "not-allowed",
-    ":hover": { backgroundColor: colorVars.interactionDisabled },
-  },
 });
 
 export type ToggleSize = "lg" | "md" | "sm";
@@ -81,8 +88,8 @@ export function Toggle({ size = "md", variant = "default", xstyle, ...props }: T
   function getToggleStyles(state: TogglePrimitive.State) {
     return stylex.props(
       styles.root,
-      styles[size],
-      styles[variant],
+      sizeStyles[size],
+      variantStyles[variant],
       state.pressed && styles.pressed,
       state.disabled && styles.disabled,
       xstyle,

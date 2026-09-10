@@ -24,22 +24,7 @@ const styles = stylex.create({
     overflowX: "auto",
     position: "relative",
   },
-  segmentedList: {
-    backgroundColor: colorVars.bgSubtle,
-    borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.sm,
-    borderStyle: "solid",
-    borderWidth: sizeVars.stroke,
-    minHeight: sizeVars.controlMd,
-    padding: spacingVars.space0_5,
-  },
-  underlineList: {
-    borderBottomColor: colorVars.strokeDefault,
-    borderBottomStyle: "solid",
-    borderBottomWidth: sizeVars.stroke,
-    gap: spacingVars.space2,
-    minHeight: sizeVars.controlMd,
-  },
+
   trigger: {
     alignItems: "center",
     appearance: "none",
@@ -69,17 +54,7 @@ const styles = stylex.create({
       outlineWidth: sizeVars.focusRing,
     },
   },
-  segmentedTrigger: {
-    borderRadius: radiusVars.sm,
-    height: sizeVars.controlSm,
-    paddingInline: spacingVars.space3,
-  },
-  underlineTrigger: {
-    borderRadius: radiusVars.sm,
-    height: sizeVars.controlMd,
-    paddingInline: spacingVars.space2,
-    ":hover": { backgroundColor: colorVars.interactionHover, color: colorVars.fgPrimary },
-  },
+
   triggerActive: { color: colorVars.fgPrimary },
   triggerDisabled: {
     backgroundColor: "transparent",
@@ -100,18 +75,7 @@ const styles = stylex.create({
       transitionDuration: motionVars.durationInstant,
     },
   },
-  segmentedIndicator: {
-    backgroundColor: colorVars.interactionSelected,
-    borderRadius: radiusVars.sm,
-    boxShadow: shadowVars.subtle,
-    height: "var(--active-tab-height)",
-    top: "var(--active-tab-top)",
-  },
-  underlineIndicator: {
-    backgroundColor: colorVars.fgAction,
-    bottom: 0,
-    height: sizeVars.focusRing,
-  },
+
   panel: {
     color: colorVars.fgPrimary,
     fontSize: typographyVars.fontSizeSm,
@@ -126,6 +90,54 @@ const styles = stylex.create({
       outlineStyle: "solid",
       outlineWidth: sizeVars.focusRing,
     },
+  },
+});
+
+const listVariantStyles = stylex.create({
+  segmented: {
+    backgroundColor: colorVars.bgSubtle,
+    borderColor: colorVars.strokeDefault,
+    borderRadius: radiusVars.sm,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+    minHeight: sizeVars.controlMd,
+    padding: spacingVars.space0_5,
+  },
+  underline: {
+    borderBottomColor: colorVars.strokeDefault,
+    borderBottomStyle: "solid",
+    borderBottomWidth: sizeVars.stroke,
+    gap: spacingVars.space2,
+    minHeight: sizeVars.controlMd,
+  },
+});
+
+const triggerVariantStyles = stylex.create({
+  segmented: {
+    borderRadius: radiusVars.sm,
+    height: sizeVars.controlSm,
+    paddingInline: spacingVars.space3,
+  },
+  underline: {
+    borderRadius: radiusVars.sm,
+    height: sizeVars.controlMd,
+    paddingInline: spacingVars.space2,
+    ":hover": { backgroundColor: colorVars.interactionHover, color: colorVars.fgPrimary },
+  },
+});
+
+const indicatorVariantStyles = stylex.create({
+  segmented: {
+    backgroundColor: colorVars.interactionSelected,
+    borderRadius: radiusVars.sm,
+    boxShadow: shadowVars.subtle,
+    height: "var(--active-tab-height)",
+    top: "var(--active-tab-top)",
+  },
+  underline: {
+    backgroundColor: colorVars.fgAction,
+    bottom: 0,
+    height: sizeVars.focusRing,
   },
 });
 
@@ -155,9 +167,14 @@ export function TabsList({
   const variant = useContext(TabsVariantContext);
 
   return (
-    <TabsPrimitive.List {...props} {...stylex.props(styles.list, styles[`${variant}List`], xstyle)}>
+    <TabsPrimitive.List
+      {...props}
+      {...stylex.props(styles.list, listVariantStyles[variant], xstyle)}
+    >
       {children}
-      <TabsPrimitive.Indicator {...stylex.props(styles.indicator, styles[`${variant}Indicator`])} />
+      <TabsPrimitive.Indicator
+        {...stylex.props(styles.indicator, indicatorVariantStyles[variant])}
+      />
     </TabsPrimitive.List>
   );
 }
@@ -173,7 +190,7 @@ export function TabsTrigger({
   function getTabStyles(state: TabsPrimitive.Tab.State) {
     return stylex.props(
       styles.trigger,
-      styles[`${variant}Trigger`],
+      triggerVariantStyles[variant],
       state.active && styles.triggerActive,
       state.disabled && styles.triggerDisabled,
       xstyle,

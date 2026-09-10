@@ -15,7 +15,13 @@ const styles = stylex.create({
     lineHeight: typographyVars.lineHeightNormal,
     minWidth: 0,
   },
-  variantDefault: {},
+
+  icon: { alignItems: "center", display: "inline-flex", flexShrink: 0 },
+  content: { overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" },
+});
+
+const variantStyles = stylex.create({
+  default: {},
   border: {
     borderBottomColor: colorVars.strokeDefault,
     borderBottomStyle: "solid",
@@ -38,8 +44,6 @@ const styles = stylex.create({
       height: sizeVars.stroke,
     },
   },
-  icon: { alignItems: "center", display: "inline-flex", flexShrink: 0 },
-  content: { overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" },
 });
 
 export type MarkerProps = Omit<ComponentProps<"div">, "className" | "style"> & {
@@ -48,16 +52,7 @@ export type MarkerProps = Omit<ComponentProps<"div">, "className" | "style"> & {
 };
 
 export function Marker({ variant = "default", xstyle, ...props }: MarkerProps) {
-  return (
-    <div
-      {...props}
-      {...stylex.props(
-        styles.root,
-        variant === "default" ? styles.variantDefault : styles[variant],
-        xstyle,
-      )}
-    />
-  );
+  return <div {...props} {...stylex.props(styles.root, variantStyles[variant], xstyle)} />;
 }
 
 export function MarkerIcon({

@@ -9,8 +9,7 @@ import { typographyStyles } from "./typography";
 
 const styles = stylex.create({
   root: { display: "flex", gap: spacingVars.space2, width: "100%" },
-  vertical: { flexDirection: "column" },
-  horizontal: { alignItems: "baseline", flexDirection: "row", gap: spacingVars.space4 },
+
   label: {
     color: colorVars.fgPrimary,
     cursor: "default",
@@ -52,6 +51,11 @@ const styles = stylex.create({
   },
 });
 
+const orientationStyles = stylex.create({
+  horizontal: { alignItems: "baseline", flexDirection: "row", gap: spacingVars.space4 },
+  vertical: { flexDirection: "column" },
+});
+
 type StyleProps = { xstyle?: stylex.StyleXStyles };
 type FieldOrientation = "horizontal" | "vertical";
 
@@ -63,7 +67,7 @@ export function Field({ orientation = "vertical", xstyle, ...props }: FieldProps
     <FieldPrimitive.Root
       {...props}
       data-orientation={orientation}
-      {...stylex.props(styles.root, styles[orientation], xstyle)}
+      {...stylex.props(styles.root, orientationStyles[orientation], xstyle)}
     />
   );
 }

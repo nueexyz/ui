@@ -30,11 +30,7 @@ const styles = stylex.create({
     transitionProperty: "background-color, border-color",
     transitionTimingFunction: motionVars.easingStandard,
   },
-  horizontal: { flexDirection: "row" },
-  vertical: { alignItems: "stretch", flexDirection: "column" },
-  sizeDefault: { gap: spacingVars.space3, minHeight: "4.5rem", padding: spacingVars.space3 },
-  sm: { gap: spacingVars.space2, minHeight: sizeVars.touchTarget, padding: spacingVars.space2 },
-  xs: { gap: spacingVars.space2, minHeight: sizeVars.controlMd, padding: spacingVars.space1 },
+
   error: {
     backgroundColor: colorVars.bgFeedbackError,
     borderColor: "transparent",
@@ -46,19 +42,7 @@ const styles = stylex.create({
     justifyContent: "center",
     overflow: "hidden",
   },
-  mediaicon: {
-    backgroundColor: colorVars.bgSubtle,
-    borderRadius: radiusVars.sm,
-    color: colorVars.fgSecondary,
-    height: sizeVars.controlLg,
-    width: sizeVars.controlLg,
-  },
-  mediaimage: {
-    borderRadius: radiusVars.sm,
-    height: "3rem",
-    objectFit: "cover",
-    width: "3rem",
-  },
+
   content: {
     display: "flex",
     flex: 1,
@@ -115,6 +99,33 @@ const styles = stylex.create({
   },
 });
 
+const orientationStyles = stylex.create({
+  horizontal: { flexDirection: "row" },
+  vertical: { alignItems: "stretch", flexDirection: "column" },
+});
+
+const mediaVariantStyles = stylex.create({
+  icon: {
+    backgroundColor: colorVars.bgSubtle,
+    borderRadius: radiusVars.sm,
+    color: colorVars.fgSecondary,
+    height: sizeVars.controlLg,
+    width: sizeVars.controlLg,
+  },
+  image: {
+    borderRadius: radiusVars.sm,
+    height: "3rem",
+    objectFit: "cover",
+    width: "3rem",
+  },
+});
+
+const sizeStyles = stylex.create({
+  default: { gap: spacingVars.space3, minHeight: "4.5rem", padding: spacingVars.space3 },
+  sm: { gap: spacingVars.space2, minHeight: sizeVars.touchTarget, padding: spacingVars.space2 },
+  xs: { gap: spacingVars.space2, minHeight: sizeVars.controlMd, padding: spacingVars.space1 },
+});
+
 export type AttachmentState = "done" | "error" | "idle" | "processing" | "uploading";
 export type AttachmentSize = "default" | "sm" | "xs";
 
@@ -139,8 +150,8 @@ export function Attachment({
       data-state={state}
       {...stylex.props(
         styles.root,
-        styles[orientation],
-        size === "default" ? styles.sizeDefault : styles[size],
+        orientationStyles[orientation],
+        sizeStyles[size],
         state === "error" && styles.error,
         xstyle,
       )}
@@ -154,7 +165,7 @@ export type AttachmentMediaProps = Omit<ComponentProps<"div">, "className" | "st
 };
 
 export function AttachmentMedia({ xstyle, variant = "icon", ...props }: AttachmentMediaProps) {
-  return <div {...props} {...stylex.props(styles.media, styles[`media${variant}`], xstyle)} />;
+  return <div {...props} {...stylex.props(styles.media, mediaVariantStyles[variant], xstyle)} />;
 }
 
 export function AttachmentContent({

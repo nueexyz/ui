@@ -17,16 +17,22 @@ const styles = stylex.create({
     paddingInline: spacingVars.space4,
     whiteSpace: "pre-wrap",
   },
-  alignStart: {
+});
+
+const alignStyles = stylex.create({
+  start: {
     alignSelf: "flex-start",
     borderBottomLeftRadius: radiusVars.sm,
     borderRadius: radiusVars.sm,
   },
-  alignEnd: {
+  end: {
     alignSelf: "flex-end",
     borderBottomRightRadius: radiusVars.sm,
     borderRadius: radiusVars.sm,
   },
+});
+
+const variantStyles = stylex.create({
   default: { backgroundColor: colorVars.bgSubtle, color: colorVars.fgPrimary },
   primary: {
     backgroundColor: colorVars.bgMessageOutgoing,
@@ -55,12 +61,7 @@ export function Bubble({ align = "start", variant = "default", xstyle, ...props 
       {...props}
       data-align={align}
       data-variant={variant}
-      {...stylex.props(
-        styles.root,
-        align === "start" ? styles.alignStart : styles.alignEnd,
-        styles[variant],
-        xstyle,
-      )}
+      {...stylex.props(styles.root, alignStyles[align], variantStyles[variant], xstyle)}
     />
   );
 }

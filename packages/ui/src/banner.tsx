@@ -11,17 +11,7 @@ const styles = stylex.create({
     flexDirection: "column",
     width: "100%",
   },
-  md: {
-    gap: spacingVars.space2,
-    paddingBlock: spacingVars.space3,
-    paddingInline: spacingVars.space4,
-  },
-  sm: {
-    borderRadius: radiusVars.sm,
-    gap: spacingVars.space1,
-    paddingBlock: spacingVars.space2,
-    paddingInline: spacingVars.space3,
-  },
+
   content: { display: "grid", gap: spacingVars.space1, minWidth: 0 },
   action: { alignItems: "center", display: "flex", gap: spacingVars.space2 },
   title: {
@@ -34,6 +24,20 @@ const styles = stylex.create({
     fontSize: typographyVars.fontSizeSm,
     lineHeight: typographyVars.lineHeightNormal,
     opacity: 0.82,
+  },
+});
+
+const sizeStyles = stylex.create({
+  sm: {
+    borderRadius: radiusVars.sm,
+    gap: spacingVars.space1,
+    paddingBlock: spacingVars.space2,
+    paddingInline: spacingVars.space3,
+  },
+  md: {
+    gap: spacingVars.space2,
+    paddingBlock: spacingVars.space3,
+    paddingInline: spacingVars.space4,
   },
 });
 
@@ -58,7 +62,11 @@ export function Banner({ announce, children, role, size = "md", xstyle, ...props
   }
 
   return (
-    <div {...props} role={role ?? liveRole} {...stylex.props(styles.root, styles[size], xstyle)}>
+    <div
+      {...props}
+      role={role ?? liveRole}
+      {...stylex.props(styles.root, sizeStyles[size], xstyle)}
+    >
       {children}
     </div>
   );

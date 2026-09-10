@@ -37,8 +37,7 @@ const styles = stylex.create({
     },
     ":disabled": { cursor: "not-allowed" },
   },
-  sm: { height: sizeVars.controlXs, width: sizeVars.controlSm },
-  md: { height: sizeVars.controlXs, width: sizeVars.controlLg },
+
   checked: { backgroundColor: colorVars.bgActionPrimary },
   disabled: { backgroundColor: colorVars.interactionDisabled, cursor: "not-allowed" },
   disabledThumb: { backgroundColor: colorVars.fgDisabled },
@@ -54,10 +53,21 @@ const styles = stylex.create({
       transitionDuration: motionVars.durationInstant,
     },
   },
-  thumbsm: { height: sizeVars.iconMd, width: sizeVars.iconMd },
-  thumbmd: { height: sizeVars.iconLg, width: sizeVars.iconLg },
-  thumbCheckedsm: { transform: `translateX(${spacingVars.space3})` },
-  thumbCheckedmd: { transform: `translateX(${spacingVars.space4})` },
+});
+
+const sizeStyles = stylex.create({
+  sm: { height: sizeVars.controlXs, width: sizeVars.controlSm },
+  md: { height: sizeVars.controlXs, width: sizeVars.controlLg },
+});
+
+const thumbSizeStyles = stylex.create({
+  sm: { height: sizeVars.iconMd, width: sizeVars.iconMd },
+  md: { height: sizeVars.iconLg, width: sizeVars.iconLg },
+});
+
+const thumbCheckedStyles = stylex.create({
+  sm: { transform: `translateX(${spacingVars.space3})` },
+  md: { transform: `translateX(${spacingVars.space4})` },
 });
 
 export type SwitchProps = Omit<
@@ -72,7 +82,7 @@ export function Switch({ size = "md", xstyle, ...props }: SwitchProps) {
   function getRootStyles(state: SwitchPrimitive.Root.State) {
     return stylex.props(
       styles.root,
-      styles[size],
+      sizeStyles[size],
       state.checked && styles.checked,
       state.disabled && styles.disabled,
       xstyle,
@@ -88,8 +98,8 @@ export function Switch({ size = "md", xstyle, ...props }: SwitchProps) {
         className={(state) =>
           stylex.props(
             styles.thumb,
-            styles[`thumb${size}`],
-            state.checked && styles[`thumbChecked${size}`],
+            thumbSizeStyles[size],
+            state.checked && thumbCheckedStyles[size],
             state.disabled && styles.disabledThumb,
           ).className
         }

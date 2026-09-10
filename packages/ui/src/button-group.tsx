@@ -27,45 +27,13 @@ const styles = stylex.create({
     gap: 0,
     width: "fit-content",
   },
-  horizontal: { flexDirection: "row" },
-  vertical: { flexDirection: "column" },
+
   item: {
     minWidth: 0,
     position: "relative",
     ":focus-visible": { zIndex: 1 },
   },
-  horizontalItem: { marginInlineStart: -1 },
-  horizontalFirstItem: { marginInlineStart: 0 },
-  horizontalOnlyItem: { borderRadius: radiusVars.sm },
-  horizontalFirstItemRadius: {
-    borderBottomLeftRadius: radiusVars.sm,
-    borderBottomRightRadius: 0,
-    borderTopLeftRadius: radiusVars.sm,
-    borderTopRightRadius: 0,
-  },
-  horizontalMiddleItem: { borderRadius: 0 },
-  horizontalLastItem: {
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: radiusVars.sm,
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: radiusVars.sm,
-  },
-  verticalItem: { marginBlockStart: -1 },
-  verticalFirstItem: { marginBlockStart: 0 },
-  verticalOnlyItem: { borderRadius: radiusVars.sm },
-  verticalFirstItemRadius: {
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-    borderTopLeftRadius: radiusVars.sm,
-    borderTopRightRadius: radiusVars.sm,
-  },
-  verticalMiddleItem: { borderRadius: 0 },
-  verticalLastItem: {
-    borderBottomLeftRadius: radiusVars.sm,
-    borderBottomRightRadius: radiusVars.sm,
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: 0,
-  },
+
   text: {
     alignItems: "center",
     backgroundColor: colorVars.bgSurface,
@@ -81,6 +49,61 @@ const styles = stylex.create({
     paddingInline: spacingVars.space3,
   },
   separator: { alignSelf: "stretch", height: "auto", marginInline: -1, minHeight: "auto" },
+});
+
+const orientationStyles = stylex.create({
+  horizontal: { flexDirection: "row" },
+  vertical: { flexDirection: "column" },
+});
+
+const itemOrientationStyles = stylex.create({
+  horizontal: { marginInlineStart: -1 },
+  vertical: { marginBlockStart: -1 },
+});
+
+const firstItemStyles = stylex.create({
+  horizontal: { marginInlineStart: 0 },
+  vertical: { marginBlockStart: 0 },
+});
+
+const onlyItemStyles = stylex.create({
+  horizontal: { borderRadius: radiusVars.sm },
+  vertical: { borderRadius: radiusVars.sm },
+});
+
+const firstItemRadiusStyles = stylex.create({
+  horizontal: {
+    borderBottomLeftRadius: radiusVars.sm,
+    borderBottomRightRadius: 0,
+    borderTopLeftRadius: radiusVars.sm,
+    borderTopRightRadius: 0,
+  },
+  vertical: {
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    borderTopLeftRadius: radiusVars.sm,
+    borderTopRightRadius: radiusVars.sm,
+  },
+});
+
+const middleItemStyles = stylex.create({
+  horizontal: { borderRadius: 0 },
+  vertical: { borderRadius: 0 },
+});
+
+const lastItemStyles = stylex.create({
+  horizontal: {
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: radiusVars.sm,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: radiusVars.sm,
+  },
+  vertical: {
+    borderBottomLeftRadius: radiusVars.sm,
+    borderBottomRightRadius: radiusVars.sm,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
+  },
 });
 
 type StyleProps = { xstyle?: stylex.StyleXStyles };
@@ -100,10 +123,10 @@ function getItemPositionStyle(
   isFirst: boolean,
   isLast: boolean,
 ) {
-  if (isFirst && isLast) return styles[`${orientation}OnlyItem`];
-  if (isFirst) return styles[`${orientation}FirstItemRadius`];
-  if (isLast) return styles[`${orientation}LastItem`];
-  return styles[`${orientation}MiddleItem`];
+  if (isFirst && isLast) return onlyItemStyles[orientation];
+  if (isFirst) return firstItemRadiusStyles[orientation];
+  if (isLast) return lastItemStyles[orientation];
+  return middleItemStyles[orientation];
 }
 
 /** Direct children must be Nuee buttons or components that forward xstyle. Fragments and native elements are not styled as group items. */
@@ -136,8 +159,8 @@ export function ButtonGroup({
       cloneElement(child, {
         xstyle: [
           styles.item,
-          styles[`${orientation}Item`],
-          isFirst && styles[`${orientation}FirstItem`],
+          itemOrientationStyles[orientation],
+          isFirst && firstItemStyles[orientation],
           getItemPositionStyle(orientation, isFirst, isLast),
           child.props.xstyle,
         ],
@@ -150,7 +173,7 @@ export function ButtonGroup({
       {...props}
       data-orientation={orientation}
       role={role ?? "group"}
-      {...stylex.props(styles.root, styles[orientation], xstyle)}
+      {...stylex.props(styles.root, orientationStyles[orientation], xstyle)}
     >
       {content}
     </div>

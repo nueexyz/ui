@@ -92,10 +92,7 @@ const styles = stylex.create({
     },
     width: "auto",
   },
-  contentStartingFromLeft: { opacity: 0, transform: "translateX(-50%)" },
-  contentStartingFromRight: { opacity: 0, transform: "translateX(50%)" },
-  contentEndingToLeft: { opacity: 0, transform: "translateX(-50%)" },
-  contentEndingToRight: { opacity: 0, transform: "translateX(50%)" },
+
   link: {
     alignItems: "center",
     borderRadius: radiusVars.sm,
@@ -158,6 +155,14 @@ const styles = stylex.create({
     width: "100%",
   },
 });
+const enterStyles = stylex.create({
+  left: { opacity: 0, transform: "translateX(-50%)" },
+  right: { opacity: 0, transform: "translateX(50%)" },
+});
+const exitStyles = stylex.create({
+  left: { opacity: 0, transform: "translateX(50%)" },
+  right: { opacity: 0, transform: "translateX(-50%)" },
+});
 
 export function NavigationMenu({
   xstyle,
@@ -193,20 +198,12 @@ export function NavigationMenuContent({
   xstyle?: stylex.StyleXStyles;
 }) {
   function getContentStyles(state: NavigationMenuPrimitive.Content.State) {
+    const { transitionStatus, activationDirection } = state;
+    const hasDirection = activationDirection === "left" || activationDirection === "right";
     return stylex.props(
       styles.content,
-      state.transitionStatus === "starting" &&
-        state.activationDirection === "left" &&
-        styles.contentStartingFromLeft,
-      state.transitionStatus === "starting" &&
-        state.activationDirection === "right" &&
-        styles.contentStartingFromRight,
-      state.transitionStatus === "ending" &&
-        state.activationDirection === "left" &&
-        styles.contentEndingToRight,
-      state.transitionStatus === "ending" &&
-        state.activationDirection === "right" &&
-        styles.contentEndingToLeft,
+      hasDirection && transitionStatus === "starting" && enterStyles[activationDirection],
+      hasDirection && transitionStatus === "ending" && exitStyles[activationDirection],
       xstyle,
     );
   }

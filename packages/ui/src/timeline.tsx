@@ -58,18 +58,7 @@ const styles = stylex.create({
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
   },
-  indicatorActive: {
-    backgroundColor: colorVars.bgCurrent,
-    color: colorVars.fgPrimary,
-  },
-  indicatorComplete: {
-    backgroundColor: colorVars.bgFeedbackSuccess,
-    color: colorVars.fgFeedbackSuccess,
-  },
-  indicatorError: {
-    backgroundColor: colorVars.bgFeedbackError,
-    color: colorVars.fgFeedbackError,
-  },
+
   content: {
     display: "flex",
     flexDirection: "column",
@@ -94,6 +83,21 @@ const styles = stylex.create({
     color: colorVars.fgTertiary,
     fontSize: typographyVars.fontSizeXs,
     lineHeight: typographyVars.lineHeightNormal,
+  },
+});
+const indicatorVariantStyles = stylex.create({
+  default: {},
+  active: {
+    backgroundColor: colorVars.bgCurrent,
+    color: colorVars.fgPrimary,
+  },
+  complete: {
+    backgroundColor: colorVars.bgFeedbackSuccess,
+    color: colorVars.fgFeedbackSuccess,
+  },
+  error: {
+    backgroundColor: colorVars.bgFeedbackError,
+    color: colorVars.fgFeedbackError,
   },
 });
 
@@ -129,13 +133,7 @@ export function TimelineIndicator({
     <span
       aria-hidden={props["aria-label"] === undefined ? true : undefined}
       {...props}
-      {...stylex.props(
-        styles.indicator,
-        variant === "active" && styles.indicatorActive,
-        variant === "complete" && styles.indicatorComplete,
-        variant === "error" && styles.indicatorError,
-        xstyle,
-      )}
+      {...stylex.props(styles.indicator, indicatorVariantStyles[variant], xstyle)}
     />
   );
 }

@@ -60,8 +60,7 @@ const styles = stylex.create({
       pointerEvents: "none",
     },
   },
-  icon: { width: sizeVars.controlMd },
-  default: { paddingInline: spacingVars.space3 },
+
   active: { backgroundColor: colorVars.bgSurfacePressed, borderColor: colorVars.strokeStrong },
   ellipsis: {
     alignItems: "center",
@@ -71,6 +70,11 @@ const styles = stylex.create({
     justifyContent: "center",
     width: sizeVars.controlMd,
   },
+});
+
+const sizeStyles = stylex.create({
+  default: { paddingInline: spacingVars.space3 },
+  icon: { width: sizeVars.controlMd },
 });
 
 export function Pagination({
@@ -111,7 +115,7 @@ export function PaginationLink({
     <a
       aria-current={isActive ? "page" : undefined}
       {...props}
-      {...stylex.props(styles.link, styles[size], isActive && styles.active, xstyle)}
+      {...stylex.props(styles.link, sizeStyles[size], isActive && styles.active, xstyle)}
     >
       {children}
     </a>

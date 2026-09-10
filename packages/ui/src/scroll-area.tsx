@@ -18,8 +18,7 @@ const styles = stylex.create({
     transitionTimingFunction: motionVars.easingStandard,
     userSelect: "none",
   },
-  vertical: { height: "100%", width: 10 },
-  horizontal: { flexDirection: "column", height: 10, width: "100%" },
+
   thumb: {
     backgroundColor: colorVars.strokeDefault,
     borderRadius: radiusVars.full,
@@ -32,6 +31,11 @@ const styles = stylex.create({
     ":hover": { backgroundColor: colorVars.strokeStrong },
   },
   corner: { backgroundColor: "transparent" },
+});
+
+const orientationStyles = stylex.create({
+  horizontal: { flexDirection: "column", height: 10, width: "100%" },
+  vertical: { height: "100%", width: 10 },
 });
 
 export type ScrollAreaProps = Omit<
@@ -73,7 +77,7 @@ export function ScrollBar({
   return (
     <ScrollAreaPrimitive.Scrollbar
       {...props}
-      {...stylex.props(styles.scrollbar, styles[orientation], xstyle)}
+      {...stylex.props(styles.scrollbar, orientationStyles[orientation], xstyle)}
       orientation={orientation}
     >
       <ScrollAreaPrimitive.Thumb {...stylex.props(styles.thumb)} />

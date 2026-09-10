@@ -13,8 +13,7 @@ import type { ControlPlacementStyles } from "./control-layout";
 const styles = stylex.create({
   group: { display: "flex", flexDirection: "column", gap: spacingVars.space2, minWidth: 0 },
   root: { display: "flex", gap: spacingVars.space2, minWidth: 0, width: "100%" },
-  alignStart: { flexDirection: "row" },
-  alignEnd: { flexDirection: "row-reverse" },
+
   avatar: {
     alignItems: "center",
     alignSelf: "flex-start",
@@ -54,6 +53,11 @@ const styles = stylex.create({
   },
 });
 
+const alignStyles = stylex.create({
+  start: { flexDirection: "row" },
+  end: { flexDirection: "row-reverse" },
+});
+
 export type MessageAlign = "start" | "end";
 
 export type MessageProps = Omit<ComponentProps<"article">, "className" | "style"> & {
@@ -66,11 +70,7 @@ export function Message({ align = "start", xstyle, ...props }: MessageProps) {
     <article
       {...props}
       data-align={align}
-      {...stylex.props(
-        styles.root,
-        align === "start" ? styles.alignStart : styles.alignEnd,
-        xstyle,
-      )}
+      {...stylex.props(styles.root, alignStyles[align], xstyle)}
     />
   );
 }

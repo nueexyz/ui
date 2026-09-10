@@ -27,6 +27,9 @@ const styles = stylex.create({
     paddingInline: spacingVars.space2,
     whiteSpace: "nowrap",
   },
+});
+
+const variantStyles = stylex.create({
   primary: {
     backgroundColor: colorVars.bgActionPrimary,
     borderColor: colorVars.bgActionPrimary,
@@ -35,6 +38,11 @@ const styles = stylex.create({
   secondary: {
     backgroundColor: colorVars.bgSubtle,
     borderColor: colorVars.bgSubtle,
+    color: colorVars.fgPrimary,
+  },
+  ghost: {
+    backgroundColor: colorVars.interactionDefault,
+    borderColor: colorVars.interactionDefault,
     color: colorVars.fgPrimary,
   },
   destructive: {
@@ -47,11 +55,6 @@ const styles = stylex.create({
     borderColor: colorVars.strokeDefault,
     color: colorVars.fgPrimary,
   },
-  ghost: {
-    backgroundColor: colorVars.interactionDefault,
-    borderColor: colorVars.interactionDefault,
-    color: colorVars.fgPrimary,
-  },
 });
 
 type BadgeVariant = "primary" | "secondary" | "destructive" | "outline" | "ghost";
@@ -62,5 +65,5 @@ export type BadgeProps = Omit<ComponentProps<"span">, "className" | "style"> & {
 };
 
 export function Badge({ xstyle, variant = "primary", ...props }: BadgeProps) {
-  return <span {...props} {...stylex.props(styles.root, styles[variant], xstyle)} />;
+  return <span {...props} {...stylex.props(styles.root, variantStyles[variant], xstyle)} />;
 }

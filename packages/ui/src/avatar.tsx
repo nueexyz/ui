@@ -26,9 +26,7 @@ const styles = stylex.create({
     overflow: "visible",
     position: "relative",
   },
-  sm: { height: sizeVars.controlSm, width: sizeVars.controlSm },
-  md: { height: sizeVars.controlMd, width: sizeVars.controlMd },
-  lg: { height: sizeVars.controlLg, width: sizeVars.controlLg },
+
   image: {
     borderRadius: "inherit",
     height: "100%",
@@ -77,6 +75,12 @@ const styles = stylex.create({
   },
 });
 
+const sizeStyles = stylex.create({
+  sm: { height: sizeVars.controlSm, width: sizeVars.controlSm },
+  md: { height: sizeVars.controlMd, width: sizeVars.controlMd },
+  lg: { height: sizeVars.controlLg, width: sizeVars.controlLg },
+});
+
 export type AvatarSize = "lg" | "md" | "sm";
 
 export type AvatarProps = Omit<
@@ -88,7 +92,9 @@ export type AvatarProps = Omit<
 };
 
 export function Avatar({ xstyle, size = "md", ...props }: AvatarProps) {
-  return <AvatarPrimitive.Root {...props} {...stylex.props(styles.root, styles[size], xstyle)} />;
+  return (
+    <AvatarPrimitive.Root {...props} {...stylex.props(styles.root, sizeStyles[size], xstyle)} />
+  );
 }
 
 export function AvatarImage({

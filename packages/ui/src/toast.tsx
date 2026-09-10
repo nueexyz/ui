@@ -45,11 +45,7 @@ const styles = stylex.create({
       ":is([data-expanded])": "auto",
     },
   },
-  viewportTop: { top: spacingVars.space4 },
-  viewportBottom: { bottom: spacingVars.space4 },
-  viewportLeft: { left: spacingVars.space4 },
-  viewportCenter: { left: "50%", transform: "translateX(-50%)" },
-  viewportRight: { right: spacingVars.space4 },
+
   stack: (height: number | string) => ({
     bottom: 0,
     height,
@@ -305,6 +301,17 @@ const styles = stylex.create({
   clearAllTop: { bottom: 0, top: "auto" },
 });
 
+const verticalPositionStyles = stylex.create({
+  top: { top: spacingVars.space4 },
+  bottom: { bottom: spacingVars.space4 },
+});
+
+const horizontalPositionStyles = stylex.create({
+  left: { left: spacingVars.space4 },
+  center: { left: "50%", transform: "translateX(-50%)" },
+  right: { right: spacingVars.space4 },
+});
+
 export type ToastPosition =
   | "bottom-center"
   | "bottom-left"
@@ -503,10 +510,8 @@ export function Toaster({
         <ToastPrimitive.Viewport
           {...stylex.props(
             styles.viewport,
-            verticalPosition === "top" ? styles.viewportTop : styles.viewportBottom,
-            horizontalPosition === "left" && styles.viewportLeft,
-            horizontalPosition === "center" && styles.viewportCenter,
-            horizontalPosition === "right" && styles.viewportRight,
+            verticalPositionStyles[verticalPosition],
+            horizontalPositionStyles[horizontalPosition],
             xstyle,
           )}
         >

@@ -18,16 +18,7 @@ import type { ToggleSize, ToggleVariant } from "./toggle";
 
 const styles = stylex.create({
   root: { alignItems: "center", display: "inline-flex", width: "fit-content" },
-  default: { gap: spacingVars.space1 },
-  outline: {
-    backgroundColor: colorVars.bgSurface,
-    borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.sm,
-    borderStyle: "solid",
-    borderWidth: sizeVars.stroke,
-    gap: 0,
-    overflow: "hidden",
-  },
+
   outlineItem: {
     borderColor: "transparent",
     borderRadius: 0,
@@ -59,23 +50,7 @@ const styles = stylex.create({
     },
     ":disabled": { cursor: "not-allowed" },
   },
-  itemSm: {
-    height: sizeVars.controlSm,
-    minWidth: sizeVars.controlSm,
-    paddingInline: spacingVars.space2,
-  },
-  itemMd: {
-    height: sizeVars.controlMd,
-    minWidth: sizeVars.controlMd,
-    paddingInline: spacingVars.space3,
-  },
-  itemLg: {
-    height: sizeVars.controlLg,
-    minWidth: sizeVars.controlLg,
-    paddingInline: spacingVars.space4,
-  },
-  itemDefault: { backgroundColor: "transparent" },
-  itemOutline: { backgroundColor: colorVars.bgSurface, borderColor: colorVars.strokeDefault },
+
   itemPressed: { backgroundColor: colorVars.interactionSelected, color: colorVars.fgPrimary },
   itemDisabled: {
     backgroundColor: colorVars.interactionDisabled,
@@ -86,8 +61,41 @@ const styles = stylex.create({
   },
 });
 
-const itemSizeStyles = { lg: styles.itemLg, md: styles.itemMd, sm: styles.itemSm };
-const itemVariantStyles = { default: styles.itemDefault, outline: styles.itemOutline };
+const variantStyles = stylex.create({
+  default: { gap: spacingVars.space1 },
+  outline: {
+    backgroundColor: colorVars.bgSurface,
+    borderColor: colorVars.strokeDefault,
+    borderRadius: radiusVars.sm,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+    gap: 0,
+    overflow: "hidden",
+  },
+});
+
+const itemSizeStyles = stylex.create({
+  sm: {
+    height: sizeVars.controlSm,
+    minWidth: sizeVars.controlSm,
+    paddingInline: spacingVars.space2,
+  },
+  md: {
+    height: sizeVars.controlMd,
+    minWidth: sizeVars.controlMd,
+    paddingInline: spacingVars.space3,
+  },
+  lg: {
+    height: sizeVars.controlLg,
+    minWidth: sizeVars.controlLg,
+    paddingInline: spacingVars.space4,
+  },
+});
+
+const itemVariantStyles = stylex.create({
+  default: { backgroundColor: "transparent" },
+  outline: { backgroundColor: colorVars.bgSurface, borderColor: colorVars.strokeDefault },
+});
 
 type ToggleGroupContextValue = { size: ToggleSize; variant: ToggleVariant };
 const ToggleGroupContext = createContext<ToggleGroupContextValue>({
@@ -113,7 +121,7 @@ export function ToggleGroup({
   ...props
 }: ToggleGroupProps) {
   return (
-    <ToggleGroupPrimitive {...props} {...stylex.props(styles.root, styles[variant], xstyle)}>
+    <ToggleGroupPrimitive {...props} {...stylex.props(styles.root, variantStyles[variant], xstyle)}>
       <ToggleGroupContext value={{ size, variant }}>{children}</ToggleGroupContext>
     </ToggleGroupPrimitive>
   );

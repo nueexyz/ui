@@ -57,22 +57,7 @@ const styles = stylex.create({
     gap: spacingVars.space2,
     minHeight: sizeVars.controlMd,
   },
-  "inline-start": { order: -1, paddingInlineStart: spacingVars.space3 },
-  "inline-end": { order: 1, paddingInlineEnd: spacingVars.space3 },
-  "block-start": {
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    order: -1,
-    paddingInline: spacingVars.space3,
-    width: "100%",
-  },
-  "block-end": {
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    order: 1,
-    paddingInline: spacingVars.space3,
-    width: "100%",
-  },
+
   control: {
     appearance: "none",
     backgroundColor: "transparent",
@@ -118,6 +103,25 @@ const styles = stylex.create({
   },
 });
 
+const alignStyles = stylex.create({
+  "inline-start": { order: -1, paddingInlineStart: spacingVars.space3 },
+  "inline-end": { order: 1, paddingInlineEnd: spacingVars.space3 },
+  "block-start": {
+    alignSelf: "stretch",
+    justifyContent: "flex-start",
+    order: -1,
+    paddingInline: spacingVars.space3,
+    width: "100%",
+  },
+  "block-end": {
+    alignSelf: "stretch",
+    justifyContent: "flex-start",
+    order: 1,
+    paddingInline: spacingVars.space3,
+    width: "100%",
+  },
+});
+
 type StyleProps = { xstyle?: stylex.StyleXStyles };
 type AddonAlignment = "block-end" | "block-start" | "inline-end" | "inline-start";
 
@@ -152,7 +156,7 @@ export function InputGroupAddon({
       role="presentation"
       data-align={align}
       onClick={handleClick}
-      {...stylex.props(styles.addon, styles[align], xstyle)}
+      {...stylex.props(styles.addon, alignStyles[align], xstyle)}
     />
   );
 }

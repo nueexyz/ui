@@ -17,12 +17,7 @@ const styles = stylex.create({
     minWidth: 0,
     width: "100%",
   },
-  variantDefault: { backgroundColor: "transparent" },
-  muted: { backgroundColor: colorVars.bgSubtle },
-  outline: { backgroundColor: colorVars.bgSurface, borderColor: colorVars.strokeDefault },
-  xs: { gap: spacingVars.space2, minHeight: sizeVars.controlSm, padding: spacingVars.space2 },
-  sm: { gap: spacingVars.space3, minHeight: sizeVars.touchTarget, padding: spacingVars.space3 },
-  sizeDefault: { gap: spacingVars.space3, minHeight: "4rem", padding: spacingVars.space4 },
+
   group: { display: "flex", flexDirection: "column", gap: spacingVars.space2, width: "100%" },
   media: {
     alignItems: "center",
@@ -31,19 +26,7 @@ const styles = stylex.create({
     justifyContent: "center",
     overflow: "hidden",
   },
-  mediaicon: {
-    backgroundColor: colorVars.bgSubtle,
-    borderRadius: radiusVars.sm,
-    color: colorVars.fgSecondary,
-    height: sizeVars.controlMd,
-    width: sizeVars.controlMd,
-  },
-  mediaavatar: { borderRadius: radiusVars.full },
-  mediaimage: {
-    borderRadius: radiusVars.sm,
-    height: sizeVars.touchTarget,
-    width: sizeVars.touchTarget,
-  },
+
   content: {
     alignSelf: "baseline",
     display: "flex",
@@ -65,6 +48,34 @@ const styles = stylex.create({
   },
 });
 
+const mediaVariantStyles = stylex.create({
+  icon: {
+    backgroundColor: colorVars.bgSubtle,
+    borderRadius: radiusVars.sm,
+    color: colorVars.fgSecondary,
+    height: sizeVars.controlMd,
+    width: sizeVars.controlMd,
+  },
+  avatar: { borderRadius: radiusVars.full },
+  image: {
+    borderRadius: radiusVars.sm,
+    height: sizeVars.touchTarget,
+    width: sizeVars.touchTarget,
+  },
+});
+
+const sizeStyles = stylex.create({
+  default: { gap: spacingVars.space3, minHeight: "4rem", padding: spacingVars.space4 },
+  sm: { gap: spacingVars.space3, minHeight: sizeVars.touchTarget, padding: spacingVars.space3 },
+  xs: { gap: spacingVars.space2, minHeight: sizeVars.controlSm, padding: spacingVars.space2 },
+});
+
+const variantStyles = stylex.create({
+  default: { backgroundColor: "transparent" },
+  muted: { backgroundColor: colorVars.bgSubtle },
+  outline: { backgroundColor: colorVars.bgSurface, borderColor: colorVars.strokeDefault },
+});
+
 export type ContentRowSize = "default" | "sm" | "xs";
 export type ContentRowVariant = "default" | "muted" | "outline";
 
@@ -83,12 +94,7 @@ export function ContentRow({
   return (
     <div
       {...props}
-      {...stylex.props(
-        styles.root,
-        size === "default" ? styles.sizeDefault : styles[size],
-        variant === "default" ? styles.variantDefault : styles[variant],
-        xstyle,
-      )}
+      {...stylex.props(styles.root, sizeStyles[size], variantStyles[variant], xstyle)}
     />
   );
 }
@@ -106,7 +112,7 @@ export type ContentRowMediaProps = Omit<ComponentProps<"div">, "className" | "st
 };
 
 export function ContentRowMedia({ xstyle, variant = "icon", ...props }: ContentRowMediaProps) {
-  return <div {...props} {...stylex.props(styles.media, styles[`media${variant}`], xstyle)} />;
+  return <div {...props} {...stylex.props(styles.media, mediaVariantStyles[variant], xstyle)} />;
 }
 
 export function ContentRowContent({

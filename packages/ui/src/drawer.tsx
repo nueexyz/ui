@@ -73,74 +73,14 @@ const styles = stylex.create({
     right: 0,
     width: "100%",
   },
-  downPopup: {
-    borderRadius: `${radiusVars.xl} ${radiusVars.xl} 0 0`,
-    bottom: 0,
-    minHeight: "50dvh",
-    transform:
-      "translate3d(var(--drawer-swipe-movement-x, 0px), calc(var(--drawer-snap-point-offset, 0px) + var(--drawer-swipe-movement-y, 0px)), 0)",
-    ":is([data-starting-style], [data-ending-style])": {
-      opacity: 0,
-      transform: "translate3d(0, 100%, 0)",
-    },
-    "@media (prefers-reduced-motion: reduce)": {
-      ":is([data-starting-style], [data-ending-style])": {
-        transform: "translate3d(0, 24%, 0)",
-      },
-    },
-  },
-  upPopup: {
-    borderRadius: `0 0 ${radiusVars.xl} ${radiusVars.xl}`,
-    minHeight: "50dvh",
-    top: 0,
-    transform:
-      "translate3d(var(--drawer-swipe-movement-x, 0px), calc(var(--drawer-snap-point-offset, 0px) + var(--drawer-swipe-movement-y, 0px)), 0)",
-    ":is([data-starting-style], [data-ending-style])": {
-      opacity: 0,
-      transform: "translate3d(0, -100%, 0)",
-    },
-    "@media (prefers-reduced-motion: reduce)": {
-      ":is([data-starting-style], [data-ending-style])": {
-        transform: "translate3d(0, -24%, 0)",
-      },
-    },
-  },
+
   horizontalPopup: {
     bottom: 0,
     maxWidth: sizeVars.contentSm,
     top: 0,
     width: "75vw",
   },
-  leftPopup: {
-    borderRadius: `0 ${radiusVars.xl} ${radiusVars.xl} 0`,
-    left: 0,
-    transform:
-      "translate3d(var(--drawer-swipe-movement-x, 0px), var(--drawer-swipe-movement-y, 0px), 0)",
-    ":is([data-starting-style], [data-ending-style])": {
-      opacity: 0,
-      transform: "translate3d(-100%, 0, 0)",
-    },
-    "@media (prefers-reduced-motion: reduce)": {
-      ":is([data-starting-style], [data-ending-style])": {
-        transform: "translate3d(-24%, 0, 0)",
-      },
-    },
-  },
-  rightPopup: {
-    borderRadius: `${radiusVars.xl} 0 0 ${radiusVars.xl}`,
-    right: 0,
-    transform:
-      "translate3d(var(--drawer-swipe-movement-x, 0px), var(--drawer-swipe-movement-y, 0px), 0)",
-    ":is([data-starting-style], [data-ending-style])": {
-      opacity: 0,
-      transform: "translate3d(100%, 0, 0)",
-    },
-    "@media (prefers-reduced-motion: reduce)": {
-      ":is([data-starting-style], [data-ending-style])": {
-        transform: "translate3d(24%, 0, 0)",
-      },
-    },
-  },
+
   content: { display: "flex", flex: 1, flexDirection: "column", minHeight: 0 },
   swipeHandle: {
     alignSelf: "center",
@@ -159,16 +99,7 @@ const styles = stylex.create({
     transform: "translateY(-50%)",
     width: spacingVars.space1,
   },
-  upSwipeHandle: {
-    bottom: spacingVars.space2,
-    left: 0,
-    marginBlock: 0,
-    marginInline: "auto",
-    position: "absolute",
-    right: 0,
-  },
-  leftSwipeHandle: { right: spacingVars.space2 },
-  rightSwipeHandle: { left: spacingVars.space2 },
+
   header: {
     display: "flex",
     flexDirection: "column",
@@ -203,6 +134,85 @@ const styles = stylex.create({
     lineHeight: typographyVars.lineHeightNormal,
     margin: 0,
   },
+});
+
+const popupDirectionStyles = stylex.create({
+  down: {
+    borderRadius: `${radiusVars.xl} ${radiusVars.xl} 0 0`,
+    bottom: 0,
+    minHeight: "50dvh",
+    transform:
+      "translate3d(var(--drawer-swipe-movement-x, 0px), calc(var(--drawer-snap-point-offset, 0px) + var(--drawer-swipe-movement-y, 0px)), 0)",
+    ":is([data-starting-style], [data-ending-style])": {
+      opacity: 0,
+      transform: "translate3d(0, 100%, 0)",
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      ":is([data-starting-style], [data-ending-style])": {
+        transform: "translate3d(0, 24%, 0)",
+      },
+    },
+  },
+  up: {
+    borderRadius: `0 0 ${radiusVars.xl} ${radiusVars.xl}`,
+    minHeight: "50dvh",
+    top: 0,
+    transform:
+      "translate3d(var(--drawer-swipe-movement-x, 0px), calc(var(--drawer-snap-point-offset, 0px) + var(--drawer-swipe-movement-y, 0px)), 0)",
+    ":is([data-starting-style], [data-ending-style])": {
+      opacity: 0,
+      transform: "translate3d(0, -100%, 0)",
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      ":is([data-starting-style], [data-ending-style])": {
+        transform: "translate3d(0, -24%, 0)",
+      },
+    },
+  },
+  left: {
+    borderRadius: `0 ${radiusVars.xl} ${radiusVars.xl} 0`,
+    left: 0,
+    transform:
+      "translate3d(var(--drawer-swipe-movement-x, 0px), var(--drawer-swipe-movement-y, 0px), 0)",
+    ":is([data-starting-style], [data-ending-style])": {
+      opacity: 0,
+      transform: "translate3d(-100%, 0, 0)",
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      ":is([data-starting-style], [data-ending-style])": {
+        transform: "translate3d(-24%, 0, 0)",
+      },
+    },
+  },
+  right: {
+    borderRadius: `${radiusVars.xl} 0 0 ${radiusVars.xl}`,
+    right: 0,
+    transform:
+      "translate3d(var(--drawer-swipe-movement-x, 0px), var(--drawer-swipe-movement-y, 0px), 0)",
+    ":is([data-starting-style], [data-ending-style])": {
+      opacity: 0,
+      transform: "translate3d(100%, 0, 0)",
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      ":is([data-starting-style], [data-ending-style])": {
+        transform: "translate3d(24%, 0, 0)",
+      },
+    },
+  },
+});
+
+const handleDirectionStyles = stylex.create({
+  down: {},
+  up: {
+    bottom: spacingVars.space2,
+    left: 0,
+    marginBlock: 0,
+    marginInline: "auto",
+    position: "absolute",
+    right: 0,
+  },
+  left: { right: spacingVars.space2 },
+  right: { left: spacingVars.space2 },
 });
 
 type DrawerContextValue = {
@@ -293,9 +303,7 @@ export function DrawerSwipeHandle({ xstyle, ...props }: DrawerSwipeHandleProps) 
       {...stylex.props(
         styles.swipeHandle,
         isHorizontal && styles.horizontalSwipeHandle,
-        swipeDirection === "up" && styles.upSwipeHandle,
-        swipeDirection === "left" && styles.leftSwipeHandle,
-        swipeDirection === "right" && styles.rightSwipeHandle,
+        handleDirectionStyles[swipeDirection],
         xstyle,
       )}
     />
@@ -325,7 +333,7 @@ export function DrawerPopup({ children, xstyle, ...props }: DrawerPopupProps) {
           {...stylex.props(
             styles.popup,
             isHorizontal ? styles.horizontalPopup : styles.verticalPopup,
-            styles[`${swipeDirection}Popup`],
+            popupDirectionStyles[swipeDirection],
             xstyle,
           )}
         >
