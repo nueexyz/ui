@@ -45,7 +45,7 @@ const styles = stylex.create({
     ":disabled": {
       cursor: "not-allowed",
     },
-    "::before": {
+    "::after": {
       backgroundColor: colorVars.interactionDefault,
       content: '""',
       inset: 0,
@@ -54,11 +54,11 @@ const styles = stylex.create({
       transitionDuration: motionVars.durationFast,
       transitionProperty: "background-color",
       transitionTimingFunction: motionVars.easingStandard,
-      zIndex: 0,
+      zIndex: -1,
     },
   },
   solidInteraction: {
-    "::before": {
+    "::after": {
       backgroundColor: {
         default: colorVars.interactionDefault,
         ":hover": colorVars.interactionSolidHover,
@@ -67,20 +67,13 @@ const styles = stylex.create({
     },
   },
   surfaceInteraction: {
-    "::before": {
+    "::after": {
       backgroundColor: {
         default: colorVars.interactionDefault,
         ":hover": colorVars.interactionHover,
         ":active": colorVars.interactionPressed,
       },
     },
-  },
-  content: {
-    alignItems: "center",
-    display: "inline-flex",
-    gap: spacingVars.space2,
-    position: "relative",
-    zIndex: 1,
   },
   iconContent: {
     gap: 0,
@@ -111,7 +104,7 @@ const styles = stylex.create({
     backgroundColor: colorVars.interactionDisabled,
     borderColor: colorVars.strokeDefault,
     color: colorVars.fgDisabled,
-    "::before": { backgroundColor: colorVars.interactionDefault },
+    "::after": { backgroundColor: colorVars.interactionDefault },
   },
   disabledGhost: {
     backgroundColor: colorVars.interactionDefault,
@@ -195,6 +188,7 @@ export function Button({
         styles.root,
         styles[variant],
         styles[size],
+        isIconSize && styles.iconContent,
         shape !== "default" && styles[shape],
         !isIconSize && shape !== "default" && size === "sm" && styles.iconSm,
         !isIconSize && shape !== "default" && size === "md" && styles.iconMd,
@@ -205,7 +199,7 @@ export function Button({
         xstyle,
       )}
     >
-      <span {...stylex.props(styles.content, isIconSize && styles.iconContent)}>{children}</span>
+      {children}
     </ButtonPrimitive>
   );
 }

@@ -4,6 +4,7 @@ import test from "node:test";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
+import { Button } from "../dist/button.js";
 import { Heading } from "../dist/heading.js";
 
 test("heading level remains independent of its visual size", () => {
@@ -15,4 +16,13 @@ test("heading level remains independent of its visual size", () => {
     assert.match(html, /id="settings"/);
     assert.doesNotMatch(html, /\b(?:size|level)=/);
   }
+});
+
+test("button renders caller content directly", () => {
+  const html = renderToStaticMarkup(
+    createElement(Button, null, createElement("svg", { "aria-hidden": true }), "Save"),
+  );
+  assert.match(html, /<button[^>]*><svg/);
+  assert.match(html, /<\/svg>Save<\/button>/);
+  assert.doesNotMatch(html, /<span/);
 });

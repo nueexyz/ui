@@ -1,5 +1,8 @@
 ## Unreleased
 
+- Button renders children directly without an extra span, preserving icon spacing
+    and interaction backgrounds.
+
 - Styled components consistently accept `xstyle`. Controls and text elements
     retain typed limits that protect their appearance and interaction states.
 - Compose panels and content explicitly: use DrawerPopup with DrawerContent,
