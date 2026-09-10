@@ -7,6 +7,8 @@ import { parse, type ParseError } from "jsonc-parser";
 export const configFileName = "nuee.json";
 
 export type NueeConfig = {
+  version?: string;
+  components?: Record<string, string | null>;
   accessibility: {
     respectReducedMotion: boolean;
   };
@@ -66,6 +68,8 @@ export function validateConfig(config: unknown): NueeConfig {
   const candidate = config as {
     accessibility?: { respectReducedMotion?: unknown };
     aliases?: unknown;
+    version?: unknown;
+    components?: unknown;
     paths?: { ui?: unknown; tokens?: unknown };
     tokens?: unknown;
   };
@@ -92,12 +96,34 @@ export function validateConfig(config: unknown): NueeConfig {
   ) {
     throw new Error("Configure accessibility.respectReducedMotion as a boolean.");
   }
+  if (
+    candidate.version !== undefined &&
+    (typeof candidate.version !== "string" || !candidate.version.trim())
+  ) {
+    throw new Error("Configure version as a non-empty string.");
+  }
+  if (
+    candidate.components !== undefined &&
+    (candidate.components === null ||
+      typeof candidate.components !== "object" ||
+      Array.isArray(candidate.components) ||
+      Object.entries(candidate.components).some(
+        ([name, version]) =>
+          !name.trim() || (version !== null && (typeof version !== "string" || !version.trim())),
+      ))
+  ) {
+    throw new Error("Configure components as component names mapped to versions or null.");
+  }
   const respectReducedMotion =
     typeof candidate.accessibility?.respectReducedMotion === "boolean"
       ? candidate.accessibility.respectReducedMotion
       : true;
 
   return {
+    ...(candidate.version !== undefined ? { version: candidate.version as string } : {}),
+    ...(candidate.components !== undefined
+      ? { components: candidate.components as Record<string, string | null> }
+      : {}),
     accessibility: {
       respectReducedMotion,
     },

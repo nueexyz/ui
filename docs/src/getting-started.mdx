@@ -27,6 +27,7 @@ pnpm dlx @nuee/ui init --vite
 
 ```json
 {
+  "version": "0.6.1",
   "accessibility": {
     "respectReducedMotion": true
   },
@@ -94,5 +95,29 @@ export function SaveButton() {
 <LocalizedMarkdown
   text={
     "Start your application with its existing development command. Confirm that the button appears with nuée styling and shows a focus indicator when reached with Tab. If it appears unstyled, check the StyleX build integration and reset stylesheet import."
+  }
+/>
+
+<LocalizedMarkdown text={"## Installed source versions"} />
+
+<LocalizedMarkdown
+  text={
+    "`nuee.json` records the source versions copied into your project. `version` identifies the local foundation; `components` records each component installed by `add`, including registry dependencies. These values describe the installed source release, not later manual edits. Running `add` does not update the foundation version."
+  }
+/>
+
+```json
+{
+  "version": "0.6.1",
+  "components": {
+    "accordion": "0.6.1",
+    "button": "0.6.0"
+  }
+}
+```
+
+<LocalizedMarkdown
+  text={
+    "Older configuration files still work. Unknown foundation versions stay omitted, and external URL components are recorded as `null`. Initialization preserves existing foundation files; it only records the current release when all resulting foundation files match that release. Dry runs and canceled installations do not update the version records."
   }
 />

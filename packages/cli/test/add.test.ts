@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
 
-import { registryItems } from "@nuee/registry";
+import { registryItems, registryVersion } from "@nuee/registry";
 
 import { add, getMissingDependencies } from "../dist/add.js";
 import { configFileName, defaultConfig, readConfig } from "../dist/config.js";
@@ -17,7 +17,11 @@ test("add creates the default config and copies a component with its foundation"
 
   try {
     await add(projectDirectory, "button", { defaults: true, skipDependencyInstall: true });
-    assert.deepEqual(await readConfig(projectDirectory), defaultConfig);
+    assert.deepEqual(await readConfig(projectDirectory), {
+      ...defaultConfig,
+      version: registryVersion,
+      components: { button: registryVersion },
+    });
     await access(join(projectDirectory, configFileName));
 
     const buttonSource = await readFile(

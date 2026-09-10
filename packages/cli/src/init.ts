@@ -2,13 +2,15 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, relative, sep } from "node:path";
 import { createInterface } from "node:readline/promises";
 
-import { getFoundationFiles } from "@nuee/registry";
+import { getFoundationFiles, registryVersion } from "@nuee/registry";
 
 import type { CliOptions } from "./arguments.js";
 import {
   defaultConfig,
   getDefaultAliases,
   hasConfig,
+  readConfig,
+  type NueeConfig,
   resolveConfigAlias,
   writeConfig,
 } from "./config.js";
@@ -61,6 +63,7 @@ type PlannedFile = { path: string; source: string; flag: "w" | "wx" };
 
 async function prepareFoundationFiles(tokenDirectory: string, refreshLegacyTokens: boolean) {
   const files: PlannedFile[] = [];
+  let isCurrentVersion = true;
   for (const file of await getFoundationFiles()) {
     const path = join(tokenDirectory, file.name);
     let currentSource: string;
@@ -84,9 +87,11 @@ async function prepareFoundationFiles(tokenDirectory: string, refreshLegacyToken
       currentSource.includes('overlay: "initial"')
     ) {
       files.push({ path, source: file.content, flag: "w" });
+    } else if (currentSource !== file.content) {
+      isCurrentVersion = false;
     }
   }
-  return files;
+  return { files, isCurrentVersion };
 }
 
 async function prepareResetImport(
@@ -115,6 +120,15 @@ async function prepareResetImport(
 export async function prepareInitialization(projectDirectory: string, options: CliOptions) {
   if ((await hasConfig(projectDirectory)) && !options.force) {
     throw new Error("nuee.json already exists. Use --force to create it again.");
+  }
+
+  let previousConfig: NueeConfig | undefined;
+  if (await hasConfig(projectDirectory)) {
+    try {
+      previousConfig = await readConfig(projectDirectory);
+    } catch (error) {
+      if (!(error instanceof Error) || !error.message.includes("uses an older format")) throw error;
+    }
   }
 
   const isInteractive = process.stdin.isTTY && process.stdout.isTTY && !options.defaults;
@@ -146,7 +160,14 @@ export async function prepareInitialization(projectDirectory: string, options: C
       throw new Error("Could not find a Vite config file.");
     }
     const configuredVite = viteConfig ? configureVite(viteConfig.source) : undefined;
-    const files = await prepareFoundationFiles(tokenDirectory, Boolean(options.force));
+    const foundation = await prepareFoundationFiles(tokenDirectory, Boolean(options.force));
+    const files = [...foundation.files];
+    let version: string | undefined;
+    if (foundation.isCurrentVersion) {
+      version = registryVersion;
+    } else if (foundation.files.length === 0 && previousConfig?.aliases.styles === stylesAlias) {
+      version = previousConfig.version;
+    }
     if (viteConfig && configuredVite !== undefined) {
       const resetFile = await prepareResetImport(projectDirectory, tokenDirectory);
       if (resetFile) files.push(resetFile);
@@ -163,6 +184,10 @@ export async function prepareInitialization(projectDirectory: string, options: C
       runtimeDependencies: options["skip-dependencies"] ? [] : runtimeDependencies,
       buildDependencies: options["skip-dependencies"] || !options.vite ? [] : buildDependencies,
       config: {
+        ...(version !== undefined ? { version } : {}),
+        ...(previousConfig?.aliases.ui === uiAlias && previousConfig.components
+          ? { components: previousConfig.components }
+          : {}),
         accessibility: defaultConfig.accessibility,
         aliases: { ui: uiAlias, styles: stylesAlias },
       },

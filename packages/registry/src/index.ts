@@ -1,5 +1,9 @@
 import { readFile } from "node:fs/promises";
 
+export const registryVersion: string = JSON.parse(
+  await readFile(new URL("../package.json", import.meta.url), "utf8"),
+).version;
+
 export { registryItems } from "./items.js";
 
 export type RegistryFile = {

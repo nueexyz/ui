@@ -4,6 +4,8 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
 
+import { registryVersion } from "@nuee/registry";
+
 import { configFileName, defaultConfig, getDefaultAliases, readConfig } from "../dist/config.js";
 import { init } from "../dist/init.js";
 
@@ -18,6 +20,7 @@ test("init stores a custom UI path", async () => {
 
     assert.deepEqual(await readConfig(projectDirectory), {
       ...defaultConfig,
+      version: registryVersion,
       aliases: { ...defaultConfig.aliases, ui: "@/design/ui" },
     });
   } finally {

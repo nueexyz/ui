@@ -7,6 +7,7 @@ import {
   getDefaultAliases,
   hasConfig,
   readConfig,
+  writeConfig,
   resolveConfigAlias,
 } from "./config.js";
 export { getMissingDependencies } from "./dependencies.js";
@@ -162,6 +163,15 @@ export async function add(
     console.log(`✔ Would add ${primaryExportList.join(", ")}.`);
     return;
   }
+
+  await writeConfig(projectDirectory, {
+    ...(initialization?.config ?? config),
+    components: Object.assign(
+      {},
+      config.components,
+      ...resolvedList.map((item) => item.componentVersions),
+    ),
+  });
 
   console.log(`✔ Added ${primaryExportList.join(", ")}.`);
 }
