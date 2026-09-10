@@ -3,10 +3,8 @@ import * as stylex from "@stylexjs/stylex";
 
 import {
   Accordion,
-  AccordionPanel,
   AccordionContent,
   AccordionItem,
-  AccordionHeader,
   AccordionTrigger,
 } from "@/components/ui/accordion";
 const layout = stylex.create({
@@ -43,35 +41,23 @@ export default function Default() {
     <div {...stylex.props(layout.preview, layout.componentWidth)}>
       <Accordion defaultValue={["shipping"]}>
         <AccordionItem value="shipping">
-          <AccordionHeader>
-            <AccordionTrigger>How long does delivery take?</AccordionTrigger>
-          </AccordionHeader>
-          <AccordionPanel>
-            <AccordionContent>Standard delivery takes 2–3 business days.</AccordionContent>
-          </AccordionPanel>
+          <AccordionTrigger>How long does delivery take?</AccordionTrigger>
+          <AccordionContent>Standard delivery takes 2–3 business days.</AccordionContent>
         </AccordionItem>
         <AccordionItem value="return">
-          <AccordionHeader>
-            <AccordionTrigger>How do I request a return?</AccordionTrigger>
-          </AccordionHeader>
-          <AccordionPanel>
-            <AccordionContent>
-              Select an item and reason from your order history to request a return.
-            </AccordionContent>
-          </AccordionPanel>
+          <AccordionTrigger>How do I request a return?</AccordionTrigger>
+          <AccordionContent>
+            Select an item and reason from your order history to request a return.
+          </AccordionContent>
         </AccordionItem>
         <AccordionItem disabled value="member">
-          <AccordionHeader>
-            <AccordionTrigger>
-              <span {...stylex.props(styles.disabledLabel)}>
-                Members-only benefits
-                <span {...stylex.props(styles.disabledReason)}>Available after joining.</span>
-              </span>
-            </AccordionTrigger>
-          </AccordionHeader>
-          <AccordionPanel>
-            <AccordionContent>Available after joining.</AccordionContent>
-          </AccordionPanel>
+          <AccordionTrigger>
+            <span {...stylex.props(styles.disabledLabel)}>
+              Members-only benefits
+              <span {...stylex.props(styles.disabledReason)}>Available after joining.</span>
+            </span>
+          </AccordionTrigger>
+          <AccordionContent>Available after joining.</AccordionContent>
         </AccordionItem>
       </Accordion>
     </div>

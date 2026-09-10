@@ -5,14 +5,7 @@ import type { StyleXStyles } from "@stylexjs/stylex";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
-import {
-  Accordion,
-  AccordionPanel,
-  AccordionHeader,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "../dist/accordion.js";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../dist/accordion.js";
 import { Banner, BannerContent } from "../dist/banner.js";
 import { Combobox, ComboboxInput } from "../dist/combobox.js";
 import { Label } from "../dist/label.js";
@@ -34,7 +27,7 @@ test("container xstyle arrays reach the root without leaking a DOM attribute", (
   assert.doesNotMatch(html, /\bxstyle=/i);
 });
 
-test("accordion trigger placement reaches the heading wrapper", () => {
+test("accordion trigger includes a heading and styles the button", () => {
   const html = renderToStaticMarkup(
     createElement(
       Accordion,
@@ -42,15 +35,11 @@ test("accordion trigger placement reaches the heading wrapper", () => {
       createElement(
         AccordionItem,
         { value: "settings" },
-        createElement(
-          AccordionHeader,
-          { xstyle: placement },
-          createElement(AccordionTrigger, { xstyle: spacing }, "Settings"),
-        ),
+        createElement(AccordionTrigger, { xstyle: spacing }, "Settings"),
       ),
     ),
   );
-  assert.match(html, /<h\d\b[^>]*class="[^"]*consumer-placement/);
+  assert.match(html, /<h\d\b[^>]*><button\b/);
   assert.match(html, /<button\b[^>]*consumer-spacing/);
 });
 
@@ -73,7 +62,7 @@ test("text and table parts forward their own style extensions", () => {
   assert.match(html, /<td\b[^>]*class="[^"]*consumer-spacing/);
 });
 
-test("panel and content extensions stay on separate elements", () => {
+test("accordion content styles its children while panel props stay outside", () => {
   const html = renderToStaticMarkup(
     createElement(
       Accordion,
@@ -81,17 +70,15 @@ test("panel and content extensions stay on separate elements", () => {
       createElement(
         AccordionItem,
         { value: "one" },
-        createElement(
-          AccordionPanel,
-          { xstyle: spacing },
-          createElement(AccordionContent, { xstyle: placement }, "Panel body"),
-        ),
+        createElement(AccordionContent, { xstyle: placement, id: "panel" }, "Panel body"),
       ),
     ),
   );
-  assert.match(html, /class="[^"]*consumer-spacing/);
-  assert.match(html, /<div[^>]*class="[^"]*consumer-placement[^>]*>Panel body<\/div>/);
-  assert.doesNotMatch(html, /\bcontentXstyle=/i);
+  assert.match(
+    html,
+    /<div[^>]*id="panel"[^>]*><div[^>]*class="[^"]*consumer-placement[^>]*>Panel body<\/div>/,
+  );
+  assert.doesNotMatch(html, /\bxstyle=/i);
 });
 
 test("composite inputs apply placement to their outer box", () => {

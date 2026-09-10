@@ -123,20 +123,22 @@ export function AccordionTrigger({
     return stylex.props(styles.trigger, state.disabled && styles.triggerDisabled, xstyle);
   }
   return (
-    <AccordionPrimitive.Trigger
-      {...props}
-      className={(state) => getTriggerStyles(state).className}
-      style={(state) => getTriggerStyles(state).style}
-    >
-      {children}
-      <span aria-hidden="true" {...stylex.props(styles.icon)}>
-        <CaretDownIcon />
-      </span>
-    </AccordionPrimitive.Trigger>
+    <AccordionPrimitive.Header {...stylex.props(styles.header)}>
+      <AccordionPrimitive.Trigger
+        {...props}
+        className={(state) => getTriggerStyles(state).className}
+        style={(state) => getTriggerStyles(state).style}
+      >
+        {children}
+        <span aria-hidden="true" {...stylex.props(styles.icon)}>
+          <CaretDownIcon />
+        </span>
+      </AccordionPrimitive.Trigger>
+    </AccordionPrimitive.Header>
   );
 }
 
-export function AccordionPanel({
+export function AccordionContent({
   xstyle,
   children,
   ...props
@@ -148,7 +150,6 @@ export function AccordionPanel({
       styles.panel,
       (state.transitionStatus === "starting" || state.transitionStatus === "ending") &&
         styles.panelTransitioning,
-      xstyle,
     );
   }
   return (
@@ -157,23 +158,7 @@ export function AccordionPanel({
       className={(state) => getPanelStyles(state).className}
       style={(state) => getPanelStyles(state).style}
     >
-      {children}
+      <div {...stylex.props(styles.panelContent, xstyle)}>{children}</div>
     </AccordionPrimitive.Panel>
   );
-}
-
-export function AccordionContent({
-  xstyle,
-  ...props
-}: Omit<ComponentProps<"div">, "className" | "style"> & { xstyle?: stylex.StyleXStyles }) {
-  return <div {...props} {...stylex.props(styles.panelContent, xstyle)} />;
-}
-
-export function AccordionHeader({
-  xstyle,
-  ...props
-}: Omit<ComponentProps<typeof AccordionPrimitive.Header>, "className" | "style"> & {
-  xstyle?: stylex.StyleXStyles;
-}) {
-  return <AccordionPrimitive.Header {...props} {...stylex.props(styles.header, xstyle)} />;
 }

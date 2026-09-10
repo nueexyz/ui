@@ -3,10 +3,8 @@ import * as stylex from "@stylexjs/stylex";
 
 import {
   Accordion,
-  AccordionPanel,
   AccordionContent,
   AccordionItem,
-  AccordionHeader,
   AccordionTrigger,
 } from "@/components/ui/accordion";
 const layout = stylex.create({
@@ -30,24 +28,16 @@ export default function OpenMultipleItems() {
     <div {...stylex.props(layout.preview, layout.componentWidth)}>
       <Accordion defaultValue={["email", "push"]} multiple>
         <AccordionItem value="email">
-          <AccordionHeader>
-            <AccordionTrigger>Email notifications</AccordionTrigger>
-          </AccordionHeader>
-          <AccordionPanel>
-            <AccordionContent>
-              Receive activity updates and weekly summaries by email.
-            </AccordionContent>
-          </AccordionPanel>
+          <AccordionTrigger>Email notifications</AccordionTrigger>
+          <AccordionContent>
+            Receive activity updates and weekly summaries by email.
+          </AccordionContent>
         </AccordionItem>
         <AccordionItem value="push">
-          <AccordionHeader>
-            <AccordionTrigger>Push notifications</AccordionTrigger>
-          </AccordionHeader>
-          <AccordionPanel>
-            <AccordionContent>
-              Receive deadline and comment notifications right away.
-            </AccordionContent>
-          </AccordionPanel>
+          <AccordionTrigger>Push notifications</AccordionTrigger>
+          <AccordionContent>
+            Receive deadline and comment notifications right away.
+          </AccordionContent>
         </AccordionItem>
       </Accordion>
     </div>

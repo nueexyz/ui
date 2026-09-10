@@ -49,16 +49,15 @@ DOM 요소를 렌더링하는 컴포넌트의 외부 스타일은 `xstyle`로 �
 스타일 대상이 다르면 컴포넌트를 나누어 조합합니다. 내부 요소로 스타일을 전달하는
 별도 속성을 사용하지 않습니다.
 
-| 바깥 영역                        | 내부 영역                            | 역할                           |
-| -------------------------------- | ------------------------------------ | ------------------------------ |
-| DrawerPopup                      | DrawerContent                        | 패널 크기·배경 / 자식 배치     |
-| AccordionPanel, CollapsiblePanel | AccordionContent, CollapsibleContent | 높이 애니메이션 / 콘텐츠 간격  |
-| SelectPopup, ComboboxPopup       | SelectList, ComboboxList             | 팝업 / 선택 목록               |
-| ScrollArea → ScrollAreaViewport  | ScrollAreaContent                    | 영역 크기·스크롤 / 콘텐츠 배치 |
-| Banner                           | BannerContent, BannerActions         | 배너 / 메시지·행동 묶음        |
-| TableContainer                   | Table                                | 가로 스크롤 / 테이블           |
-| CarouselViewport                 | CarouselContent                      | 스크롤 뷰포트 / 슬라이드 트랙  |
-| AccordionHeader                  | AccordionTrigger                     | 제목 배치 / 조작 버튼          |
+| 바깥 영역                       | 내부 영역                    | 역할                           |
+| ------------------------------- | ---------------------------- | ------------------------------ |
+| DrawerPopup                     | DrawerContent                | 패널 크기·배경 / 자식 배치     |
+| CollapsiblePanel                | CollapsibleContent           | 높이 애니메이션 / 콘텐츠 간격  |
+| SelectPopup, ComboboxPopup      | SelectList, ComboboxList     | 팝업 / 선택 목록               |
+| ScrollArea → ScrollAreaViewport | ScrollAreaContent            | 영역 크기·스크롤 / 콘텐츠 배치 |
+| Banner                          | BannerContent, BannerActions | 배너 / 메시지·행동 묶음        |
+| TableContainer                  | Table                        | 가로 스크롤 / 테이블           |
+| CarouselViewport                | CarouselContent              | 스크롤 뷰포트 / 슬라이드 트랙  |
 
 ```tsx
 <DrawerPopup xstyle={styles.panel}>
@@ -77,3 +76,6 @@ DOM 요소를 렌더링하는 컴포넌트의 외부 스타일은 `xstyle`로 �
 버튼의 아이콘·로딩 표시처럼 독립적인 사용자 배치 영역이 아닌 내부 구조는
 컴포넌트가 관리합니다. NativeSelect와 ComboboxInput의 `xstyle`은 아이콘을 포함한
 입력 전체의 배치를 조절합니다.
+
+Accordion은 Header와 Panel을 내부에서 구성합니다. `AccordionTrigger`의 `xstyle`은
+버튼에, `AccordionContent`의 `xstyle`은 자식을 직접 감싸는 콘텐츠 영역에 적용합니다.

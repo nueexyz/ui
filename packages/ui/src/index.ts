@@ -320,14 +320,7 @@ export {
   EmptyTitle,
 } from "./empty";
 export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
-export {
-  Accordion,
-  AccordionPanel,
-  AccordionHeader,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "./accordion";
+export { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";
 
 export { Heading } from "./heading";
 export type { HeadingProps } from "./heading";
