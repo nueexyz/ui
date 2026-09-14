@@ -166,14 +166,14 @@ export const accordionLayout: ComponentProps<typeof AccordionTrigger> = { xstyle
 export const accordionPaint: ComponentProps<typeof AccordionTrigger> = { xstyle: styles.paint };
 export const selectLayout: ComponentProps<typeof SelectTrigger> = { xstyle: styles.layout };
 
-export const drawerPopupStyle: import("react").ComponentProps<
-  typeof import("../dist/drawer.js").DrawerPopup
+export const drawerContentPaint: import("react").ComponentProps<
+  typeof import("../dist/drawer.js").DrawerContent
 > = { xstyle: styles.paint };
 export const drawerContentStyle: import("react").ComponentProps<
   typeof import("../dist/drawer.js").DrawerContent
 > = { xstyle: styles.layout };
 export const removedContentStyle: import("react").ComponentProps<
-  typeof import("../dist/drawer.js").DrawerPopup
+  typeof import("../dist/drawer.js").DrawerContent
 > = {
   // @ts-expect-error Each part accepts its own xstyle.
   contentXstyle: styles.layout,

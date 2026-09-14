@@ -64,14 +64,10 @@ export {
 export {
   Drawer,
   DrawerClose,
-  DrawerPopup,
   DrawerContent,
   DrawerDescription,
   DrawerFooter,
   DrawerHeader,
-  DrawerOverlay,
-  DrawerPortal,
-  DrawerSwipeHandle,
   DrawerTitle,
   DrawerTrigger,
 } from "./drawer";

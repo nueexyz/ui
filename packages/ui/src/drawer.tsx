@@ -269,7 +269,6 @@ export function DrawerClose({
 }) {
   return <DrawerPrimitive.Close {...props} {...stylex.props(xstyle)} />;
 }
-export const DrawerPortal = DrawerPrimitive.Portal;
 
 type DrawerOverlayProps = Omit<
   ComponentProps<typeof DrawerPrimitive.Backdrop>,
@@ -278,7 +277,7 @@ type DrawerOverlayProps = Omit<
   xstyle?: stylex.StyleXStyles;
 };
 
-export function DrawerOverlay({ xstyle, ...props }: DrawerOverlayProps) {
+function DrawerOverlay({ xstyle, ...props }: DrawerOverlayProps) {
   return (
     <DrawerPrimitive.Backdrop
       {...props}
@@ -292,7 +291,7 @@ type DrawerSwipeHandleProps = Omit<ComponentProps<"div">, "className" | "style">
   xstyle?: stylex.StyleXStyles;
 };
 
-export function DrawerSwipeHandle({ xstyle, ...props }: DrawerSwipeHandleProps) {
+function DrawerSwipeHandle({ xstyle, ...props }: DrawerSwipeHandleProps) {
   const { swipeDirection } = useContext(DrawerContext);
   const isHorizontal = swipeDirection === "left" || swipeDirection === "right";
   return (
@@ -310,19 +309,19 @@ export function DrawerSwipeHandle({ xstyle, ...props }: DrawerSwipeHandleProps) 
   );
 }
 
-type DrawerPopupProps = Omit<
+type DrawerContentProps = Omit<
   ComponentProps<typeof DrawerPrimitive.Popup>,
   "className" | "style"
 > & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function DrawerPopup({ children, xstyle, ...props }: DrawerPopupProps) {
+export function DrawerContent({ children, xstyle, ...props }: DrawerContentProps) {
   const { overlay, showSwipeHandle, swipeDirection } = useContext(DrawerContext);
   const isHorizontal = swipeDirection === "left" || swipeDirection === "right";
 
   return (
-    <DrawerPortal>
+    <DrawerPrimitive.Portal>
       {overlay === "none" ? null : (
         <DrawerOverlay xstyle={overlay === "transparent" ? styles.overlayTransparent : undefined} />
       )}
@@ -334,14 +333,15 @@ export function DrawerPopup({ children, xstyle, ...props }: DrawerPopupProps) {
             styles.popup,
             isHorizontal ? styles.horizontalPopup : styles.verticalPopup,
             popupDirectionStyles[swipeDirection],
-            xstyle,
           )}
         >
           {showSwipeHandle ? <DrawerSwipeHandle /> : null}
-          {children}
+          <DrawerPrimitive.Content {...stylex.props(styles.content, xstyle)}>
+            {children}
+          </DrawerPrimitive.Content>
         </DrawerPrimitive.Popup>
       </DrawerPrimitive.Viewport>
-    </DrawerPortal>
+    </DrawerPrimitive.Portal>
   );
 }
 
@@ -380,13 +380,4 @@ export function DrawerDescription({
   xstyle?: ControlPlacementStyles;
 }) {
   return <DrawerPrimitive.Description {...props} {...stylex.props(styles.description, xstyle)} />;
-}
-
-export function DrawerContent({
-  xstyle,
-  ...props
-}: Omit<ComponentProps<typeof DrawerPrimitive.Content>, "className" | "style"> & {
-  xstyle?: stylex.StyleXStyles;
-}) {
-  return <DrawerPrimitive.Content {...props} {...stylex.props(styles.content, xstyle)} />;
 }

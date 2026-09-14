@@ -51,7 +51,6 @@ DOM 요소를 렌더링하는 컴포넌트의 외부 스타일은 `xstyle`로 �
 
 | 바깥 영역                       | 내부 영역                    | 역할                           |
 | ------------------------------- | ---------------------------- | ------------------------------ |
-| DrawerPopup                     | DrawerContent                | 패널 크기·배경 / 자식 배치     |
 | CollapsiblePanel                | CollapsibleContent           | 높이 애니메이션 / 콘텐츠 간격  |
 | SelectPopup, ComboboxPopup      | SelectList, ComboboxList     | 팝업 / 선택 목록               |
 | ScrollArea → ScrollAreaViewport | ScrollAreaContent            | 영역 크기·스크롤 / 콘텐츠 배치 |
@@ -60,13 +59,11 @@ DOM 요소를 렌더링하는 컴포넌트의 외부 스타일은 `xstyle`로 �
 | CarouselViewport                | CarouselContent              | 스크롤 뷰포트 / 슬라이드 트랙  |
 
 ```tsx
-<DrawerPopup xstyle={styles.panel}>
-  <DrawerContent xstyle={styles.content}>
-    <DrawerTitle>설정</DrawerTitle>
-    <Separator />
-    <ThemeSelect />
-  </DrawerContent>
-</DrawerPopup>
+<DrawerContent xstyle={styles.content}>
+  <DrawerTitle>설정</DrawerTitle>
+  <Separator />
+  <ThemeSelect />
+</DrawerContent>
 ```
 
 `gap`은 자식들을 감싼 요소에 지정합니다. Flex나 Grid가 기본값이 아닌 콘텐츠에는
@@ -79,3 +76,6 @@ DOM 요소를 렌더링하는 컴포넌트의 외부 스타일은 `xstyle`로 �
 
 Accordion은 Header와 Panel을 내부에서 구성합니다. `AccordionTrigger`의 `xstyle`은
 버튼에, `AccordionContent`의 `xstyle`은 자식을 직접 감싸는 콘텐츠 영역에 적용합니다.
+
+Drawer는 Popup을 내부에서 구성합니다. `DrawerContent`의 `xstyle`은 자식을 직접
+감싸는 콘텐츠 영역에 적용하고, 방향과 스와이프·오버레이는 `Drawer`에서 설정합니다.

@@ -56,9 +56,7 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 ```tsx
 <Drawer showSwipeHandle defaultSnapPoint={0.5} snapPoints={[0.5, 1]}>
-  <DrawerPopup>
-    <DrawerContent>...</DrawerContent>
-  </DrawerPopup>
+  <DrawerContent>...</DrawerContent>
 </Drawer>
 ```
 
@@ -72,9 +70,7 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 ```tsx
 <Drawer modal={false} overlay="none" disablePointerDismissal>
-  <DrawerPopup>
-    <DrawerContent>...</DrawerContent>
-  </DrawerPopup>
+  <DrawerContent>...</DrawerContent>
 </Drawer>
 ```
 
@@ -95,7 +91,7 @@ const [open, setOpen] = useState(false)
   </main>
 
   <Drawer open={open} onOpenChange={setOpen} swipeDirection="left">
-    <DrawerPopup><DrawerContent>...</DrawerContent></DrawerPopup>
+    <DrawerContent>...</DrawerContent>
   </Drawer>
 </>
 ```

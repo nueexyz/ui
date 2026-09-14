@@ -13,3 +13,10 @@ Choose the opening edge from the layout and reading space. Do not treat a bottom
 ### Closing and gestures
 
 > Provide a visible close or cancel action using `DrawerClose`. A swipe handle is an additional affordance, not the only exit. Decide how unsaved values behave before enabling dismissal. Check keyboard access and long content at narrow viewport widths.
+
+### Composition and styling
+
+DrawerContent includes the portal, backdrop, popup, and content region. Do not
+wrap it in DrawerPopup. Its `xstyle` applies directly around children for gap
+and inner layout. Other props and `ref` apply to the popup. Configure the
+backdrop and swipe handle through Drawer `overlay` and `showSwipeHandle`.

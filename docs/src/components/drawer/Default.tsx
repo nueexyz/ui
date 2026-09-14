@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   Drawer,
   DrawerClose,
-  DrawerPopup,
   DrawerContent,
   DrawerDescription,
   DrawerFooter,
@@ -30,18 +29,16 @@ function DrawerExample({ swipeDirection = "down" }: { swipeDirection?: DrawerDir
     <div {...stylex.props(layout.preview)}>
       <Drawer showSwipeHandle swipeDirection={swipeDirection}>
         <DrawerTrigger render={<Button>Open {swipeDirection} drawer</Button>} />
-        <DrawerPopup>
-          <DrawerContent>
-            <DrawerHeader>
-              <DrawerTitle>Move to folder</DrawerTitle>
-              <DrawerDescription>Choose where to keep this project.</DrawerDescription>
-            </DrawerHeader>
-            <DrawerFooter>
-              <DrawerClose render={<Button variant="secondary">Cancel</Button>} />
-              <DrawerClose render={<Button>Move project</Button>} />
-            </DrawerFooter>
-          </DrawerContent>
-        </DrawerPopup>
+        <DrawerContent>
+          <DrawerHeader>
+            <DrawerTitle>Move to folder</DrawerTitle>
+            <DrawerDescription>Choose where to keep this project.</DrawerDescription>
+          </DrawerHeader>
+          <DrawerFooter>
+            <DrawerClose render={<Button variant="secondary">Cancel</Button>} />
+            <DrawerClose render={<Button>Move project</Button>} />
+          </DrawerFooter>
+        </DrawerContent>
       </Drawer>
     </div>
   );
