@@ -72,6 +72,7 @@ export const sizeVars = stylex.defineVars({
   controlSm: "2rem",
   controlMd: "2.25rem",
   controlLg: "2.5rem",
+  controlXl: "3rem",
   iconXs: "0.75rem",
   iconSm: "0.875rem",
   iconMd: "1rem",

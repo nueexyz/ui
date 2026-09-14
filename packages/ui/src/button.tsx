@@ -127,7 +127,7 @@ const sizeStyles = stylex.create({
     paddingInline: 0,
     width: sizeVars.controlSm,
   },
-  icon: {
+  "icon-md": {
     borderRadius: radiusVars.sm,
     height: sizeVars.controlMd,
     paddingInline: 0,
@@ -139,6 +139,12 @@ const sizeStyles = stylex.create({
     paddingInline: 0,
     width: sizeVars.controlLg,
   },
+  "icon-xl": {
+    borderRadius: radiusVars.sm,
+    height: sizeVars.controlXl,
+    paddingInline: 0,
+    width: sizeVars.controlXl,
+  },
 });
 
 const variantStyles = stylex.create({
@@ -148,6 +154,11 @@ const variantStyles = stylex.create({
     color: colorVars.fgOnActionPrimary,
   },
   secondary: {
+    backgroundColor: colorVars.bgSubtle,
+    borderColor: colorVars.interactionDefault,
+    color: colorVars.fgPrimary,
+  },
+  outline: {
     backgroundColor: colorVars.interactionDefault,
     borderColor: colorVars.strokeDefault,
     color: colorVars.fgPrimary,
@@ -176,8 +187,8 @@ const squareStyles = stylex.create({
   lg: { width: sizeVars.controlLg },
 });
 
-type ButtonVariant = "primary" | "secondary" | "ghost" | "destructive";
-type ButtonSize = "sm" | "md" | "lg" | "icon-xs" | "icon-sm" | "icon" | "icon-lg";
+type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "destructive";
+type ButtonSize = "sm" | "md" | "lg" | "icon-xs" | "icon-sm" | "icon-md" | "icon-lg" | "icon-xl";
 
 export type ButtonProps = Omit<ComponentProps<typeof ButtonPrimitive>, "className" | "style"> & {
   align?: "start" | "center" | "end" | "space-between";

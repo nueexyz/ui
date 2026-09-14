@@ -19,6 +19,7 @@ export default function Variants() {
     <div {...stylex.props(layout.preview)}>
       <Button>Save</Button>
       <Button variant="secondary">Preview</Button>
+      <Button variant="outline">Cancel</Button>
       <Button variant="ghost">Close</Button>
       <Button variant="destructive">Delete</Button>
     </div>

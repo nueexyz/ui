@@ -23,6 +23,9 @@ export default function States() {
       <Button disabled variant="secondary">
         Preview unavailable
       </Button>
+      <Button disabled variant="outline">
+        Outline unavailable
+      </Button>
       <Button disabled variant="ghost">
         Close unavailable
       </Button>
