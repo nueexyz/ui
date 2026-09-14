@@ -1,3 +1,17 @@
+## Version v0.7.0
+
+Released on September 14, 2026.
+
+- Button now separates filled `secondary` and bordered `outline` variants.
+    Use `outline` to retain the previous secondary appearance.
+- Rename Button size `icon` to `icon-md` and add `icon-xl` (48px).
+    Icon sizes now range from `icon-xs` through `icon-xl`.
+
+- DrawerContent now includes its popup, portal, overlay, and optional swipe
+    handle. Remove DrawerPopup wrappers and use Drawer props to configure the
+    overlay and handle; these parts are no longer separate public components.
+    Content `xstyle` applies directly around children.
+
 ## Version v0.6.1
 
 Released on September 10, 2026.
